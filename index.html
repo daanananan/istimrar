@@ -576,6 +576,37 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
   .nav{justify-content:center}.nav button{max-width:120px;font-size:12px}
   .modal-root .sheet,.sheet{max-width:640px}
 }
+/* ===== v39: بيت ونبتة متوازنان، وبطاقات الآيباد بلا فراغات ===== */
+.pgrid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.pgrid>.ptile{width:100%;max-width:210px;justify-self:center}
+.wardrobe{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.wardrobe>.cloth{width:100%;max-width:240px;justify-self:center}
+.hart{max-width:560px}
+.mcols{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;grid-column:1/-1}
+.mcol{display:flex;flex-direction:column;gap:18px;min-width:0}
+.mcol>*{margin:0;min-width:0}
+@media (min-width:720px){
+  body{font-size:17px;padding-inline:20px}
+  :root{--hz:.95}
+  .hcard{padding-inline:10px}
+  .hcard>.row{padding-inline:8px}
+  .small{font-size:14.5px}
+  .hart{max-width:780px}
+  #app>.hcard,#app>.jhero,#app>.gchips,#app>.gsec2,#app>.jline{grid-column:1/-1}
+  .jrow{padding:9px 0}
+  .gsec2{display:block}
+  .gsec2>.sec-title{margin:0 0 12px;font-size:19px}
+  .hcard .pgrid{grid-template-columns:repeat(auto-fit,minmax(210px,270px));justify-content:center;gap:16px;margin-top:10px}
+  .hcard .pgrid>.ptile{max-width:none;padding:12px 12px 14px}
+  .ptile h4{font-size:17px;margin:4px 0 6px}
+  .ptile .art{padding:4px 8px 0}
+  .wardrobe{grid-template-columns:repeat(auto-fit,minmax(190px,260px));justify-content:center;gap:16px}
+  #app>.wardrobe,#app>.pgrid{grid-template-columns:repeat(auto-fit,minmax(190px,260px));justify-content:center}
+  .jtiles{grid-template-columns:repeat(6,1fr);gap:12px}
+  .jt{padding:14px 6px}.jt b{font-size:30px}.jt span{font-size:13.5px}
+  .gchips{flex-wrap:wrap;overflow:visible}
+  .gchip{font-size:16px;padding:10px 18px}
+}
 .compalert{border:2px solid var(--danger);background:color-mix(in srgb,var(--danger) 13%,var(--surface));border-radius:22px;padding:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 8px 22px -14px var(--danger)}
 .compalert .ex{width:46px;height:46px;border-radius:50%;background:var(--danger);color:#fff;font-size:30px;font-weight:700;display:grid;place-items:center;flex:none;animation:alp 1.8s ease-in-out infinite}
 .compalert h2{margin:0 0 4px;font-size:19px;color:var(--danger)}
@@ -2186,6 +2217,8 @@ function announce(before, after, o) {
     const why = pd.added.length === 1 && !pd.removed.length ? pd.added[0].reason : (pn > 0 ? 'من إنجاز مهامك' : 'تسوية بعد تعديل يوم سابق');
     setTimeout(() => toast({ batch: bt, quiet: o.quiet, html: '<b class="num">' + (pn > 0 ? '+' : '−') + N(Math.abs(pn)) + '</b> نقطة تطوير · ' + esc(why) + '<div class="bal">المتاح للتوزيع: ' + N(after.ptsAvail) + '</div>' }), list.length * 220 + 100);
   }
+  if (after.traitHist && before.traitHist && after.traitHist.length > before.traitHist.length) after.traitHist.slice(before.traitHist.length).filter((h) => h.src === 'auto').forEach((h) => logAct('رُفعت «' + E.TRAITS.find((x) => x.id === h.trait).name + '» إلى ' + N(h.level) + ' (توزيع تلقائي)'));
+  if (after.level < before.level) logAct('نزل المستوى الكلي إلى ' + N(after.level));
   if (after.level > before.level) setTimeout(() => toast({ batch: bt, quiet: o.quiet, text: 'ارتفع مستواك الكلي إلى ' + N(after.level) + ' وصرتِ «' + after.levelName + '»', amount: 0 }), list.length * 220 + 300);
   const ev = (a) => a.events.filter((x) => x.type === 'freezeEarned').length;
   if (ev(after) > ev(before)) setTimeout(() => toast({ batch: bt, quiet: o.quiet, text: 'كسبتِ تجميدة جديدة لإكمالك أيامًا متتالية. رصيد التجميدات: ' + N(after.freezes), amount: 0 }), list.length * 220 + 200);
@@ -2333,15 +2366,31 @@ function renderNav() {
 const PGHEAD = { streak: ['الاستمرارية', 'شعلتك وأيامك ونجاحك'], plants: ['البيت الزجاجي', 'نباتاتك تنمو معك بلا استعجال'], person: ['الشخصية', 'ملامحك وسماتك وأزياؤك'], market: ['المتجر', 'اختاري ما يستحق عملاتك'], achv: ['الإنجازات', 'رحلتك بأرقامها'], settings: ['الإعدادات', 'كل شيء على ذوقك'], goals: ['أهدافي', 'أهداف تكتبينها ومكافأة عند اكتمالها'], journey: ['رحلتي', 'كل لحظة جميلة مررتِ بها، في مكان واحد'], backup: ['النسخ الاحتياطي', 'طوق نجاة بياناتك'], guide: ['دليل التطبيق', 'كل شيء مشروح بأسلوب بسيط، قسمًا قسمًا'], diary: ['اليوميات', 'مساحتك لتكتبي بلا حكم ولا استعجال'], hope: ['أفق الأمل', 'كل يوم نظيف نجمة في سمائك'] };
 const PALS = [['green', 'أخضر (الأصلي)', '#2C6A49'], ['rose', 'وردي', '#B04A6A'], ['ocean', 'أزرق', '#1F6F9A'], ['lav', 'بنفسجي', '#6B4FA8'], ['sand', 'رملي محايد', '#5C5648'], ['amber', 'عنبري', '#B5651D']];
 function applyTheme() { { const p = (ST && ST.settings && ST.settings.palette) || 'green'; if (p === 'green') document.documentElement.removeAttribute('data-pal'); else document.documentElement.setAttribute('data-pal', p); }  const t = (ST && ST.settings && ST.settings.theme) || 'auto'; const r = document.documentElement; if (t === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', t); }
-const SPANSEL = '.wardrobe,.pgrid,.pfilters,.hgrid,.tabs,.pghead,.tipcard,.daynav,.note,.pbox,.balance,.summary,.flamenote,.supcard,.goalcard,.hopeintro,.bkcard,.compalert,.compstrip,.full';
-/* عمودان على الشاشات العريضة: لا نترك عمودًا فارغًا حين يكون في المجموعة عنصر وحيد، ونجعل العنصر الأخير الفردي بعرض كامل */
-function fillCols(app) {
-  const ch = [...app.children]; let run = [];
-  const flush = () => { if (run.length % 2 === 1) run[run.length - 1].classList.add('full'); run = []; };
-  ch.forEach((el) => { if (el.matches(SPANSEL)) { flush(); } else { el.classList.remove('full'); run.push(el); } });
-  flush();
-  app.querySelectorAll('.hgrid').forEach((g) => g.classList.toggle('one', g.children.length < 2));
+const SPANSEL = '.wardrobe,.pgrid,.pfilters,.hgrid,.tabs,.pghead,.tipcard,.daynav,.note,.pbox,.balance,.summary,.flamenote,.supcard,.goalcard,.hopeintro,.bkcard,.compalert,.compstrip,.jhero,.gchips,.gsec2,.hcard,.jline,.full';
+/* الشاشات العريضة (الآيباد): نوزّع البطاقات على عمودين بالتوازن بدل صفوف تترك فراغًا تحت البطاقة الأقصر */
+function colify(parent, items) {
+  items = items.filter((el) => el.offsetHeight > 0);
+  if (items.length === 1 && parent.id === 'app') items[0].classList.add('full');
+  if (items.length < 2) return;
+  const hs = items.map((el) => el.offsetHeight);
+  const w = document.createElement('div'); w.className = 'mcols';
+  const cols = [document.createElement('div'), document.createElement('div')];
+  cols.forEach((c) => { c.className = 'mcol'; w.appendChild(c); });
+  parent.insertBefore(w, items[0]);
+  const tot = [0, 0];
+  items.forEach((el, i) => { const k = tot[1] < tot[0] ? 1 : 0; cols[k].appendChild(el); tot[k] += hs[i] + 18; });
 }
+function fillCols(app) {
+  app.querySelectorAll('.hgrid').forEach((g) => g.classList.toggle('one', g.children.length < 2));
+  if (window.innerWidth < 720) return;
+  const ch = [...app.children]; let run = [];
+  const flush = () => { colify(app, run); run = []; };
+  ch.forEach((el) => { if (el.matches(SPANSEL)) { flush(); } else run.push(el); });
+  flush();
+  app.querySelectorAll('.gsec2').forEach((g) => colify(g, [...g.children].filter((el) => !el.matches('.sec-title'))));
+}
+let WIDE0 = window.innerWidth >= 720;
+addEventListener('resize', () => { const w = window.innerWidth >= 720; if (w !== WIDE0) { WIDE0 = w; render(); } });
 function render() {
   const y = window.scrollY;
   setBodyState(); renderTop(); renderNav();
@@ -3032,7 +3081,7 @@ function openLoan() {
 /* --- النباتات --- */
 const RAR_PILL = ['', 'ice', 'ok', 'warn', 'warn', 'warn', 'warn', 'warn'];
 const heartsHTML = (n) => '<span class="hearts" title="القلوب">' + [0, 1, 2].map((i) => i < n ? '♥' : '<span class="off">♥</span>').join('') + '</span>';
-const plantArt = (p, st) => PlantArt.plantSVG(p.sp, { stage: st == null ? p.stage : st, level: p.level, leaves: p.leaves, fallen: p.fallen, g: p.g });
+const plantArt = (p, st) => PlantArt.plantSVG(p.sp, { stage: st == null ? p.stage : st, level: p.level, leaves: p.leaves, fallen: p.fallen, g: p.g, crop: 1 });
 function roomDecor(n) {
   const tier = n >= 12 ? 4 : n >= 8 ? 3 : n >= 4 ? 2 : n >= 1 ? 1 : 0; let g = '';
   g += '<svg viewBox="0 0 60 46" aria-hidden="true"><rect x="4" y="2" width="52" height="40" rx="5" fill="color-mix(in srgb,var(--ice) 25%,var(--surface))" stroke="var(--line)" stroke-width="3"/><path d="M30 2V42M4 22H56" stroke="var(--line)" stroke-width="2.5"/></svg>';
@@ -3053,8 +3102,8 @@ function viewPlants() {
   const pend = E.waterPending(ST, R).length; const owned = R.houses.filter((x) => x.owned);
   let h = '<div class="card balance"><div><div class="small muted">رصيدك</div><div class="bigmoney num">' + N(R.balance) + ' ' + sar + '</div></div><div class="stack" style="gap:6px"><button class="btn ghost" data-act="toPlantShop">متجر الشتلات</button><button class="btn ghost" data-act="toHouseShop">متجر البيوت</button></div></div>';
   if (!R.plants.length) h += '<div class="card stack"><h3>بيتك الزجاجي فارغ</h3><p class="muted">اشتري أول شتلة من متجر الشتلات، وستنمو كل يوم تنجزين فيه كل مهامك الرئيسية التي تعتمد على الاستمرارية. كلما اشتريتِ بيوتًا زجاجية أكبر اتسع مكانك لنباتات أكثر.</p><button class="btn" data-act="toPlantShop">اذهبي إلى المتجر</button></div>';
-  else h += '<div class="card row" style="justify-content:space-between;gap:10px"><div><h3 style="margin:0">دلو السقي</h3><div class="small muted">' + (pend ? 'ينتظرك سقي ' + N(pend) + ' ' + (pend === 1 ? 'يوم نجاح' : 'أيام نجاح') + '. النمو محتسب تلقائيًا، والسقي يرويها بصريًا.' : 'سُقيت كل نباتاتك. يأتي الدلو من جديد بعد يوم نجاح جديد.') + '</div></div><button class="btn" data-act="water" ' + (pend && !WATERING ? '' : 'disabled') + '>' + (pend ? 'اسقي النباتات (' + N(pend) + ')' : 'تم السقي') + '</button></div>';
-  h += '<div class="small muted">المساحة: <b class="num">' + N(R.plants.length - R.unplaced.length) + '</b> من <b class="num">' + N(R.houseCap) + '</b> · البيوت المملوكة: <b class="num">' + N(owned.length) + '</b> من ' + N(R.houses.length) + '</div>';
+  else h += '<div class="card row full" style="justify-content:space-between;gap:10px"><div><h3 style="margin:0">دلو السقي</h3><div class="small muted">' + (pend ? 'ينتظرك سقي ' + N(pend) + ' ' + (pend === 1 ? 'يوم نجاح' : 'أيام نجاح') + '. النمو محتسب تلقائيًا، والسقي يرويها بصريًا.' : 'سُقيت كل نباتاتك. يأتي الدلو من جديد بعد يوم نجاح جديد.') + '</div></div><button class="btn" data-act="water" ' + (pend && !WATERING ? '' : 'disabled') + '>' + (pend ? 'اسقي النباتات (' + N(pend) + ')' : 'تم السقي') + '</button></div>';
+  h += '<div class="small muted full">المساحة: <b class="num">' + N(R.plants.length - R.unplaced.length) + '</b> من <b class="num">' + N(R.houseCap) + '</b> · البيوت المملوكة: <b class="num">' + N(owned.length) + '</b> من ' + N(R.houses.length) + '</div>';
   h += owned.map(houseView).join('');
   if (R.unplaced.length) h += '<div class="card stack"><h3>نباتات خارج البيوت</h3><p class="muted small">لا مكان لها الآن في بيوتك، لكنها تنمو كالمعتاد. اشتري بيتًا جديدًا ثم انقليها إليه.</p><div class="pgrid">' + R.unplaced.map((id) => plantTile(R.plants.find((p) => p.id === id))).join('') + '</div></div>';
   h += '<div class="note">القلوب: كل يوم تتجمد فيه الشعلة أو تنطفئ تفقد النبتة قلبًا، وبعد انتهاء القلوب تتساقط أوراقها (ولا تموت أبدًا). كل يوم نجاح يُنبت ورقة ساقطة من جديد، وكل ١٠ أيام نجاح متتالية تعيد قلبًا.</div>';
@@ -3268,10 +3317,10 @@ function goalCard(g) {
 }
 function viewGoals() {
   const gs = R.goals || []; const act1 = gs.filter((g) => !g.done); const dn = gs.filter((g) => g.done);
-  let h = '<div class="card stack"><p class="muted small" style="margin:0">هدف تكتبينه بنفسك، مثل إنهاء كتاب أو تعلّم مهارة. يُربط بعادة تنجزينها كل يوم، أو بخطوات تحدّدينها، أو بمقدار تدّخرينه أو تصلين إليه (مثل ثمن ساعة أو درجة اختبار)، وتنالين مكافأة عند اكتماله بالكامل.</p><button class="btn" data-act="goalAdd">+ هدف جديد</button></div>';
-  if (!gs.length) h += '<div class="card"><p class="muted" style="margin:0">لا أهداف بعد. جرّبي مثلًا: «إنهاء كتاب» مرتبطًا بعادة القراءة، لمدة ٣٠ يومًا.</p></div>';
-  if (act1.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">قيد الإنجاز</h3>' + act1.map(goalCard).join('') + '</div>';
-  if (dn.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">المكتملة</h3>' + dn.map(goalCard).join('') + '</div>';
+  let h = '<div class="card stack full"><p class="muted small" style="margin:0">هدف تكتبينه بنفسك، مثل إنهاء كتاب أو تعلّم مهارة. يُربط بعادة تنجزينها كل يوم، أو بخطوات تحدّدينها، أو بمقدار تدّخرينه أو تصلين إليه (مثل ثمن ساعة أو درجة اختبار)، وتنالين مكافأة عند اكتماله بالكامل.</p><button class="btn" data-act="goalAdd">+ هدف جديد</button></div>';
+  if (!gs.length) h += '<div class="card full"><p class="muted" style="margin:0">لا أهداف بعد. جرّبي مثلًا: «إنهاء كتاب» مرتبطًا بعادة القراءة، لمدة ٣٠ يومًا.</p></div>';
+  if (act1.length) h += '<div class="stack gsec2" style="gap:8px"><h3 class="sec-title">قيد الإنجاز</h3>' + act1.map(goalCard).join('') + '</div>';
+  if (dn.length) h += '<div class="stack gsec2" style="gap:8px"><h3 class="sec-title">المكتملة</h3>' + dn.map(goalCard).join('') + '</div>';
   return h;
 }
 function openGoalForm(gid) {
@@ -4378,7 +4427,8 @@ const PlantArt = (function () {
       t += fxBack(sp.fx, lv, u) + `<g class="sway">` + treeSVGInner(sp.p.treeKind, gg, idx + 3, o.inHouse) + `</g>` + fxFront(sp.fx, lv) + `</svg>`;
       return t;
     }
-    let s = `<svg class="plant" viewBox="0 0 200 270" role="img" aria-label="نبتة" xmlns="http://www.w3.org/2000/svg">`;
+    const vbN = o.crop ? ['0 116 200 154', '0 100 200 170', '0 56 200 214'][stage] || '0 0 200 270' : '0 0 200 270';
+    let s = `<svg class="plant" viewBox="${vbN}" role="img" aria-label="نبتة" xmlns="http://www.w3.org/2000/svg">`;
     s += fxBack(sp.fx, lv, u);
     s += `<g class="sway">`;
     if (sp.p.big) s += `<g transform="translate(100 168) scale(1.28 1.1) translate(-100 -168)">`;
@@ -4462,7 +4512,7 @@ const HouseArt = (function () {
     const u = 'hg' + (uid++); const pct = Math.min(100, Math.round((52 + 48 * (cap - 3) / 47) * 1));
     const lay = layout(sp.poly, cap); const pw = lay.w;
     const ph = pw * 1.35; const ring = sp.ring, acc = sp.acc;
-    let s = `<svg class="house" viewBox="${vx0} ${vy0} ${vw} ${vh}" role="img" aria-label="بيت زجاجي" style="overflow:visible;width:${pct}%;display:block;margin:0 auto"><defs><clipPath id="${u}c"><path d="${sp.d}"/></clipPath><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3F4FF"/><stop offset="1" stop-color="#F7FBF1"/></linearGradient><radialGradient id="${u}a"><stop offset="0" stop-color="#FFE9A0" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient></defs>`;
+    let s = `<svg class="house" viewBox="${vx0} ${vy0} ${vw} ${vh}" role="img" aria-label="بيت زجاجي" style="overflow:visible;width:min(100%,calc(${pct}% * var(--hz,1)));display:block;margin:0 auto"><defs><clipPath id="${u}c"><path d="${sp.d}"/></clipPath><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3F4FF"/><stop offset="1" stop-color="#F7FBF1"/></linearGradient><radialGradient id="${u}a"><stop offset="0" stop-color="#FFE9A0" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient></defs>`;
     if (sp.aura) s += `<ellipse class="aura" cx="160" cy="130" rx="190" ry="140" fill="url(#${u}a)"/>` + [[18, 40], [300, 52], [160, 4], [40, 190], [284, 196]].map((p, k) => star(p[0], p[1], 8, k)).join('');
     s += `<ellipse cx="160" cy="226" rx="${Math.min(158, 112 + cap * 1.1)}" ry="9" fill="${O}" opacity=".13"/>`;
     TG.forEach((q) => { s += `<ellipse cx="${q.cx.toFixed(1)}" cy="228" rx="34" ry="6" fill="${O}" opacity=".13"/>`; });
@@ -4599,11 +4649,6 @@ function viewPerson() {
   const r = R; const g = r.goal; const lv = E.TRAITS.map((t) => r.traitLevels[t.id]);
   const goalTxt = g.kind === 'three' ? 'وصول ثلاث سمات مختلفة إلى المستوى ' + N(g.target) : 'وصول جميع السمات إلى المستوى ' + N(g.target);
   const prog = g.kind === 'three' ? lv.slice().sort((a, b) => b - a).slice(0, 3).reduce((a, x) => a + Math.min(x, g.target), 0) / (3 * g.target) : lv.reduce((a, x) => a + Math.min(x, g.target), 0) / (lv.length * g.target);
-  const hist = [];
-  r.levelHist.forEach((h) => hist.push({ d: h.date, t: 'ارتفع المستوى الكلي إلى ' + N(h.level) }));
-  r.frozenDays.forEach((d) => hist.push({ d, t: 'خُصمت نقطة من المستوى الكلي بسبب يوم تجمد كامل' }));
-  r.traitHist.slice(-12).forEach((h) => hist.push({ d: h.date, t: 'رُفعت «' + E.TRAITS.find((x) => x.id === h.trait).name + '» إلى ' + N(h.level) + (h.src === 'auto' ? ' (توزيع تلقائي)' : '') }));
-  hist.sort((a, b) => (a.d < b.d ? 1 : a.d > b.d ? -1 : 0));
   const cls = ['', 'عادي', 'نادر', 'ملحمي', 'أسطوري', 'خرافي'];
   const rarIdx = Math.min(4, E.levelTier(r.level));
   let h = '<div class="pbox"><div class="card stack pstage rar' + rarIdx + '"><button class="lvbadge" data-act="lvInfo" aria-label="معنى المستوى"><span class="lvb-n num">' + N(r.level) + '</span><span class="lvb-t">المستوى · ' + r.levelName + '</span></button>' + stageHTML(r.equipped) +
@@ -4616,7 +4661,6 @@ function viewPerson() {
   }).join('') + '</div></div></div>';
   h += '<div class="card stack"><h3>التوزيع التلقائي</h3><p class="muted small" style="margin:0">معطّل افتراضيًا حتى تبقى حرية الاختيار لك. عند تفعيله تذهب النقاط الجديدة تلقائيًا إلى السمة الأقل مستوى.</p><div class="seg"><button data-act="autoAlloc" data-v="0" aria-pressed="' + !ST.settings.autoAlloc + '">معطّل</button><button data-act="autoAlloc" data-v="1" aria-pressed="' + ST.settings.autoAlloc + '">مفعّل</button></div></div>';
   h += '<div class="card stack"><h3>خزانة الملابس</h3><div class="wardrobe">' + r.owned.map((id) => { const o = E.OUTFITS.find((x) => x.id === id); return clothCard(o, r, true); }).join('') + '</div><button class="btn ghost" data-act="toClothes">متجر الملابس</button></div>';
-  h += '<div class="card stack"><h3>سجل التغييرات</h3>' + (hist.length ? '<ul class="eff">' + hist.slice(0, 20).map((x) => '<li class="small">' + esc(x.t) + ' <span class="muted">(' + dshort(x.d) + ')</span></li>').join('') + '</ul>' : '<p class="muted small" style="margin:0">لا تغييرات بعد. أنجزي مهامك ثم وزعي أول نقاطك.</p>') + '</div>';
   return h;
 }
 function clothCard(o, r, wardrobe) {
