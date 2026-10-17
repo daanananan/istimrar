@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#2C6A49"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="استمرّ"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icon-192.png"><title>استمرّ</title>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#2C6A49"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="استمرّ"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152.png"><link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167.png"><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180.png"><link rel="icon" type="image/png" href="icon-192.png"><title>استمرّ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@700&family=Noto+Sans:wght@700&display=swap">
 <style>
@@ -20,6 +20,23 @@
   --green:#7CCB98; --green-ink:#0E1A12; --leaf:#3F7A57; --gold:#E0B04A; --danger:#E27A6A; --ice:#7CC4E8; --ice-bg:#17303C;
   --flame:#FF8438; --shadow:0 1px 0 rgba(0,0,0,.4),0 10px 28px -12px rgba(0,0,0,.7); color-scheme: dark; }
 
+/* لوحات الألوان */
+:root[data-pal="rose"]{--bg:#FBF1F3;--surface:#FFFFFF;--surface2:#F6E3E8;--ink:#3A2229;--ink2:#8A6872;--line:#EBD3DA;--green:#B04A6A;--green-ink:#FFF5F8;--leaf:#E3A0B5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"])[data-pal="rose"]{--bg:#1B1014;--surface:#281920;--surface2:#34212B;--ink:#F3E3E8;--ink2:#B898A3;--line:#43303A;--green:#E58AA8;--green-ink:#2A0F19;--leaf:#8A4B60;color-scheme:dark}}
+:root[data-theme="dark"][data-pal="rose"]{--bg:#1B1014;--surface:#281920;--surface2:#34212B;--ink:#F3E3E8;--ink2:#B898A3;--line:#43303A;--green:#E58AA8;--green-ink:#2A0F19;--leaf:#8A4B60;color-scheme:dark}
+:root[data-pal="ocean"]{--bg:#EEF5F9;--surface:#FFFFFF;--surface2:#DDEAF2;--ink:#17303F;--ink2:#5F7C8D;--line:#CCDDE8;--green:#1F6F9A;--green-ink:#F2FAFF;--leaf:#8CC1DB}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"])[data-pal="ocean"]{--bg:#0C1519;--surface:#14222A;--surface2:#1C303B;--ink:#E1EEF4;--ink2:#92AEBD;--line:#263C48;--green:#6DB9E0;--green-ink:#08202D;--leaf:#3A6E86;color-scheme:dark}}
+:root[data-theme="dark"][data-pal="ocean"]{--bg:#0C1519;--surface:#14222A;--surface2:#1C303B;--ink:#E1EEF4;--ink2:#92AEBD;--line:#263C48;--green:#6DB9E0;--green-ink:#08202D;--leaf:#3A6E86;color-scheme:dark}
+:root[data-pal="lav"]{--bg:#F5F2FA;--surface:#FFFFFF;--surface2:#E8E1F3;--ink:#2B2340;--ink2:#7A6E94;--line:#DAD0EA;--green:#6B4FA8;--green-ink:#F8F4FF;--leaf:#B5A2DE}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"])[data-pal="lav"]{--bg:#130F1C;--surface:#1D1829;--surface2:#292238;--ink:#ECE6F7;--ink2:#A99EC4;--line:#372E4A;--green:#A98BE6;--green-ink:#1A1030;--leaf:#5D4B8A;color-scheme:dark}}
+:root[data-theme="dark"][data-pal="lav"]{--bg:#130F1C;--surface:#1D1829;--surface2:#292238;--ink:#ECE6F7;--ink2:#A99EC4;--line:#372E4A;--green:#A98BE6;--green-ink:#1A1030;--leaf:#5D4B8A;color-scheme:dark}
+:root[data-pal="sand"]{--bg:#F4F1EC;--surface:#FFFFFF;--surface2:#E9E4DB;--ink:#2E2B26;--ink2:#7D776C;--line:#DDD6CA;--green:#5C5648;--green-ink:#F7F4EE;--leaf:#A39B88}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"])[data-pal="sand"]{--bg:#151412;--surface:#201E1B;--surface2:#2B2824;--ink:#ECE8E0;--ink2:#A8A296;--line:#38342E;--green:#CFC6B2;--green-ink:#1D1B17;--leaf:#6E6757;color-scheme:dark}}
+:root[data-theme="dark"][data-pal="sand"]{--bg:#151412;--surface:#201E1B;--surface2:#2B2824;--ink:#ECE8E0;--ink2:#A8A296;--line:#38342E;--green:#CFC6B2;--green-ink:#1D1B17;--leaf:#6E6757;color-scheme:dark}
+:root[data-pal="amber"]{--bg:#FDF4E7;--surface:#FFFFFF;--surface2:#F8E6CB;--ink:#38281A;--ink2:#8C7254;--line:#EBD8BB;--green:#B5651D;--green-ink:#FFF8EE;--leaf:#E3B27A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"])[data-pal="amber"]{--bg:#1A130B;--surface:#261C11;--surface2:#33261A;--ink:#F4E8D6;--ink2:#BBA283;--line:#45341F;--green:#E8A15A;--green-ink:#2A1606;--leaf:#8A5F2E;color-scheme:dark}}
+:root[data-theme="dark"][data-pal="amber"]{--bg:#1A130B;--surface:#261C11;--surface2:#33261A;--ink:#F4E8D6;--ink2:#BBA283;--line:#45341F;--green:#E8A15A;--green-ink:#2A1606;--leaf:#8A5F2E;color-scheme:dark}
+.pals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pals button{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 4px;font-weight:600;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:6px}.pals button[aria-pressed="true"]{border-color:var(--green)}.pals i{width:28px;height:28px;border-radius:50%;display:block;border:2px solid rgba(0,0,0,.12)}
 *{box-sizing:border-box}
 html,body{height:auto}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6;padding-inline:16px;padding-block:0 96px;direction:rtl;-webkit-text-size-adjust:100%}
@@ -282,6 +299,15 @@ textarea.code{font-family:ui-monospace,Menlo,monospace;font-size:12px;direction:
 .toast b{font-weight:700}
 .toast .bal{opacity:.7;font-size:12px}
 .toast.err{background:var(--danger);color:#fff}
+.nscrim{position:fixed;inset:0;z-index:95;background:rgba(10,20,14,.55);display:flex;align-items:center;justify-content:center;padding:20px;animation:fade .2s}
+.ncard{background:var(--surface);color:var(--ink);border:2px solid var(--gold);border-radius:22px;padding:20px 18px 16px;max-width:380px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.35);animation:pop .3s cubic-bezier(.2,1.3,.4,1);text-align:center;display:flex;flex-direction:column;gap:12px}
+.ncard .nbody{font-size:17px;line-height:1.7}.ncard .bal{opacity:.7;font-size:13px;margin-top:4px}.ncard .actions{justify-content:center;flex-wrap:wrap}.ncard .nmore{margin:0}
+.bellbtn{position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink)}
+.bellbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bellbtn .bdot{position:absolute;top:-4px;inset-inline-end:-4px;min-width:20px;height:20px;border-radius:10px;background:var(--danger);color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px}
+.actlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:55vh;overflow:auto}
+.actlist li{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:12px;background:var(--surface2)}.actlist li.new{border:1px solid var(--gold)}
+.actlist .tm{flex:none;font-size:12px;color:var(--muted);min-width:58px}.actlist .dh{font-weight:700;margin:10px 0 2px;color:var(--green)}
 @keyframes pop{from{transform:translateY(-14px) scale(.96);opacity:0}}
 @keyframes gone{to{transform:translateY(-10px);opacity:0}}
 canvas#fx{position:fixed;inset:0;width:100%;height:100%;z-index:90;pointer-events:none}
@@ -344,6 +370,7 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 .hart .house{display:block;width:100%;height:auto}
 .house{pointer-events:none}.house .plant{pointer-events:auto}
 .hcard .pgrid{margin-top:4px}
+.mdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px}.mdays button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 0;font-weight:700;color:var(--ink)}.mdays button[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
 .pfilters{display:flex;gap:6px;flex-wrap:wrap}
 .pfilters button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-weight:600;color:var(--ink2);min-height:36px}
 .pfilters button[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
@@ -451,9 +478,10 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 .stage.heroic .arm-r{animation:arm 2.8s ease-in-out;transform-box:fill-box;transform-origin:20% 10%}
 @keyframes arm{0%,100%{transform:rotate(0)}25%,70%{transform:rotate(-125deg)}}
 .stage .room{z-index:0}.stage .char{z-index:1}.stage .fxlayer{z-index:2;pointer-events:none}
-.lvbadge{position:absolute;z-index:3;top:3%;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0;background:color-mix(in srgb,var(--surface) 88%,transparent);border:1.5px solid var(--gold);border-radius:16px;padding:3px 16px 4px;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.lvbadge{position:relative;z-index:3;align-self:center;display:flex;flex-direction:column;align-items:center;gap:0;background:color-mix(in srgb,var(--surface) 88%,transparent);border:1.5px solid var(--gold);border-radius:16px;padding:3px 16px 4px;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .lvb-n{font-size:26px;line-height:1.1;font-weight:700;color:var(--green)}.lvb-t{font-size:12px;color:var(--gold);font-weight:600}
 .rarbtn{cursor:pointer}
+.goalitem .gemo{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--gold) 22%,var(--surface2));flex:none}.goalitem.gdone{opacity:.9;border-color:var(--gold)}.gsteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}.gsteps li{display:flex;align-items:center;gap:10px}.gsteps .sdone{text-decoration:line-through;color:var(--muted)}
 .lvhead{display:flex;justify-content:space-between;align-items:center}
 .lvnum{font-family:var(--font-display);font-size:48px;line-height:1;color:var(--green)}
 .rpill{background:color-mix(in srgb,var(--gold) 24%,transparent);color:var(--gold)}
@@ -495,7 +523,7 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 .pbox .pstage{padding:10px;gap:8px}
 .pbox .pside{padding:8px 10px;gap:4px}
 .pbox .pstage>.stack .small{font-size:12px}
-.pbox .stage{aspect-ratio:auto;height:236px;max-height:none}
+.pbox .stage{aspect-ratio:auto;height:290px;max-height:none}
 .pbox .stage .char,.pbox .stage .char[data-o=n3]{height:104%;width:auto;max-width:none;left:50%;bottom:-2%}
 .pbox .ptsrow>div:first-child{display:flex;gap:10px;align-items:baseline}
 .pbox .pside .sec-title{font-size:15px;margin:0}
@@ -527,10 +555,14 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
   #app.stack{display:block;column-count:2;column-gap:20px}
   #app[data-view=diary],#app[data-view=hope],#app[data-view=guide]{column-count:1}
   #app>*{break-inside:avoid;margin-bottom:18px}
+  #app>.wardrobe,#app>.pgrid,#app>.pfilters,#app>.hgrid,#app>.tabs{column-span:all}
+  #app>.wardrobe,#app>.pgrid{grid-template-columns:repeat(3,1fr);gap:14px}
+  #app>.hgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  #app>.hgrid>.hcard{margin-bottom:0}
   #app>.pghead,#app>.tipcard,#app>.daynav,#app>.tabs,#app>.note,#app>.pbox,#app>.balance,#app>.summary,#app>.flamenote,#app>.supcard,#app>.goalcard,#app>.hopeintro,#app>.bkcard,#app>.compalert,#app>.compstrip{column-span:all}
   .pbox{gap:18px}
   .pbox .pstage{padding:16px}.pbox .pside{padding:18px;gap:12px}
-  .pbox .stage{height:440px}
+  .pbox .stage{height:480px}
   .pbox .ptsnote{display:block}
   .pbox .tico{display:grid;width:38px;height:38px}
   .pbox .trait .row{flex-direction:row;align-items:center}
@@ -659,6 +691,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     WEEK_GOAL: 5, WEEK_GOAL_REWARD: 25, SURPRISE_MIN: 5, SURPRISE_SPAN: 11, SURPRISE_ONE_IN: 4, LOAN_RATE: 0.25, LOAN_MIN: 10, LOAN_MAX: 300,
     REWARD_MAIN: 2,
     REWARD_SIDE: 4,
+    REWARD_ONCE: 2,
+    GOAL_REWARD: { s: 30, m: 80, l: 200 },
     BONUS_CARD_EXTRA: 3,
     QUIET_PER_MONTH: 3,
     FREEZE_FIRST_AT: 5,
@@ -798,17 +832,26 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     {"id":"p099","name":"زهرة القمر الأزرق","rar":4,"price":750},
     {"id":"p100","name":"أوركيد التنين الذهبي","rar":4,"price":1000},
     {"id":"p101","name":"الجوري الوردي","rar":2,"price":130},
-    {"id":"p102","name":"الفلّ العطري","rar":2,"price":100}
+    {"id":"p102","name":"الفلّ العطري","rar":2,"price":100},
+    {"id":"p106","name":"زهرة العنكبوت الحمراء","rar":5,"price":1500,"grow":60,"doneReward":200,"desc":"زنبقة حمراء نارية تنبت أزهارها المخمليّة بخيوطها الطويلة المنحنية كأنها شرارات، يقال إنها تزهر على حدود الأحلام."},
+    {"id":"p107","name":"زهرة الخفاش الأسود","rar":5,"price":2200,"grow":75,"doneReward":260,"desc":"زهرة غامضة بأجنحة داكنة وخيوط متدلّية تشبه الخفّاش المحلّق، نادرة الجمال مهيبة الحضور."},
+    {"id":"p108","name":"الفاوانيا الشجرية المعمّرة","rar":6,"price":3500,"grow":150,"slots":3,"doneReward":500,"desc":"شجيرة خشبية معمّرة تحمل أزهارًا ضخمة مكرمشة بلون الوردي. تحتاج إلى أصيص كبير وتحجز ٣ أماكن في البيت الزجاجي، وتكتمل بعد نحو ٥ أشهر."},
+    {"id":"p109","name":"شجرة الجاكرندا","rar":7,"price":5000,"grow":365,"tree":true,"doneReward":1000,"desc":"شجرة حقيقية تُزرع بجانب البيت الزجاجي لا داخله، تمرّ بـ ١٥ طورًا (طور كل شهر تقريبًا) وتتفتح أزهارها الأرجوانية تدريجيًا حتى تصير شجرة ضخمة بأغصان طويلة متفرعة تمتدّ أزهارها فوق البيت الزجاجي وتغطيه، وتكتمل بعد سنة كاملة (٣٦٥ يوم نجاح)."},
+    {"id":"p110","name":"شجرة زهرة البرقوق","rar":7,"price":7000,"grow":365,"tree":true,"doneReward":1500,"desc":"شجرة وردية الأزهار تُزرع بجانب البيت الزجاجي الذي تختارينه، وتمرّ بـ ١٥ طورًا خلال سنة حتى تصير شجرة ضخمة بأغصان خشبية طويلة متفرعة تحمل أزهارًا وردية غزيرة تظلّل البيت، وتكتمل بعد سنة كاملة (٣٦٥ يوم نجاح)."}
   ];
   const TIERS = ['عادي', 'نادر', 'ملحمي', 'أسطوري', 'خرافي', 'خرافي مهيمن', 'خرافي متسامٍ', 'خرافي مطلق'];
   const PLANT_LEVELS = TIERS, MAX_PLANT_LV = 7;
   const UP_COSTS = { 1: 100, 2: 100, 3: 100, 4: 100, 5: 250, 6: 400, 7: 700 }; // التكلفة للوصول إلى المستوى
   const upgradeCost = (curLevel) => UP_COSTS[Math.min(MAX_PLANT_LV, curLevel + 1)];
   const GIFT_PLANTS = [{ id: 'g01', name: 'شجرة الهيمنة الذهبية', art: 'p103', startLevel: 5 }, { id: 'g02', name: 'سوسنة الأفق المتسامية', art: 'p104', startLevel: 6 }, { id: 'g03', name: 'وردة الأبد المطلقة', art: 'p105', startLevel: 7 }];
-  const PLANT_GET = [2, 3, 5, 10, 20];                 // مكافأة الحصول على نبتة حسب ندرتها الأصلية
+  const PLANT_GET = [2, 3, 5, 10, 20, 40, 70, 120];                 // مكافأة الحصول على نبتة حسب ندرتها الأصلية
   const plantDoneReward = (lv) => (lv <= 1 ? 5 : lv <= 3 ? 20 : lv === 4 ? 50 : lv === 5 ? 70 : lv === 6 ? 100 : 150); // اكتمال دورة النمو حسب مستوى التطوير الحالي
   const GROW_DAYS = 30, UPGRADE_COST = 100;
-  const plantStage = (c) => (c <= 0 ? 0 : c < 7 ? 1 : c < 15 ? 2 : c < GROW_DAYS ? 3 : 4); // بذرة، برعم، صغيرة، نامية، مكتملة مزهرة
+  const plantStage = (c, gd) => { gd = gd || GROW_DAYS; return c <= 0 ? 0 : c < gd * 7 / 30 ? 1 : c < gd * 15 / 30 ? 2 : c < gd ? 3 : 4; }; // بذرة، برعم، صغيرة، نامية، مكتملة مزهرة
+  const TREE_PHASES = ['بذرة في التراب', 'برعم صغير', 'شتلة رفيعة', 'ساق تقوى', 'أولى الأغصان', 'أغصان متفرعة', 'أوراق كثيفة', 'أولى الأزهار', 'أزهار متفتحة', 'تاج واسع مزهر', 'شجرة عملاقة', 'شجرة مكتملة النمو', 'شجرة واسعة الأغصان', 'سماء من الأزهار', 'ظلّ يغطي البيت الزجاجي'];
+  // جدول نمو الأشجار: عدد أيام النجاح اللازمة للوصول إلى كل طور (١ ← ١٥). يُعدَّل من هنا فقط.
+  const TREE_SCHEDULE = [0, 14, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 345, 365];
+  const treePhase = (c, gd) => { const k = (gd || 365) / 365; let p = 1; for (let i = 0; i < TREE_SCHEDULE.length; i++) if (c >= TREE_SCHEDULE[i] * k) p = i + 1; return c >= (gd || 365) ? 15 : Math.min(15, p); };
   const STAGE_NAMES = ['بذرة', 'برعم', 'نبتة صغيرة', 'نبتة نامية', 'مكتملة ومزهرة'];
   const plantLeafTotal = (lv, stage) => [0, 2, 4, 6, 8][stage] + lv * 2;
   const levelReward = (L) => (L <= 20 ? 3 : L <= 40 ? 4 : L <= 80 ? 5 : 7);
@@ -839,6 +882,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   const monthOf = (s) => s.slice(0, 7);
   const hashStr = (s) => { let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; };
   const weekStart = (s, ws) => addDays(s, -((dow(s) - ws + 7) % 7));
+  const daysInMonthEnd = (D) => { let e = D.slice(0, 8) + '28'; while (addDays(e, 1).slice(0, 7) === D.slice(0, 7)) e = addDays(e, 1); return e; };
+  const daysLeftInMonth = (D) => diff(D, daysInMonthEnd(D)) + 1;
   const daysLeftInWeek = (s, ws) => 7 - ((dow(s) - ws + 7) % 7);
   const localToday = (now) => { now = now || new Date(); return now.getFullYear() + '-' + p2(now.getMonth() + 1) + '-' + p2(now.getDate()); };
   // تقريب إلى أقرب عدد صحيح، والمنتصف يُقرّب إلى الأصغر
@@ -848,7 +893,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   function newState(today) {
     return {
       v: 1, startDate: today, nextId: 1,
-      tasks: [], completions: [], quiet: [], purchases: [], leastUses: [], loans: [],
+      tasks: [], goals: [], completions: [], quiet: [], purchases: [], leastUses: [], loans: [],
       compDone: [], editLog: [], ack: [], ops: [], alloc: [], equip: 'starter',
       settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today },
       place: {},
@@ -863,6 +908,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     if (!Array.isArray(st.loans)) st.loans = [];
     if (!st.notes || typeof st.notes !== 'object') st.notes = {};
     if (!st.hope || typeof st.hope !== 'object') st.hope = { habits: [] };
+    if (!Array.isArray(st.goals)) st.goals = [];
+    if (!Array.isArray(st.activity)) st.activity = [];
     if (st.settings.autoAlloc == null) st.settings.autoAlloc = false;
     return st;
   }
@@ -871,7 +918,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
 
   /* ---------- المهام ---------- */
   const ver = (t, D) => { let r = null; for (const v of t.versions) if (v.from <= D) r = v; return r; };
-  const isActive = (t, D) => D >= t.createdDate && !(t.deletedDate && D >= t.deletedDate);
+  const isActive = (t, D) => D >= t.createdDate && !(t.deletedDate && D >= t.deletedDate) && (!t.once || (D >= t.once && D <= (t.until || t.once)));
   const isMainLike = (v) => v.kind === 'main' || (v.kind === 'weekly' && v.weeklyMode === 'days');
 
   function allowance(st, D, extra) {
@@ -882,15 +929,48 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     return { total, max, used, left: Math.max(0, max - used) };
   }
 
+  /* ---------- جدولة التكرار: كل عدد أيام، أو أيام من الشهر (ميلادي أو هجري) ---------- */
+  const HJ = (typeof Intl !== 'undefined') ? (() => { try { return new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day: 'numeric', month: 'numeric', year: 'numeric', timeZone: 'UTC' }); } catch (e) { return null; } })() : null;
+  const hjCache = {};
+  function hijriDay(D) {
+    if (hjCache[D] != null) return hjCache[D];
+    let d = 0; if (HJ) { try { const p = HJ.formatToParts(new Date(D + 'T12:00:00Z')); const x = p.find((q) => q.type === 'day'); d = x ? parseInt(x.value, 10) : 0; } catch (e) { d = 0; } }
+    return (hjCache[D] = d);
+  }
+  const gregDay = (D) => parseInt(D.slice(8, 10), 10);
+  function schedOk(v, D) {
+    if (v.rep === 'every') { const n = v.every || 2; const k = diff(v.anchor || v.from, D); return k >= 0 && k % n === 0; }
+    if (v.rep === 'month') {
+      const md = v.monthDays || []; if (!md.length) return false;
+      const h = v.cal === 'h'; const d = h ? hijriDay(D) : gregDay(D); if (!d) return false;
+      if (md.includes(d)) return true;
+      // آخر يوم في شهر قصير يأخذ الأيام الأكبر منه (مثل ٣٠ في شهر من ٢٩ يومًا)
+      const nx = addDays(D, 1); const last = h ? hijriDay(nx) === 1 : gregDay(nx) === 1;
+      return last && md.some((x) => x > d);
+    }
+    return true;
+  }
+  const everyLabel = (n) => (n === 7 ? 'كل أسبوع' : n === 14 ? 'كل أسبوعين' : n === 21 ? 'كل ٣ أسابيع' : n === 28 ? 'كل ٤ أسابيع' : n >= 30 && n <= 31 ? 'كل شهر' : n === 2 ? 'كل يومين' : 'كل ' + String(n).replace(/\d/g, (c) => '٠١٢٣٤٥٦٧٨٩'[c]) + (n <= 10 ? ' أيام' : ' يومًا'));
+  function schedText(v) {
+    if (!v) return '';
+    if (v.rep === 'every') return everyLabel(v.every || 2);
+    if (v.rep === 'mcount') return String(v.monthCount || 3).replace(/\d/g, (c) => '٠١٢٣٤٥٦٧٨٩'[c]) + ' مرات في الشهر';
+    if (v.rep === 'month') return (v.cal === 'h' ? 'هجري: ' : '') + 'أيام ' + (v.monthDays || []).map((x) => String(x).replace(/\d/g, (c) => '٠١٢٣٤٥٦٧٨٩'[c])).join('، ') + ' من الشهر';
+    return '';
+  }
   function makeVersion(f, from) {
+    const rep = f.rep === 'every' || f.rep === 'month' || f.rep === 'mcount' ? f.rep : 'week';
+    const mdays = Array.from(new Set((Array.isArray(f.monthDays) ? f.monthDays : []).map((x) => parseInt(x, 10)).filter((x) => x >= 1 && x <= 31))).sort((a, b) => a - b);
     return {
+      rep, every: Math.max(2, Math.min(60, parseInt(f.every, 10) || 2)), anchor: /^\d{4}-\d\d-\d\d$/.test(f.anchor || '') ? f.anchor : from, monthDays: rep === 'month' ? mdays : [], cal: f.cal === 'h' ? 'h' : 'g',
       from,
       name: String(f.name || '').trim(),
       desc: String(f.desc || '').trim(),
-      kind: f.kind === 'side' ? 'side' : f.kind === 'weekly' ? 'weekly' : 'main',
-      days: f.days && f.days.length && f.days.length < 7 ? f.days.slice().sort() : null,
+      kind: rep === 'mcount' ? 'weekly' : f.kind === 'side' ? 'side' : f.kind === 'weekly' ? 'weekly' : 'main',
+      monthCount: Math.max(1, Math.min(31, parseInt(f.monthCount, 10) || 3)),
+      days: rep === 'week' && f.days && f.days.length && f.days.length < 7 ? f.days.slice().sort() : null,
       target: Math.max(1, Math.min(99, parseInt(f.target, 10) || 1)),
-      weeklyMode: f.weeklyMode === 'count' ? 'count' : 'days',
+      weeklyMode: rep === 'mcount' ? 'mcount' : f.weeklyMode === 'count' ? 'count' : 'days',
       weeklyCount: Math.max(1, Math.min(7, parseInt(f.weeklyCount, 10) || 1)),
       streak: !!f.streak,
       dev: Math.max(1, Math.min(3, parseInt(f.dev, 10) || 1)),
@@ -898,11 +978,32 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     };
   }
 
+  // يوم إنجاز المهمة المؤقتة (أول يوم اكتمل فيه العدد المطلوب) أو null
+  function onceDone(st, t, ix, upTo) {
+    const end = t.until || t.once; const last = upTo && upTo < end ? upTo : end;
+    for (let D = t.once; D <= last; D = addDays(D, 1)) { const v = ver(t, D); if (v && ix.c(t.id, D) >= v.target) return D; }
+    return null;
+  }
+  function onceStatus(st, t, today, ix) {
+    ix = ix || buildIndex(st); const fin = onceDone(st, t, ix, today); const until = t.until || t.once;
+    if (fin) return { state: 'done', fin, until };
+    if (today < t.once) return { state: 'upcoming', until };
+    if (today > until) return { state: 'expired', until };
+    return { state: 'active', until, left: diff(today, until) };
+  }
   function addTask(st, f, today) {
-    const v = makeVersion(f, today);
+    const once = /^\d{4}-\d{2}-\d{2}$/.test(f.once || '') ? f.once : '';
+    if (once && once < today) return { ok: false, error: 'اختاري اليوم أو يومًا قادمًا' };
+    const v = makeVersion(once ? Object.assign({}, f, { kind: 'side', days: null, streak: false }) : f, once || today);
     if (!v.name) return { ok: false, error: 'اكتبي اسم المهمة' };
-    if (v.kind === 'weekly' && v.weeklyMode === 'days' && !(f.days && f.days.length)) return { ok: false, error: 'اختاري يومًا واحدًا على الأقل' };
-    if (v.kind === 'weekly' && v.weeklyMode === 'days') v.days = f.days.slice().sort();
+    if (once) {
+      const span = Math.max(1, Math.min(365, parseInt(f.span, 10) || 1));
+      const t0 = { id: nid(st, 't'), emoji: f.emoji || '🌿', color: f.color || '#7FB88F', why: String(f.why || '').slice(0, 160), remind: /^([01]\d|2[0-3]):[0-5]\d$/.test(f.remind || '') ? f.remind : '', createdDate: once, deletedDate: null, once, until: addDays(once, span - 1), versions: [v] };
+      st.tasks.push(t0); return { ok: true, task: t0 };
+    }
+    if (v.rep === 'month' && !v.monthDays.length) return { ok: false, error: 'اختاري يومًا واحدًا على الأقل من الشهر' };
+    if (v.kind === 'weekly' && v.weeklyMode === 'days' && v.rep === 'week' && !(f.days && f.days.length)) return { ok: false, error: 'اختاري يومًا واحدًا على الأقل' };
+    if (v.kind === 'weekly' && v.weeklyMode === 'days' && v.rep === 'week') v.days = f.days.slice().sort();
     if (v.kind === 'side') v.streak = false;
     if (isMainLike(v)) {
       const al = allowance(st, today, 0);
@@ -922,9 +1023,11 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     if (!t) return { ok: false, error: 'المهمة غير موجودة' };
     const cur = ver(t, today) || t.versions[0];
     const merged = Object.assign({}, cur, f);
-    const v = makeVersion(merged, today);
+    if (t.once) { merged.kind = 'side'; merged.days = null; merged.streak = false; }
+    const v = makeVersion(merged, t.once ? t.once : today);
     if (!v.name) return { ok: false, error: 'اكتبي اسم المهمة' };
-    if (v.kind === 'weekly' && v.weeklyMode === 'days') { v.days = (merged.days && merged.days.length) ? merged.days.slice().sort() : null; if (!v.days) return { ok: false, error: 'اختاري يومًا واحدًا على الأقل' }; }
+    if (v.rep === 'month' && !v.monthDays.length) return { ok: false, error: 'اختاري يومًا واحدًا على الأقل من الشهر' };
+    if (v.kind === 'weekly' && v.weeklyMode === 'days' && v.rep === 'week') { v.days = (merged.days && merged.days.length) ? merged.days.slice().sort() : null; if (!v.days) return { ok: false, error: 'اختاري يومًا واحدًا على الأقل' }; }
     if (v.kind === 'side') v.streak = false;
     if (isMainLike(v) && !v.streak && cur.streak) {
       const al = allowance(st, today, 0);
@@ -934,7 +1037,11 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     if (f.color) t.color = f.color;
     if (f.why !== undefined) t.why = String(f.why || '').slice(0, 160);
     if (f.remind !== undefined) t.remind = /^([01]\d|2[0-3]):[0-5]\d$/.test(f.remind || '') ? f.remind : '';
-    const same = t.versions.findIndex((x) => x.from === today);
+    if (t.once) {
+      const o2 = /^\d{4}-\d{2}-\d{2}$/.test(f.once || '') ? f.once : t.once; const sp = Math.max(1, Math.min(365, parseInt(f.span, 10) || (diff(t.once, t.until || t.once) + 1)));
+      t.once = o2; t.until = addDays(o2, sp - 1); t.createdDate = o2; v.from = o2; t.versions = [v]; return { ok: true };
+    }
+    const same = t.versions.findIndex((x) => x.from === v.from);
     if (same >= 0) t.versions[same] = v; else t.versions.push(v);
     normalizeAllowance(st, today);
     return { ok: true };
@@ -984,6 +1091,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     return {
       c: (id, D) => m.get(id + '|' + D) || 0,
       weekBefore: (id, D) => { let s = 0; for (let d = weekStart(D, ws); d < D; d = addDays(d, 1)) s += m.get(id + '|' + d) || 0; return s; },
+      monthBefore: (id, D) => { let s = 0; for (let d = D.slice(0, 8) + '01'; d < D; d = addDays(d, 1)) s += m.get(id + '|' + d) || 0; return s; },
+      monthIncl: (id, D) => { let s = 0; const e = daysInMonthEnd(D); for (let d = D.slice(0, 8) + '01'; d <= e; d = addDays(d, 1)) s += m.get(id + '|' + d) || 0; return s; },
       weekIncl: (id, D) => { let s = 0; const e = addDays(weekStart(D, ws), 6); for (let d = weekStart(D, ws); d <= e; d = addDays(d, 1)) s += m.get(id + '|' + d) || 0; return s; },
       comp: (D) => comp.get(D) || new Set(),
     };
@@ -1020,8 +1129,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     const from = addDays(today, -6); const days = []; for (let D = from; D <= today; D = addDays(D, 1)) if (r.days[D]) days.push(Object.assign({ D }, r.days[D]));
     const succ = days.filter((d) => d.status === 'success').length;
     let best = null; days.forEach((d) => { if (d.ticks > 0 && (!best || d.ticks > best.ticks)) best = d; });
-    const cnt = {}; st.completions.forEach((c) => { if (c.date >= from && c.date <= today) cnt[c.taskId] = (cnt[c.taskId] || 0) + 1; });
-    let top = null; Object.keys(cnt).forEach((id) => { if (!top || cnt[id] > top.count) { const t = st.tasks.find((x) => x.id === id); if (t) top = { id, count: cnt[id], name: (ver(t, today) || t.versions[t.versions.length - 1]).name, emoji: t.emoji }; } });
+    const cnt = {}; st.completions.forEach((c) => { if (c.date < from || c.date > today) return; const tk = st.tasks.find((x) => x.id === c.taskId); if (!tk || !isActive(tk, c.date)) return; cnt[c.taskId] = (cnt[c.taskId] || 0) + 1; });
+    let top = null; Object.keys(cnt).forEach((id) => { if (!top || cnt[id] > top.count) { const t = st.tasks.find((x) => x.id === id); if (t && !t.once) top = { id, count: cnt[id], name: (ver(t, today) || t.versions[t.versions.length - 1]).name, emoji: t.emoji }; } });
     const earned = r.ledger.filter((x) => x.amount > 0 && x.date >= from && x.date <= today).reduce((a, x) => a + x.amount, 0);
     return { from, to: today, succ, tracked: days.length, bestDay: best ? best.D : null, bestTicks: best ? best.ticks : 0, top, earned, goal: C.WEEK_GOAL };
   }
@@ -1039,25 +1148,31 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     for (const t of st.tasks) {
       if (!isActive(t, D)) continue;
       const v = ver(t, D); if (!v) continue;
+      if (t.once) { const fin = onceDone(st, t, ix, D); if (fin && D > fin) continue; }
       const done = ix.c(t.id, D);
       let kind, target = v.target, converted = false, weekDone = 0, weekTarget = 0, before = 0;
-      if (v.kind === 'main' || v.kind === 'side') {
+      if (t.once) {
+        kind = 'once';
+      } else if (v.kind === 'main' || v.kind === 'side') {
         if (v.days && !v.days.includes(dow(D))) continue;
+        if (!schedOk(v, D)) continue;
         kind = v.kind;
       } else if (v.weeklyMode === 'days') {
-        if (!(v.days || []).includes(dow(D))) continue;
+        if (v.rep === 'week' ? !(v.days || []).includes(dow(D)) : !schedOk(v, D)) continue;
         kind = 'main';
       } else {
-        weekTarget = v.weeklyCount; before = ix.weekBefore(t.id, D); weekDone = ix.weekIncl(t.id, D);
+        const mm = v.weeklyMode === 'mcount';
+        weekTarget = mm ? v.monthCount : v.weeklyCount; before = mm ? ix.monthBefore(t.id, D) : ix.weekBefore(t.id, D); weekDone = mm ? ix.monthIncl(t.id, D) : ix.weekIncl(t.id, D);
         target = 1;
         const rem = weekTarget - before;
-        if (rem > 0 && rem >= daysLeftInWeek(D, ws)) { kind = 'main'; converted = true; } else kind = 'weeklyOpt';
+        if (rem > 0 && rem >= (mm ? daysLeftInMonth(D) : daysLeftInWeek(D, ws))) { kind = 'main'; converted = true; } else kind = 'weeklyOpt';
       }
       items.push({ task: t, v, kind, target, done, complete: done >= target, converted, weekDone, weekTarget, before, streakResp: kind === 'main' && !!v.streak });
     }
     const mains = items.filter((i) => i.kind === 'main');
     const sides = items.filter((i) => i.kind === 'side');
     const weeklyOpts = items.filter((i) => i.kind === 'weeklyOpt');
+    const onces = items.filter((i) => i.kind === 'once');
     let reqMain = mains, reqStreak = mains.filter((i) => i.streakResp);
     if (lu) {
       reqMain = mains.filter((i) => lu.taskIds.includes(i.task.id));
@@ -1066,7 +1181,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     for (const i of mains) i.required = reqMain.includes(i);
     const allMainDone = reqMain.length > 0 && reqMain.every((i) => i.complete);
     const allSideDone = sides.length > 0 && sides.every((i) => i.complete);
-    return { D, quiet, lu, items, mains, sides, weeklyOpts, reqMain, reqStreak, allMainDone, allSideDone, hasStreak: reqStreak.length > 0, streakDone: reqStreak.length > 0 && reqStreak.every((i) => i.complete) };
+    return { D, quiet, lu, items, mains, sides, weeklyOpts, onces, reqMain, reqStreak, allMainDone, allSideDone, hasStreak: reqStreak.length > 0, streakDone: reqStreak.length > 0 && reqStreak.every((i) => i.complete) };
   }
 
   /* ---------- المكافآت ---------- */
@@ -1097,8 +1212,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
         continue;
       }
       if (!i.complete) continue;
-      const base = i.kind === 'side' ? C.REWARD_SIDE : C.REWARD_MAIN;
-      out.push({ key: 'task:' + i.task.id + ':' + m.D, amount: base + extra, reason: (i.kind === 'side' ? 'إنجاز مهمة جانبية ' : 'إنجاز مهمة رئيسية ') + name + (extra ? ' (مع بطاقة زيادة المكافأة)' : ''), date: m.D });
+      const base = i.kind === 'side' ? C.REWARD_SIDE : i.kind === 'once' ? C.REWARD_ONCE : C.REWARD_MAIN;
+      out.push({ key: 'task:' + i.task.id + ':' + m.D, amount: base + extra, reason: (i.kind === 'side' ? 'إنجاز مهمة جانبية ' : i.kind === 'once' ? 'إنجاز مهمة مؤقتة ' : 'إنجاز مهمة رئيسية ') + name + (extra ? ' (مع بطاقة زيادة المكافأة)' : ''), date: m.D });
     }
     if (m.allMainDone) out.push({ key: 'allMain:' + m.D, amount: mainBonus(m.reqMain.length), reason: 'إكمال جميع المهام الرئيسية (' + m.reqMain.length + ')', date: m.D });
     if (m.allSideDone) out.push({ key: 'allSide:' + m.D, amount: sideBonus(m.sides.length), reason: 'إكمال جميع المهام الجانبية (' + m.sides.length + ')', date: m.D });
@@ -1136,12 +1251,15 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   ].map((h, i) => ({ id: 'h' + String(i + 1).padStart(2, '0'), name: h[0], cap: h[1], price: h[2], rar: h[3] }));
   const ownedHouseIds = (st) => ['h01'].concat(st.purchases.filter((p) => p.kind === 'house').map((p) => p.item));
   function computeHouses(st, plants) {
-    const owned = ownedHouseIds(st); const houses = HOUSES.map((h) => ({ id: h.id, name: h.name, cap: h.cap, price: h.price, rar: h.rar, owned: owned.includes(h.id), plants: [] }));
+    const owned = ownedHouseIds(st); const houses = HOUSES.map((h) => ({ id: h.id, name: h.name, cap: h.cap, price: h.price, rar: h.rar, owned: owned.includes(h.id), plants: [], trees: [], used: 0 }));
     const by = new Map(houses.map((h) => [h.id, h])); const placed = new Set(); const place = st.place || {};
-    for (const p of plants) { const h = by.get(place[p.id]); if (h && h.owned && h.plants.length < h.cap) { h.plants.push(p.id); placed.add(p.id); } }
-    for (const p of plants) { if (placed.has(p.id)) continue; const h = houses.find((x) => x.owned && x.plants.length < x.cap); if (h) { h.plants.push(p.id); placed.add(p.id); } }
+    const w = (p) => p.slots || 1; const fits = (h, p) => (p.tree ? h.trees.length < 2 : h.used + w(p) <= h.cap);
+    const put = (h, p) => { if (p.tree) h.trees.push(p.id); else { h.plants.push(p.id); h.used += w(p); } placed.add(p.id); };
+    for (const p of plants) { const h = by.get(place[p.id]); if (h && h.owned && fits(h, p)) put(h, p); }
+    for (const p of plants) { if (placed.has(p.id)) continue; const h = houses.find((x) => x.owned && fits(x, p)); if (h) put(h, p); }
     const totalCap = houses.filter((h) => h.owned).reduce((a, h) => a + h.cap, 0);
-    return { houses, unplaced: plants.filter((p) => !placed.has(p.id)).map((p) => p.id), totalCap, free: totalCap - placed.size };
+    const usedAll = houses.reduce((a, h) => a + h.used, 0);
+    return { houses, unplaced: plants.filter((p) => !placed.has(p.id)).map((p) => p.id), totalCap, free: totalCap - usedAll };
   }
 
   function computePlants(st, days, events, today, gifts) {
@@ -1153,6 +1271,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     for (const pu of allPu) {
       const gp = pu.gift ? GIFT_PLANTS.find((x) => x.id === pu.item) : null;
       const sp = gp ? { id: gp.art, name: gp.name, rar: gp.startLevel } : PLANTS.find((x) => x.id === pu.item); if (!sp) continue;
+      const gd = sp.grow || GROW_DAYS;
       const u = ups(pu.id); const lv0 = sp.rar; const level = Math.min(MAX_PLANT_LV, lv0 + u.length);
       if (!pu.gift) rewards.push({ key: 'plantget:' + pu.id, amount: PLANT_GET[lv0], reason: 'الحصول على نبتة «' + sp.name + '» (' + PLANT_LEVELS[lv0] + ')', date: pu.date });
       // دورات النمو: كل مستوى له ٣٠ يوم نجاح؛ الدورة الأولى تشمل يوم الشراء، وما بعدها تبدأ بعد يوم التطوير
@@ -1163,18 +1282,18 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
         const cur = u[cyc - 0]; // الترقية التي تُنهي الدورة الحالية
         if (days[D].status === 'success') {
           const startOk = cyc === 0 ? D >= pu.date : D > u[cyc - 1].date;
-          if (startOk && cnt < GROW_DAYS) {
+          if (startOk && cnt < gd) {
             cnt++;
-            const sidx = plantStage(cnt), prev = plantStage(cnt - 1);
-            if (sidx !== prev) hist.push({ date: D, text: 'بلغت مرحلة «' + STAGE_NAMES[sidx] + '»' });
-            if (cnt === GROW_DAYS) {
-              rewards.push({ key: 'plantdone:' + pu.id + ':' + cyc, amount: plantDoneReward(Math.min(MAX_PLANT_LV, lv0 + cyc)), reason: 'اكتمال نمو نبتة «' + sp.name + '» (' + PLANT_LEVELS[Math.min(MAX_PLANT_LV, lv0 + cyc)] + ')', date: D });
+            const sidx = plantStage(cnt, gd), prev = plantStage(cnt - 1, gd);
+            if (sp.tree) { if (treePhase(cnt, gd) !== treePhase(cnt - 1, gd)) hist.push({ date: D, phase: treePhase(cnt, gd), text: 'الطور ' + treePhase(cnt, gd) + ' من ١٥: «' + TREE_PHASES[treePhase(cnt, gd) - 1] + '»' }); } else if (sidx !== prev) hist.push({ date: D, text: 'بلغت مرحلة «' + STAGE_NAMES[sidx] + '»' });
+            if (cnt === gd) {
+              rewards.push({ key: 'plantdone:' + pu.id + ':' + cyc, amount: (sp.doneReward && cyc === 0 ? sp.doneReward : plantDoneReward(Math.min(MAX_PLANT_LV, lv0 + cyc))), reason: 'اكتمال نمو نبتة «' + sp.name + '» (' + PLANT_LEVELS[Math.min(MAX_PLANT_LV, lv0 + cyc)] + ')', date: D });
             }
           }
         }
         if (cur && D >= cur.date && cyc < u.length) { hist.push({ date: cur.date, text: 'طُوّرت إلى «' + PLANT_LEVELS[Math.min(MAX_PLANT_LV, lv0 + cyc + 1)] + '»' }); cyc++; cnt = 0; cycleStart.push(cur.date); }
       }
-      complete = cnt >= GROW_DAYS;
+      complete = cnt >= gd;
       // الصحة: ٣ قلوب، وأوراق تسقط وتعود (لا تموت النبتة أبدًا)
       let hearts = 3, fallen = 0, run = 0; const cap = plantLeafTotal(level, 4);
       for (const D of dates) {
@@ -1191,14 +1310,14 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
         }
         if (fallen > cap) fallen = cap;
       }
-      const stage = plantStage(cnt); const leaves = plantLeafTotal(level, stage);
-      out.push({ id: pu.id, sp: sp.id, name: sp.name, rar0: lv0, level, levelName: PLANT_LEVELS[level], count: cnt, stage, stageName: STAGE_NAMES[stage], complete, canUpgrade: complete && level < MAX_PLANT_LV, maxed: complete && level === MAX_PLANT_LV, gift: !!pu.gift, upCost: upgradeCost(level), hearts, fallen: Math.min(fallen, leaves), leaves, date: pu.date, hist, price: pu.price });
+      const stage = plantStage(cnt, gd); const leaves = plantLeafTotal(level, stage);
+      out.push({ id: pu.id, sp: sp.id, name: sp.name, rar0: lv0, level, levelName: PLANT_LEVELS[level], count: cnt, stage, stageName: sp.tree ? TREE_PHASES[treePhase(cnt, gd) - 1] : STAGE_NAMES[stage], complete, canUpgrade: complete && level < MAX_PLANT_LV, maxed: complete && level === MAX_PLANT_LV, gift: !!pu.gift, grow: gd, phase: sp.tree ? treePhase(cnt, gd) : 0, g: sp.tree ? (treePhase(cnt, gd) - 1) / 14 : Math.min(1, cnt / gd), slots: sp.slots || 1, tree: !!sp.tree, upCost: upgradeCost(level), hearts, fallen: Math.min(fallen, leaves), leaves, date: pu.date, hist, price: pu.price });
     }
     return { plants: out, rewards };
   }
 
   /* ---------- الإنجازات: ١٠٠ إنجاز بثلاثة تبويبات، مشتقة بالكامل من السجل ---------- */
-  const ACH_TABS = ['الاستمرارية والإنجاز', 'تطوير الشخصية', 'النباتات'];
+  const ACH_TABS = ['الاستمرارية والإنجاز', 'تطوير الشخصية', 'النباتات', 'مزايا التطبيق'];
   const ACH_MAX_REWARD = 250;
   // [المقياس، الهدف، الندرة، المكافأة، الاسم، الوصف، الرمز، الإطار]
   const ACH_DEF = [
@@ -1282,7 +1401,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       ['plantsOwned', 35, 3, 140, 'غابة صغيرة', 'امتلكي ٣٥ نبتة', 'sprout', 'ribbon'],
       ['plantsOwned', 50, 3, 170, 'نصف المجموعة', 'امتلكي ٥٠ نبتة', 'sprout', 'stars'],
       ['plantsOwned', 75, 4, 220, 'جامعة نادرة', 'امتلكي ٧٥ نبتة', 'sprout', 'wings'],
-      ['plantsOwned', 100, 4, 250, 'كل النباتات', 'امتلكي نباتات المتجر المئة كلها', 'sprout', 'crown'],
+      ['plantsOwned', 100, 4, 250, 'كل النباتات', 'امتلكي ١٠٠ نبتة من نباتات المتجر', 'sprout', 'crown'],
       ['plantDone', 1, 0, 15, 'أول إزهار', 'أكملي نمو نبتة واحدة (٣٠ يوم نجاح)', 'flower', 'plain'],
       ['plantDone', 3, 1, 35, 'ثلاث زهرات', 'أكملي نمو ٣ نباتات', 'flower', 'rings'],
       ['plantDone', 5, 1, 50, 'إصبع أخضر', 'أكملي نمو ٥ نباتات', 'flower', 'laurel'],
@@ -1316,10 +1435,40 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     [2, ['upLevel', 6, 4, 250, 'نبتة متسامية', 'طوّري نبتة حتى المستوى خرافي متسامٍ', 'tree', 'stars'], null],
     [2, ['upLevel', 7, 4, 250, 'نبتة مطلقة', 'طوّري نبتة حتى المستوى خرافي مطلق', 'tree', 'hex'], null],
   ];
+  const ACH_NEW = [
+      ['goalsDone', 1, 0, 25, 'أول هدف', 'أكملي هدفًا شخصيًا واحدًا من صفحة أهدافي', 'compass', 'plain'],
+      ['goalsDone', 3, 1, 50, 'صاحبة أهداف', 'أكملي ٣ أهداف شخصية', 'compass', 'rings'],
+      ['goalsDone', 5, 2, 80, 'تحقّقين ما تضعينه', 'أكملي ٥ أهداف شخصية', 'compass', 'rays'],
+      ['goalsDone', 10, 3, 150, 'عشرة أهداف', 'أكملي ١٠ أهداف شخصية', 'compass', 'laurel'],
+      ['goalsDone', 20, 4, 230, 'سيّدة الأهداف', 'أكملي ٢٠ هدفًا شخصيًا', 'compass', 'crown'],
+      ['stepGoals', 1, 0, 40, 'خطوة خطوة', 'أكملي هدفًا مبنيًا على خطوات تكتبينها', 'check', 'plain'],
+      ['stepGoals', 3, 2, 100, 'خطوات واثقة', 'أكملي ٣ أهداف بخطوات', 'check', 'hex'],
+      ['amountGoals', 1, 1, 60, 'وصلتِ إلى الرقم', 'أكملي هدف ادّخار أو رقم تصلين إليه', 'coin', 'rings'],
+      ['amountGoals', 3, 3, 150, 'جامعة الأرقام', 'أكملي ٣ أهداف بمبلغ أو رقم', 'coin', 'stars'],
+      ['onceDone', 1, 0, 10, 'مهمة اليوم', 'أنجزي أول مهمة مؤقتة', 'tasks', 'plain'],
+      ['onceDone', 10, 1, 40, 'أيام مزدحمة', 'أنجزي ١٠ مهام مؤقتة', 'tasks', 'rings'],
+      ['onceDone', 30, 2, 90, 'منظّمة الوقت', 'أنجزي ٣٠ مهمة مؤقتة', 'tasks', 'ribbon'],
+      ['onceDone', 100, 4, 200, 'مئة مهمة عابرة', 'أنجزي ١٠٠ مهمة مؤقتة', 'tasks', 'crown'],
+      ['recurring', 1, 0, 30, 'جدولة على مزاجك', 'أنشئي عادة تتكرر كل عدد أيام أو في أيام من الشهر', 'refresh', 'plain'],
+      ['recurring', 3, 2, 80, 'تقويم خاص', 'أنشئي ٣ عادات بجدولة مخصصة', 'refresh', 'laurel'],
+      ['weekGoals', 1, 0, 20, 'هدف الأسبوع', 'حققي هدف الأسبوع للمرة الأولى', 'star', 'plain'],
+      ['weekGoals', 4, 1, 60, 'شهر من الأهداف', 'حققي هدف الأسبوع ٤ مرات', 'star', 'rings'],
+      ['weekGoals', 12, 3, 150, 'فصل من الأهداف', 'حققي هدف الأسبوع ١٢ مرة', 'star', 'stars'],
+      ['surprises', 1, 0, 15, 'هدية مفاجئة', 'استلمي أول هدية مفاجئة من التطبيق', 'gem', 'plain'],
+      ['surprises', 10, 2, 80, 'محظوظة', 'استلمي ١٠ هدايا مفاجئة', 'gem', 'ribbon'],
+      ['luxPlants', 1, 2, 100, 'نبتة فاخرة', 'اشتري إحدى النبتات الخرافية الفاخرة الخمس', 'flower', 'hex'],
+      ['luxPlants', 3, 3, 180, 'جامعة الكنوز', 'اشتري ٣ من النبتات الفاخرة الخمس', 'flower', 'wings'],
+      ['luxPlants', 5, 4, 250, 'كنوز الحديقة', 'اشتري النبتات الفاخرة الخمس كلها', 'flower', 'crown'],
+      ['treePhase', 4, 1, 50, 'شتلة شجرة', 'اجعلي إحدى الشجرتين تصل إلى الطور ٤ من ١٥', 'tree', 'plain'],
+      ['treePhase', 8, 2, 100, 'أولى الأزهار', 'اجعلي شجرة تصل إلى الطور ٨ وتتفتح أزهارها', 'tree', 'rings'],
+      ['treePhase', 12, 3, 170, 'شجرة مكتملة', 'اجعلي شجرة تصل إلى الطور ١٢', 'tree', 'laurel'],
+      ['treePhase', 15, 4, 250, 'ظلّ يغطي البيت', 'اجعلي شجرة تصل إلى الطور الأخير: أغصان طويلة وأزهار غزيرة تظلّل البيت الزجاجي', 'tree', 'crown'],
+  ];
   const ACH_GIFT = {};
   const ACHIEVEMENTS = []; ACH_DEF.forEach((tab) => tab[1].forEach((a) => { ACHIEVEMENTS.push({ id: 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'), tab: tab[0], m: a[0], t: a[1], rar: a[2], reward: Math.min(ACH_MAX_REWARD, a[3]), name: a[4], desc: a[5], g: a[6], mod: a[7] }); }));
 
   ACH_EXTRA.forEach((x) => { const a = x[1]; const id = 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'); ACHIEVEMENTS.push({ id, tab: x[0], m: a[0], t: a[1], rar: a[2], reward: Math.min(ACH_MAX_REWARD, a[3]), name: a[4], desc: a[5], g: a[6], mod: a[7], gift: x[2] || null }); if (x[2]) ACH_GIFT[id] = x[2]; });
+  ACH_NEW.forEach((a) => { const id = 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'); ACHIEVEMENTS.push({ id, tab: 3, m: a[0], t: a[1], rar: a[2], reward: Math.min(ACH_MAX_REWARD, a[3]), name: a[4], desc: a[5], g: a[6], mod: a[7], gift: null }); });
 
   function computeAchievements(st, days, events, ledger, plants, levelHist, traitHist, pts, today) {
     const dates = Object.keys(days).sort(); const n = dates.length; const at = new Map(dates.map((d, i) => [d, i]));
@@ -1350,6 +1499,14 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     S.upgrades = fromDates(st.purchases.filter((p) => p.kind === 'plantUp').map((p) => p.date));
     { const lvl = {}; const b = zeros(); const evs = st.purchases.filter((p) => p.kind === 'plant' || p.kind === 'plantUp').slice().sort((x, y) => (x.date < y.date ? -1 : x.date > y.date ? 1 : x.ts - y.ts)); evs.forEach((p) => { if (p.kind === 'plantUp') { lvl[p.item] = Math.min(MAX_PLANT_LV, (lvl[p.item] || 0) + 1); const i = at.has(p.date) ? at.get(p.date) : -1; if (i >= 0) b[i] = Math.max(b[i], lvl[p.item]); } else { const sp = PLANTS.find((x) => x.id === p.item); lvl[p.id] = sp ? sp.rar : 0; } }); S.upLevel = mxFrom(b); }
     { const a = zeros(); st.purchases.filter((p) => p.kind === 'house').forEach((p) => bump(a, p.date, 1)); S.housesOwned = cumFrom(a).map((v) => v + 1); }
+    { const gT = {}; (st.goals || []).forEach((g) => { gT[g.id] = g.type; }); const gl = ledger.filter((e) => e.key.indexOf('goalp:') === 0);
+      S.goalsDone = fromDates(gl.map((e) => e.date)); S.stepGoals = fromDates(gl.filter((e) => gT[e.key.slice(6)] === 'steps').map((e) => e.date)); S.amountGoals = fromDates(gl.filter((e) => gT[e.key.slice(6)] === 'amount').map((e) => e.date)); }
+    { const oi = new Set(st.tasks.filter((t) => t.once).map((t) => t.id)); S.onceDone = fromDates(ledger.filter((e) => { if (e.key.indexOf('task:') !== 0) return false; return oi.has(e.key.split(':')[1]); }).map((e) => e.date)); }
+    S.recurring = fromDates(st.tasks.filter((t) => !t.once).filter((t) => t.versions.some((v) => v.rep === 'every' || v.rep === 'month')).map((t) => t.createdDate));
+    S.weekGoals = fromDates(ledger.filter((e) => e.key.indexOf('goal:') === 0).map((e) => e.date));
+    S.surprises = fromDates(ledger.filter((e) => e.key.indexOf('surprise:') === 0).map((e) => e.date));
+    S.luxPlants = fromDates(st.purchases.filter((p) => p.kind === 'plant' && ['p106', 'p107', 'p108', 'p109', 'p110'].includes(p.item)).map((p) => p.date));
+    { const a = zeros(); (plants || []).forEach((p) => (p.hist || []).forEach((h) => { if (h.phase) { const i = at.has(h.date) ? at.get(h.date) : -1; if (i >= 0) a[i] = Math.max(a[i], h.phase); } })); S.treePhase = mxFrom(a); }
     S.waterings = fromDates(st.ack.filter((k) => k.indexOf('wat:') === 0).map((k) => k.slice(4)));
     const out = []; const rewards = [];
     for (const a of ACHIEVEMENTS) {
@@ -1360,6 +1517,70 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       if (done) rewards.push({ key: 'ach:' + a.id, amount: a.reward, reason: 'إنجاز «' + a.name + '»', date });
     }
     return { list: out, rewards };
+  }
+
+
+  /* ---------- الأهداف الشخصية ---------- */
+  // هدف مرتبط بعادة: يكتمل بعد عدد أيام إنجاز العادة منذ إنشاء الهدف. هدف بخطوات: يكتمل بإنجاز كل خطواته.
+  // الإنجاز والمكافأة يُحسبان من السجل نفسه، فلا تتكرر المكافأة ولا تبقى إن تراجعتِ عن الإنجاز.
+  function computeGoals(st, ix, today) {
+    return (st.goals || []).map((g) => {
+      let have = 0, need = 1, doneDate = null;
+      if (g.type === 'task') {
+        const t = st.tasks.find((x) => x.id === g.taskId); need = Math.max(1, g.target || 1);
+        if (t) for (let D = g.createdDate; D <= today; D = addDays(D, 1)) {
+          const v = ver(t, D); const tg = Math.max(1, (v && v.target) || 1);
+          if (ix.c(t.id, D) >= tg) { have++; if (have === need && !doneDate) doneDate = D; }
+        }
+      } else if (g.type === 'amount') {
+        need = Math.max(0.01, g.target || 1); let sum = 0;
+        (g.adds || []).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts)).forEach((a) => { sum += a.amount; if (!doneDate && sum >= need) doneDate = a.date; });
+        have = sum;
+      } else {
+        const steps = g.steps || []; need = Math.max(1, steps.length); have = steps.filter((x) => x.done).length;
+        if (steps.length && have === steps.length) doneDate = steps.reduce((a, x) => (x.done > a ? x.done : a), '');
+      }
+      if (doneDate && doneDate > today) doneDate = today;
+      const reward = C.GOAL_REWARD[g.size] || C.GOAL_REWARD.m;
+      return Object.assign({}, g, { have: Math.min(have, need), need, done: !!doneDate, doneDate, reward });
+    });
+  }
+  function addGoal(st, f, today) {
+    const title = String(f.title || '').trim(); if (!title) return { ok: false, error: 'اكتبي عنوان الهدف' };
+    const type = f.type === 'steps' ? 'steps' : f.type === 'amount' ? 'amount' : 'task';
+    const g = { id: nid(st, 'g'), title: title.slice(0, 80), emoji: f.emoji || '🎯', size: ['s', 'm', 'l'].includes(f.size) ? f.size : 'm', type, createdDate: today, note: String(f.note || '').slice(0, 200) };
+    if (type === 'task') {
+      const t = st.tasks.find((x) => x.id === f.taskId && !x.once && !x.deletedDate); if (!t) return { ok: false, error: 'اختاري العادة المرتبطة بالهدف' };
+      g.taskId = t.id; g.target = Math.max(1, Math.min(999, parseInt(f.target, 10) || 0)); if (!parseInt(f.target, 10)) return { ok: false, error: 'اكتبي عدد الأيام المطلوبة' };
+    } else if (type === 'amount') {
+      const tg = Number(String(f.target).replace(/[^\d.]/g, '')); if (!(tg > 0)) return { ok: false, error: 'اكتبي المقدار المطلوب الوصول إليه' };
+      g.target = Math.min(1e9, Math.round(tg * 100) / 100); g.unit = String(f.unit || '⃁').trim().slice(0, 12) || '⃁'; g.adds = [];
+    } else {
+      const lines = (Array.isArray(f.steps) ? f.steps : String(f.steps || '').split('\n')).map((x) => String(x).trim()).filter(Boolean).slice(0, 30);
+      if (!lines.length) return { ok: false, error: 'اكتبي خطوة واحدة على الأقل' };
+      g.steps = lines.map((x) => ({ id: nid(st, 's'), text: x.slice(0, 80), done: null }));
+    }
+    st.goals.push(g); return { ok: true, goal: g };
+  }
+  function addGoalAmount(st, gid, amount, today) {
+    const g = (st.goals || []).find((x) => x.id === gid); if (!g || g.type !== 'amount') return { ok: false, error: 'الهدف غير موجود' };
+    const a = Number(String(amount).replace(/[^\d.]/g, '')); if (!(a > 0)) return { ok: false, error: 'اكتبي مقدارًا أكبر من صفر' };
+    (g.adds = g.adds || []).push({ id: nid(st, 'a'), date: today, ts: Date.now(), amount: Math.min(1e9, Math.round(a * 100) / 100) }); return { ok: true };
+  }
+  function removeGoalAmount(st, gid, aid) {
+    const g = (st.goals || []).find((x) => x.id === gid); if (!g || g.type !== 'amount') return { ok: false };
+    g.adds = (g.adds || []).filter((x) => x.id !== aid); return { ok: true };
+  }
+  function toggleStep(st, gid, sid, today) {
+    const g = (st.goals || []).find((x) => x.id === gid); if (!g || g.type !== 'steps') return { ok: false };
+    const s = g.steps.find((x) => x.id === sid); if (!s) return { ok: false };
+    s.done = s.done ? null : today; return { ok: true };
+  }
+  function deleteGoal(st, gid, today) {
+    const ix = buildIndex(st); const g = computeGoals(st, ix, today).find((x) => x.id === gid);
+    if (!g) return { ok: false, error: 'الهدف غير موجود' };
+    if (g.done) return { ok: false, error: 'الهدف المكتمل يبقى في سجلك' };
+    st.goals = st.goals.filter((x) => x.id !== gid); return { ok: true };
   }
 
   function replay(st, today) {
@@ -1420,6 +1641,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       const nl = overallOf(TRAITS.map((t) => traitLevels[t.id]));
       while (derived < nl) { derived++; levelHist.push({ level: derived, date: a.date }); ledger.push({ key: 'level:' + derived, amount: levelReward(derived), reason: 'ارتفاع المستوى الكلي إلى ' + derived, date: a.date }); }
     }
+    const goalsCalc = computeGoals(st, ix, today);
+    goalsCalc.forEach((g) => { if (g.done) ledger.push({ key: 'goalp:' + g.id, amount: g.reward, reason: 'إنجاز هدفك «' + g.title + '»', date: g.doneDate }); });
     const giftsPre = []; { const pre = computeAchievements(st, days, events, ledger.slice(), [], levelHist, traitHist, pts, today); pre.list.forEach((a) => { const g = ACH_GIFT[a.id]; if (g && a.done) giftsPre.push({ ach: a.id, plant: g, date: a.date }); }); }
     const pl = computePlants(st, days, events, today, giftsPre); pl.rewards.forEach((r) => ledger.push(r));
     const hs = computeHouses(st, pl.plants);
@@ -1452,7 +1675,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       restoresThisMonth: restores[monthOf(today)] || 0, frozenDays,
       leastOwned, bonusActiveToday, todayModel, todayStatus, ix,
       pts, ptsEarned, ptsSpent, ptsAvail: ptsEarned - ptsSpent, traitLevels, derivedLevel: derived, level, penalty, levelName: levelClass(level),
-      levelHist, traitHist, goal: nextGoal(TRAITS.map((t) => traitLevels[t.id])), owned: ownedOutfits(st), equipped: st.equip,
+      goals: goalsCalc, levelHist, traitHist, goal: nextGoal(TRAITS.map((t) => traitLevels[t.id])), owned: ownedOutfits(st), equipped: st.equip,
       plants: pl.plants, successDays, ach: ac.list, houses: hs.houses, unplaced: hs.unplaced, houseCap: hs.totalCap, houseFree: hs.free,
       hidden: (flame === 'out' || flame === 'frozen') && todayStatus !== 'quiet',
     };
@@ -1588,10 +1811,11 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     if (st.purchases.some((p) => p.kind === 'plant' && p.item === id)) return { ok: false, error: 'تملكين هذه النبتة بالفعل' };
     const r = replay(st, today);
     if (r.balance < sp.price) return { ok: false, error: 'رصيدك لا يكفي (تحتاجين ' + sp.price + ' وعندك ' + r.balance + ')' };
-    if (r.houseFree <= 0) return { ok: false, error: 'بيوتك الزجاجية ممتلئة. اشتري بيتًا زجاجيًا جديدًا من السوق ليتسع لنبتة أخرى' };
+    const w = sp.slots || 1; const fit = (h) => (sp.tree ? h.trees.length < 2 : h.cap - h.used >= w);
+    if (!r.houses.some((h) => h.owned && fit(h))) return { ok: false, error: sp.tree ? 'لكل بيت زجاجي شجرتان كحد أقصى بجانبه. اشتري بيتًا آخر لتزرعي هذه الشجرة' : (w > 1 ? 'تحتاج هذه النبتة ' + w + ' أماكن متجاورة في بيت واحد، ولا يوجد بيت يتسع لها' : 'بيوتك الزجاجية ممتلئة. اشتري بيتًا زجاجيًا جديدًا من السوق ليتسع لنبتة أخرى') };
     let target = houseId || null;
-    if (target) { const h = r.houses.find((x) => x.id === target); if (!h || !h.owned || h.plants.length >= h.cap) return { ok: false, error: 'لا مكان في هذا البيت' }; }
-    else { const h = r.houses.find((x) => x.owned && x.plants.length < x.cap); target = h ? h.id : null; }
+    if (target) { const h = r.houses.find((x) => x.id === target); if (!h || !h.owned || !fit(h)) return { ok: false, error: 'لا مكان في هذا البيت' }; }
+    else { const h = r.houses.find((x) => x.owned && fit(x)); target = h ? h.id : null; }
     const pid = nid(st, 'p'); pinPlacements(st, r);
     st.purchases.push({ id: pid, kind: 'plant', item: id, date: today, ts: Date.now(), price: sp.price });
     if (!st.place) st.place = {}; if (target) st.place[pid] = target;
@@ -1610,7 +1834,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     return { ok: true, price: UC, to: PLANT_LEVELS[p.level + 1] };
   }
   // تثبيت التوزيع الحالي حتى لا تتبدل أماكن النباتات التلقائية عند أي تغيير
-  function pinPlacements(st, r) { if (!st.place) st.place = {}; r.houses.forEach((h) => h.plants.forEach((pid) => { st.place[pid] = h.id; })); }
+  function pinPlacements(st, r) { if (!st.place) st.place = {}; r.houses.forEach((h) => h.plants.concat(h.trees).forEach((pid) => { st.place[pid] = h.id; })); }
   function buyHouse(st, id, today, opId) {
     if (opId && st.ops.includes(opId)) return { ok: false, error: 'تمت هذه العملية بالفعل', dup: true };
     const h = HOUSES.find((x) => x.id === id); if (!h) return { ok: false, error: 'بيت غير معروف' };
@@ -1623,8 +1847,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   function movePlant(st, pid, houseId, today) {
     const r = replay(st, today); const p = r.plants.find((x) => x.id === pid); if (!p) return { ok: false, error: 'نبتة غير معروفة' };
     const h = r.houses.find((x) => x.id === houseId); if (!h || !h.owned) return { ok: false, error: 'لا تملكين هذا البيت' };
-    if (h.plants.includes(pid)) return { ok: true, same: true };
-    if (h.plants.length >= h.cap) return { ok: false, error: 'هذا البيت ممتلئ' };
+    if (h.plants.includes(pid) || h.trees.includes(pid)) return { ok: true, same: true };
+    if (p.tree ? h.trees.length >= 2 : h.cap - h.used < p.slots) return { ok: false, error: p.tree ? 'تعذّر النقل: بجانب هذا البيت شجرتان بالفعل (الحد شجرتان)' : 'تعذّر النقل: ' + h.name + ' ممتلئ (' + h.used + ' من ' + h.cap + (p.slots > 1 ? '، وهذه النبتة تحتاج ' + p.slots + ' خانات' : '') + ')' };
     pinPlacements(st, r); st.place[pid] = houseId; return { ok: true };
   }
   // السقي مرئي فقط: النمو يُحتسب تلقائيًا من أيام النجاح، والدلو يعرض أثره على النباتات مرة لكل يوم نجاح
@@ -1643,10 +1867,10 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
 
   return { C, pd, fd, addDays, diff, dow, monthOf, weekStart, daysLeftInWeek, localToday, roundHalfDown,
-    newState, clone, ver, isActive, isMainLike, allowance, addTask, updateTask, deleteTask, normalizeAllowance,
+    newState, clone, ver, isActive, isMainLike, allowance, addTask, updateTask, deleteTask, schedText, everyLabel, schedOk, hijriDay, addGoal, addGoalAmount, removeGoalAmount, toggleStep, deleteGoal, computeGoals, onceStatus, normalizeAllowance,
     setCount, countOf, buildIndex, dayModel, dayRewards, mainBonus, sideBonus, freezePrice, itemPrice, replay,
     ledgerDiff, previewEdit, quietInMonth, addQuiet, removeQuiet, buy, leastAllowed, useLeast, setCompStep, compSteps, compNeeded, compComplete,
-    taskHistory, weekReview, weekGoal, hashStr, logEdit, validate, migrate, PLANTS, HOUSES, ACHIEVEMENTS, ACH_TABS, buyHouse, takeLoan, movePlant, PLANT_LEVELS, TIERS, LEVEL_BANDS, levelTier, upgradeCost, GIFT_PLANTS, ACH_GIFT, PLANT_GET, plantDoneReward, GROW_DAYS, UPGRADE_COST, STAGE_NAMES, plantStage, plantLeafTotal, buyPlant, upgradePlant, waterPending, markWatered, TRAITS, OUTFITS, RARITY, levelReward, levelClass, overallOf, nextGoal, dayPoints, ptsDiff,
+    taskHistory, weekReview, weekGoal, hashStr, logEdit, validate, migrate, PLANTS, HOUSES, ACHIEVEMENTS, ACH_TABS, buyHouse, takeLoan, movePlant, PLANT_LEVELS, TIERS, LEVEL_BANDS, levelTier, upgradeCost, GIFT_PLANTS, ACH_GIFT, PLANT_GET, plantDoneReward, GROW_DAYS, UPGRADE_COST, STAGE_NAMES, plantStage, treePhase, TREE_SCHEDULE, TREE_PHASES, plantLeafTotal, buyPlant, upgradePlant, waterPending, markWatered, TRAITS, OUTFITS, RARITY, levelReward, levelClass, overallOf, nextGoal, dayPoints, ptsDiff,
     ownedOutfits, allocate, autoAllocate, buyOutfit, equipOutfit };
 });
 
@@ -1676,6 +1900,7 @@ const IC = {
   book: '<path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11"/>',
   save: '<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 20h14"/>',
   route: '<circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h5a3.5 3.5 0 0 0 0-7h-2a3.5 3.5 0 0 1 0-7h5"/>',
+  flag: '<path d="M5 21V4M5 5h11l-2 4 2 4H5"/>',
   star: '<path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>',
   gear: '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
   person: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6 8-6s7 1.5 8 6"/>',
@@ -1759,6 +1984,7 @@ const Store = {
 
 /* ---------- الحالة ---------- */
 let PFILTER = -1, WATERING = false, ATAB = 0, AFILT = 'all';
+let TASKTAB = 'habits';
 let ST, R, VIEW = 'tasks', VIEWDAY = null, MARKET = 'items', lastToday = TODAY();
 const PLACEHOLDER = {
   person: ['الشخصية', 'person', 'المرحلة الثانية', 'شخصية تشيبي أنثى بشعر مموج وعين يمنى، تتحرك بحركة تنفس خفيفة. ست سمات (القوة، السرعة، التحمل، التركيز، الانضباط، الذكاء والتعلم) ترفع المستوى الكلي، وتصنيفه (عادي، نادر، ملحمي، أسطوري، خرافي)، مع متجر ملابس يظهر أثره على الشخصية.'],
@@ -1780,6 +2006,8 @@ const GUIDE = [
     ['نقاط التطوير', '<p>كل مهمة تمنحك عند إنجازها من <b>١ إلى ٣ نقاط تطوير</b> (أنتِ تحددين القيمة). هذه النقاط ترفعين بها سمات شخصيتك. اجعلي المهام الأصعب أعلى نقاطًا.</p>'],
     ['المهمة «المسؤولة عن الاستمرارية»', '<p>لا تُحسب كل مهمة في الشعلة. عند إنشاء المهمة تختارين هل هي مسؤولة عن الاستمرارية أم لا. يُسمح باستثناء <b>٣٠٪ فقط</b> من مهامك الرئيسية، حتى لا يتأثر يومك في أوقات الانشغال.</p>'],
     ['كم عملة أكسب؟', '<ul><li>مهمة رئيسية مكتملة: <b>٢ ⃁</b></li><li>مهمة جانبية مكتملة: <b>٤ ⃁</b></li><li>مرة أسبوعية: <b>٢ ⃁</b></li><li>إكمال كل الرئيسية في اليوم: مكافأة إضافية (٤، أو ٦، أو ١٠ حسب عددها)</li><li>إكمال كل الجانبية: مكافأة إضافية (٦ أو ١٠)</li></ul>'],
+    ['عادة أم مهمة مؤقتة؟', '<p>عند إضافة مهمة تختارين: <b>عادة دائمة</b> تتكرر في أيامك وتدخل في الاستمرارية، أو <b>مهمة مؤقتة</b> لا تتكرر (مثل «حجز موعد» أو «شراء هدية»). تحدّدين متى تبدأ وكم يومًا تبقى، وتجدينها في تبويب «مهامي المؤقتة» أعلى صفحة المهام. تختفي فور إنجازها، ولا تؤثر على الاستمرارية، ومكافأتها <b>٢ ⃁</b>.</p>'],
+    ['أهدافي', '<p>من القائمة الجانبية افتحي «أهدافي». اكتبي هدفًا مثل «إنهاء كتاب»، واربطيه بعادة (مثلًا قراءة ورد) لعدد أيام تحدّدينه، أو اكتبي له خطوات تنجزينها واحدة واحدة. عند اكتماله بالكامل تنالين مكافأة ثابتة حسب حجمه: صغير ٣٠ ⃁، متوسط ٨٠ ⃁، كبير ٢٠٠ ⃁. يمكن حذف الهدف غير المكتمل، أما المكتمل فيبقى في سجلك.</p>'],
     ['نسيتُ تسجيل مهمة في يوم سابق', '<p>يمكنك فتح اليوم السابق من أسهم اليوم في أعلى صفحة المهام. أي تعديل يمرّ بتأكيد واضح، ويُعاد حساب الاستمرارية والعملات تلقائيًا، ويُسجَّل في سجل العمليات. لا تتكرر المكافآت.</p>'],
   ] },
   { id: 'flame', ic: 'flame', t: 'الاستمرارية والشعلة', intro: 'الشعلة هي قلب التطبيق. تُضاء بإنجازك وتحميها التجميدات والأيام الهادئة.', items: [
@@ -1818,14 +2046,14 @@ const GUIDE = [
   { id: 'plants', ic: 'plant', t: 'النباتات والبيوت الزجاجية', intro: 'حديقتك الخاصة التي تنمو بإنجازك.', items: [
     ['كيف تنمو النباتات؟', '<p>كل نباتاتك تنمو معًا. يُحسب <b>يوم نمو</b> كلما أنجزتِ جميع مهامك الرئيسية المسؤولة عن الاستمرارية. تكتمل النبتة بعد <b>٣٠ يوم نمو</b> وتمرّ بمراحل: بذرة، ثم برعم، ثم نبتة صغيرة، ثم نامية، ثم مكتملة ومزهرة.</p>'],
     ['السقاية', '<p>أداة السقاية في صفحة البيت الزجاجي تمرّ على كل نباتاتك دفعة واحدة وتسقيها عن الأيام الناجحة.</p>'],
-    ['شراء الشتلات', '<p>في المتجر ١٠٢ نبتة في خمس فئات ندرة: عادي، نادر، ملحمي، أسطوري، خرافي. كلما ندرت زاد سعرها وزادت مكافأة الحصول عليها. وتأتيك مكافأة أخرى عند اكتمال نموها.</p>'],
+    ['شراء الشتلات', '<p>في المتجر أكثر من ١٠٠ نبتة في فئات ندرة من عادي إلى خرافي، وخمس نبتات فاخرة بأسعار عالية في المستويات الخرافية العليا (ومنها شجرتان تُزرعان بجانب البيت الزجاجي وتنموان سنة كاملة عبر ١٥ طورًا). اضغطي على أي نبتة لتري تفاصيلها. كلما ندرت زاد سعرها وزادت مكافأة الحصول عليها. وتأتيك مكافأة أخرى عند اكتمال نموها.</p>'],
     ['تطوير النبتة', '<p>بعد اكتمال النبتة تستطيعين <b>ترقيتها</b> لمستوى أعلى فيتغير أصيصها وتتألق بتأثيرات جميلة. الترقية بـ١٠٠ ⃁ للمستويات الأولى ثم ٢٥٠ و٤٠٠ و٧٠٠ للمستويات الثلاثة العليا. الترقية فقط للأعلى، لا تنزل.</p>'],
     ['النباتات الخاصة بالأوسمة', '<p>ثلاث نباتات مميزة جدًا، <b>لا تُباع في المتجر أبدًا</b>، وتحصلين عليها فقط من الإنجازات الصعبة: «شجرة الهيمنة الذهبية» (خرافي مهيمن)، و«سوسنة الأفق المتسامية» (خرافي متسامٍ)، و«وردة الأبد المطلقة» (خرافي مطلق). تُدار كبقية النباتات.</p>'],
     ['البيوت الزجاجية', '<p>١٥ بيتًا بسعات وأسعار مختلفة، من «بيت الشرفة» المجاني الصغير إلى «القبة الملكية». يمكنك امتلاك عدة بيوت ونقل نباتاتك بينها. كلما صغرت السعة صغر البيت.</p>'],
     ['إذا تجمّد كل شيء', '<p>عند التجمد الكامل تبدأ أوراق النباتات تتحول للبني وتسقط تدريجيًا. لا تموت النبتة أبدًا، وتعود أوراقها بعد عودتك إلى الاستمرارية.</p>'],
   ] },
   { id: 'achv', ic: 'trophy', t: 'الإنجازات والأوسمة', intro: 'رحلتك مكتوبة هنا على شكل أوسمة.', items: [
-    ['كيف تعمل؟', '<p>هناك <b>١٠٥ إنجازات</b> في ثلاثة تبويبات: الاستمرارية والإنجاز، وتطوير الشخصية، والنباتات. لكل إنجاز أيقونة مختلفة ومهمة واضحة ومستوى صعوبة من خمسة. تفتح تلقائيًا وتحصلين على مكافأة عملات (تصل إلى ٢٥٠ ⃁).</p>'],
+    ['كيف تعمل؟', '<p>هناك <b>١٣٢ إنجازًا</b> في أربعة تبويبات: الاستمرارية والإنجاز، وتطوير الشخصية، والنباتات، ومزايا التطبيق (الأهداف والمهام المؤقتة والجدولة والأشجار وغيرها). لكل إنجاز أيقونة مختلفة ومهمة واضحة ومستوى صعوبة من خمسة. تفتح تلقائيًا وتحصلين على مكافأة عملات (تصل إلى ٢٥٠ ⃁).</p>'],
     ['الإنجازات الثلاثة الكبرى', '<ul><li><b>٥٠٠ يوم استمرارية متتالٍ:</b> نبتة خرافية مهيمنة.</li><li><b>٧٠٠ يوم ناجح:</b> نبتة خرافية متسامية.</li><li><b>١٠٠٠ يوم استمرارية متتالٍ:</b> نبتة خرافية مطلقة.</li></ul>'],
     ['أين أرى ما تبقّى؟', '<p>القائمة الجانبية ← الإنجازات. المفتوحة بألوانها، والمغلقة باهتة مع وصف ما يلزم لفتحها.</p>'],
   ] },
@@ -1865,8 +2093,8 @@ const GMETA = {
   coins: { c: '#D9A21B', hook: 'عملاتك تشتري الجمال لا العقاب', facts: ['لا خصم أبدًا', 'سلفة بلا فوائد'], quick: ['تكسبين من كل إنجاز', 'تنفقينها في السوق', 'لا تُخصم منك أبدًا'], art: () => '<div class="gbig">' + ico('store') + '</div>', tour: 'market' },
   person: { c: '#8B5CF6', hook: 'شخصية صغيرة تكبر معك', facts: ['٣ سمات', 'مستويات'], quick: ['كل مهمة تمنح نقاط تطوير', 'السمات ترفع مستواك', 'المستوى يغيّر لقبك'], art: () => charSVG(), tour: 'person' },
   outfits: { c: '#E0529C', hook: '١٥ زيًّا تنتظرك', facts: ['١٥ زيًّا', 'أزياء نادرة'], quick: ['تشترين الأزياء بالعملات', 'تلبسينها بضغطة', 'الأندر تُفتح بالإنجازات'], art: () => charSVG('n3'), tour: 'person' },
-  plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١٠٥ نباتات', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
-  achv: { c: '#D9822B', hook: '١٠٥ وسامًا بانتظارك', facts: ['١٠٥ وسامًا', '٣ تبويبات'], quick: ['كل وسام له شرط واضح', 'يمنحك عملات', 'الأندر يعطيك نباتات خرافية'], art: () => { const a = (R && R.ach && R.ach[0]) || { rar: 3, g: 'star', mod: 'plain', t: 1 }; return AchArt.icon(a, { noNum: true }); }, tour: 'achv' },
+  plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١٠٧ نباتات', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
+  achv: { c: '#D9822B', hook: '١٣٢ وسامًا بانتظارك', facts: ['١٣٢ وسامًا', '٤ تبويبات'], quick: ['كل وسام له شرط واضح', 'يمنحك عملات', 'الأندر يعطيك نباتات خرافية'], art: () => { const a = (R && R.ach && R.ach[0]) || { rar: 3, g: 'star', mod: 'plain', t: 1 }; return AchArt.icon(a, { noNum: true }); }, tour: 'achv' },
   diary: { c: '#5B7CFA', hook: 'مساحتك الخاصة جدًّا', facts: ['خاصة', 'بمشاعر', 'بنسخة احتياطية'], quick: ['اكتبي بحرية', 'اختاري وجهًا لمزاجك', 'لا يراها أحد'], art: () => moodSVG('hap', 96), tour: 'diary' },
   hope: { c: '#2F4FAE', hook: 'كوكبات تضيء ليلك', facts: ['٣٠ نجمة لكل كوكبة'], quick: ['كل يوم نجمة', 'الكوكبة تكتمل بـ٣٠', 'الانتكاس لا يطفئها'], art: () => '<div class="gbig sky">' + ico('star') + '</div>', tour: 'hope' },
   data: { c: '#0E8A8A', hook: 'بياناتك ملكك أنتِ', facts: ['نسخة احتياطية', 'رحلتي'], quick: ['كل شيء محفوظ على جهازك', 'خذي نسخة احتياطية أسبوعيًا', 'رحلتي تعرض إنجازاتك'], art: () => '<div class="gbig">' + ico('save') + '</div>', tour: 'backup' },
@@ -1898,10 +2126,22 @@ function viewGuide() {
   return h;
 }
 
-const SIDE = [['market', 'السوق', 'store'], ['achv', 'الإنجازات', 'trophy'], ['journey', 'رحلتي', 'route'], ['backup', 'النسخ الاحتياطي', 'save'], ['guide', 'دليل التطبيق', 'book'], ['settings', 'الإعدادات', 'gear']];
+const SIDE = [['market', 'السوق', 'store'], ['achv', 'الإنجازات', 'trophy'], ['journey', 'رحلتي', 'route'], ['goals', 'أهدافي', 'flag'], ['guide', 'دليل التطبيق', 'book'], ['backup', 'النسخ الاحتياطي', 'save'], ['settings', 'الإعدادات', 'gear']];
 
 let saveTimer = null;
 function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(() => Store.save(ST), 60); if (typeof cloudSchedule === 'function') cloudSchedule(); }
+function bellUnread() { const seen = (ST.settings && ST.settings.bellSeen) || 0; return (ST.activity || []).filter((a) => a.t > seen).length; }
+function drawBell() { const c = document.getElementById('topchip'); if (!c) return; const n = ST ? bellUnread() : 0; c.innerHTML = '<button class="bellbtn" data-act="bell" aria-label="سجل النشاط"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>' + (n ? '<span class="bdot num">' + (n > 99 ? '٩٩+' : N(n)) + '</span>' : '') + '</button>'; }
+function timeLabel(t) { const d = new Date(t); let h = d.getHours(); const m = d.getMinutes(); const ap = h >= 12 ? 'م' : 'ص'; h = h % 12 || 12; return N(h) + ':' + N(String(m).padStart(2, '0')) + ' ' + ap; }
+function openBell() {
+  const list = ST.activity || []; const seen = (ST.settings && ST.settings.bellSeen) || 0;
+  let body = '';
+  if (!list.length) body = '<p class="muted">لا شيء بعد. هنا يظهر كل ما يحدث: التذكيرات، والمكافآت، والمهام المحذوفة، والإنجازات.</p>';
+  else { let cur = ''; body = '<ul class="actlist">'; list.slice(0, 150).forEach((a) => { const d = new Date(a.t); const ds = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); if (ds !== cur) { cur = ds; body += '<li class="dh" style="background:none;padding:2px 4px">' + (ds === TODAY() ? 'اليوم' : dlabel(ds)) + '</li>'; } body += '<li class="' + (a.t > seen ? 'new' : '') + '"><span class="tm num">' + timeLabel(a.t) + '</span><span>' + esc(a.x) + '</span></li>'; }); body += '</ul>'; }
+  const m = modal('<h2>سجل النشاط</h2>' + body + '<div class="actions" style="margin-top:12px"><button class="btn" data-close>تم</button>' + (list.length ? '<button class="btn soft" data-clr>مسح السجل</button>' : '') + '</div>', { noFocus: true });
+  ST.settings.bellSeen = Date.now(); persist(); drawBell();
+  const c = m.el.querySelector('[data-clr]'); if (c) c.addEventListener('click', async () => { m.close(); const ok = await confirmDlg({ title: 'مسح السجل؟', body: '<p>يُمسح سجل النشاط فقط، ولا تتأثر مهامك ولا عملاتك.</p>', ok: 'مسح', danger: true }); if (ok) { ST.activity = []; persist(); drawBell(); } });
+}
 function recompute() { R = E.replay(ST, TODAY()); }
 
 function act(mut, o) {
@@ -1913,18 +2153,19 @@ function act(mut, o) {
 }
 
 function announce(before, after, o) {
+  const bt = ++NBATCH;
   const d = E.ledgerDiff(before, after);
   let bal = before.balance;
   const list = d.added.concat(d.changed.map((c) => ({ amount: c.delta, reason: 'تسوية: ' + c.reason }))).concat(d.removed.map((e) => ({ amount: -e.amount, reason: 'سُحبت مكافأة: ' + e.reason })));
-  list.forEach((e, i) => { bal += e.amount; if (!(e.key && String(e.key).indexOf('ach:') === 0)) setTimeout(() => toast(e, bal), i * 220); });
+  list.forEach((e, i) => { bal += e.amount; if (!(e.key && String(e.key).indexOf('ach:') === 0)) setTimeout(() => toast(Object.assign({ batch: bt, quiet: o.quiet ? 1 : 0 }, e), bal), i * 220); });
   const pd = E.ptsDiff(before, after); const pn = pd.added.reduce((a, e) => a + e.amount, 0) - pd.removed.reduce((a, e) => a + e.amount, 0);
   if (pn !== 0 && !o.noPts) {
     const why = pd.added.length === 1 && !pd.removed.length ? pd.added[0].reason : (pn > 0 ? 'من إنجاز مهامك' : 'تسوية بعد تعديل يوم سابق');
-    setTimeout(() => toast({ html: '<b class="num">' + (pn > 0 ? '+' : '−') + N(Math.abs(pn)) + '</b> نقطة تطوير · ' + esc(why) + '<div class="bal">المتاح للتوزيع: ' + N(after.ptsAvail) + '</div>' }), list.length * 220 + 100);
+    setTimeout(() => toast({ batch: bt, quiet: o.quiet, html: '<b class="num">' + (pn > 0 ? '+' : '−') + N(Math.abs(pn)) + '</b> نقطة تطوير · ' + esc(why) + '<div class="bal">المتاح للتوزيع: ' + N(after.ptsAvail) + '</div>' }), list.length * 220 + 100);
   }
-  if (after.level > before.level) setTimeout(() => toast({ text: 'ارتفع مستواك الكلي إلى ' + N(after.level) + ' وصرتِ «' + after.levelName + '»', amount: 0 }), list.length * 220 + 300);
+  if (after.level > before.level) setTimeout(() => toast({ batch: bt, quiet: o.quiet, text: 'ارتفع مستواك الكلي إلى ' + N(after.level) + ' وصرتِ «' + after.levelName + '»', amount: 0 }), list.length * 220 + 300);
   const ev = (a) => a.events.filter((x) => x.type === 'freezeEarned').length;
-  if (ev(after) > ev(before)) setTimeout(() => toast({ text: 'كسبتِ تجميدة جديدة لإكمالك أيامًا متتالية. رصيد التجميدات: ' + N(after.freezes), amount: 0 }), list.length * 220 + 200);
+  if (ev(after) > ev(before)) setTimeout(() => toast({ batch: bt, quiet: o.quiet, text: 'كسبتِ تجميدة جديدة لإكمالك أيامًا متتالية. رصيد التجميدات: ' + N(after.freezes), amount: 0 }), list.length * 220 + 200);
   checkPlantDone(); checkAchSeen(); cheer(before, after); checkMilestones(after);
   if (o.burst) burst(o.burst.x, o.burst.y, 26);
   const today = TODAY();
@@ -1954,13 +2195,45 @@ function checkMilestones(r) {
 }
 
 /* ---------- إشعارات ---------- */
-function toast(e, bal) {
-  const box = $('#toasts'); const el = document.createElement('div'); el.className = 'toast' + (e.err ? ' err' : '');
-  if (e.html) el.innerHTML = e.html;
-  else if (e.err || e.text) el.innerHTML = esc(e.text);
-  else el.innerHTML = '<b class="num">' + (e.amount >= 0 ? '+' : '−') + N(Math.abs(e.amount)) + '</b> ' + sar + ' ' + esc(e.reason) + '<div class="bal">الرصيد الآن: ' + N(bal) + '</div>';
+function softToast(e) {
+  const box = $('#toasts'); const el = document.createElement('div'); el.className = 'toast err';
+  el.innerHTML = esc(e.text);
   box.appendChild(el); while (box.children.length > 6) box.firstChild.remove();
-  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, e.err ? 5200 : 4200);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, 5200);
+}
+// سجل النشاط (الجرس)
+function logAct(text) {
+  if (!ST) return; if (!Array.isArray(ST.activity)) ST.activity = [];
+  ST.activity.unshift({ t: Date.now(), x: String(text).slice(0, 240) }); if (ST.activity.length > 400) ST.activity.length = 400;
+  persist(); drawBell();
+}
+// طابور الإشعارات: كل إشعار يظهر في وسط الشاشة ولا يختفي إلا بالضغط على «موافق»
+const NQ = []; let NSHOW = false, NBATCH = 0; const NCANCEL = new Set();
+function toast(e, bal) {
+  if (e.err) return softToast(e);
+  if (e.batch && NCANCEL.has(e.batch)) return;
+  let html, log;
+  if (e.html) { html = e.html; }
+  else if (e.text) { html = esc(e.text); log = e.text; }
+  else { html = '<b class="num">' + (e.amount >= 0 ? '+' : '−') + N(Math.abs(e.amount)) + '</b> ' + sar + ' ' + esc(e.reason) + '<div class="bal">الرصيد الآن: ' + N(bal) + '</div>'; log = (e.amount >= 0 ? '+' : '−') + N(Math.abs(e.amount)) + ' ⃁ ' + e.reason; }
+  if (!log) { const t = document.createElement('div'); t.innerHTML = html; t.querySelectorAll('.bal').forEach((x) => x.remove()); t.querySelectorAll('.sar').forEach((x) => { x.textContent = '⃁'; }); t.querySelectorAll('svg').forEach((x) => x.remove()); log = t.textContent.replace(/\s+/g, ' ').trim(); }
+  logAct(log);
+  if (e.quiet) return;
+  let undo = null;
+  if (e.key && e.amount > 0 && /^(task|wk):/.test(String(e.key))) { const p = String(e.key).split(':'); if (p[2] === TODAY() && E.countOf(ST, p[1], p[2]) > 0) undo = { id: p[1], D: p[2] }; }
+  NQ.push({ html, undo, batch: e.batch }); pumpNotice();
+}
+function pumpNotice() {
+  if (NSHOW || !NQ.length) return;
+  const n = NQ.shift(); NSHOW = true;
+  const sc = document.createElement('div'); sc.className = 'nscrim';
+  sc.innerHTML = '<div class="ncard" role="alertdialog" aria-modal="true"><div class="nbody">' + n.html + '</div>' + (NQ.length ? '<div class="small muted nmore">بعده ' + N(NQ.length) + (NQ.length === 1 ? ' إشعار' : ' إشعارات') + '</div>' : '') + '<div class="actions"><button class="btn" data-nok>موافق</button>' + (n.undo ? '<button class="btn soft" data-nundo>سحب المكافأة</button>' : '') + '</div></div>';
+  document.body.appendChild(sc);
+  const ok = sc.querySelector('[data-nok]'); setTimeout(() => ok.focus({ preventScroll: true }), 30);
+  const done = () => { sc.remove(); NSHOW = false; pumpNotice(); };
+  ok.addEventListener('click', done);
+  const u = sc.querySelector('[data-nundo]');
+  if (u) u.addEventListener('click', () => { sc.remove(); NSHOW = false; if (n.batch) { NCANCEL.add(n.batch); for (let i = NQ.length - 1; i >= 0; i--) if (NQ[i].batch === n.batch) NQ.splice(i, 1); } act((x) => E.setCount(x, n.undo.id, n.undo.D, 0), { quiet: true }); logAct('سحبتِ مكافأة مهمة، وعادت المهمة غير منجزة'); pumpNotice(); });
 }
 const err = (t) => toast({ err: 1, text: t });
 
@@ -1971,10 +2244,18 @@ function modal(html, o) {
   sc.innerHTML = '<div class="sheet" role="dialog" aria-modal="true">' + html + '</div>';
   root.appendChild(sc);
   const close = () => { sc.remove(); if (o.onClose) o.onClose(); };
-  sc.addEventListener('click', (e) => { if (e.target === sc && !o.sticky) close(); });
+  const hasForm = !!sc.querySelector('input:not([type=hidden]),textarea,select');
+  sc.addEventListener('click', (e) => { if (e.target === sc && !o.sticky && !hasForm) close(); });
   sc.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', close));
   const f = sc.querySelector('input,textarea,button.btn'); if (f && !o.noFocus) setTimeout(() => f.focus({ preventScroll: true }), 30);
   return { el: sc, close };
+}
+function pickHouse(s, opts) {
+  return new Promise((res) => {
+    const m = modal('<h2>أين تزرعين «' + esc(s.name) + '»؟</h2><p class="muted small">تُزرع الشجرة بجانب البيت الزجاجي الذي تختارينه.</p><div class="stack" style="gap:8px">' + opts.map((x) => '<button class="btn soft" data-pickh="' + x.id + '">' + esc(x.name) + ' (' + N((x.trees || []).length) + '/٢)</button>').join('') + '</div><div class="actions" style="margin-top:12px"><button class="btn ghost" data-cancel>إلغاء</button></div>');
+    m.el.querySelectorAll('[data-pickh]').forEach((b) => b.addEventListener('click', () => { m.el.remove(); res(b.dataset.pickh); }));
+    m.el.querySelector('[data-cancel]').addEventListener('click', () => { m.el.remove(); res(null); });
+  });
 }
 function confirmDlg(o) {
   return new Promise((res) => {
@@ -2011,7 +2292,7 @@ function tickFx() {
 }
 const MSGS = ['أحسنتِ! شعلتك متوهجة اليوم.', 'يومٌ كامل بلا نقص. استمري على هذا الإيقاع.', 'أنجزتِ كل ما يحمي الاستمرارية اليوم. ما شاء الله.', 'خطوة بعد خطوة، والشعلة تكبر.'];
 function celebrate(kind) {
-  const restored = kind === 'restored';
+  const restored = kind === 'restored'; logAct(restored ? 'تمت استعادة الاستمرارية' : 'اكتمل يومك بنجاح');
   const m = modal('<div class="cele"><div class="flamebox">' + flameSVG(restored ? 'small' : 'blaze') + '</div><h2>' + (restored ? 'رجعتي الاستمرارية حقك!' : 'اكتمل يومك!') + '</h2><p class="muted">' + (restored ? 'عادت الشعلة صغيرة، وعادت الاستمرارية التي كنتِ وصلتِ إليها (' + N(R.streak) + ' يومًا). كبّريها بإنجاز مهامك.' : MSGS[(Math.random() * MSGS.length) | 0] + ' الاستمرارية الآن ' + N(R.streak) + ' يومًا.') + '</p><button class="btn" data-close>تمام</button></div>', { sticky: false });
   burst(innerWidth / 2, innerHeight / 3, 120); burst(0, 0, 90, true);
 }
@@ -2021,13 +2302,14 @@ function setBodyState() {
   const b = document.body; b.classList.toggle('is-frozen', R.flameKind === 'frozen'); b.classList.toggle('is-out', R.flameKind === 'out'); b.classList.toggle('is-lantern', R.flameKind === 'lantern');
 }
 function renderTop() {
-  $('#topchip').innerHTML = '<span class="chip num" title="الاستمرارية">' + flameSVG(R.flameKind === 'blaze' ? 'lit2' : R.flameKind === 'lantern' ? 'lit1' : R.flameKind) + N(R.streak) + '</span>';
+  drawBell();
 }
 function renderNav() {
   $('#nav').innerHTML = NAV.map((n) => '<button data-nav="' + n[0] + '" class="' + (n[3] ? 'soon' : '') + '" ' + (VIEW === n[0] ? 'aria-current="page"' : '') + '>' + ico(n[2]) + '<span>' + n[1] + '</span></button>').join('');
 }
-const PGHEAD = { streak: ['الاستمرارية', 'شعلتك وأيامك ونجاحك'], plants: ['البيت الزجاجي', 'نباتاتك تنمو معك بلا استعجال'], person: ['الشخصية', 'ملامحك وسماتك وأزياؤك'], market: ['المتجر', 'اختاري ما يستحق عملاتك'], achv: ['الإنجازات', 'رحلتك بأرقامها'], settings: ['الإعدادات', 'كل شيء على ذوقك'], journey: ['رحلتي', 'كل لحظة جميلة مررتِ بها، في مكان واحد'], backup: ['النسخ الاحتياطي', 'طوق نجاة بياناتك'], guide: ['دليل التطبيق', 'كل شيء مشروح بأسلوب بسيط، قسمًا قسمًا'], diary: ['اليوميات', 'مساحتك لتكتبي بلا حكم ولا استعجال'], hope: ['أفق الأمل', 'كل يوم نظيف نجمة في سمائك'] };
-function applyTheme() { const t = (ST && ST.settings && ST.settings.theme) || 'auto'; const r = document.documentElement; if (t === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', t); }
+const PGHEAD = { streak: ['الاستمرارية', 'شعلتك وأيامك ونجاحك'], plants: ['البيت الزجاجي', 'نباتاتك تنمو معك بلا استعجال'], person: ['الشخصية', 'ملامحك وسماتك وأزياؤك'], market: ['المتجر', 'اختاري ما يستحق عملاتك'], achv: ['الإنجازات', 'رحلتك بأرقامها'], settings: ['الإعدادات', 'كل شيء على ذوقك'], goals: ['أهدافي', 'أهداف تكتبينها ومكافأة عند اكتمالها'], journey: ['رحلتي', 'كل لحظة جميلة مررتِ بها، في مكان واحد'], backup: ['النسخ الاحتياطي', 'طوق نجاة بياناتك'], guide: ['دليل التطبيق', 'كل شيء مشروح بأسلوب بسيط، قسمًا قسمًا'], diary: ['اليوميات', 'مساحتك لتكتبي بلا حكم ولا استعجال'], hope: ['أفق الأمل', 'كل يوم نظيف نجمة في سمائك'] };
+const PALS = [['green', 'أخضر (الأصلي)', '#2C6A49'], ['rose', 'وردي', '#B04A6A'], ['ocean', 'أزرق', '#1F6F9A'], ['lav', 'بنفسجي', '#6B4FA8'], ['sand', 'رملي محايد', '#5C5648'], ['amber', 'عنبري', '#B5651D']];
+function applyTheme() { { const p = (ST && ST.settings && ST.settings.palette) || 'green'; if (p === 'green') document.documentElement.removeAttribute('data-pal'); else document.documentElement.setAttribute('data-pal', p); }  const t = (ST && ST.settings && ST.settings.theme) || 'auto'; const r = document.documentElement; if (t === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', t); }
 function render() {
   const y = window.scrollY;
   setBodyState(); renderTop(); renderNav();
@@ -2044,6 +2326,7 @@ function render() {
   else if (VIEW === 'hope') html = viewHope();
   else if (VIEW === 'guide') html = viewGuide();
   else if (VIEW === 'journey') html = viewJourney();
+  else if (VIEW === 'goals') html = viewGoals();
   else if (VIEW === 'backup') html = viewBackup();
   else html = viewSoon(VIEW);
   if (TIPV !== VIEW) { TIPV = VIEW; TIPT = pickTip(VIEW); }
@@ -2062,7 +2345,7 @@ function openDrawer() {
   closeDrawer();
   const sc = document.createElement('div'); sc.className = 'drawer-scrim';
   const d = document.createElement('aside'); d.className = 'drawer'; d.setAttribute('aria-label', 'القائمة الجانبية');
-  d.innerHTML = '<h2 style="margin:0 0 8px">المزيد</h2>' + SIDE.map((n) => '<button class="di" data-nav="' + n[0] + '">' + ico(n[2]) + '<span>' + n[1] + '</span></button>').join('') + '<button class="di" data-act="tourStart">' + ico('star') + '<span>جولة تفاعلية</span></button>';
+  d.innerHTML = '<h2 style="margin:0 0 8px">المزيد</h2>' + SIDE.map((n) => '<button class="di" data-nav="' + n[0] + '">' + ico(n[2]) + '<span>' + n[1] + '</span></button>').join('');
   document.body.appendChild(sc); document.body.appendChild(d);
 }
 function closeDrawer() { document.querySelectorAll('.drawer,.drawer-scrim').forEach((x) => x.remove()); }
@@ -2437,11 +2720,13 @@ function taskRow(it, D, editable, isToday) {
   const t = it.task; const v = it.v; const done = it.complete;
   const dots = it.kind === 'weeklyOpt' ? Array.from({ length: it.weekTarget }, (_, i) => '<i class="' + (i < it.weekDone ? 'on' : '') + '"></i>').join('') : (it.target > 1 ? Array.from({ length: Math.min(it.target, 14) }, (_, i) => '<i class="' + (i < it.done ? 'on' : '') + '"></i>').join('') : '');
   let prog = '';
-  if (it.kind === 'weeklyOpt') prog = '<span class="pill num">' + N(it.weekDone) + ' من ' + N(it.weekTarget) + ' هذا الأسبوع</span>';
+  if (it.kind === 'weeklyOpt') prog = '<span class="pill num">' + N(it.weekDone) + ' من ' + N(it.weekTarget) + ' ' + (it.v.weeklyMode === 'mcount' ? 'هذا الشهر' : 'هذا الأسبوع') + '</span>';
   else if (it.target > 1) prog = '<span class="pill num">' + N(Math.min(it.done, it.target)) + ' من ' + N(it.target) + '</span>';
   const tags = [];
   if (it.kind === 'side') tags.push('<span class="pill warn">إضافية</span>');
+  if (it.kind === 'once') { const left = E.diff(TODAY(), t.until || t.once); tags.push('<span class="pill ice">' + (left <= 0 ? 'آخر يوم' : 'باقي ' + N(left) + (left === 1 ? ' يوم' : ' أيام')) + '</span>'); }
   if (it.v.kind === 'weekly') tags.push('<span class="pill ice">أسبوعية</span>');
+  { const sx = E.schedText(it.v); if (sx) tags.push('<span class="pill ice">' + esc(sx) + '</span>'); }
   if (it.converted) tags.push('<span class="pill warn">صارت رئيسية اليوم</span>');
   if (it.kind === 'main' && !v.streak) tags.push('<span class="pill">لا تؤثر على الاستمرارية</span>');
   if (it.kind === 'main' && it.required === false) tags.push('<span class="pill">خارج بطاقة «أقل ما يمكن»</span>');
@@ -2456,10 +2741,28 @@ function taskRow(it, D, editable, isToday) {
     (isToday || D < TODAY() ? '' : '') + '<button class="edit" data-act="editTask" data-id="' + t.id + '" aria-label="تعديل المهمة">' + ico('edit') + '</button></div></li>';
 }
 
+function tempView() {
+  const today = TODAY(); const ix = R.ix;
+  const rows = ST.tasks.filter((t) => t.once && !t.deletedDate).map((t) => Object.assign({ t }, E.onceStatus(ST, t, today, ix)));
+  const nm = (t) => (E.ver(t, t.once) || t.versions[0]).name;
+  const dl = (u) => dlabel(u);
+  const simple = (r, note) => '<li class="task ' + (r.state === 'done' ? 'done' : '') + '"><div class="emo" style="background:' + esc(r.t.color) + '">' + esc(r.t.emoji) + '</div><div class="tbody"><div class="tname">' + esc(nm(r.t)) + '</div><div class="tmeta"><span class="pill">' + note + '</span></div></div><div class="acts"><button class="edit" data-act="editTask" data-id="' + r.t.id + '" aria-label="تعديل المهمة">' + ico('edit') + '</button></div></li>';
+  let h = '<div class="card stack"><p class="muted small" style="margin:0">مهام لا تتكرر. تحدّدين متى تبدأ وكم يومًا تبقى، وتختفي من القائمة فور إنجازها. لا تؤثر على الاستمرارية.</p><button class="btn" data-act="addTask">+ مهمة مؤقتة</button></div>';
+  const act1 = rows.filter((r) => r.state === 'active'); const up = rows.filter((r) => r.state === 'upcoming'); const ex = rows.filter((r) => r.state === 'expired'); const dn = rows.filter((r) => r.state === 'done').sort((a, b) => (a.fin < b.fin ? 1 : -1));
+  if (!rows.length) h += '<div class="card"><p class="muted" style="margin:0">لا مهام مؤقتة بعد. أضيفي مثل «حجز موعد» أو «شراء هدية» وحدّدي مدة بقائها.</p></div>';
+  if (act1.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">الآن</h3><ul class="tasklist">' + act1.map((r) => { const it = R.todayModel.items.find((i) => i.task.id === r.t.id); return it ? taskRow(it, today, true, true) : ''; }).join('') + '</ul></div>';
+  if (up.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">قادمة</h3><ul class="tasklist">' + up.map((r) => simple(r, 'تبدأ ' + dl(r.t.once))).join('') + '</ul></div>';
+  if (ex.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">انتهت مدتها</h3><ul class="tasklist">' + ex.map((r) => simple(r, 'انتهت ' + dl(r.until) + ' · عدّلي المدة لتعود')).join('') + '</ul></div>';
+  if (dn.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">أنجزتِها</h3><ul class="tasklist">' + dn.slice(0, 10).map((r) => simple(r, '✓ ' + dl(r.fin))).join('') + '</ul></div>';
+  return h;
+}
 function viewTasks() {
   const today = TODAY(); const D = VIEWDAY || today; const isToday = D === today; const past = D < today; const future = D > today;
   const m = isToday ? R.todayModel : E.dayModel(ST, D, R.ix);
-  let out = '<div class="daynav"><button class="iconbtn" data-act="prevDay" aria-label="اليوم السابق">' + ico('right') + '</button><h2>' + (isToday ? 'اليوم' : dlabel(D)) + '<div class="small muted" style="font-family:var(--font-body);font-weight:400">' + dlabel(D) + '</div></h2>' + (isToday ? '' : '<button class="btn soft" data-act="goToday">اليوم</button>') + '<button class="iconbtn" data-act="nextDay" aria-label="اليوم التالي">' + ico('left') + '</button></div>';
+  const nOnce = ST.tasks.filter((t) => t.once && !t.deletedDate && E.onceStatus(ST, t, today, R.ix).state === 'active').length;
+  const tabs = '<div class="seg tasktabs"><button data-act="ttab" data-v="habits" aria-pressed="' + (TASKTAB === 'habits') + '">عاداتي</button><button data-act="ttab" data-v="temp" aria-pressed="' + (TASKTAB === 'temp') + '">مهامي المؤقتة' + (nOnce ? ' (' + N(nOnce) + ')' : '') + '</button></div>';
+  if (TASKTAB === 'temp') return tabs + tempView();
+  let out = tabs + '<div class="daynav"><button class="iconbtn" data-act="prevDay" aria-label="اليوم السابق">' + ico('right') + '</button><h2>' + (isToday ? 'اليوم' : dlabel(D)) + '<div class="small muted" style="font-family:var(--font-body);font-weight:400">' + dlabel(D) + '</div></h2>' + (isToday ? '' : '<button class="btn soft" data-act="goToday">اليوم</button>') + '<button class="iconbtn" data-act="nextDay" aria-label="اليوم التالي">' + ico('left') + '</button></div>';
 
   if (isToday && R.hidden) return out + hiddenCard() + supportCard(R.flameKind === 'out' ? 'out' : 'frozen', today);
   if (past) out += '<div class="note warn">تعرضين يومًا سابقًا. أي تعديل هنا يمرّ بتأكيد، ويُعاد حساب الاستمرارية والعملات بالقواعد نفسها، ويُسجَّل في سجل التعديلات.</div>';
@@ -2697,7 +3000,7 @@ function openLoan() {
 /* --- النباتات --- */
 const RAR_PILL = ['', 'ice', 'ok', 'warn', 'warn', 'warn', 'warn', 'warn'];
 const heartsHTML = (n) => '<span class="hearts" title="القلوب">' + [0, 1, 2].map((i) => i < n ? '♥' : '<span class="off">♥</span>').join('') + '</span>';
-const plantArt = (p, st) => PlantArt.plantSVG(p.sp, { stage: st == null ? p.stage : st, level: p.level, leaves: p.leaves, fallen: p.fallen });
+const plantArt = (p, st) => PlantArt.plantSVG(p.sp, { stage: st == null ? p.stage : st, level: p.level, leaves: p.leaves, fallen: p.fallen, g: p.g });
 function roomDecor(n) {
   const tier = n >= 12 ? 4 : n >= 8 ? 3 : n >= 4 ? 2 : n >= 1 ? 1 : 0; let g = '';
   g += '<svg viewBox="0 0 60 46" aria-hidden="true"><rect x="4" y="2" width="52" height="40" rx="5" fill="color-mix(in srgb,var(--ice) 25%,var(--surface))" stroke="var(--line)" stroke-width="3"/><path d="M30 2V42M4 22H56" stroke="var(--line)" stroke-width="2.5"/></svg>';
@@ -2707,12 +3010,12 @@ function roomDecor(n) {
   return g;
 }
 function plantTile(p) {
-  return '<button class="ptile" data-act="plantOpen" data-id="' + p.id + '" data-pid="' + p.id + '"><div class="art">' + plantArt(p) + '</div><h4>' + esc(p.name) + '</h4><span class="pill rarbtn ' + RAR_PILL[Math.min(4, p.level)] + '" data-act="rarInfo" data-k="plant" data-r="' + Math.min(4, p.level) + '" role="button" tabindex="0">' + p.levelName + '</span><div class="pbar" aria-label="النمو"><i style="width:' + Math.round(p.count / E.GROW_DAYS * 100) + '%"></i></div><div class="small muted num">' + N(p.count) + ' / ' + N(E.GROW_DAYS) + ' يومًا · ' + p.stageName + '</div><div>' + heartsHTML(p.hearts) + '</div>' + (p.fallen ? '<div class="small muted">أوراق ساقطة: <span class="num">' + N(p.fallen) + '</span></div>' : '') + (p.complete ? '<div><span class="pill ok">اكتمل النمو</span></div>' : '') + '</button>';
+  return '<button class="ptile" data-act="plantOpen" data-id="' + p.id + '" data-pid="' + p.id + '"><div class="art">' + plantArt(p) + '</div><h4>' + esc(p.name) + '</h4><span class="pill rarbtn ' + RAR_PILL[Math.min(4, p.level)] + '" data-act="rarInfo" data-k="plant" data-r="' + Math.min(4, p.level) + '" role="button" tabindex="0">' + p.levelName + '</span><div class="pbar" aria-label="النمو"><i style="width:' + Math.round(p.count / p.grow * 100) + '%"></i></div><div class="small muted num">' + N(p.count) + ' / ' + N(p.grow) + ' يومًا · ' + p.stageName + '</div><div>' + heartsHTML(p.hearts) + '</div>' + (p.fallen ? '<div class="small muted">أوراق ساقطة: <span class="num">' + N(p.fallen) + '</span></div>' : '') + (p.complete ? '<div><span class="pill ok">اكتمل النمو</span></div>' : '') + (p.tree ? '<div class="small muted">شجرة بجانب البيت</div>' : p.slots > 1 ? '<div class="small muted">تشغل ' + N(p.slots) + ' أماكن</div>' : '') + '</button>';
 }
 function houseView(H) {
-  const ps = H.plants.map((id) => R.plants.find((p) => p.id === id)).filter(Boolean);
-  const art = HouseArt.houseSVG(H.id, { cap: H.cap, plants: ps.map((p) => ({ id: p.id, sp: p.sp, stage: p.stage, level: p.level, leaves: p.leaves, fallen: p.fallen })) });
-  return '<div class="card stack hcard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">' + esc(H.name) + ' <span class="pill rarbtn ' + RAR_PILL[H.rar] + '" data-act="rarInfo" data-k="house" data-r="' + H.rar + '" role="button" tabindex="0">' + E.RARITY[H.rar] + '</span></h3><span class="pill ' + (ps.length >= H.cap ? 'warn' : 'ok') + ' num">' + N(ps.length) + ' / ' + N(H.cap) + '</span></div><div class="hart">' + art + '</div>' + (ps.length ? '<div class="pgrid">' + ps.map(plantTile).join('') + '</div>' : '<p class="muted small">هذا البيت فارغ. انقلي إليه نباتات أو اشتري شتلة جديدة.</p>') + '</div>';
+  const ps = H.plants.map((id) => R.plants.find((p) => p.id === id)).filter(Boolean); const ts = (H.trees || []).map((id) => R.plants.find((p) => p.id === id)).filter(Boolean);
+  const art = HouseArt.houseSVG(H.id, { cap: H.cap, plants: ps.map((p) => ({ id: p.id, sp: p.sp, stage: p.stage, level: p.level, leaves: p.leaves, fallen: p.fallen, slots: p.slots })), trees: ts.map((p) => ({ id: p.id, sp: p.sp, stage: p.stage, level: p.level, leaves: p.leaves, g: p.g })) });
+  return '<div class="card stack hcard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">' + esc(H.name) + ' <span class="pill rarbtn ' + RAR_PILL[H.rar] + '" data-act="rarInfo" data-k="house" data-r="' + H.rar + '" role="button" tabindex="0">' + E.RARITY[H.rar] + '</span></h3><span class="pill ' + (H.used >= H.cap ? 'warn' : 'ok') + ' num">' + N(H.used) + ' / ' + N(H.cap) + '</span></div><div class="hart">' + art + '</div>' + (ps.length + ts.length ? '<div class="pgrid">' + ps.concat(ts).map(plantTile).join('') + '</div>' : '<p class="muted small">هذا البيت فارغ. انقلي إليه نباتات أو اشتري شتلة جديدة.</p>') + '</div>';
 }
 function viewPlants() {
   const pend = E.waterPending(ST, R).length; const owned = R.houses.filter((x) => x.owned);
@@ -2727,26 +3030,44 @@ function viewPlants() {
 }
 function viewHouseShop() {
   let h = '<div class="note">لكل بيت شكل وسعة ومستوى ندرة، وكلما كبرت السعة كبر البيت. تستطيعين امتلاك عدة بيوت معًا وتوزيع نباتاتك بينها. البيت الأول مجاني.</div>';
-  h += R.houses.map((x) => '<div class="card stack hcard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">' + esc(x.name) + '</h3><span class="pill rarbtn ' + RAR_PILL[x.rar] + '" data-act="rarInfo" data-k="house" data-r="' + x.rar + '" role="button" tabindex="0">' + E.RARITY[x.rar] + '</span><span class="pill num">تتسع لـ ' + N(x.cap) + '</span></div><div class="hart">' + HouseArt.houseSVG(x.id, { cap: x.cap, plants: [] }) + '</div><div class="row" style="justify-content:space-between">' + (x.price ? money(x.price) : '<span class="pill ok">مجاني</span>') + (x.owned ? '<span class="pill ok">تملكينه</span>' : '<button class="btn" data-act="buyHouse" data-h="' + x.id + '" ' + (R.balance >= x.price ? '' : 'disabled') + '>شراء</button>') + '</div>' + (!x.owned && R.balance < x.price ? '<div class="small muted">ينقصك ' + N(x.price - R.balance) + '</div>' : '') + '</div>').join('');
+  h += '<div class="hgrid">' + R.houses.map((x) => '<div class="card stack hcard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">' + esc(x.name) + '</h3><span class="pill rarbtn ' + RAR_PILL[x.rar] + '" data-act="rarInfo" data-k="house" data-r="' + x.rar + '" role="button" tabindex="0">' + E.RARITY[x.rar] + '</span><span class="pill num">تتسع لـ ' + N(x.cap) + '</span></div><div class="hart">' + HouseArt.houseSVG(x.id, { cap: x.cap, plants: [] }) + '</div><div class="row" style="justify-content:space-between">' + (x.price ? money(x.price) : '<span class="pill ok">مجاني</span>') + (x.owned ? '<span class="pill ok">تملكينه</span>' : '<button class="btn" data-act="buyHouse" data-h="' + x.id + '" ' + (R.balance >= x.price ? '' : 'disabled') + '>شراء</button>') + '</div>' + (!x.owned && R.balance < x.price ? '<div class="small muted">ينقصك ' + N(x.price - R.balance) + '</div>' : '') + '</div>').join('') + '</div>';
   return h;
 }
+const houseFits = (h, p) => (p.tree ? (h.trees || []).length < 2 : h.cap - h.used >= (p.slots || 1));
 function plantDetail(p) {
   const canUp = p.canUpgrade; const need = p.upCost;
   const hist = p.hist.slice().reverse().slice(0, 12).map((x) => '<div class="small"><span class="muted num">' + dshort(x.date) + '</span> · ' + esc(x.text) + '</div>').join('');
   return '<div style="max-width:210px;margin:0 auto">' + plantArt(p) + '</div><h2 style="text-align:center;margin:4px 0">' + esc(p.name) + '</h2><div style="text-align:center"><span class="pill rarbtn ' + RAR_PILL[Math.min(4, p.level)] + '" data-act="rarInfo" data-k="plant" data-r="' + Math.min(4, p.level) + '" role="button" tabindex="0">' + p.levelName + '</span> <span class="pill">' + p.stageName + '</span></div>' +
-    '<div class="pbar"><i style="width:' + Math.round(p.count / E.GROW_DAYS * 100) + '%"></i></div><div class="small muted num" style="text-align:center">' + N(p.count) + ' / ' + N(E.GROW_DAYS) + ' يومًا</div><div style="text-align:center">' + heartsHTML(p.hearts) + (p.fallen ? ' <span class="small muted">أوراق ساقطة: ' + N(p.fallen) + '</span>' : '') + '</div>' +
+    '<div class="pbar"><i style="width:' + Math.round(p.count / p.grow * 100) + '%"></i></div><div class="small muted num" style="text-align:center">' + N(p.count) + ' / ' + N(p.grow) + ' يومًا' + (p.grow > 30 ? ' · متبقٍ ' + N(Math.max(0, p.grow - p.count)) : '') + '</div><div style="text-align:center">' + heartsHTML(p.hearts) + (p.fallen ? ' <span class="small muted">أوراق ساقطة: ' + N(p.fallen) + '</span>' : '') + '</div>' +
     (p.complete ? '<div class="note">' + (p.maxed ? 'وصلت هذه النبتة إلى أعلى مستوى: خرافي مطلق.' : 'اكتمل نموها. اشتري نبتة جديدة أو طوّريها بـ ' + money(need) + '.') + '</div>' : '') +
     '<div class="stack" style="gap:4px;margin:8px 0"><b>السجل</b>' + hist + '</div>' +
-    (function () { const cur = R.houses.find((x) => x.plants.includes(p.id)); const opts = R.houses.filter((x) => x.owned && x.id !== (cur && cur.id) && x.plants.length < x.cap); return opts.length ? '<div class="stack" style="gap:6px;margin:8px 0"><b>نقل إلى بيت آخر</b>' + opts.map((x) => '<button class="btn soft" data-act="movePlant" data-pid="' + p.id + '" data-h="' + x.id + '">' + esc(x.name) + ' (' + N(x.plants.length) + '/' + N(x.cap) + ')</button>').join('') + '</div>' : ''; })() + '<div class="actions">' + (canUp ? '<button class="btn" data-act="upgrade" data-pid="' + p.id + '" ' + (R.balance < need ? 'disabled' : '') + '>تطوير النبتة</button>' : '') + (p.complete ? '<button class="btn soft" data-act="toPlantShop">شراء نبتة جديدة من المتجر</button>' : '') + '<button class="btn soft" data-close>إغلاق</button></div>' + (canUp && R.balance < need ? '<div class="small muted">ينقصك ' + N(need - R.balance) + ' للتطوير</div>' : '');
+    (function () { const cur = R.houses.find((x) => x.plants.includes(p.id) || (x.trees || []).includes(p.id)); const opts = R.houses.filter((x) => x.owned && x.id !== (cur && cur.id)); return opts.length ? '<div class="stack" style="gap:6px;margin:8px 0"><b>' + (p.tree ? 'نقل بجانب بيت آخر' : 'نقل إلى بيت آخر') + '</b>' + opts.map((x) => '<button class="btn soft" data-act="movePlant" data-pid="' + p.id + '" data-h="' + x.id + '"' + (houseFits(x, p) ? '' : ' style="opacity:.55"') + '>' + esc(x.name) + (p.tree ? ' (' + N((x.trees || []).length) + '/٢)' : ' (' + N(x.used) + '/' + N(x.cap) + ')') + (houseFits(x, p) ? '' : ' · ممتلئ') + '</button>').join('') + '</div>' : '<div class="small muted" style="margin:8px 0">لا يوجد بيت آخر تملكينه للنقل إليه.</div>'; })() + '<div class="actions">' + (canUp ? '<button class="btn" data-act="upgrade" data-pid="' + p.id + '" ' + (R.balance < need ? 'disabled' : '') + '>تطوير النبتة</button>' : '') + (p.complete ? '<button class="btn soft" data-act="toPlantShop">شراء نبتة جديدة من المتجر</button>' : '') + '<button class="btn soft" data-close>إغلاق</button></div>' + (canUp && R.balance < need ? '<div class="small muted">ينقصك ' + N(need - R.balance) + ' للتطوير</div>' : '');
+}
+function shopItems() {
+  const gifts = E.GIFT_PLANTS.map((g) => ({ id: g.id, art: g.art, name: g.name, rar: g.startLevel, price: null, gift: true, desc: 'نبتة نادرة لا تُباع في المتجر، تُهدى لك عند نيل أحد الأوسمة الكبرى. تبدأ من مستوى «' + E.TIERS[g.startLevel] + '» وتنمو مثل بقية النباتات.' }));
+  return E.PLANTS.concat(gifts).slice().sort((a, b) => a.rar - b.rar || (a.price == null ? 1e9 : a.price) - (b.price == null ? 1e9 : b.price));
+}
+const plantDefault = (s) => '«' + s.name + '» من نباتات فئة «' + E.TIERS[s.rar] + '». تبدأ بذرة صغيرة وتنمو مع كل يوم نجاح حتى تكتمل مزهرة.';
+const shopFit = (s) => R.houses.some((h) => h.owned && houseFits(h, s));
+function shopDetail(s) {
+  const gd = s.grow || E.GROW_DAYS; const aid = s.art || s.id; const owned = s.gift ? R.plants.some((p) => p.gift && p.sp === s.art) : R.plants.some((p) => p.sp === s.id);
+  const months = gd >= 60 ? ' (نحو ' + N(Math.round(gd / 30)) + ' ' + (gd / 30 < 11 ? 'أشهر' : 'شهرًا') + ')' : '';
+  const rows = [['المستوى', E.TIERS[s.rar]], ['مدة النمو', N(gd) + ' يوم نجاح' + months], ['المكان', s.tree ? 'شجرة تُزرع بجانب البيت الزجاجي (لكل بيت شجرتان كحد أقصى)' : (s.slots || 1) > 1 ? 'تشغل ' + N(s.slots) + ' أماكن في بيت واحد، وتأتي في أصيص أكبر' : 'مكان واحد داخل البيت الزجاجي']];
+  if (!s.gift) rows.push(['مكافأة الحصول عليها', money(E.PLANT_GET[s.rar])], ['مكافأة اكتمال نموها', money(s.doneReward || E.plantDoneReward(s.rar))]);
+  const rowH = rows.map((r) => '<div class="row" style="justify-content:space-between;gap:10px"><span class="muted small">' + r[0] + '</span><b class="small">' + r[1] + '</b></div>').join('');
+  const foot = s.gift ? '<div class="note" style="text-align:center">يمكن الحصول عليهم عن طريق الإنجازات/الأوسمة فقط</div>' + (owned ? '<div style="text-align:center"><span class="pill ok">حصلتِ عليها</span></div>' : '') : (owned ? '<div style="text-align:center"><span class="pill ok">في غرفتك</span></div>' : '<div class="row" style="justify-content:space-between">' + money(s.price) + '<button class="btn" data-act="buyPlant" data-sp="' + s.id + '" ' + (R.balance >= s.price && shopFit(s) ? '' : 'disabled') + '>شراء</button></div>' + (R.balance < s.price ? '<div class="small muted">ينقصك ' + N(s.price - R.balance) + '</div>' : !shopFit(s) ? '<div class="small muted">' + (s.tree ? 'لا بيت متاح بجانبه شجرة جديدة' : 'لا يتسع لها أي بيت الآن') + '</div>' : ''));
+  return '<div style="max-width:220px;margin:0 auto">' + PlantArt.plantSVG(aid, { stage: 4, level: s.rar, leaves: 8 + s.rar * 2, fallen: 0, g: 1 }) + '</div><h2 style="text-align:center;margin:4px 0">' + esc(s.name) + '</h2><div style="text-align:center"><span class="pill ' + RAR_PILL[s.rar] + '">' + E.TIERS[s.rar] + '</span></div><p style="margin:8px 0">' + esc(s.desc || plantDefault(s)) + '</p><div class="stack" style="gap:6px;margin:8px 0">' + rowH + '</div>' + foot + '<div class="actions"><button class="btn soft" data-close>إغلاق</button></div>';
 }
 function viewPlantShop() {
   const owned = new Set(R.plants.map((p) => p.sp));
-  let h = '<div class="note">كل نبتة تُشترى مرة واحدة، وتنمو ٣٠ يومًا من أيام النجاح، وتحتاج مكانًا في أحد بيوتك الزجاجية (متاح الآن: ' + N(R.houseFree) + '). مستوى «خرافي متسامٍ» لا يُباع هنا، يُنال فقط بتطوير النبتة.</div>';
-  h += '<div class="pfilters">' + [[-1, 'الكل']].concat(E.RARITY.map((n, i) => [i, n])).map((f) => '<button data-act="pfilter" data-r="' + f[0] + '" aria-pressed="' + (PFILTER === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
-  const list = E.PLANTS.filter((s) => PFILTER < 0 || s.rar === PFILTER);
+  let h = '<div class="note">كل نبتة تُشترى مرة واحدة وتنمو من أيام النجاح (٣٠ يومًا لمعظمها، وأكثر للنبتات الأغلى)، وتحتاج مكانًا في أحد بيوتك الزجاجية (متاح الآن: ' + N(R.houseFree) + '). اضغطي على أي نبتة لرؤية تفاصيلها.</div>';
+  h += '<div class="pfilters">' + [[-1, 'الكل']].concat(E.TIERS.map((n, i) => [i, n])).map((f) => '<button data-act="pfilter" data-r="' + f[0] + '" aria-pressed="' + (PFILTER === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
+  const list = shopItems().filter((s) => PFILTER < 0 || s.rar === PFILTER);
   h += '<div class="pgrid">' + list.map((s) => {
-    const has = owned.has(s.id); const can = R.balance >= s.price && R.houseFree > 0;
-    return '<div class="ptile" style="cursor:default"><div class="art">' + PlantArt.plantSVG(s.id, { stage: 4, level: s.rar, leaves: 8 + s.rar * 2, fallen: 0 }) + '</div><h4>' + esc(s.name) + '</h4><span class="pill rarbtn ' + RAR_PILL[s.rar] + '" data-act="rarInfo" data-k="plant" data-r="' + s.rar + '" role="button" tabindex="0">' + E.RARITY[s.rar] + '</span><div style="margin:6px 0">' + money(s.price) + '</div>' + (has ? '<span class="pill ok">في غرفتك</span>' : '<button class="btn" data-act="buyPlant" data-sp="' + s.id + '" ' + (can ? '' : 'disabled') + '>شراء</button>' + (R.balance < s.price ? '<div class="small muted">ينقصك ' + N(s.price - R.balance) + '</div>' : R.houseFree <= 0 ? '<div class="small muted">لا مكان: بيوتك ممتلئة</div>' : '')) + '</div>';
+    const has = s.gift ? R.plants.some((p) => p.gift && p.sp === s.art) : owned.has(s.id); const can = !s.gift && R.balance >= s.price && shopFit(s);
+    return '<div class="ptile" style="cursor:default"><div data-act="shopInfo" data-sp="' + s.id + '" style="cursor:pointer" role="button" tabindex="0"><div class="art">' + PlantArt.plantSVG(s.art || s.id, { stage: 4, level: s.rar, leaves: 8 + s.rar * 2, fallen: 0, g: 1 }) + '</div><h4>' + esc(s.name) + '</h4></div><span class="pill rarbtn ' + RAR_PILL[s.rar] + '" data-act="rarInfo" data-k="plant" data-r="' + s.rar + '" role="button" tabindex="0">' + E.TIERS[s.rar] + '</span>' +
+      (s.gift ? '<div class="small muted" style="margin:6px 0">يمكن الحصول عليهم عن طريق الإنجازات/الأوسمة فقط</div>' + (has ? '<span class="pill ok">حصلتِ عليها</span>' : '') :
+        '<div style="margin:6px 0">' + money(s.price) + '</div>' + (has ? '<span class="pill ok">في غرفتك</span>' : '<button class="btn" data-act="buyPlant" data-sp="' + s.id + '" ' + (can ? '' : 'disabled') + '>شراء</button>' + (R.balance < s.price ? '<div class="small muted">ينقصك ' + N(s.price - R.balance) + '</div>' : !shopFit(s) ? '<div class="small muted">' + (s.tree ? 'لا بيت متاح لشجرة جديدة' : 'لا مكان: بيوتك ممتلئة') + '</div>' : ''))) + '</div>';
   }).join('') + '</div>';
   return h;
 }
@@ -2798,7 +3119,8 @@ function viewSettings() {
   const log = R.ledger.slice(-40).reverse().map((e) => '<li class="small"><b class="num">' + (e.amount >= 0 ? '+' : '') + N(e.amount) + '</b> · ' + esc(e.reason) + ' <span class="muted">(' + dshort(e.date) + ')</span></li>').join('');
   const buys = ST.purchases.slice(-15).reverse().map((p) => '<li class="small">شراء ' + (p.kind === 'outfit' ? 'زي «' + ((E.OUTFITS.find((x) => x.id === p.item) || {}).name || '') + '»' : { freeze: 'تجميدة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن' }[p.kind]) + ' بـ ' + N(p.price) + ' · <span class="muted">' + dshort(p.date) + '</span></li>').join('');
   const edits = ST.editLog.slice(-15).reverse().map((e) => '<li class="small">تعديل ' + dshort(e.date) + ': ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
-  return '<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
+  return '<div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><i style="background:' + p[2] + '"></i>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
+'<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
     '<div class="card stack"><h3>الأسبوع</h3><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
     '<div class="card stack"><h3>استعادة الاستمرارية</h3><div class="field"><label>أقصى عدد استعادات في الشهر</label><div class="stepper"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
     '<div class="field"><div class="lbl">نوع المهمة التعويضية</div><div class="seg"><button data-act="compMode" data-m="single" aria-pressed="' + (s.compMode === 'single') + '">مهمة واحدة</button><button data-act="compMode" data-m="sequence" aria-pressed="' + (s.compMode === 'sequence') + '">مهام متتابعة</button></div></div>' +
@@ -2818,41 +3140,58 @@ const EMOJIS = '💧 🏃‍♀️ 🚶‍♀️ 📖 📚 ✍️ 🧘‍♀️ 
 const COLORS = ['#9ED3A8', '#F6C177', '#F2A0A0', '#9CC7EE', '#C8B1E8', '#F2D16B', '#8FD6CB', '#E8B4C8', '#CFCFC4'];
 const PRESETS = { water: { name: 'شرب الماء', emoji: '💧', color: '#9CC7EE', target: 7, kind: 'main' }, walk: { name: 'المشي', emoji: '🚶‍♀️', color: '#9ED3A8', target: 1, kind: 'main' }, read: { name: 'قراءة ورد', emoji: '📖', color: '#F6C177', target: 1, kind: 'main' } };
 
+function repBody(f) {
+  const D = (n) => N(n);
+  if (f.rep === 'every') return '<div class="stepper" style="margin-top:8px"><button class="circ mini" data-ev="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + D(f.every) + '</output><span>' + (f.every === 1 ? 'يوم' : 'أيام') + '</span><button class="circ mini" data-ev="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small" style="font-weight:700;margin-top:4px">' + esc(E.everyLabel(f.every)) + '</div><div class="row" style="gap:10px;align-items:center;margin-top:8px"><label for="tfAnchor" class="small muted">يبدأ العدّ من</label><input type="date" id="tfAnchor" value="' + esc(f.anchor) + '" style="max-width:170px"></div><div class="small muted">مثال: الحناء كل ١٤ يومًا (كل أسبوعين). تظهر المهمة في يوم البداية ثم كل ' + D(f.every) + ' ' + (f.every <= 10 ? 'أيام' : 'يومًا') + '.</div>';
+  if (f.rep === 'mcount') return '<div class="stepper" style="margin-top:8px"><button class="circ mini" data-mc="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + D(f.monthCount) + '</output><span>مرات في الشهر</span><button class="circ mini" data-mc="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">لا تحدّدين أيامًا: أنجزيها في أي يوم تريدينه من الشهر. تظهر لك كل يوم كمهمة اختيارية، وإذا اقترب آخر الشهر وبقي عدد المرات الناقصة مساويًا لعدد الأيام المتبقية تتحول إلى رئيسية في ذلك اليوم. العدّ بالشهر الميلادي.</div>';
+  if (f.rep === 'month') return '<div class="seg" style="margin-top:8px"><button data-cal="g" aria-pressed="' + (f.cal !== 'h') + '">الشهر الميلادي</button><button data-cal="h" aria-pressed="' + (f.cal === 'h') + '">الشهر الهجري</button></div><div class="mdays">' + Array.from({ length: f.cal === 'h' ? 30 : 31 }, (_, i) => i + 1).map((d) => '<button data-md="' + d + '" aria-pressed="' + f.monthDays.includes(d) + '">' + D(d) + '</button>').join('') + '</div><div class="small muted">اختاري الأيام التي تتكرر فيها كل شهر (مثل ١٣ و١٤ و١٥ هجري لصيام الأيام البيض). إن لم يوجد اليوم في شهر قصير تظهر المهمة في آخر يوم منه. الشهر الهجري محسوب بتقويم أم القرى وقد يختلف يومًا عن رؤية الهلال.</div>';
+  return '<div class="daychips">' + [6, 0, 1, 2, 3, 4, 5].map((d) => '<button data-d="' + d + '" aria-pressed="' + f.days.includes(d) + '">' + DSHORT[d] + '</button>').join('') + '</div><div class="small muted">' + (f.kind === 'weekly' ? 'اختاري يومًا على الأقل.' : 'بلا اختيار تتكرر كل يوم.') + '</div>';
+}
 function openTaskForm(task, preset) {
   const today = TODAY(); const cur = task ? (E.ver(task, today) || task.versions[0]) : null;
-  const f = task ? { name: cur.name, desc: cur.desc, emoji: task.emoji, color: task.color, kind: cur.kind, days: cur.days ? cur.days.slice() : [], target: cur.target, weeklyMode: cur.weeklyMode, weeklyCount: cur.weeklyCount, streak: cur.streak, dev: cur.dev || 1, tod: cur.tod || '', why: task.why || '', remind: task.remind || '' }
-    : Object.assign({ name: '', desc: '', emoji: '🌿', color: COLORS[0], kind: 'main', days: [], target: 1, weeklyMode: 'days', weeklyCount: 3, streak: true, dev: 1, tod: '', why: '', remind: '' }, preset || {});
+  const f = task ? { name: cur.name, desc: cur.desc, emoji: task.emoji, color: task.color, kind: cur.kind, days: cur.days ? cur.days.slice() : [], target: cur.target, weeklyMode: cur.weeklyMode, weeklyCount: cur.weeklyCount, streak: cur.streak, dev: cur.dev || 1, tod: cur.tod || '', rep: cur.rep || 'week', monthCount: cur.monthCount || 3, every: cur.every || 2, anchor: cur.anchor || today, monthDays: (cur.monthDays || []).slice(), cal: cur.cal || 'g', why: task.why || '', remind: task.remind || '', once: task.once || '', span: task.once ? E.diff(task.once, task.until || task.once) + 1 : 1 }
+    : Object.assign({ once: '', span: 1, name: '', desc: '', emoji: '🌿', color: COLORS[0], kind: 'main', days: [], target: 1, weeklyMode: 'days', weeklyCount: 3, streak: true, dev: 1, tod: '', rep: 'week', monthCount: 3, every: 2, anchor: today, monthDays: [], cal: 'g', why: '', remind: '' }, preset || {});
   const al0 = E.allowance(ST, today, task ? 0 : 1);
   const firstMain = !task && E.allowance(ST, today, 0).total === 0;
   let m;
   const draw = () => {
-    const mainLike = f.kind === 'main' || (f.kind === 'weekly' && f.weeklyMode === 'days');
+    const once = !!f.once;
+    const mainLike = !once && (f.kind === 'main' || (f.kind === 'weekly' && f.weeklyMode === 'days'));
     const canExempt = task && !cur.streak ? true : al0.left > 0;
-    const askStreak = (mainLike && !firstMain) || (f.kind === 'weekly' && f.weeklyMode === 'count');
+    const askStreak = !once && ((mainLike && !firstMain) || (f.kind === 'weekly' && (f.weeklyMode === 'count' || f.weeklyMode === 'mcount')));
     m.el.querySelector('.sheet').innerHTML =
-      '<h2>' + (task ? 'تعديل المهمة' : 'مهمة جديدة') + '</h2>' +
+      '<h2>' + (task ? (once ? 'تعديل المهمة المؤقتة' : 'تعديل العادة') : 'مهمة جديدة') + '</h2>' +
+      (task ? '' : '<div class="field"><div class="lbl">ما نوعها؟</div><div class="seg"><button data-once="0" aria-pressed="' + !once + '">عادة دائمة</button><button data-once="1" aria-pressed="' + once + '">مهمة مؤقتة</button></div><div class="small muted">' + (once ? 'تذهب إلى قسم «مهامي المؤقتة» وتبقى فيه المدة التي تحدّدينها. لا تؤثر على الاستمرارية، ومكافأتها ' + N(E.C.REWARD_ONCE) + ' ' + sar + '.' : 'تتكرر في أيامك وتدخل في الاستمرارية. هذه هي عاداتك.') + '</div></div>') +
+      (once ? '<div class="field"><label for="tfOnce">تبدأ من يوم</label><input type="date" id="tfOnce" value="' + esc(f.once) + '"' + (task ? '' : ' min="' + today + '"') + '></div><div class="field"><div class="lbl">تبقى في قائمتك لمدة</div><div class="stepper"><button class="circ mini" data-sp="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.span) + '</output><span>' + (f.span === 1 ? 'يوم' : 'أيام') + '</span><button class="circ mini" data-sp="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">تنتهي في ' + dlabel(E.addDays(f.once, f.span - 1)) + '. وتختفي من القائمة فور إنجازها.</div></div>' : '') +
       '<div class="field"><label for="tfName">اسم المهمة</label><input type="text" id="tfName" value="' + esc(f.name) + '" maxlength="60"></div>' +
       '<div class="field"><label for="tfDesc">وصف (اختياري)</label><textarea id="tfDesc" maxlength="200">' + esc(f.desc) + '</textarea></div>' +
       '<div class="field"><label for="tfWhy">لماذا أفعل هذا؟ (اختياري)</label><textarea id="tfWhy" maxlength="160" placeholder="سبب يهمّك، سأذكّرك به في الأيام الصعبة">' + esc(f.why) + '</textarea></div>' +
-      '<div class="field"><div class="lbl">النوع</div><div class="seg">' + [['main', 'رئيسية'], ['side', 'إضافية'], ['weekly', 'أسبوعية']].map((k) => '<button data-k="' + k[0] + '" aria-pressed="' + (f.kind === k[0]) + '">' + k[1] + '</button>').join('') + '</div><div class="small muted">' + ({ main: 'تدخل في شرط إكمال اليوم والاستمرارية.', side: 'اختيارية: تمنح مكافأة ولا يضرّ تركها.', weekly: 'تظهر كرئيسية في أيام تحدّدينها، أو بعدد مرات خلال الأسبوع.' }[f.kind]) + '</div></div>' +
-      (f.kind === 'weekly' ? '<div class="field"><div class="lbl">طريقة الجدولة</div><div class="seg"><button data-wm="days" aria-pressed="' + (f.weeklyMode === 'days') + '">أيام محددة</button><button data-wm="count" aria-pressed="' + (f.weeklyMode === 'count') + '">عدد مرات في الأسبوع</button></div>' + (f.weeklyMode === 'count' ? '<div class="stepper"><button class="circ mini" data-wc="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.weeklyCount) + '</output><span>مرات في الأسبوع</span><button class="circ mini" data-wc="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">لا تؤثر على اليوم العادي. إذا بقي من الأسبوع بقدر ما بقي من مرات لم تُنجَز، تتحول إلى رئيسية في ذلك اليوم.</div>' : '') + '</div>' : '') +
-      (!(f.kind === 'weekly' && f.weeklyMode === 'count') ? '<div class="field"><div class="lbl">' + (f.kind === 'weekly' ? 'الأيام' : 'أيام التكرار') + '</div><div class="daychips">' + [6, 0, 1, 2, 3, 4, 5].map((d) => '<button data-d="' + d + '" aria-pressed="' + f.days.includes(d) + '">' + DSHORT[d] + '</button>').join('') + '</div><div class="small muted">' + (f.kind === 'weekly' ? 'اختاري يومًا على الأقل.' : 'بلا اختيار تتكرر كل يوم.') + '</div></div>' : '') +
-      (f.kind !== 'weekly' ? '<div class="field"><div class="lbl">عدد مرات الإنجاز يوميًا</div><div class="stepper"><button class="circ mini" data-t="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.target) + '</output><button class="circ mini" data-t="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">تُكافأ المهمة عند اكتمال العدد المطلوب.</div></div>' : '') +
+      (once || f.rep === 'mcount' ? '' : '<div class="field"><div class="lbl">النوع</div><div class="seg">' + [['main', 'رئيسية'], ['side', 'إضافية'], ['weekly', 'أسبوعية']].map((k) => '<button data-k="' + k[0] + '" aria-pressed="' + (f.kind === k[0]) + '">' + k[1] + '</button>').join('') + '</div><div class="small muted">' + ({ main: 'تدخل في شرط إكمال اليوم والاستمرارية.', side: 'اختيارية: تمنح مكافأة ولا يضرّ تركها.', weekly: 'تظهر كرئيسية في أيام تحدّدينها، أو بعدد مرات خلال الأسبوع.' }[f.kind]) + '</div></div>') +
+      (!once && f.kind === 'weekly' ? '<div class="field"><div class="lbl">طريقة الجدولة</div><div class="seg"><button data-wm="days" aria-pressed="' + (f.weeklyMode === 'days') + '">أيام محددة</button><button data-wm="count" aria-pressed="' + (f.weeklyMode === 'count') + '">عدد مرات في الأسبوع</button></div>' + (f.weeklyMode === 'count' ? '<div class="stepper"><button class="circ mini" data-wc="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.weeklyCount) + '</output><span>مرات في الأسبوع</span><button class="circ mini" data-wc="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">لا تؤثر على اليوم العادي. إذا بقي من الأسبوع بقدر ما بقي من مرات لم تُنجَز، تتحول إلى رئيسية في ذلك اليوم.</div>' : '') + '</div>' : '') +
+      (!once && !(f.kind === 'weekly' && f.weeklyMode === 'count') ? '<div class="field"><div class="lbl">التكرار</div><div class="seg">' + [['week', 'أيام الأسبوع'], ['every', 'كل عدد أيام'], ['month', 'أيام محددة من الشهر'], ['mcount', 'عدد مرات في الشهر']].map((k) => '<button data-rep="' + k[0] + '" aria-pressed="' + (f.rep === k[0]) + '">' + k[1] + '</button>').join('') + '</div>' + repBody(f) + '</div>' : '') +
+      ((once || f.kind !== 'weekly') ? '<div class="field"><div class="lbl">' + (once ? 'عدد مرات الإنجاز' : 'عدد مرات الإنجاز يوميًا') + '</div><div class="stepper"><button class="circ mini" data-t="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.target) + '</output><button class="circ mini" data-t="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">تُكافأ المهمة عند اكتمال العدد المطلوب.</div></div>' : '') +
       '<div class="field"><div class="lbl">وقت المهمة</div><div class="seg">' + [['', 'أي وقت'], ['morning', 'الصباح الباكر'], ['noon', 'الظهر والعصر'], ['night', 'الليل']].map((k) => '<button data-tod="' + k[0] + '" aria-pressed="' + (f.tod === k[0]) + '">' + k[1] + '</button>').join('') + '</div></div>' +
       '<div class="field"><div class="lbl">تذكير بهذه المهمة</div><div class="seg"><button data-rem="0" aria-pressed="' + !f.remind + '">بدون تذكير</button><button data-rem="1" aria-pressed="' + !!f.remind + '">ذكّريني</button></div>' + (f.remind ? '<div class="row" style="gap:10px;align-items:center;margin-top:8px"><label for="tfRem" class="small muted">في الساعة</label><input type="time" id="tfRem" value="' + esc(f.remind) + '" style="max-width:150px"></div><div class="small muted">يظهر التذكير في أيام المهمة إن لم تنجزيها بعد، حين يكون التطبيق مفتوحًا. وصول التذكير والتطبيق مغلق يحتاج خطوة إضافية سنضيفها لاحقًا.</div>' : '') + '</div>' +
       '<div class="field"><div class="lbl">نقاط التطوير عند الإنجاز</div><div class="stepper"><button class="circ mini" data-dv="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.dev) + '</output><button class="circ mini" data-dv="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
       '<div class="field"><div class="lbl">الإيموجي</div><input type="text" id="tfEmoji" value="' + esc(f.emoji) + '" maxlength="8" style="font-size:22px;text-align:center" aria-label="الإيموجي"><div class="emojis">' + EMOJIS.map((e) => '<button data-e="' + e + '" type="button">' + e + '</button>').join('') + '</div><div class="small muted">اكتبي أي إيموجي من لوحة مفاتيحك أو الصقيه.</div></div>' +
       '<div class="field"><div class="lbl">لون الدائرة</div><div class="swatches">' + COLORS.map((c) => '<button data-c="' + c + '" style="background:' + c + '" aria-label="لون" aria-pressed="' + (f.color === c) + '"></button>').join('') + '</div></div>' +
-      (askStreak ? '<div class="field"><div class="lbl">هل تريد أن تكون هذه المهمة مسؤولة عن حساب الاستمرارية؟</div><div class="seg"><button data-s="1" aria-pressed="' + f.streak + '">نعم</button><button data-s="0" aria-pressed="' + !f.streak + '" ' + (canExempt ? '' : 'disabled') + '>لا</button></div><div class="small muted">يسمح لك باستثناء نسبة ضئيلة تصل إلى 30% فقط من مهامك لكي لا تؤثر على الاستمرارية في أوقات انشغالك.' + (canExempt ? '' : ' وصلتِ إلى الحد الآن.') + '</div></div>' : (firstMain && mainLike ? '<div class="note">أول مهمة رئيسية: تصبح مسؤولة عن الاستمرارية تلقائيًا.</div>' : '')) +
+      (askStreak ? '<div class="field"><div class="lbl">هل تريد أن تكون هذه المهمة مسؤولة عن حساب الاستمرارية؟</div><div class="seg"><button data-s="1" aria-pressed="' + f.streak + '">نعم</button><button data-s="0" aria-pressed="' + !f.streak + '" ' + (canExempt ? '' : 'disabled') + '>لا</button></div><div class="small muted">يسمح لك باستثناء نسبة ضئيلة تصل إلى 30% فقط من مهامك لكي لا تؤثر على الاستمرارية في أوقات انشغالك.' + (canExempt ? '' : ' وصلتِ إلى الحد الآن.') + '</div></div>' : (firstMain && mainLike && !once ? '<div class="note">أول مهمة رئيسية: تصبح مسؤولة عن الاستمرارية تلقائيًا.</div>' : '')) +
       (task ? '<div class="note">التعديل يسري من اليوم، ولا يغيّر ما سُجّل في الأيام الماضية.</div>' : '') +
       '<div class="actions" style="margin-top:14px"><button class="btn" data-save>' + (task ? 'حفظ' : 'إضافة') + '</button>' + (task ? '<button class="btn danger" data-del>حذف</button>' : '') + '<button class="btn soft" data-close>إلغاء</button></div>';
     bind();
   };
-  const sync = () => { const n = m.el.querySelector('#tfName'); if (n) { f.name = n.value; f.desc = m.el.querySelector('#tfDesc').value; f.why = m.el.querySelector('#tfWhy').value; f.emoji = m.el.querySelector('#tfEmoji').value || '🌿'; const tr = m.el.querySelector('#tfRem'); if (tr && tr.value) f.remind = tr.value; } };
+  const sync = () => { const n = m.el.querySelector('#tfName'); if (n) { const od = m.el.querySelector('#tfOnce'); if (od && od.value) f.once = od.value; f.name = n.value; f.desc = m.el.querySelector('#tfDesc').value; f.why = m.el.querySelector('#tfWhy').value; f.emoji = m.el.querySelector('#tfEmoji').value || '🌿'; const tr = m.el.querySelector('#tfRem'); if (tr && tr.value) f.remind = tr.value; const an = m.el.querySelector('#tfAnchor'); if (an && an.value) f.anchor = an.value; } };
   const bind = () => {
     const el = m.el;
+    el.querySelectorAll('[data-once]').forEach((b) => b.addEventListener('click', () => { sync(); if (b.dataset.once === '1') { f.once = f.once || today; f.kind = 'side'; f.streak = false; } else { f.once = ''; f.kind = 'main'; f.streak = true; } draw(); }));
+    el.querySelectorAll('[data-sp]').forEach((b) => b.addEventListener('click', () => { sync(); f.span = Math.max(1, Math.min(365, f.span + +b.dataset.sp)); draw(); }));
     el.querySelectorAll('[data-k]').forEach((b) => b.addEventListener('click', () => { sync(); f.kind = b.dataset.k; if (f.kind === 'side') f.streak = false; else if (f.kind === 'main') f.streak = true; draw(); }));
     el.querySelectorAll('[data-wm]').forEach((b) => b.addEventListener('click', () => { sync(); f.weeklyMode = b.dataset.wm; f.streak = f.weeklyMode === 'days'; draw(); }));
+    el.querySelectorAll('[data-rep]').forEach((b) => b.addEventListener('click', () => { sync(); const was = f.rep; f.rep = b.dataset.rep; if (f.rep === 'mcount') { f.kind = 'weekly'; f.weeklyMode = 'mcount'; f.streak = false; } else if (was === 'mcount') { f.kind = 'main'; f.weeklyMode = 'days'; f.streak = true; } draw(); }));
+    el.querySelectorAll('[data-mc]').forEach((b) => b.addEventListener('click', () => { sync(); f.monthCount = Math.max(1, Math.min(31, f.monthCount + +b.dataset.mc)); draw(); }));
+    el.querySelectorAll('[data-ev]').forEach((b) => b.addEventListener('click', () => { sync(); f.every = Math.max(2, Math.min(60, f.every + +b.dataset.ev)); draw(); }));
+    el.querySelectorAll('[data-cal]').forEach((b) => b.addEventListener('click', () => { sync(); f.cal = b.dataset.cal; f.monthDays = f.monthDays.filter((x) => x <= (f.cal === 'h' ? 30 : 31)); draw(); }));
+    el.querySelectorAll('[data-md]').forEach((b) => b.addEventListener('click', () => { sync(); const d = +b.dataset.md; f.monthDays = f.monthDays.includes(d) ? f.monthDays.filter((x) => x !== d) : f.monthDays.concat(d); draw(); }));
     el.querySelectorAll('[data-d]').forEach((b) => b.addEventListener('click', () => { sync(); const d = +b.dataset.d; f.days = f.days.includes(d) ? f.days.filter((x) => x !== d) : f.days.concat(d); draw(); }));
     el.querySelectorAll('[data-t]').forEach((b) => b.addEventListener('click', () => { sync(); f.target = Math.max(1, Math.min(99, f.target + +b.dataset.t)); draw(); }));
     el.querySelectorAll('[data-rem]').forEach((b) => b.addEventListener('click', () => { sync(); if (b.dataset.rem === '1') { f.remind = f.remind || ({ morning: '07:00', noon: '13:00', night: '21:00' }[f.tod] || '12:00'); askNotifyPerm(); } else f.remind = ''; draw(); }));
@@ -2870,8 +3209,64 @@ function openTaskForm(task, preset) {
       m.close(); act((s) => { if (task) E.updateTask(s, task.id, f, today); else E.addTask(s, f, today); });
     });
     const dl = el.querySelector('[data-del]'); if (dl) dl.addEventListener('click', async () => {
-      const ok = await confirmDlg({ title: 'حذف المهمة؟', body: '<p>تُحذف المهمة من اليوم فصاعدًا، وتبقى إنجازاتها السابقة في السجل والإحصاءات.</p>', ok: 'حذف', danger: true });
-      if (ok) { m.close(); act((s) => E.deleteTask(s, task.id, today)); }
+      const ok = await confirmDlg({ title: task.once ? 'حذف المهمة المؤقتة؟' : 'حذف المهمة؟', body: task.once ? '<p>تُحذف هذه المهمة المؤقتة. إن كنتِ أنجزتها فستُسحب مكافأتها.</p>' : '<p>تُحذف المهمة من اليوم فصاعدًا، وتبقى إنجازاتها السابقة في السجل والإحصاءات.</p>', ok: 'حذف', danger: true });
+      if (ok) { m.close(); const nm = cur.name; act((s) => E.deleteTask(s, task.id, today)); toast({ text: 'حذفتِ ' + (task.once ? 'المهمة المؤقتة «' : 'العادة «') + nm + '»' }); }
+    });
+  };
+  m = modal('<div></div>', { noFocus: true, sticky: true });
+  draw();
+}
+
+
+/* ---------- أهدافي ---------- */
+const GSIZE = { s: 'صغير', m: 'متوسط', l: 'كبير' };
+function goalCard(g) {
+  const pct = Math.round(100 * g.have / g.need);
+  let body = '';
+  if (g.type === 'steps') body = '<ul class="gsteps">' + g.steps.map((x) => '<li><button class="circ mini ' + (x.done ? 'on' : '') + '" data-act="goalStep" data-g="' + g.id + '" data-s="' + x.id + '" aria-pressed="' + !!x.done + '" aria-label="' + esc(x.text) + '">' + ico(x.done ? 'check' : 'plus') + '</button><span class="' + (x.done ? 'sdone' : '') + '">' + esc(x.text) + '</span></li>').join('') + '</ul>';
+  else if (g.type === 'amount') {
+    const rem = Math.max(0, g.need - g.have); const U = esc(g.unit || '⃁');
+    body = '<div class="small" style="font-weight:600">' + (g.done ? 'وصلتِ إلى ' + N(g.need) + ' ' + U : 'باقيلك ' + N(Math.round(rem * 100) / 100) + ' ' + U + ' وتوصلين ' + N(g.need) + ' ' + U) + '</div>' + (g.done ? '' : '<button class="btn soft" data-act="goalAmt" data-g="' + g.id + '">+ أضفت مقدارًا</button>') +
+      ((g.adds || []).length ? '<ul class="gsteps">' + g.adds.slice(-5).reverse().map((x) => '<li><span class="num small">+ ' + N(x.amount) + ' ' + U + ' <span class="muted">· ' + dshort(x.date) + '</span></span>' + (g.done ? '' : '<button class="edit" data-act="goalAmtDel" data-g="' + g.id + '" data-a="' + x.id + '" aria-label="حذف الإضافة">✕</button>') + '</li>').join('') + '</ul>' : '');
+  }
+  else { const t = ST.tasks.find((x) => x.id === g.taskId); body = '<div class="small muted">العادة المرتبطة: ' + (t ? esc(t.emoji) + ' ' + esc((E.ver(t, TODAY()) || t.versions[0]).name) : 'محذوفة') + ' · تُحسب الأيام التي تنجزينها فيها منذ ' + dshort(g.createdDate) + '</div>'; }
+  return '<div class="card stack goalitem' + (g.done ? ' gdone' : '') + '"><div class="row" style="gap:10px;align-items:center"><div class="gemo">' + esc(g.emoji) + '</div><div class="tbody"><b>' + esc(g.title) + '</b>' + (g.note ? '<div class="small muted">' + esc(g.note) + '</div>' : '') + '</div>' + (g.done ? '<span class="pill ok">اكتمل ✓</span>' : '<button class="edit" data-act="goalDel" data-g="' + g.id + '" aria-label="حذف الهدف">' + '✕' + '</button>') + '</div>' +
+    '<div class="row" style="justify-content:space-between"><span class="small num">' + N(Math.round(g.have * 100) / 100) + ' من ' + N(g.need) + (g.type === 'task' ? ' يومًا' : g.type === 'amount' ? ' ' + esc(g.unit || '⃁') : ' خطوات') + '</span><span class="small muted">المكافأة: ' + money(g.reward) + '</span></div><div class="bar"><i style="width:' + pct + '%"></i></div>' + body +
+    (g.done ? '<div class="small muted">اكتمل في ' + dlabel(g.doneDate) + ' وحصلتِ على مكافأته.</div>' : '') + '</div>';
+}
+function viewGoals() {
+  const gs = R.goals || []; const act1 = gs.filter((g) => !g.done); const dn = gs.filter((g) => g.done);
+  let h = '<div class="card stack"><p class="muted small" style="margin:0">هدف تكتبينه بنفسك، مثل إنهاء كتاب أو تعلّم مهارة. يُربط بعادة تنجزينها كل يوم، أو بخطوات تحدّدينها، أو بمقدار تدّخرينه أو تصلين إليه (مثل ثمن ساعة أو درجة اختبار)، وتنالين مكافأة عند اكتماله بالكامل.</p><button class="btn" data-act="goalAdd">+ هدف جديد</button></div>';
+  if (!gs.length) h += '<div class="card"><p class="muted" style="margin:0">لا أهداف بعد. جرّبي مثلًا: «إنهاء كتاب» مرتبطًا بعادة القراءة، لمدة ٣٠ يومًا.</p></div>';
+  if (act1.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">قيد الإنجاز</h3>' + act1.map(goalCard).join('') + '</div>';
+  if (dn.length) h += '<div class="stack" style="gap:8px"><h3 class="sec-title">المكتملة</h3>' + dn.map(goalCard).join('') + '</div>';
+  return h;
+}
+function openGoalForm() {
+  const today = TODAY();
+  const habits = ST.tasks.filter((t) => !t.once && E.isActive(t, today));
+  const f = { title: '', emoji: '🎯', note: '', atarget: '', unit: '⃁', type: habits.length ? 'task' : 'steps', taskId: habits.length ? habits[0].id : '', target: 30, steps: '', size: 'm' };
+  let m;
+  const sync = () => { const q = (x) => m.el.querySelector(x); if (!q('#gTitle')) return; f.title = q('#gTitle').value; f.note = q('#gNote').value; f.emoji = q('#gEmoji').value || '🎯'; const a = q('#gTask'); if (a) f.taskId = a.value; const b = q('#gTarget'); if (b) f.target = b.value; const c = q('#gSteps'); if (c) f.steps = c.value; const d = q('#gATarget'); if (d) f.atarget = d.value; const u = q('#gUnit'); if (u) f.unit = u.value; };
+  const draw = () => {
+    m.el.querySelector('.sheet').innerHTML = '<h2>هدف جديد</h2>' +
+      '<div class="field"><label for="gTitle">عنوان الهدف</label><input type="text" id="gTitle" maxlength="80" value="' + esc(f.title) + '" placeholder="مثال: إنهاء كتاب"></div>' +
+      '<div class="field"><label for="gNote">وصف (اختياري)</label><input type="text" id="gNote" maxlength="200" value="' + esc(f.note) + '"></div>' +
+      '<div class="field"><div class="lbl">كيف يكتمل الهدف؟</div><div class="seg"><button data-gt="task" aria-pressed="' + (f.type === 'task') + '">أيام إنجاز عادة</button><button data-gt="steps" aria-pressed="' + (f.type === 'steps') + '">خطوات أحدّدها</button><button data-gt="amount" aria-pressed="' + (f.type === 'amount') + '">مبلغ أو رقم أصل إليه</button></div></div>' +
+      (f.type === 'task' ? (habits.length ? '<div class="field"><label for="gTask">العادة المرتبطة</label><select id="gTask">' + habits.map((t) => '<option value="' + t.id + '"' + (t.id === f.taskId ? ' selected' : '') + '>' + esc(t.emoji) + ' ' + esc((E.ver(t, today) || t.versions[0]).name) + '</option>').join('') + '</select></div><div class="field"><label for="gTarget">كم يومًا تحتاجين لإنجازها؟</label><input type="number" id="gTarget" inputmode="numeric" min="1" max="999" value="' + esc(String(f.target)) + '"><div class="small muted">يُحسب كل يوم تنجزين فيه العادة بعد إنشاء الهدف، ولا يلزم أن تكون الأيام متتالية.</div></div>' : '<div class="note">لا توجد عادة دائمة بعد. أضيفي عادة من صفحة المهام، أو اختاري «خطوات أحدّدها».</div>') :
+        f.type === 'amount' ? '<div class="field"><label for="gATarget">المقدار الذي تريدين الوصول إليه</label><input type="number" id="gATarget" inputmode="decimal" min="1" value="' + esc(String(f.atarget)) + '" placeholder="مثال: ١٠٠٠"></div><div class="field"><label for="gUnit">الوحدة</label><input type="text" id="gUnit" maxlength="12" value="' + esc(f.unit) + '"><div class="seg" style="margin-top:6px">' + ['⃁', 'درجة', 'ريال', 'كتاب'].map((u) => '<button data-gu="' + esc(u) + '" aria-pressed="' + (f.unit === u) + '">' + esc(u) + '</button>').join('') + '</div><div class="small muted">مثال: ادخار ثمن ساعة بالرمز ⃁، أو الوصول لدرجة ٩٥ في اختبار. تضيفين ما حققتِه كلما تقدمتِ، ويخبرك الهدف بالباقي. المكافأة من التطبيق ثابتة حسب حجم الهدف، وليست من مبلغك.</div></div>' :
+        '<div class="field"><label for="gSteps">الخطوات (خطوة في كل سطر)</label><textarea id="gSteps" rows="5" placeholder="الفصل الأول&#10;الفصل الثاني">' + esc(f.steps) + '</textarea></div>') +
+      '<div class="field"><div class="lbl">حجم الهدف (يحدّد المكافأة)</div><div class="seg">' + ['s', 'm', 'l'].map((k) => '<button data-gs="' + k + '" aria-pressed="' + (f.size === k) + '">' + GSIZE[k] + ' · ' + N(E.C.GOAL_REWARD[k]) + '</button>').join('') + '</div><div class="small muted">المكافأة ثابتة حسب الحجم حتى تبقى عادلة، وتُمنح مرة واحدة عند اكتمال الهدف بالكامل.</div></div>' +
+      '<div class="field"><div class="lbl">الإيموجي</div><input type="text" id="gEmoji" value="' + esc(f.emoji) + '" maxlength="8" style="font-size:22px;text-align:center" aria-label="الإيموجي"></div>' +
+      '<div class="actions" style="margin-top:14px"><button class="btn" data-save>إضافة الهدف</button><button class="btn soft" data-close>إلغاء</button></div>';
+    const el = m.el;
+    el.querySelectorAll('[data-gt]').forEach((b) => b.addEventListener('click', () => { sync(); f.type = b.dataset.gt; draw(); }));
+    el.querySelectorAll('[data-gu]').forEach((b) => b.addEventListener('click', () => { sync(); f.unit = b.dataset.gu; draw(); }));
+    el.querySelectorAll('[data-gs]').forEach((b) => b.addEventListener('click', () => { sync(); f.size = b.dataset.gs; draw(); }));
+    el.querySelector('[data-close]').addEventListener('click', () => m.close());
+    el.querySelector('[data-save]').addEventListener('click', () => {
+      sync(); if (f.type === 'amount') f.target = f.atarget; const probe = E.clone(ST); const r = E.addGoal(probe, f, today); if (!r.ok) { err(r.error); return; }
+      m.close(); act((s) => { E.addGoal(s, f, today); });
     });
   };
   m = modal('<div></div>', { noFocus: true, sticky: true });
@@ -3696,6 +4091,213 @@ const PlantArt = (function () {
   add('mythB', {}, {}, 'jade2');
   add('mythC', {}, {}, 'sparkle');
 
+  /* ---------- نباتات المتجر العليا: العنكبوت، الخفاش، الفاوانيا، وشجرتان ---------- */
+  const lerp = (a, b, t) => a + (b - a) * t;
+  // رأس زهرة العنكبوت: ست بتلات رفيعة مطوية للخلف وأسدية طويلة منحنية
+  function lilyHead(x, y, s, rot, c) {
+    let t = '';
+    const sta = [-62, -38, -14, 14, 38, 62];
+    sta.forEach((a, i) => { const L = 52 + (i % 2) * 8; const ex = Math.sin(a * Math.PI / 180) * L, ey = -Math.cos(a * Math.PI / 180) * L * .9; t += ln(`M0 0C${ex * .25} ${-L * .45} ${ex * .8} ${ey * .75} ${ex} ${ey}`, c.s, 1.7) + circ(ex.toFixed(1), ey.toFixed(1), 2.4, c.t, 1.1); });
+    [-125, -85, -45, 0, 45, 85, 125].forEach((a, i) => {
+      const L = 34 + (i % 2 ? 0 : 6); t += g(`rotate(${a})`, sh(`M-2.6 0C-8 ${-L * .35} -7 ${-L * .75} 3 ${-L}C9 ${-L * 1.04} 13 ${-L * .9} 10 ${-L * .8}C3 ${-L * .72} 4 ${-L * .35} 2.6 0Z`, i % 2 ? c.f : c.g, 1.5) + ln(`M0 -3C-1 ${-L * .4} 0 ${-L * .6} 6 ${-L * .86}`, c.v, 1, .7));
+    });
+    t += circ(0, 0, 4, c.d, 1.3);
+    return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${s})">${t}</g>`;
+  }
+  A.spiderLily = (q) => {
+    const { c, fl } = q; let s = '';
+    const m = N(q.n / 3 + 2, 2, 5); const cc = { f: '#E3202E', g: '#C0121F', v: '#FF8A8A', s: '#D8182A', t: '#4A0A12', d: '#8A0A18' };
+    // أوراق سيفية رفيعة تنحني من القاعدة
+    const nl = N(q.n / 2 + 2, 3, 8);
+    for (let i = 0; i < nl; i++) { const a = ((i / (nl - 1 || 1)) * 2 - 1) * 70; s += g(`rotate(${a})`, sh(`M-3 0C-8 -26 -4 -52 ${a > 0 ? 12 : -12} -66C${a > 0 ? 6 : -6} -46 3 -24 3 0Z`, i % 2 ? '#3F8A45' : '#4FA054', 1.6)); }
+    const tops = [[0, -118], [-26, -96], [28, -100], [-12, -84], [14, -78]];
+    for (let i = 0; i < m; i++) {
+      const [tx, ty] = tops[i]; const stemD = `M${i % 2 ? 2 : -2} 0C${tx * .1} ${ty * .4} ${tx * .9} ${ty * .6} ${tx} ${ty}`;
+      s += stem(stemD, '#7A9A4A', 3.4);
+      if (fl >= 2) s += lilyHead(tx, ty, .74 - i * .03, (i - 2) * 14, cc);
+      else if (fl === 1) s += sh(`M${tx} ${ty + 4}C${tx - 7} ${ty - 6} ${tx - 3} ${ty - 22} ${tx} ${ty - 26}C${tx + 3} ${ty - 22} ${tx + 7} ${ty - 6} ${tx} ${ty + 4}Z`, '#C0302E', 1.8);
+    }
+    return s;
+  };
+  // زهرة الخفاش الأسود: جناحان داكنان كأجنحة الخفاش وشعيرات طويلة متدلية
+  function wing(side) {
+    const k = side; const P = (x, y) => `${(x * k).toFixed(1)} ${y}`;
+    return sh(`M0 0C${-20 * k} -26 ${-54 * k} -40 ${-86 * k} -22C${-76 * k} -18 ${-70 * k} -10 ${-72 * k} -2C${-62 * k} -6 ${-56 * k} 2 ${-56 * k} 10C${-44 * k} 4 ${-38 * k} 12 ${-34 * k} 20C${-24 * k} 12 ${-12 * k} 14 0 6Z`, '#2A0F33', 2.4)
+      + ln(`M0 0C${-22 * k} -16 ${-48 * k} -24 ${-80 * k} -20M0 2C${-20 * k} -4 ${-40 * k} -4 ${-68 * k} -2M0 4C${-14 * k} 4 ${-28 * k} 10 ${-40 * k} 18`, '#7A3A8E', 1.3, .9)
+      + `<path d="M0 0C${-20 * k} -22 ${-48 * k} -34 ${-80 * k} -22" fill="none" stroke="#9A55B0" stroke-width="1.4" opacity=".55"/>`;
+  }
+  A.batFlower = (q) => {
+    const { fl } = q; let s = '';
+    // أوراق كبيرة لامعة
+    const nl = N(q.n / 2 + 2, 3, 7);
+    for (let i = 0; i < nl; i++) { const a = ((i / (nl - 1 || 1)) * 2 - 1) * 62; s += leaf(Math.sin(a * Math.PI / 180) * 6, 2, 58 - Math.abs(a) * .18, a * .9, i % 2 ? '#1F6A44' : '#2A8458', { shape: 'long', v: '#7FC9A0', sw: 2 }); }
+    const top = fl >= 1 ? -92 : -60;
+    s += stem(`M0 0C4 -30 -4 -${Math.abs(top) - 30} 0 ${top}`, '#3A5A3A', 3.6);
+    if (fl >= 2) {
+      const cx = 0, cy = top;
+      // الشعيرات المتدلية
+      for (let i = 0; i < 16; i++) { const x0 = -14 + i * 1.9; const dr = 46 + (i % 4) * 9 + Math.abs(i - 8) * -2; s += `<path d="M${x0} ${cy + 6}C${x0 * 1.4} ${cy + 22} ${x0 * 2.1 + (i % 2 ? 4 : -4)} ${cy + dr * .55} ${x0 * 2.4} ${cy + dr}" fill="none" stroke="${i % 3 ? '#3A1744' : '#5C2470'}" stroke-width="1.5" stroke-linecap="round"/>`; }
+      s += g(`translate(${cx} ${cy}) scale(.72)`, g('rotate(-4)', wing(1)) + g('rotate(4)', wing(-1)));
+      // الأذنان العلويتان
+      s += sh(`M-8 -2C-14 -22 -12 -40 -4 -52C-2 -38 0 -22 0 -4Z`, '#3A1A48', 2) + sh(`M8 -2C14 -22 12 -40 4 -52C2 -38 0 -22 0 -4Z`, '#3A1A48', 2);
+      s += ell(0, 4, 9, 7, '#1A0A22', 0, 2) + [[-4, 2], [3, 5], [0, -1], [5, 0]].map((d) => circ(d[0], d[1], 2.1, '#7A3A8E', 1)).join('');
+      s += g(`translate(${cx} ${cy + 2})`, '');
+    } else if (fl === 1) {
+      s += sh(`M0 ${top + 8}C-10 ${top - 4} -6 ${top - 24} 0 ${top - 30}C6 ${top - 24} 10 ${top - 4} 0 ${top + 8}Z`, '#3A1A48', 2);
+    }
+    return s;
+  };
+  // الفاوانيا الشجرية: ساق خشبية وأوراق مفصصة وأزهار كبيرة مكرمشة
+  function peonyBloom(x, y, r, c, rot) {
+    let t = '';
+    [[8, 1, c.d], [8, .84, c.f], [7, .66, c.g], [6, .46, c.f], [5, .28, c.g]].forEach((ring, k) => {
+      const n = ring[0]; for (let i = 0; i < n; i++) t += g(`rotate(${i * 360 / n + k * 17})`, sh(`M0 0C${-r * ring[1] * .62} ${-r * ring[1] * .28} ${-r * ring[1] * .72} ${-r * ring[1] * .88} ${-r * ring[1] * .22} ${-r * ring[1] * .98}C${-r * ring[1] * .08} ${-r * ring[1] * 1.04} ${r * ring[1] * .08} ${-r * ring[1] * 1.04} ${r * ring[1] * .22} ${-r * ring[1] * .98}C${r * ring[1] * .72} ${-r * ring[1] * .88} ${r * ring[1] * .62} ${-r * ring[1] * .28} 0 0Z`, ring[2], 1.4));
+    });
+    for (let i = 0; i < 12; i++) { const a = i * 30 * Math.PI / 180; t += circ((Math.cos(a) * r * .12).toFixed(1), (Math.sin(a) * r * .12).toFixed(1), 1.6, '#F6D860', .6); }
+    t += circ(0, 0, r * .07, '#E8A020', .5);
+    return `<g transform="translate(${x} ${y}) rotate(${rot || 0})">${t}</g>`;
+  }
+  A.peony = (q) => {
+    const { fl } = q; let s = ''; const gg = q.g == null ? (fl >= 2 ? 1 : fl === 1 ? .6 : .3) : q.g;
+    const br = [[-2, 0, -14, -26, -32, -46, -44, -66], [2, 0, 6, -30, 8, -56, 4, -84], [4, 0, 20, -24, 38, -42, 50, -62], [-4, 0, -4, -16, -16, -28, -22, -40]];
+    br.forEach((b) => { s += stem(bzd(b), '#6A4A32', 5); });
+    const nlv = N(q.n * 1.4 + 3, 4, 20);
+    for (let i = 0; i < nlv; i++) { const b = br[i % br.length]; const t = .35 + .6 * ((i / br.length) % 1) * .9 + .05; const [x, y] = bz(b, Math.min(.98, t)); const sd = i % 2 ? 1 : -1; s += g(`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${sd * (50 + (i % 3) * 18)})`, sh('M0 0C-6 -6 -14 -10 -16 -20C-10 -18 -6 -16 -4 -12C-8 -22 -6 -32 0 -38C6 -32 8 -22 4 -12C6 -16 10 -18 16 -20C14 -10 6 -6 0 0Z', (i % 3) ? '#2F7A45' : '#3F9158', 1.4) + ln('M0 -2L0 -30', '#7FC09A', 1, .7)); }
+    const nb = N(Math.round(1 + gg * 4), 1, 5); const tops = [[-40, -60], [4, -76], [44, -58], [-18, -38], [24, -44]];
+    for (let i = 0; i < nb; i++) { const [x, y] = tops[i]; const r = 15 + (i === 1 ? 3 : 0); if (fl >= 2 || gg > .7) s += peonyBloom(x, y - 6, r, { d: '#E88AAE', f: '#F4B6CC', g: '#FBD5E2' }, (i - 2) * 9); else s += sh(`M${x} ${y + 2}C${x - 9} ${y - 6} ${x - 7} ${y - 18} ${x} ${y - 22}C${x + 7} ${y - 18} ${x + 9} ${y - 6} ${x} ${y + 2}Z`, '#E8789E', 1.8); }
+    return s;
+  };
+  /* ---------- الأشجار: تُزرع بجانب البيت الزجاجي وتنمو من بذرة إلى شجرة مزهرة ---------- */
+  /* ---------- الأشجار الجديدة: هيكل أغصان يتفرع وينمو عبر ١٥ طورًا، أزهار فقط بلا أوراق خضراء ---------- */
+  let tuid = 0;
+  const TREE_CFG = {
+    jac: { seed: 31, wood: '#6B4B3A', woodD: '#3E2A1E', N: 6, kink: 0, up: .5, trunkLen: 154, trunkW: 12.5, limbs: 5, limbLen: [66, 90], kidLen: [.64, .8], kidRel: [.4, .9], lean: 0, birth: [[.6, 14.4], [2.2, 8], [4, 7], [6.2, 6], [8.6, 5.2], [10.6, 4.2]], frA: .5 },
+    plum: { seed: 47, wood: '#4B3329', woodD: '#291B15', N: 4, kink: .32, up: .2, trunkLen: 148, trunkW: 15, limbs: 6, limbLen: [66, 92], kidLen: [.62, .8], kidRel: [.5, 1.05], wide: 1, lean: 0, birth: [[.6, 14.4], [3.6, 9], [5.2, 8], [7, 7], [9, 5.5], [11, 4]], frA: .55 },
+  };
+  const T_BIRTH = [[.6, 10], [2.2, 8], [4, 7], [6.2, 6], [8.6, 5.2], [10.6, 4.2]];
+  const TREE_CACHE = {};
+  const smoothstep = (x) => { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+  const mixHex = (a, b, t) => { const A = [1, 3, 5].map((i) => parseInt(a.substr(i, 2), 16)), B = [1, 3, 5].map((i) => parseInt(b.substr(i, 2), 16)); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+  function treeStruct(kind) {
+    if (TREE_CACHE[kind]) return TREE_CACHE[kind];
+    const c = TREE_CFG[kind]; const R = rng(c.seed); const rr = (a, b) => a + (b - a) * R(); const nodes = [];
+    function mk(par, d, rel, frac, len, w) {
+      const bt = c.birth[Math.min(d, 5)];
+      const n = { id: nodes.length, par, d, rel, frac, len, w, b: bt[0] + (d ? R() * (d < 2 ? 1.4 : 2) : 0), sp: bt[1], kids: [], fl: [], k: R() < .5 ? 1 : -1 };
+      nodes.push(n); if (par) par.kids.push(n);
+      // الأزهار على الأغصان من العمق الثاني فما بعد، كل زهرة لها عتبة تُحدّد متى تظهر
+      if (d >= 2) {
+        const gap = kind === 'jac' ? 5.6 : 9.5; const cnt = Math.max(1, Math.round(len / gap));
+        for (let i = 0; i < cnt; i++) n.fl.push({ u: clamp(.3 + (i + R() * .6) / cnt * .72, .25, 1), off: kind === 'jac' ? rr(-3.4, 3.4) : rr(-2.2, 2.2), th: R(), v: Math.floor(R() * 6), sc: rr(.85, 1.3), rot: rr(0, 360), tilt: rr(-.35, .35) });
+        if (d >= 3) n.fl.push({ u: 1, off: 0, th: R() * .9, v: Math.floor(R() * 6), sc: rr(.95, 1.35), rot: rr(0, 360), tilt: rr(-.3, .3) });
+      }
+      if (d < 5) {
+        const kn = d === 0 ? c.limbs : (d >= 4 ? 2 : (R() < .55 ? 3 : 2));
+        for (let i = 0; i < kn; i++) {
+          const side = i % 2 ? 1 : -1; let rel, fr, ln;
+          if (d === 0) { rel = side * (c.wide ? rr(.7, 1.3) : rr(.55, 1.2));  fr = c.frA + (1 - c.frA) * (i / kn) + rr(-.04, .04); ln = rr(c.limbLen[0], c.limbLen[1]) * .94; }
+          else { rel = side * rr(c.kidRel[0], c.kidRel[1]); fr = rr(.35, 1); ln = len * rr(c.kidLen[0], c.kidLen[1]); }
+          mk(n, d + 1, rel, fr, ln, w * (d === 0 ? .48 : .6));
+        }
+      }
+      return n;
+    }
+    mk(null, 0, rr(-.02, .02) + c.lean, 0, c.trunkLen, c.trunkW);
+    TREE_CACHE[kind] = { nodes, root: nodes[0], c };
+    return TREE_CACHE[kind];
+  }
+  function drawTree(kind, T, bbOnly, opt) {
+    opt = opt || {};
+    const S = treeStruct(kind); const c = S.c; let br = ''; const flw = []; const leaves = []; const bb = { minx: 1e9, maxx: -1e9, miny: 1e9, maxy: -1e9 };
+    const thick = .3 + .7 * smoothstep((T - 1) / 13);
+    const bloomF = kind === 'plum' ? Math.pow(clamp((T - 10.6) / 4.4, 0, 1), 1.05) * .92 : Math.pow(clamp((T - 3.6) / 11, 0, 1), 1.1);
+    const cutY = opt.cut == null ? 1e9 : opt.cut;
+    function rec(n, x0, y0, th0) {
+      const g = n.d ? smoothstep((T - n.b) / n.sp) : Math.pow(clamp((T - n.b) / n.sp, 0, 1), .72); if (g <= .01 && n.d) return '';
+      if (n.d >= 3 && y0 > cutY + 8) return '';
+      const th1 = th0 * (1 - c.up * .5) + n.k * .08; const N = c.N; const pts = [[x0, y0]]; const ang = [th0];
+      let x = x0, y = y0;
+      for (let k = 0; k < N; k++) {
+        const s = (k + .5) / N; let th = th0 + (th1 - th0) * s + (c.kink ? (k % 2 ? 1 : -1) * c.kink * (n.d ? 1 : .5) * n.k : 0);
+        const L = n.len * g / N; x += Math.sin(th) * L; y -= Math.cos(th) * L; if (c.wide) y = Math.min(y, n.d ? 226 : 240); pts.push([x, y]); ang.push(th);
+      }
+      pts.forEach((p) => { bb.minx = Math.min(bb.minx, p[0]); bb.maxx = Math.max(bb.maxx, p[0]); bb.miny = Math.min(bb.miny, p[1]); bb.maxy = Math.max(bb.maxy, p[1]); });
+      const at = (f) => { const q = clamp(f, 0, 1) * N; const i = Math.min(N - 1, Math.floor(q)); const t = q - i; return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * t, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * t, ang[i] + (ang[i + 1] - ang[i]) * t]; };
+      let kids = ''; n.kids.forEach((ch) => { const p = at(ch.frac); kids += rec(ch, p[0], p[1], p[2] + ch.rel); });
+      // نثر الأزهار
+      if (!bbOnly) n.fl.forEach((f) => { if (g >= f.u * .9 && f.th < bloomF) { const p = at(Math.min(1, f.u / Math.max(g, .01) * g)); const q = at(f.u * 1); const pp = f.u <= g ? at(f.u / Math.max(g, .001)) : null; if (!pp) return; if (pp[1] > cutY) return; flw.push({ x: pp[0] + Math.cos(pp[2]) * f.off, y: pp[1] + Math.sin(pp[2]) * f.off, f }); } });
+      if (!bbOnly && T < 9.5 && (n.d >= 1 ? g > .3 : g > .12)) { const lf = clamp((9.5 - T) / 5, 0, 1); const cnt = n.d ? 2 + Math.round(n.len / 22) : 2 + Math.round(n.len * g / 14); for (let i = 0; i < cnt; i++) { const pp = at(.3 + .7 * (i + .5) / cnt); const sd = i % 2 ? 1 : -1; leaves.push({ x: pp[0], y: pp[1], a: pp[2] + sd * 1.0, s: (n.d <= 1 ? 1 : .8) * (.55 + .45 * lf) * (T < 5 ? .8 : 1) }); } }
+      if (bbOnly) n.fl.forEach((f) => { const pp = at(f.u); bb.minx = Math.min(bb.minx, pp[0] - 13); bb.maxx = Math.max(bb.maxx, pp[0] + 13); bb.miny = Math.min(bb.miny, pp[1] - 6); bb.maxy = Math.max(bb.maxy, pp[1] + 12); });
+      if (bbOnly) return '';
+      // مضلع الغصن المستدق
+      const wb = Math.max(.7, n.w * thick), wt = Math.max(.45, wb * (n.d ? .38 : .5)); const Lft = [], Rgt = [];
+      for (let k = 0; k <= N; k++) { const a = ang[Math.min(k, N)]; const w = (wb + (wt - wb) * k / N) / 2; Lft.push([pts[k][0] - Math.cos(a) * w, pts[k][1] - Math.sin(a) * w]); Rgt.push([pts[k][0] + Math.cos(a) * w, pts[k][1] + Math.sin(a) * w]); }
+      const d = 'M' + Lft.map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'L' + Rgt.reverse().map((p) => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('L') + 'Z';
+      let me = `<path d="${d}" fill="${n.d === 0 ? mixHex('#7C9A52', c.wood, smoothstep((T - 2.2) / 5)) : c.wood}" stroke="${O}" stroke-width="${n.d > 2 ? .8 : 1.25}" stroke-linejoin="round"/>`;
+      if (n.d === 0 && wb > 5) me += ln(`M${(pts[0][0] - wb * .15).toFixed(1)} ${(pts[0][1] - 2).toFixed(1)}L${(pts[2][0] - wb * .1).toFixed(1)} ${pts[2][1].toFixed(1)}`, c.woodD, 1.3, .55);
+      return kids + me;
+    }
+    br = rec(S.root, 100, 238, S.root.rel);
+    return { br, flw, bb, leaves };
+  }
+  const TREE_SCALE = {};
+  function treeRaw(kind) {
+    const r = drawTree(kind, 15, true); const dx = Math.max(Math.abs(r.bb.minx - 100), Math.abs(r.bb.maxx - 100)); const h = 238 - r.bb.miny;
+    return { h, sc: clamp(Math.min(78 / dx, 232 / h), .55, 1.9) };
+  }
+  function treeScale(kind) {
+    if (TREE_SCALE[kind]) return TREE_SCALE[kind];
+    const a = treeRaw('jac'), b = treeRaw('plum'); const Ht = Math.min(a.h * a.sc, b.h * b.sc);
+    TREE_SCALE.jac = Ht / a.h; TREE_SCALE.plum = Ht / b.h;
+    return TREE_SCALE[kind];
+  }
+  function treeSVGInner(kind, g_, seed, inHouse) {
+    const GY = 238; const id = 'tf' + (tuid++); const jac = kind === 'jac'; const c = TREE_CFG[kind];
+    g_ = clamp(g_, 0, 1); const T = g_ * 14 + 1; const sc = treeScale(kind); let s = '';
+    const grx = inHouse ? 26 : 86;
+    s += `<ellipse cx="100" cy="${GY + 4}" rx="${grx}" ry="${inHouse ? 7 : 11}" fill="#5C9A4A" stroke="${O}" stroke-width="2.2"/><ellipse cx="100" cy="${GY + 6}" rx="${grx * .7}" ry="${inHouse ? 3.5 : 6}" fill="#74B45C" opacity=".8"/>`;
+    const R = rng((seed || 7) + 5);
+    for (let i = 0; i < (inHouse ? 5 : 14); i++) { const x = inHouse ? 78 + R() * 44 : 30 + R() * 140; s += ln(`M${x.toFixed(1)} ${GY + 3}C${(x - 2).toFixed(1)} ${GY - 3} ${(x + 3).toFixed(1)} ${GY - 6} ${(x + (R() - .5) * 6).toFixed(1)} ${GY - 9}`, '#3F7A38', 1.6); }
+    if (T < 1.5) { s += `<ellipse cx="100" cy="${GY - 2}" rx="9" ry="4" fill="#6E4934"/>`; s += `<path d="M100 ${GY - 2}Q99 ${GY - 9} 101 ${GY - 15}" fill="none" stroke="#4B3329" stroke-width="2.6" stroke-linecap="round"/><path d="M101 ${GY - 14}Q108 ${GY - 19} 112 ${GY - 14}Q107 ${GY - 11} 101 ${GY - 14}Z" fill="#7DB45A" stroke="#3F6B34" stroke-width=".8"/><path d="M100 ${GY - 11}Q93 ${GY - 16} 89 ${GY - 11}Q94 ${GY - 8} 100 ${GY - 11}Z" fill="#8FC468" stroke="#3F6B34" stroke-width=".8"/>`; return s; }
+    // رموز الأزهار تُعرَّف مرة واحدة لكل رسم ثم تُستنسخ
+    let defs = '';
+    if (jac) {
+      ['#8E5FD0', '#A47BE0', '#B793EA', '#7A4BBE', '#9A6FE0', '#6F52C8'].forEach((col, i) => {
+        const bells = [[0, 0, 0], [-2.8, 2.6, -.25], [2.8, 2.8, .25], [-1.4, 5.6, -.12], [1.7, 6, .15], [0, 9, 0]].map((b) => `<path d="M-1.1 0L-2.9 6.2Q0 8.6 2.9 6.2L1.1 0Z" transform="translate(${b[0]} ${b[1]}) rotate(${(b[2] * 57).toFixed(0)})" fill="${col}" stroke="#432A7A" stroke-width=".55"/>`).join('');
+        defs += `<g id="${id}f${i}"><path d="M0 -3V4" stroke="#5B3A2A" stroke-width=".8"/>${bells}</g>`;
+      });
+    } else {
+      ['#F2799F', '#F7A1BC', '#EE6B94', '#FBC3D5'].forEach((col, i) => {
+        const pet = [0, 72, 144, 216, 288].map((a) => `<circle cx="0" cy="-3.6" r="3.2" transform="rotate(${a})" fill="${col}" stroke="#B83B68" stroke-width=".55"/>`).join('');
+        const st = [0, 51, 103, 154, 206, 257, 309].map((a) => `<path d="M0 0L0 -3.9" transform="rotate(${a})" stroke="#F2C14A" stroke-width=".45"/><circle cx="0" cy="-4" r=".55" transform="rotate(${a})" fill="#F2C14A"/>`).join('');
+        defs += `<g id="${id}f${i}">${pet}<circle r="1.7" fill="#7A2342"/>${st}</g>`;
+      });
+      defs += `<g id="${id}f4"><circle r="2.3" fill="#C9446F" stroke="#7A2342" stroke-width=".6"/><path d="M-1.4 -.6Q0 -2.2 1.4 -.6" fill="none" stroke="#E98AA8" stroke-width=".6"/></g><g id="${id}f5"><circle r="1.8" fill="#D95883" stroke="#7A2342" stroke-width=".5"/></g>`;
+    }
+    const r0 = drawTree(kind, T, true); const curH = GY - r0.bb.miny; const zoom = inHouse ? 1 : clamp(Math.pow(treeRaw(kind).h / Math.max(curH, 8), .38), 1, 2.4);
+    const r = drawTree(kind, T, false, { cut: GY - (inHouse ? .56 : .45) * curH });
+    let fl = '';
+    r.leaves.forEach((q) => { fl += `<path d="M0 0Q4 -3.4 8.5 0Q4 3.4 0 0Z" transform="translate(${q.x.toFixed(1)} ${q.y.toFixed(1)}) rotate(${(q.a * 57.3 - 90).toFixed(0)}) scale(${q.s.toFixed(2)})" fill="#7DB45A" stroke="#3F6B34" stroke-width=".6"/>`; });
+    r.flw.forEach((q) => {
+      const f = q.f; const v = jac ? f.v % 6 : f.v; const rot = jac ? (f.tilt * 57).toFixed(0) : f.rot.toFixed(0); const scl = (f.sc * (jac ? .95 : 1.05)).toFixed(2);
+      fl += `<use href="#${id}f${v}" transform="translate(${q.x.toFixed(1)} ${q.y.toFixed(1)}) rotate(${rot}) scale(${scl})"/>`;
+      if (jac) { const v2 = (v + 3) % 6; fl += `<use href="#${id}f${v2}" transform="translate(${(q.x + 3.4).toFixed(1)} ${(q.y + 2.6).toFixed(1)}) rotate(${(-f.tilt * 57 + 12).toFixed(0)}) scale(${(f.sc * .9).toFixed(2)})"/><use href="#${id}f${(v + 1) % 6}" transform="translate(${(q.x - 3.2).toFixed(1)} ${(q.y + 5).toFixed(1)}) rotate(${(f.tilt * 57 - 10).toFixed(0)}) scale(${(f.sc * .85).toFixed(2)})"/>`; }
+    });
+    const bud = T < 4 ? `<circle cx="100" cy="${GY - 12}" r="0"/>` : '';
+    s += `<defs>${defs}</defs><g transform="translate(100 ${GY}) scale(${(sc * zoom).toFixed(3)}) translate(-100 -${GY})">${r.br}${fl}</g>`;
+    // بتلات متساقطة على الأرض مع تقدم الإزهار
+    const bl = clamp((T - 6) / 9, 0, 1); const cols = jac ? ['#8E5FD0', '#A47BE0', '#B793EA'] : ['#F2799F', '#F7A1BC', '#FBC3D5'];
+    const Rf = rng((seed || 7) + 99); const nfall = Math.round(bl * 46);
+    for (let i = 0; i < nfall; i++) { const x = inHouse ? 62 + Rf() * 76 : 14 + Rf() * 172, y = GY - 1 + Rf() * 11; s += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="2.6" ry="1.5" fill="${cols[i % 3]}" opacity=".85" transform="rotate(${(Rf() * 180).toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`; }
+    return s;
+  }
+  const bloom_ = (kind, x, y, r, c, rot) => bloom(kind, x, y, r, c, rot);
+  add('spiderLily', { a: '#3F8A45' }, {}, 'mist');
+  add('batFlower', { a: '#1F6A44' }, {}, 'dark');
+  add('peony', { a: '#2F7A45' }, { big: true }, 'sparkle');
+  add('tree', { a: '#6FB066' }, { treeKind: 'jac' }, 'moon');
+  add('tree', { a: '#6FAE5A' }, { treeKind: 'plum' }, 'sparkle');
+
   /* ---------- المؤثرات الفخمة (للنباتات الخيالية وللمستويات العالية) ---------- */
   const sparkles = (pts, col) => pts.map((p, i) => `<path class="twk" style="animation-delay:${(i * .37).toFixed(2)}s" d="M${p[0]} ${p[1] - p[2]}L${p[0] + p[2] * .3} ${p[1] - p[2] * .3}L${p[0] + p[2]} ${p[1]}L${p[0] + p[2] * .3} ${p[1] + p[2] * .3}L${p[0]} ${p[1] + p[2]}L${p[0] - p[2] * .3} ${p[1] + p[2] * .3}L${p[0] - p[2]} ${p[1]}L${p[0] - p[2] * .3} ${p[1] - p[2] * .3}Z" fill="${col}"/>`).join('');
   const SPK = [[40, 70, 6], [160, 56, 7], [24, 130, 5], [176, 124, 6], [100, 30, 5], [60, 40, 4], [140, 88, 4]];
@@ -3729,9 +4331,16 @@ const PlantArt = (function () {
     const stage = o.stage == null ? 4 : o.stage, lv = clamp(o.level || 0, 0, 7), u = 'k' + (puid++);
     const leaves = o.leaves == null ? [0, 2, 4, 6, 8][stage] + lv * 2 : o.leaves; const fallen = clamp(o.fallen || 0, 0, leaves);
     const water = sp.arch === 'lotus';
+    const gg = o.g == null ? [0, .08, .35, .7, 1][stage] : clamp(o.g, 0, 1);
+    if (sp.p.treeKind) {
+      let t = `<svg class="plant" viewBox="0 0 200 270" role="img" aria-label="شجرة" xmlns="http://www.w3.org/2000/svg">`;
+      t += fxBack(sp.fx, lv, u) + `<g class="sway">` + treeSVGInner(sp.p.treeKind, gg, idx + 3, o.inHouse) + `</g>` + fxFront(sp.fx, lv) + `</svg>`;
+      return t;
+    }
     let s = `<svg class="plant" viewBox="0 0 200 270" role="img" aria-label="نبتة" xmlns="http://www.w3.org/2000/svg">`;
     s += fxBack(sp.fx, lv, u);
     s += `<g class="sway">`;
+    if (sp.p.big) s += `<g transform="translate(100 168) scale(1.28 1.1) translate(-100 -168)">`;
     s += potBack(lv) + soil(lv, water, sp.c.w);
     const lvScale = 1 + lv * .06;
     if (stage === 0) {
@@ -3741,9 +4350,10 @@ const PlantArt = (function () {
       s += stem('M100 168C100 160 101 154 100 148', '#8DB05F', 2.6) + leaf(100, 150, 15, -38, ca, { shape: 'oval', sw: 1.6 }) + leaf(100, 150, 15, 38, shade(ca, 1.12), { shape: 'oval', sw: 1.6 });
     } else {
       const sc = [0, 0, .62, .84, 1][stage] * lvScale; const n = Math.max(1, leaves - fallen); const fl = stage === 4 ? 2 : stage === 3 ? 1 : 0;
-      const q = { n, c: sp.c, p: sp.p, fl };
+      const q = { n, c: sp.c, p: sp.p, fl, g: o.g == null ? null : gg };
       s += `<g transform="translate(100 168) scale(${sc.toFixed(3)})">${A[sp.arch](q)}</g>`;
     }
+    if (sp.p.big) s += `</g>`;
     // الأوراق الساقطة تتحول للبني وتستقر على التربة (لا تموت النبتة)
     const fd = Math.min(fallen, 4);
     for (let i = 0; i < fd; i++) { const x = 70 + i * 20 + (i % 2) * 4; s += `<g transform="translate(${x} 170) rotate(${-70 + i * 50})">${sh(leafD('oval', 14), i % 2 ? '#9A6A3A' : '#8A5A2A', 1.6)}${ln('M0 -1L0 -11', '#6B3E1A', 1.2, .8)}</g>`; }
@@ -3804,12 +4414,17 @@ const HouseArt = (function () {
   function houseSVG(hid, opt) {
     opt = opt || {}; const idx = Math.max(0, Math.min(14, parseInt(String(hid).slice(1), 10) - 1)); const sp = SPEC[idx];
     const rar = idx < 4 ? 0 : idx < 9 ? 1 : idx < 12 ? 2 : idx < 14 ? 3 : 4;
-    const cap = opt.cap || 3; const plants = opt.plants || []; const u = 'hg' + (uid++); const pct = Math.round(52 + 48 * (cap - 3) / 47);
+    const cap = opt.cap || 3; const plants0 = opt.plants || []; const trees = (opt.trees || []).slice(0, 2); const plants = []; plants0.forEach((p) => { plants.push(p); for (let i = 1; i < (p.slots || 1); i++) plants.push(null); });
+    // الأشجار: تكبر على ١٢ طورًا حتى تعلو البيت ويظلّله إزهارها
+    const TG = trees.map((t, i) => { const left = trees.length === 1 ? true : i === 0; const gq = Math.max(0, Math.min(1, t.g || 0)); const e = Math.pow(gq, .8); const w = 322; const cx = left ? -8 : 328; const h2 = w * 1.35; const y0 = 226 - 238 / 270 * h2; return { t, left, w, cx, y0, gq, h2 }; });
+    let vx0 = -4, vx1 = 324, vy0 = -4; TG.forEach((q) => { vy0 = Math.min(vy0, 226 - 350 * Math.pow(q.gq, .8)); }); vy0 = Math.floor(Math.min(vy0, vy0 - 2)); const vw = vx1 - vx0, vh = 240 - vy0;
+    const u = 'hg' + (uid++); const pct = Math.min(100, Math.round((52 + 48 * (cap - 3) / 47) * 1));
     const lay = layout(sp.poly, cap); const pw = lay.w;
     const ph = pw * 1.35; const ring = sp.ring, acc = sp.acc;
-    let s = `<svg class="house" viewBox="0 0 320 240" role="img" aria-label="بيت زجاجي" style="overflow:visible;width:${pct}%;display:block;margin:0 auto"><defs><clipPath id="${u}c"><path d="${sp.d}"/></clipPath><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3F4FF"/><stop offset="1" stop-color="#F7FBF1"/></linearGradient><radialGradient id="${u}a"><stop offset="0" stop-color="#FFE9A0" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient></defs>`;
+    let s = `<svg class="house" viewBox="${vx0} ${vy0} ${vw} ${vh}" role="img" aria-label="بيت زجاجي" style="overflow:visible;width:${pct}%;display:block;margin:0 auto"><defs><clipPath id="${u}c"><path d="${sp.d}"/></clipPath><linearGradient id="${u}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3F4FF"/><stop offset="1" stop-color="#F7FBF1"/></linearGradient><radialGradient id="${u}a"><stop offset="0" stop-color="#FFE9A0" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient></defs>`;
     if (sp.aura) s += `<ellipse class="aura" cx="160" cy="130" rx="190" ry="140" fill="url(#${u}a)"/>` + [[18, 40], [300, 52], [160, 4], [40, 190], [284, 196]].map((p, k) => star(p[0], p[1], 8, k)).join('');
     s += `<ellipse cx="160" cy="226" rx="${Math.min(158, 112 + cap * 1.1)}" ry="9" fill="${O}" opacity=".13"/>`;
+    TG.forEach((q) => { s += `<ellipse cx="${q.cx.toFixed(1)}" cy="228" rx="34" ry="6" fill="${O}" opacity=".13"/>`; });
     // الخلفية: سماء خفيفة خلف النباتات فقط
     s += `<g clip-path="url(#${u}c)"><rect width="320" height="240" fill="url(#${u}g)"/><path d="M-20 240L120 -20M40 240L180 -20M100 240L240 -20M160 240L300 -20M220 240L360 -20" stroke="#fff" stroke-width="9" opacity=".35"/><rect y="208" width="320" height="30" fill="#8A6A44"/><rect y="208" width="320" height="6" fill="#6B8F45"/></g>`;
     if (sp.wall) s += `<rect x="268" y="40" width="34" height="176" fill="#C9A98A" stroke="${O}" stroke-width="3"/><path d="M268 70H302M268 100H302M268 130H302M268 160H302M268 190H302M285 40V70M277 70V100M293 70V100M285 100V130M277 130V160M293 130V160M285 160V190" stroke="${O}" stroke-width="1.3" opacity=".4" fill="none"/>`;
@@ -3826,7 +4441,7 @@ const HouseArt = (function () {
       const cnt = Math.max(0, Math.min(row.n, used - k)); const x0 = row.cx - row.sp * (row.n - 1) / 2; const wid = row.sp * row.n;
       shelves = `<rect x="${(row.cx - wid / 2).toFixed(1)}" y="${(row.base - 1).toFixed(1)}" width="${wid.toFixed(1)}" height="4" rx="2" fill="#A07A4C" stroke="${O}" stroke-width="1.3"/>` + shelves;
       const startX = row.cx - row.sp * (Math.max(1, cnt) - 1) / 2;
-      let rowPl = ''; for (let c = 0; c < cnt; c++) { const p = plants[k + c]; rowPl += nest(PlantArt.plantSVG(p.sp, { stage: p.stage, level: p.level, leaves: p.leaves, fallen: p.fallen }), startX + c * row.sp - pw / 2, row.base - ph * .96, pw, p.id); }
+      let rowPl = ''; for (let c = 0; c < cnt; c++) { const p = plants[k + c]; if (!p) continue; const big = (p.slots || 1) > 1; const mid = big && c + 1 < cnt && plants[k + c + 1] === null ? 1 : 0; const w2 = big ? pw * 1.4 : pw; const cx = startX + (c + mid) * row.sp; rowPl += nest(PlantArt.plantSVG(p.sp, { stage: p.stage, level: p.level, leaves: p.leaves, fallen: p.fallen }), cx - w2 / 2, row.base - w2 * 1.35 * .96, w2, p.id); }
       pl = rowPl + pl; k += cnt;
     });
     s += shelves + pl;
@@ -3845,6 +4460,7 @@ const HouseArt = (function () {
     s += `<rect x="${160 - bw - 6}" y="214" width="${(bw + 6) * 2}" height="14" rx="5" fill="${rar >= 3 ? '#E3CF98' : '#B9ADA0'}" stroke="${O}" stroke-width="2.6"/>`;
     [[-1, 0], [1, 0]].forEach((q) => { const bx = 160 + q[0] * (bw + 14); s += `<circle cx="${bx}" cy="214" r="11" fill="#4E9A58" stroke="${O}" stroke-width="2.4"/><circle cx="${bx + q[0] * 9}" cy="219" r="8" fill="#6AB86C" stroke="${O}" stroke-width="2.2"/>` + (rar >= 1 ? `<circle cx="${bx - 3}" cy="209" r="3" fill="${GEM[(idx + (q[0] > 0 ? 2 : 0)) % 6]}"/>` : ''); });
     if (rar >= 2) s += [[30, 60], [290, 70]].map((p, k) => star(p[0], p[1], 6 + rar, k + 1)).join('');
+    TG.forEach((q) => { s += `<g opacity="${q.gq > .85 ? .92 : 1}"${q.left ? '' : ` transform="translate(${(2 * q.cx).toFixed(1)} 0) scale(-1 1)"`}>` + nest(PlantArt.plantSVG(q.t.sp, { stage: q.t.stage, level: q.t.level, leaves: q.t.leaves, fallen: 0, g: q.gq, inHouse: 1 }), q.cx - q.w / 2, q.y0, q.w, q.t.id) + '</g>'; });
     return s + '</svg>';
   }
   return { houseSVG, SPEC };
@@ -3949,7 +4565,7 @@ function viewPerson() {
   hist.sort((a, b) => (a.d < b.d ? 1 : a.d > b.d ? -1 : 0));
   const cls = ['', 'عادي', 'نادر', 'ملحمي', 'أسطوري', 'خرافي'];
   const rarIdx = Math.min(4, E.levelTier(r.level));
-  let h = '<div class="pbox"><div class="card stack pstage rar' + rarIdx + '">' + stageHTML(r.equipped).replace('<div class="fxlayer">', '<button class="lvbadge" data-act="lvInfo" aria-label="معنى المستوى"><span class="lvb-n num">' + N(r.level) + '</span><span class="lvb-t">المستوى · ' + r.levelName + '</span></button><div class="fxlayer">') +
+  let h = '<div class="pbox"><div class="card stack pstage rar' + rarIdx + '"><button class="lvbadge" data-act="lvInfo" aria-label="معنى المستوى"><span class="lvb-n num">' + N(r.level) + '</span><span class="lvb-t">المستوى · ' + r.levelName + '</span></button>' + stageHTML(r.equipped) +
     '<div class="stack" style="gap:6px"><div class="small">الهدف التالي: ' + goalTxt + ' <b class="num">(' + N(g.have) + ' من ' + N(g.need) + ')</b></div><div class="bar"><i style="width:' + Math.round(prog * 100) + '%"></i></div></div>' +
     (r.penalty > 0 ? '<div class="note warn">خُصمت ' + N(r.penalty) + ' من المستوى الكلي بسبب أيام التجمد الكامل. المستوى المحسوب من سماتك: ' + N(r.derivedLevel) + '.</div>' : '') + '</div>';
   h += '<div class="card stack pside"><div class="row ptsrow" style="justify-content:space-between"><div><div class="small muted">نقاط التطوير المتاحة</div><div class="pts num">' + N(r.ptsAvail) + '</div></div><div class="small muted ptsnote" style="text-align:end;max-width:190px">تتجمع تلقائيًا من إنجازاتك حتى لو لم تفتحي هذه الصفحة. وزعيها كما تريدين.</div></div>';
@@ -4383,7 +4999,14 @@ document.addEventListener('click', async (e) => {
   switch (a.dataset.act) {
     case 'inc': return setTaskCount(id, 1, a);
     case 'dec': return setTaskCount(id, -1, a);
-    case 'addTask': return openTaskForm(null);
+    case 'bell': return openBell();
+    case 'goalAdd': return openGoalForm();
+    case 'goalAmt': { const gid = a.dataset.g; const g = (R.goals || []).find((x) => x.id === gid); if (!g) return; const m = modal('<h2>إضافة إلى «' + esc(g.title) + '»</h2><div class="field"><label for="gAdd">كم تقدّمتِ؟ (' + esc(g.unit || '⃁') + ')</label><input type="number" id="gAdd" inputmode="decimal" min="0" placeholder="مثال: ١٠٠"></div><div class="actions"><button class="btn" data-save>إضافة</button><button class="btn soft" data-close>إلغاء</button></div>'); m.el.querySelector('[data-save]').addEventListener('click', () => { const v = m.el.querySelector('#gAdd').value; const probe = E.clone(ST); const r = E.addGoalAmount(probe, gid, v, TODAY()); if (!r.ok) { err(r.error); return; } m.close(); act((s) => E.addGoalAmount(s, gid, v, TODAY())); }); setTimeout(() => m.el.querySelector('#gAdd').focus(), 50); return; }
+    case 'goalAmtDel': return act((s) => E.removeGoalAmount(s, a.dataset.g, a.dataset.a));
+    case 'goalStep': return act((s) => E.toggleStep(s, a.dataset.g, a.dataset.s, TODAY()));
+    case 'goalDel': return (async () => { const ok = await confirmDlg({ title: 'حذف الهدف؟', body: '<p>يُحذف هذا الهدف وتقدّمه. لا تتأثر مهامك ولا مكافآتك السابقة.</p>', ok: 'حذف', danger: true }); if (ok) act((s) => E.deleteGoal(s, a.dataset.g, TODAY())); })();
+    case 'ttab': TASKTAB = a.dataset.v; render(); return;
+    case 'addTask': return openTaskForm(null, TASKTAB === 'temp' ? { once: TODAY(), kind: 'side', streak: false } : null);
     case 'preset': return openTaskForm(null, PRESETS[a.dataset.p]);
     case 'editTask': return openTaskForm(ST.tasks.find((t) => t.id === id));
     case 'prevDay': VIEWDAY = E.addDays(VIEWDAY || today, -1); if (VIEWDAY < ST.startDate) VIEWDAY = ST.startDate; return render();
@@ -4414,16 +5037,19 @@ document.addEventListener('click', async (e) => {
     case 'movePlant': { const pid = a.dataset.pid; const probe = E.clone(ST); const rr = E.movePlant(probe, pid, a.dataset.h, today); if (!rr.ok) { err(rr.error); return; } closeModals(); act((x) => { E.movePlant(x, pid, a.dataset.h, today); }, { noPts: true }); toast({ text: 'نُقلت النبتة.', amount: 0 }); return; }
     case 'atab': ATAB = +a.dataset.t; return render();
     case 'afilt': AFILT = a.dataset.f; return render();
+    case 'shopInfo': { const s = shopItems().find((x) => x.id === a.dataset.sp); if (s) modal(shopDetail(s), { noFocus: true }); return; }
     case 'pfilter': PFILTER = +a.dataset.r; return render();
     case 'toPlantShop': closeModals(); MARKET = 'plants'; VIEW = 'market'; render(); window.scrollTo(0, 0); return;
     case 'plantOpen': { const p = R.plants.find((x) => x.id === a.dataset.pid); if (p) modal(plantDetail(p), { noFocus: true }); return; }
     case 'buyPlant': {
       const s = E.PLANTS.find((x) => x.id === a.dataset.sp);
-      const ok = await confirmDlg({ title: 'شراء ' + s.name, body: '<p>السعر: ' + money(s.price) + '</p><p class="muted small">رصيدك بعد الشراء: ' + N(R.balance - s.price) + '</p><p class="muted small">تحصلين على ' + money(E.PLANT_GET[s.rar]) + ' مكافأة عند الشراء.</p>', ok: 'شراء' });
+      const hopts = R.houses.filter((x) => x.owned && houseFits(x, s)); let hid = null;
+      if (s.tree && hopts.length > 1) { hid = await pickHouse(s, hopts); if (!hid) return; } else if (s.tree) hid = hopts[0] && hopts[0].id;
+      const ok = await confirmDlg({ title: 'شراء ' + s.name, body: '<p>السعر: ' + money(s.price) + '</p><p class="muted small">رصيدك بعد الشراء: ' + N(R.balance - s.price) + '</p><p class="muted small">تحصلين على ' + money(E.PLANT_GET[s.rar]) + ' مكافأة عند الشراء.</p>' + (s.tree ? '<p class="muted small">ستُزرع بجانب «' + esc((R.houses.find((x) => x.id === hid) || {}).name || '') + '» وتكتمل بعد ' + N(s.grow) + ' يوم نجاح.</p>' : s.slots > 1 ? '<p class="muted small">تحجز ' + N(s.slots) + ' أماكن في بيت واحد من أول يوم، وتكتمل بعد ' + N(s.grow) + ' يوم نجاح.</p>' : ''), ok: 'شراء' });
       if (!ok) return;
       const opId = 'pb-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
-      const probe = E.clone(ST); const rr = E.buyPlant(probe, s.id, today, opId); if (!rr.ok) { err(rr.error); return; }
-      act((x) => { E.buyPlant(x, s.id, today, opId); }, { noPts: true });
+      const probe = E.clone(ST); const rr = E.buyPlant(probe, s.id, today, opId, hid); if (!rr.ok) { err(rr.error); return; }
+      closeModals(); act((x) => { E.buyPlant(x, s.id, today, opId, hid); }, { noPts: true });
       toast({ html: 'أضفتِ «' + esc(s.name) + '» إلى غرفتك بـ ' + money(s.price) + '.<div class="bal">الرصيد الآن: ' + N(R.balance) + '</div>' }); return;
     }
     case 'upgrade': {
@@ -4465,6 +5091,7 @@ document.addEventListener('click', async (e) => {
     case 'addStep': return act((s) => { s.settings.compSteps.push(''); });
     case 'rmStep': return act((s) => { s.settings.compSteps.splice(+a.dataset.i, 1); });
     case 'bkLater': { ST.settings.bkNag = TODAY(); persist(); render(); return; }
+    case 'pal': { ST.settings.palette = a.dataset.v; applyTheme(); persist(); render(); return; }
     case 'theme': { ST.settings.theme = a.dataset.v; applyTheme(); persist(); render(); return; }
     case 'copyExp': { ST.settings.lastBackup = TODAY(); persist(); const txt = packBackup(ST); try { await navigator.clipboard.writeText(txt); toast({ text: 'نُسخت النسخة الاحتياطية. الصقيها في ملاحظات أو رسالة لنفسك.', amount: 0 }); } catch (x) { $('#expBox').innerHTML = '<textarea id="exp" class="code" readonly>' + esc(txt) + '</textarea>'; const ta = $('#exp'); ta.focus(); ta.select(); toast({ text: 'حدّدتُ النص، انسخيه يدويًا.', amount: 0 }); } return; }
     case 'cIn': case 'cUp': case 'cSync': case 'cOut': return cloudAction(a.dataset.act);
@@ -4516,7 +5143,7 @@ function checkReminders() {
 }
 function showRemind(it, st) {
   const t = it.task; const name = E.ver(t, TODAY()).name;
-  const d = document.createElement('div'); d.className = 'remcard'; d.setAttribute('role', 'alert');
+  const d = document.createElement('div'); d.className = 'remcard'; d.setAttribute('role', 'alert'); logAct('تذكير: حان وقت «' + name + '»');
   d.innerHTML = '<div class="remi">' + esc(t.emoji) + '</div><div class="remt"><b>حان وقت «' + esc(name) + '»</b><span class="small muted">' + (t.why ? esc(t.why) : 'خطوة صغيرة الآن تكفي.') + '</span></div><div class="rema"><button class="btn" data-rm="done">تمّت</button><button class="btn soft" data-rm="later">بعد ٣٠ دقيقة</button><button class="iconbtn" data-rm="x" aria-label="إخفاء">×</button></div>';
   document.body.appendChild(d);
   d.addEventListener('click', async (e) => {
@@ -4551,7 +5178,7 @@ function dayNotices() {
 }
 function showNotices() {
   const list = dayNotices(); if (!list.length) return;
-  const ev = list.shift(); ST.ack.push(ev.type + ':' + ev.D); persist();
+  const ev = list.shift(); ST.ack.push(ev.type + ':' + ev.D); persist(); logAct(ev.type === 'frozenSave' ? 'استُهلكت تجميدة لحماية ' + dlabel(ev.D) : ev.type === 'out' ? 'انطفأت الشعلة بعد فوات ' + dlabel(ev.D) : 'تجمدت الواجهة بعد فوات ' + dlabel(ev.D));
   const msg = { frozenSave: 'فاتك ' + dlabel(ev.D) + '. استُهلكت تجميدة واحدة فبقيت الاستمرارية محمية. المتبقي: ' + N(R.freezes) + '.', out: 'انطفأت الشعلة بعد فوات ' + dlabel(ev.D) + '. ' + (R.savedStreak ? 'الاستمرارية السابقة (' + N(R.savedStreak) + ' يومًا) محفوظ.' : '') + ' نفّذي المهمة التعويضية اليوم لإعادتها.', freezeStart: 'تجمّدت الواجهة بعد يوم من الانطفاء. نفّذي المهمة التعويضية لإنهاء التجمد.' }[ev.type];
   modal('<h2>' + (ev.type === 'frozenSave' ? 'تجميدة استُهلكت' : ev.type === 'out' ? 'انطفأت الشعلة' : 'الواجهة متجمدة') + '</h2><div class="row"><div style="width:70px;height:90px;flex:none">' + flameSVG(ev.type === 'frozenSave' ? 'frozen' : ev.type === 'out' ? 'out' : 'frozen') + '</div><p>' + msg + '</p></div><div class="actions"><button class="btn" data-close>فهمت</button></div>', { onClose: () => setTimeout(showNotices, 200) });
 }
@@ -4561,9 +5188,9 @@ function infoModal(title, body) { modal('<h2>' + esc(title) + '</h2><div class="
 function rarInfo(kind, r) {
   const names = E.RARITY, names2 = E.TIERS;
   if (kind === 'plant') {
-    const rows = names.map((nm, i) => { const ps = E.PLANTS.filter((x) => x.rar === i); const lo = Math.min.apply(0, ps.map((x) => x.price)), hi = Math.max.apply(0, ps.map((x) => x.price)); return '<li' + (i === r ? ' style="font-weight:700;color:var(--green)"' : '') + '>' + nm + ': ' + N(ps.length) + ' نبتة في المتجر، سعرها من ' + money(lo) + ' إلى ' + money(hi) + '</li>'; }).join('');
-    const up = [5, 6, 7].map((i) => '<li' + (i === r ? ' style="font-weight:700;color:var(--green)"' : '') + '>' + names2[i] + ': مستوى ترقية فقط، تصلين إليه بتطوير نبتة بتكلفة ' + money(E.upgradeCost(i - 1)) + ' عند اكتمال نموها</li>').join('');
-    return infoModal('تصنيف النبتات', '<p style="margin:0">تصنَّف النبتة بحسب ندرتها عند الشراء: عادي، نادر، ملحمي، أسطوري، خرافي. وبعد اكتمال نموها يمكنك تطويرها حتى «خرافي مطلق».</p><ul class="eff">' + rows + up + '</ul><p class="small muted" style="margin:0">التطوير حتى «خرافي» بـ ' + money(100) + ' لكل مستوى. النبتات الخاصة المهداة من الإنجازات الكبرى تبدأ من مستويات مهيمن ومتسامٍ ومطلق.</p>');
+    const rows = names2.map((nm, i) => { const ps = E.PLANTS.filter((x) => x.rar === i); if (!ps.length) return ''; const lo = Math.min.apply(0, ps.map((x) => x.price)), hi = Math.max.apply(0, ps.map((x) => x.price)); return '<li' + (i === r ? ' style="font-weight:700;color:var(--green)"' : '') + '>' + nm + ': ' + N(ps.length) + ' نبتة في المتجر، سعرها من ' + money(lo) + ' إلى ' + money(hi) + '</li>'; }).join('');
+    const up = [5, 6, 7].filter(() => false).map((i) => '<li' + (i === r ? ' style="font-weight:700;color:var(--green)"' : '') + '>' + names2[i] + ': مستوى ترقية فقط، تصلين إليه بتطوير نبتة بتكلفة ' + money(E.upgradeCost(i - 1)) + ' عند اكتمال نموها</li>').join('');
+    return infoModal('تصنيف النبتات', '<p style="margin:0">تصنَّف النبتة بحسب ندرتها عند الشراء: عادي، نادر، ملحمي، أسطوري، خرافي. وبعد اكتمال نموها يمكنك تطويرها حتى «خرافي مطلق». أما «خرافي مهيمن» و«متسامٍ» و«مطلق» فبعضها في المتجر بأسعار عالية، والبقية تُنال بالأوسمة فقط.</p><ul class="eff">' + rows + up + '</ul><p class="small muted" style="margin:0">التطوير حتى «خرافي» بـ ' + money(100) + ' لكل مستوى. النبتات الخاصة المهداة من الإنجازات الكبرى تبدأ من مستويات مهيمن ومتسامٍ ومطلق.</p>');
   }
   const hs = names.map((nm, i) => { const hh = E.HOUSES.filter((x) => x.rar === i); if (!hh.length) return ''; const lo = Math.min.apply(0, hh.map((x) => x.price)), hi = Math.max.apply(0, hh.map((x) => x.price)); const c1 = Math.min.apply(0, hh.map((x) => x.cap)), c2 = Math.max.apply(0, hh.map((x) => x.cap)); return '<li' + (i === r ? ' style="font-weight:700;color:var(--green)"' : '') + '>' + nm + ': ' + (hh.length === 1 ? 'بيت واحد' : N(hh.length) + ' بيوت') + '، السعة من ' + N(c1) + ' إلى ' + N(c2) + '، السعر من ' + money(lo) + ' إلى ' + money(hi) + '</li>'; }).join('');
   infoModal('تصنيف البيوت الزجاجية', '<ul class="eff">' + hs + '</ul>');
