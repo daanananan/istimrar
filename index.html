@@ -607,6 +607,7 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
   .gchips{flex-wrap:wrap;overflow:visible}
   .gchip{font-size:16px;padding:10px 18px}
 }
+.seg.five{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.seg.five button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px 2px;min-width:0;line-height:1.25}.seg.five .gsn{font-size:13px;font-weight:700}.seg.five .gsr{font-size:12px;opacity:.8}
 .compalert{border:2px solid var(--danger);background:color-mix(in srgb,var(--danger) 13%,var(--surface));border-radius:22px;padding:16px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 8px 22px -14px var(--danger)}
 .compalert .ex{width:46px;height:46px;border-radius:50%;background:var(--danger);color:#fff;font-size:30px;font-weight:700;display:grid;place-items:center;flex:none;animation:alp 1.8s ease-in-out infinite}
 .compalert h2{margin:0 0 4px;font-size:19px;color:var(--danger)}
@@ -718,22 +719,20 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
 
   const C = {
     START_COINS: 20,
-    WEEK_GOAL: 5, WEEK_GOAL_REWARD: 25, SURPRISE_MIN: 5, SURPRISE_SPAN: 11, SURPRISE_ONE_IN: 4, LOAN_RATE: 0.25, LOAN_MIN: 10, LOAN_MAX: 300,
-    REWARD_MAIN: 2,
-    REWARD_SIDE: 4,
-    REWARD_ONCE: 2,
-    GOAL_REWARD: { s: 30, m: 80, l: 200 },
-    BONUS_CARD_EXTRA: 3,
+    WEEK_GOAL: 5, WEEK_GOAL_REWARD: 5, SURPRISE_MIN: 1, SURPRISE_SPAN: 5, SURPRISE_ONE_IN: 4, LOAN_RATE: 0.6, LOAN_MIN: 10, LOAN_MAX: 100, LOAN_EXEMPT: 1, ECON_FROM: '2026-10-18',
+    REWARD_MIN: 0.5, REWARD_MAX: 1,
+    GOAL_REWARD: { xs: 2, s: 5, m: 15, l: 40, xl: 100 },
+    BONUS_CARD_EXTRA: 0.5,
     QUIET_PER_MONTH: 3,
     FREEZE_FIRST_AT: 5,
     FREEZE_EVERY: 10,
     EXEMPT_RATIO: 0.3,
     LEAST_RATIO: 0.4,
-    PRICE_BONUS: 50,
-    PRICE_LEAST: 40,
+    PRICE_BONUS: 20,
+    PRICE_LEAST: 20,
     FREEZE_PRICE_START: 20,
-    FREEZE_PRICE_STEP: 10,
-    FREEZE_PRICE_MAX: 100,
+    FREEZE_PRICE_STEP: 5,
+    FREEZE_PRICE_MAX: 60,
   };
 
   const TRAITS = [
@@ -744,23 +743,23 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     { id: 'dis', name: 'الانضباط', color: '#C99A2E' },
     { id: 'int', name: 'الذكاء والتعلم', color: '#3A6FD8' },
   ];
-  const RARITY = ['عادي', 'نادر', 'ملحمي', 'أسطوري', 'خرافي'];
+  const RARITY = ['عادي', 'نادر', 'ملحمي', 'أسطوري', 'خرافي', 'خرافي مهيمن', 'خرافي متسامٍ', 'خرافي مطلق'];
   const OUTFITS = [
     { id: 'starter', name: 'الزي الأساسي', rar: 0, price: 0, pal: { top: '#F1ECD6', vest: '#2C6A49', pants: '#26352E', boots: '#4B3527', belt: '#6B4A2E', trim: '#C9A24A' }, ex: [] },
-    { id: 'c1', name: 'سترة الدرب', rar: 0, price: 34, pal: { top: '#EFE6CC', vest: '#6A8F5B', pants: '#3A4A3C', boots: '#5A4030', belt: '#7A5636', trim: '#D8B65E' }, ex: ['scarf'] },
-    { id: 'c2', name: 'رداء الفجر', rar: 0, price: 48, pal: { top: '#F6E4D8', vest: '#D98C6B', pants: '#4A3A3A', boots: '#5A3E34', belt: '#8A5A3C', trim: '#F0D19A' }, ex: ['sash'] },
-    { id: 'r1', name: 'سترة الصنوبر', rar: 1, price: 67, pal: { top: '#E7EEE3', vest: '#1F5A47', pants: '#22332F', boots: '#3D2D24', belt: '#8A6A3A', trim: '#9CD3B6' }, ex: ['scarf', 'pauldron'] },
-    { id: 'r2', name: 'معطف الرمال', rar: 1, price: 75, pal: { top: '#F3E7C9', vest: '#B88B4A', pants: '#4A3B2A', boots: '#5A4330', belt: '#6B4A2E', trim: '#F2D58B' }, ex: ['cape'] },
-    { id: 'r3', name: 'زيّ الظل الأزرق', rar: 1, price: 81, pal: { top: '#DDE5F2', vest: '#2D4A8A', pants: '#1E2A47', boots: '#2B2F3F', belt: '#5A6A9A', trim: '#9DB8F0' }, ex: ['pauldron', 'sash'] },
-    { id: 'e1', name: 'زيّ الفارسة الفضي', rar: 2, price: 100, pal: { top: '#EEF0F4', vest: '#9AA4B5', pants: '#3A4352', boots: '#2E3440', belt: '#59657A', trim: '#E6ECF7' }, ex: ['pauldron', 'cape'] },
-    { id: 'e2', name: 'عباءة الغروب', rar: 2, price: 150, pal: { top: '#F6E2D0', vest: '#B8456B', pants: '#3A2535', boots: '#3E2A32', belt: '#8A3B55', trim: '#F4B96E' }, ex: ['cape', 'scarf'] },
-    { id: 'l1', name: 'زيّ اللهب الذهبي', rar: 3, price: 186, pal: { top: '#FFF1D0', vest: '#D9741E', pants: '#4B2A16', boots: '#3A2216', belt: '#8A4A12', trim: '#FFD35E' }, ex: ['cape', 'pauldron', 'glow'] },
-    { id: 'l2', name: 'ثوب الغابة الملكي', rar: 3, price: 338, pal: { top: '#E4F4D8', vest: '#2F8A4F', pants: '#1D3A2A', boots: '#2E4A30', belt: '#9A7A2E', trim: '#F4D96B' }, ex: ['cape', 'scarf', 'glow'] },
-    { id: 'm1', name: 'زيّ القمر الأزرق', rar: 4, price: 500, pal: { top: '#E8F0FF', vest: '#3F5BD8', pants: '#1B1F4A', boots: '#232A5A', belt: '#8FA8FF', trim: '#BFD0FF' }, ex: ['cape', 'pauldron', 'glow', 'stars'] },
-    { id: 'm2', name: 'زيّ التنين الذهبي', rar: 4, price: 700, pal: { top: '#FFF3D6', vest: '#E3A92A', pants: '#5A1E12', boots: '#4A1A10', belt: '#B8741E', trim: '#FFE27A' }, ex: ['cape', 'pauldron', 'scarf', 'glow', 'stars'] },
-    { id: 'n1', name: 'زيّ المحاربة المهيمنة', rar: 5, price: 900, pal: { top: '#F6E6D8', vest: '#C0566A', pants: '#3C4A70', boots: '#5A3A40', belt: '#C9A24A', trim: '#E9C46A' }, ex: ['cape', 'pauldron', 'glow'] },
-    { id: 'n2', name: 'زيّ القطة الخفيّة', rar: 6, price: 1400, pal: { top: '#EFE8F7', vest: '#7C77AE', pants: '#403C5C', boots: '#4A4466', belt: '#E9B7D0', trim: '#F2C6DE' }, ex: ['pauldron', 'glow', 'stars'] },
-    { id: 'n3', name: 'زيّ الفجر الأبدي', rar: 7, price: 2200, pal: { top: '#FFFDF8', vest: '#F4DCEB', pants: '#E4EEF8', boots: '#EBDDF2', belt: '#E9C46A', trim: '#F0D58A' }, ex: ['cape', 'glow', 'stars'] },  ];
+    { id: 'c1', name: 'سترة الدرب', rar: 0, price: 48, pal: { top: '#EFE6CC', vest: '#6A8F5B', pants: '#3A4A3C', boots: '#5A4030', belt: '#7A5636', trim: '#D8B65E' }, ex: ['scarf'] },
+    { id: 'c2', name: 'رداء الفجر', rar: 0, price: 75, pal: { top: '#F6E4D8', vest: '#D98C6B', pants: '#4A3A3A', boots: '#5A3E34', belt: '#8A5A3C', trim: '#F0D19A' }, ex: ['sash'] },
+    { id: 'r1', name: 'سترة الصنوبر', rar: 1, price: 200, pal: { top: '#E7EEE3', vest: '#1F5A47', pants: '#22332F', boots: '#3D2D24', belt: '#8A6A3A', trim: '#9CD3B6' }, ex: ['scarf', 'pauldron'] },
+    { id: 'r2', name: 'معطف الرمال', rar: 1, price: 250, pal: { top: '#F3E7C9', vest: '#B88B4A', pants: '#4A3B2A', boots: '#5A4330', belt: '#6B4A2E', trim: '#F2D58B' }, ex: ['cape'] },
+    { id: 'r3', name: 'زيّ الظل الأزرق', rar: 1, price: 300, pal: { top: '#DDE5F2', vest: '#2D4A8A', pants: '#1E2A47', boots: '#2B2F3F', belt: '#5A6A9A', trim: '#9DB8F0' }, ex: ['pauldron', 'sash'] },
+    { id: 'e1', name: 'زيّ الفارسة الفضي', rar: 2, price: 500, pal: { top: '#EEF0F4', vest: '#9AA4B5', pants: '#3A4352', boots: '#2E3440', belt: '#59657A', trim: '#E6ECF7' }, ex: ['pauldron', 'cape'] },
+    { id: 'e2', name: 'عباءة الغروب', rar: 2, price: 700, pal: { top: '#F6E2D0', vest: '#B8456B', pants: '#3A2535', boots: '#3E2A32', belt: '#8A3B55', trim: '#F4B96E' }, ex: ['cape', 'scarf'] },
+    { id: 'l1', name: 'زيّ اللهب الذهبي', rar: 3, price: 1000, pal: { top: '#FFF1D0', vest: '#D9741E', pants: '#4B2A16', boots: '#3A2216', belt: '#8A4A12', trim: '#FFD35E' }, ex: ['cape', 'pauldron', 'glow'] },
+    { id: 'l2', name: 'ثوب الغابة الملكي', rar: 3, price: 1600, pal: { top: '#E4F4D8', vest: '#2F8A4F', pants: '#1D3A2A', boots: '#2E4A30', belt: '#9A7A2E', trim: '#F4D96B' }, ex: ['cape', 'scarf', 'glow'] },
+    { id: 'm1', name: 'زيّ القمر الأزرق', rar: 4, price: 3000, pal: { top: '#E8F0FF', vest: '#3F5BD8', pants: '#1B1F4A', boots: '#232A5A', belt: '#8FA8FF', trim: '#BFD0FF' }, ex: ['cape', 'pauldron', 'glow', 'stars'] },
+    { id: 'm2', name: 'زيّ التنين الذهبي', rar: 4, price: 4500, pal: { top: '#FFF3D6', vest: '#E3A92A', pants: '#5A1E12', boots: '#4A1A10', belt: '#B8741E', trim: '#FFE27A' }, ex: ['cape', 'pauldron', 'scarf', 'glow', 'stars'] },
+    { id: 'n1', name: 'زيّ المحاربة المهيمنة', rar: 5, price: 5000, pal: { top: '#F6E6D8', vest: '#C0566A', pants: '#3C4A70', boots: '#5A3A40', belt: '#C9A24A', trim: '#E9C46A' }, ex: ['cape', 'pauldron', 'glow'] },
+    { id: 'n2', name: 'زيّ القطة الخفيّة', rar: 6, price: 9000, pal: { top: '#EFE8F7', vest: '#7C77AE', pants: '#403C5C', boots: '#4A4466', belt: '#E9B7D0', trim: '#F2C6DE' }, ex: ['pauldron', 'glow', 'stars'] },
+    { id: 'n3', name: 'زيّ الفجر الأبدي', rar: 7, price: 15000, pal: { top: '#FFFDF8', vest: '#F4DCEB', pants: '#E4EEF8', boots: '#EBDDF2', belt: '#E9C46A', trim: '#F0D58A' }, ex: ['cape', 'glow', 'stars'] },  ];
   const PLANTS = [{"id":"p001","name":"البوتس الذهبية","rar":0,"price":20},
     {"id":"p002","name":"نبات العنكبوت","rar":0,"price":21},
     {"id":"p003","name":"ترادسكانتيا بنفسجية","rar":0,"price":23},
@@ -869,13 +868,24 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     {"id":"p109","name":"شجرة الجاكرندا","rar":7,"price":5000,"grow":365,"tree":true,"doneReward":1000,"desc":"شجرة حقيقية تُزرع بجانب البيت الزجاجي لا داخله، تمرّ بـ ١٥ طورًا (طور كل شهر تقريبًا) وتتفتح أزهارها الأرجوانية تدريجيًا حتى تصير شجرة ضخمة بأغصان طويلة متفرعة تمتدّ أزهارها فوق البيت الزجاجي وتغطيه، وتكتمل بعد سنة كاملة (٣٦٥ يوم نجاح)."},
     {"id":"p110","name":"شجرة زهرة البرقوق","rar":7,"price":7000,"grow":365,"tree":true,"doneReward":1500,"desc":"شجرة وردية الأزهار تُزرع بجانب البيت الزجاجي الذي تختارينه، وتمرّ بـ ١٥ طورًا خلال سنة حتى تصير شجرة ضخمة بأغصان خشبية طويلة متفرعة تحمل أزهارًا وردية غزيرة تظلّل البيت، وتكتمل بعد سنة كاملة (٣٦٥ يوم نجاح)."}
   ];
+  // أسعار النباتات بعد إعادة ضبط الاقتصاد: تُعاد خطيًّا من النطاق القديم لكل ندرة إلى النطاق الجديد
+  { const NEW = { 0: [40, 95], 1: [200, 320], 2: [500, 800], 3: [1000, 1600], 4: [3000, 4500], 5: [5000, 6500], 6: [9000, 9000], 7: [15000, 20000] };
+    const rg = {}; PLANTS.forEach((p) => { const g = rg[p.rar] = rg[p.rar] || { lo: 1e9, hi: 0 }; g.lo = Math.min(g.lo, p.price); g.hi = Math.max(g.hi, p.price); });
+    PLANTS.forEach((p) => { const g = rg[p.rar], n = NEW[p.rar]; if (!n) return; const t = g.hi > g.lo ? (p.price - g.lo) / (g.hi - g.lo) : 0; const raw = n[0] + (n[1] - n[0]) * t; p.price = p.rar === 0 ? Math.round(raw) : Math.round(raw / 5) * 5; if (p.doneReward) p.doneReward = p.tree ? 500 : Math.round(p.doneReward / 10); });
+  }
   const TIERS = ['عادي', 'نادر', 'ملحمي', 'أسطوري', 'خرافي', 'خرافي مهيمن', 'خرافي متسامٍ', 'خرافي مطلق'];
   const PLANT_LEVELS = TIERS, MAX_PLANT_LV = 7;
-  const UP_COSTS = { 1: 100, 2: 100, 3: 100, 4: 100, 5: 250, 6: 400, 7: 700 }; // التكلفة للوصول إلى المستوى
+  const UP_COSTS = { 1: 50, 2: 120, 3: 300, 4: 800, 5: 2000, 6: 4000, 7: 7000 }; // التكلفة للوصول إلى المستوى
   const upgradeCost = (curLevel) => UP_COSTS[Math.min(MAX_PLANT_LV, curLevel + 1)];
-  const GIFT_PLANTS = [{ id: 'g01', name: 'شجرة الهيمنة الذهبية', art: 'p103', startLevel: 5 }, { id: 'g02', name: 'سوسنة الأفق المتسامية', art: 'p104', startLevel: 6 }, { id: 'g03', name: 'وردة الأبد المطلقة', art: 'p105', startLevel: 7 }];
-  const PLANT_GET = [2, 3, 5, 10, 20, 40, 70, 120];                 // مكافأة الحصول على نبتة حسب ندرتها الأصلية
-  const plantDoneReward = (lv) => (lv <= 1 ? 5 : lv <= 3 ? 20 : lv === 4 ? 50 : lv === 5 ? 70 : lv === 6 ? 100 : 150); // اكتمال دورة النمو حسب مستوى التطوير الحالي
+  const GIFT_PLANTS = [{ id: 'g01', name: 'شجرة الهيمنة الذهبية', art: 'p103', startLevel: 5 }, { id: 'g02', name: 'سوسنة الأفق المتسامية', art: 'p104', startLevel: 6 }, { id: 'g03', name: 'وردة الأبد المطلقة', art: 'p105', startLevel: 7 },
+    { id: 'g04', name: 'أوركيد الفجر الملكي', art: 'p111', startLevel: 5 }, { id: 'g05', name: 'لوتس الشفق الوردي', art: 'p112', startLevel: 5 },
+    { id: 'g06', name: 'وردة الليل الماسية', art: 'p113', startLevel: 6 }, { id: 'g07', name: 'أوركيد الزمرد المتلألئ', art: 'p114', startLevel: 6 },
+    { id: 'g08', name: 'نجمة النور المطلقة', art: 'p115', startLevel: 7 }, { id: 'g09', name: 'أوركيد الأبد المتألقة', art: 'p116', startLevel: 7 }];
+  // مكافأة الحصول على نبتة: نطاق لكل ندرة، وتتدرج داخله حسب موضع سعر النبتة بين أرخص وأغلى نبتات ندرتها
+  const PLANT_GET_RANGE = [[1, 4], [3, 10], [11, 16], [10, 21], [20, 31], [30, 41], [40, 51], [50, 61]];
+  const PLANT_GET = PLANT_GET_RANGE.map((r) => r[0]);
+  const plantGet = (sp) => { const rg = PLANT_GET_RANGE[sp.rar]; const same = PLANTS.filter((x) => x.rar === sp.rar); const lo = Math.min.apply(null, same.map((x) => x.price)), hi = Math.max.apply(null, same.map((x) => x.price)); const t = hi > lo ? (sp.price - lo) / (hi - lo) : 0; return Math.round(rg[0] + (rg[1] - rg[0]) * t); };
+  const plantDoneReward = (lv) => [1, 1, 2, 2, 3, 4, 5, 5][Math.max(0, Math.min(7, lv))]; // اكتمال دورة النمو حسب مستوى التطوير الحالي
   const GROW_DAYS = 30, UPGRADE_COST = 100;
   const plantStage = (c, gd) => { gd = gd || GROW_DAYS; return c <= 0 ? 0 : c < gd * 7 / 30 ? 1 : c < gd * 15 / 30 ? 2 : c < gd ? 3 : 4; }; // بذرة، برعم، صغيرة، نامية، مكتملة مزهرة
   const TREE_PHASES = ['بذرة في التراب', 'برعم صغير', 'شتلة رفيعة', 'ساق تقوى', 'أولى الأغصان', 'أغصان متفرعة', 'أوراق كثيفة', 'أولى الأزهار', 'أزهار متفتحة', 'تاج واسع مزهر', 'شجرة عملاقة', 'شجرة مكتملة النمو', 'شجرة واسعة الأغصان', 'سماء من الأزهار', 'ظلّ يغطي البيت الزجاجي'];
@@ -884,7 +894,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   const treePhase = (c, gd) => { const k = (gd || 365) / 365; let p = 1; for (let i = 0; i < TREE_SCHEDULE.length; i++) if (c >= TREE_SCHEDULE[i] * k) p = i + 1; return c >= (gd || 365) ? 15 : Math.min(15, p); };
   const STAGE_NAMES = ['بذرة', 'برعم', 'نبتة صغيرة', 'نبتة نامية', 'مكتملة ومزهرة'];
   const plantLeafTotal = (lv, stage) => [0, 2, 4, 6, 8][stage] + lv * 2;
-  const levelReward = (L) => (L <= 20 ? 3 : L <= 40 ? 4 : L <= 80 ? 5 : 7);
+  const LEVEL_REWARD = [0.5, 1, 2, 3, 4, 5, 6, 7]; // لكل مستوى تكسبه: حسب نطاق المستوى (عادي ٠٫٥، نادر ١، ثم +١ لكل نطاق)
+  const levelReward = (L) => LEVEL_REWARD[levelTier(L)];
   const LEVEL_BANDS = [[20, 0], [40, 1], [80, 2], [100, 3], [130, 4], [170, 5], [220, 6], [1e9, 7]];
   const levelTier = (L) => LEVEL_BANDS.findIndex((b) => L <= b[0]);
   const levelClass = (L) => TIERS[levelTier(L)];
@@ -925,7 +936,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       v: 1, startDate: today, nextId: 1,
       tasks: [], goals: [], completions: [], quiet: [], purchases: [], leastUses: [], loans: [],
       compDone: [], editLog: [], ack: [], ops: [], alloc: [], equip: 'starter',
-      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today },
+      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, econVer: 2, econFrom: today },
       place: {},
     };
   }
@@ -933,6 +944,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   function migrate(st) {
     if (!Array.isArray(st.alloc)) st.alloc = [];
     if (!Array.isArray(st.ops)) st.ops = [];
+    if (!Array.isArray(st.placeLog)) st.placeLog = [];
     if (!st.equip) st.equip = 'starter';
     if (!st.place || typeof st.place !== 'object') st.place = {};
     if (!Array.isArray(st.loans)) st.loans = [];
@@ -941,6 +953,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     if (!Array.isArray(st.goals)) st.goals = [];
     if (!Array.isArray(st.activity)) st.activity = [];
     if (st.settings.autoAlloc == null) st.settings.autoAlloc = false;
+    if (st.settings.econVer !== 2) { st.settings.econVer = 2; st.settings.econFrom = C.ECON_FROM; }
     return st;
   }
   const clone = (o) => JSON.parse(JSON.stringify(o));
@@ -1215,38 +1228,56 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
 
   /* ---------- المكافآت ---------- */
-  const mainBonus = (n) => (n < 4 ? 4 : n <= 7 ? 6 : 10);
-  const sideBonus = (n) => (n <= 4 ? 6 : 10);
+  const mainBonus = (n) => (n < 4 ? 1.5 : n <= 7 ? 2 : 3);
+  const sideBonus = (n) => (n <= 4 ? 1 : 1.5);
 
   // السلفة: يُضاف المبلغ فورًا، ثم تُخصم نسبة ثابتة من كل مكافأة تأتي بعد يوم الاستلام حتى السداد
   function computeLoans(st, ledger) {
-    const loans = (st.loans || []).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts)).map((l) => ({ id: l.id, date: l.date, amount: l.amount, left: l.amount, repaid: 0, doneDate: null }));
+    const efl = econFrom(st); const loans = (st.loans || []).filter((l) => l.date >= efl).sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts)).map((l) => ({ id: l.id, date: l.date, amount: l.amount, left: l.amount, repaid: 0, doneDate: null }));
     const ent = ledger.map((e, i) => ({ e, i })).filter((x) => x.e.amount > 0).sort((a, b) => (a.e.date < b.e.date ? -1 : a.e.date > b.e.date ? 1 : a.i - b.i));
     const pays = [];
     for (const x of ent) {
       const L = loans.find((l) => l.left > 0 && l.date < x.e.date); if (!L) continue;
-      const d = Math.min(L.left, Math.ceil(x.e.amount * C.LOAN_RATE), x.e.amount);
+      if (x.e.amount <= C.LOAN_EXEMPT || /^(task|wk|allMain|allSide):/.test(x.e.key)) continue;
+      const d = Math.min(L.left, Math.ceil(x.e.amount * C.LOAN_RATE * 2) / 2, x.e.amount);
       if (d <= 0) continue; L.left -= d; L.repaid += d; if (L.left === 0) L.doneDate = x.e.date; pays.push({ loan: L.id, key: x.e.key, amount: d, date: x.e.date });
     }
     return { loans, pays, borrowed: loans.reduce((a, l) => a + l.amount, 0), repaid: loans.reduce((a, l) => a + l.repaid, 0), active: loans.find((l) => l.left > 0) || null };
   }
 
-  function dayRewards(st, m) {
-    const out = [];
+  const r25 = (x) => Math.round(x * 4) / 4;
+  const r2 = (x) => Math.round(x * 100) / 100;
+  // نسبة زيادة مكافآت المهام بحسب مستوى الشخصية: +١٠٪ لكل مستوى حتى ١١ (+١٠٠٪) ثم +١٪ لكل مستوى حتى +٢٠٠٪
+  const levelBonusPct = (L) => (L <= 1 ? 0 : L <= 11 ? (L - 1) * 10 : Math.min(200, 100 + (L - 11)));
+  // مستوى الشخصية الكلي في بداية كل يوم (من سجل توزيع النقاط السابق لذلك اليوم)
+  function levelTimeline(st) {
+    const tl = {}; TRAITS.forEach((t) => { tl[t.id] = 1; }); const out = [];
+    for (const a of st.alloc) { if (tl[a.trait] == null) continue; tl[a.trait]++; out.push({ date: a.date, L: overallOf(TRAITS.map((t) => tl[t.id])) }); }
+    return out;
+  }
+  const levelAtDay = (tl, D) => { let L = 1; for (const e of tl) if (e.date < D) L = e.L; return L; };
+  // البيوت: زيادة ثابتة على مكافأة اكتمال النبتة حسب ندرة البيت، ومباركة بنسبة تأتي من أعلى نبتة مستوًى داخله
+  const HOUSE_FLAT = [10, 15, 25, 40, 60];
+  const BLESS_PCT = [0, 0, 10, 20, 40, 70, 100, 150];
+  // مكافأة المهمة تتناقص بزيادة عدد المهام الرئيسية في اليوم: بين ٠٫٥ و١ ⃁
+  const taskReward = (n) => Math.max(C.REWARD_MIN, Math.min(C.REWARD_MAX, r25(3 / Math.max(1, n))));
+  function dayRewards(st, m, mult) {
+    const out = []; mult = mult || 1; const fin = (x) => Math.min(5, r2(x * mult));
+    const RM = taskReward(m.reqMain.length), RS = Math.min(5, RM + 1), RO = RM;
     const bonusActive = st.purchases.some((p) => p.kind === 'bonus' && p.date === m.D);
     const extra = bonusActive ? C.BONUS_CARD_EXTRA : 0;
     for (const i of m.items) {
       const name = '«' + i.v.name + '»';
       if (i.kind === 'weeklyOpt') {
-        if (i.done >= 1 && i.before + 1 <= i.weekTarget) out.push({ key: 'wk:' + i.task.id + ':' + m.D, amount: C.REWARD_MAIN + extra, reason: 'إنجاز مهمة أسبوعية ' + name, date: m.D });
+        if (i.done >= 1 && i.before + 1 <= i.weekTarget) out.push({ key: 'wk:' + i.task.id + ':' + m.D, amount: fin(RM + extra), reason: 'إنجاز مهمة أسبوعية ' + name, date: m.D });
         continue;
       }
       if (!i.complete) continue;
-      const base = i.kind === 'side' ? C.REWARD_SIDE : i.kind === 'once' ? C.REWARD_ONCE : C.REWARD_MAIN;
-      out.push({ key: 'task:' + i.task.id + ':' + m.D, amount: base + extra, reason: (i.kind === 'side' ? 'إنجاز مهمة جانبية ' : i.kind === 'once' ? 'إنجاز مهمة مؤقتة ' : 'إنجاز مهمة رئيسية ') + name + (extra ? ' (مع بطاقة زيادة المكافأة)' : ''), date: m.D });
+      const base = i.kind === 'side' ? RS : i.kind === 'once' ? RO : RM;
+      out.push({ key: 'task:' + i.task.id + ':' + m.D, amount: fin(base + extra), reason: (i.kind === 'side' ? 'إنجاز مهمة جانبية ' : i.kind === 'once' ? 'إنجاز مهمة مؤقتة ' : 'إنجاز مهمة رئيسية ') + name + (extra ? ' (مع بطاقة زيادة المكافأة)' : ''), date: m.D });
     }
-    if (m.allMainDone) out.push({ key: 'allMain:' + m.D, amount: mainBonus(m.reqMain.length), reason: 'إكمال جميع المهام الرئيسية (' + m.reqMain.length + ')', date: m.D });
-    if (m.allSideDone) out.push({ key: 'allSide:' + m.D, amount: sideBonus(m.sides.length), reason: 'إكمال جميع المهام الجانبية (' + m.sides.length + ')', date: m.D });
+    if (m.allMainDone) out.push({ key: 'allMain:' + m.D, amount: fin(mainBonus(m.reqMain.length)), reason: 'إكمال جميع المهام الرئيسية (' + m.reqMain.length + ')', date: m.D });
+    if (m.allSideDone) out.push({ key: 'allSide:' + m.D, amount: fin(sideBonus(m.sides.length)), reason: 'إكمال جميع المهام الجانبية (' + m.sides.length + ')', date: m.D });
     return out;
   }
 
@@ -1262,8 +1293,9 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
 
   /* ---------- الأسعار ---------- */
+  const econFrom = (st) => (st.settings && st.settings.econFrom) || '0000-00-00';
   function freezePrice(st) {
-    const k = st.purchases.filter((p) => p.kind === 'freeze').length;
+    const ef = econFrom(st); const k = st.purchases.filter((p) => p.kind === 'freeze' && p.date >= ef).length;
     return Math.min(C.FREEZE_PRICE_MAX, C.FREEZE_PRICE_START + C.FREEZE_PRICE_STEP * k);
   }
   const itemPrice = (st, kind) => (kind === 'freeze' ? freezePrice(st) : kind === 'bonus' ? C.PRICE_BONUS : kind === 'least' ? C.PRICE_LEAST : null);
@@ -1273,13 +1305,37 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   /* ---------- البيوت الزجاجية ---------- */
   // السعات والأسعار مقترحة وقابلة للتعديل من جدول واحد هنا
   const HOUSES = [
-    ['بيت الشرفة', 3, 0, 0], ['بيت الحديقة الصغير', 4, 24, 0], ['القبة الصغيرة', 5, 40, 0], ['بيت النفق', 6, 56, 0],
-    ['البيت المثمّن', 8, 60, 1], ['الجملون الكلاسيكي', 10, 67, 1], ['بيت المثلث العالي', 12, 74, 1], ['البيت الريفي', 14, 81, 1], ['الدفيئة المقوّسة', 16, 88, 1],
-    ['البيت الفيكتوري', 20, 100, 2], ['القبة الشبكية', 24, 125, 2], ['بيت النخيل', 28, 150, 2],
-    ['القصر الزجاجي', 34, 230, 3], ['بيت البرج', 42, 290, 3],
-    ['القبة الملكية', 50, 1000, 4],
+    ['بيت الشرفة', 3, 0, 0], ['بيت الحديقة الصغير', 4, 40, 0], ['القبة الصغيرة', 5, 80, 0], ['بيت النفق', 6, 130, 0],
+    ['البيت المثمّن', 8, 190, 1], ['الجملون الكلاسيكي', 10, 260, 1], ['بيت المثلث العالي', 12, 340, 1], ['البيت الريفي', 14, 430, 1], ['الدفيئة المقوّسة', 16, 530, 1],
+    ['البيت الفيكتوري', 20, 650, 2], ['القبة الشبكية', 24, 900, 2], ['بيت النخيل', 28, 1200, 2],
+    ['القصر الزجاجي', 34, 1800, 3], ['بيت البرج', 42, 2500, 3],
+    ['القبة الملكية', 50, 6000, 4],
   ].map((h, i) => ({ id: 'h' + String(i + 1).padStart(2, '0'), name: h[0], cap: h[1], price: h[2], rar: h[3] }));
   const ownedHouseIds = (st) => ['h01'].concat(st.purchases.filter((p) => p.kind === 'house').map((p) => p.item));
+  // سجل مواضع النباتات عبر الزمن + أثر البيوت على مكافآت الاكتمال + مواعيد امتلاء البيوت
+  function houseEffects(st, pl, hs, efrom) {
+    const logBy = {}; (st.placeLog || []).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : (a.ts || 0) - (b.ts || 0))).forEach((e) => { (logBy[e.pid] = logBy[e.pid] || []).push(e); });
+    const cur = {}; hs.houses.forEach((h) => h.plants.concat(h.trees).forEach((pid) => { cur[pid] = h.id; }));
+    const houseAt = (pid, D) => { const l = logBy[pid]; if (!l) return cur[pid] || null; let r = null; for (const e of l) if (e.date <= D) r = e.house; return r; };
+    const info = {}; pl.plants.forEach((p) => { info[p.id] = p; });
+    const upsOf = (pid) => st.purchases.filter((q) => q.kind === 'plantUp' && q.item === pid).map((q) => q.date);
+    const lvAt = (p, D) => Math.min(MAX_PLANT_LV, p.rar0 + upsOf(p.id).filter((d) => d <= D).length);
+    const blessAt = (hid, D) => { let b = 0; pl.plants.forEach((p) => { if (p.date <= D && houseAt(p.id, D) === hid) b = Math.max(b, BLESS_PCT[lvAt(p, D)]); }); return b; };
+    function adjust(r) {
+      if (r.key.indexOf('plantdone:') !== 0) return;
+      const pid = r.key.split(':').slice(1, -1).join(':'); const hid = houseAt(pid, r.date); const H = HOUSES.find((x) => x.id === hid); if (!H) return;
+      const flat = HOUSE_FLAT[H.rar], bless = blessAt(hid, r.date); r.base = r.amount; r.houseFlat = flat; r.bless = bless; r.house = hid;
+      r.amount = r2((r.amount + flat) * (1 + bless / 100)); r.reason += ' — بيت «' + H.name + '»' + (bless ? ' (بركة +' + bless + '٪)' : '');
+    }
+    // عدد البيوت الممتلئة بالكامل بعد كل حدث (شراء نبتة/بيت أو نقل)
+    const ev = new Set(); st.purchases.forEach((q) => { if (q.kind === 'plant' || q.kind === 'house') ev.add(q.date); }); (st.placeLog || []).forEach((e) => ev.add(e.date)); pl.plants.forEach((p) => ev.add(p.date));
+    const fullAt = {}; Array.from(ev).sort().forEach((D) => {
+      const ownedAt = ['h01'].concat(st.purchases.filter((q) => q.kind === 'house' && q.date <= D).map((q) => q.item)); const used = {};
+      pl.plants.forEach((p) => { if (p.date > D || p.tree) return; const h = houseAt(p.id, D); if (h) used[h] = (used[h] || 0) + (p.slots || 1); });
+      fullAt[D] = ownedAt.filter((id) => { const H = HOUSES.find((x) => x.id === id); return H && (used[id] || 0) >= H.cap; }).length;
+    });
+    return { adjust, fullAt, houseAt, blessAt };
+  }
   function computeHouses(st, plants) {
     const owned = ownedHouseIds(st); const houses = HOUSES.map((h) => ({ id: h.id, name: h.name, cap: h.cap, price: h.price, rar: h.rar, owned: owned.includes(h.id), plants: [], trees: [], used: 0 }));
     const by = new Map(houses.map((h) => [h.id, h])); const placed = new Set(); const place = st.place || {};
@@ -1303,7 +1359,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       const sp = gp ? { id: gp.art, name: gp.name, rar: gp.startLevel } : PLANTS.find((x) => x.id === pu.item); if (!sp) continue;
       const gd = sp.grow || GROW_DAYS;
       const u = ups(pu.id); const lv0 = sp.rar; const level = Math.min(MAX_PLANT_LV, lv0 + u.length);
-      if (!pu.gift) rewards.push({ key: 'plantget:' + pu.id, amount: PLANT_GET[lv0], reason: 'الحصول على نبتة «' + sp.name + '» (' + PLANT_LEVELS[lv0] + ')', date: pu.date });
+      if (!pu.gift) rewards.push({ key: 'plantget:' + pu.id, amount: plantGet(sp), reason: 'الحصول على نبتة «' + sp.name + '» (' + PLANT_LEVELS[lv0] + ')', date: pu.date });
       // دورات النمو: كل مستوى له ٣٠ يوم نجاح؛ الدورة الأولى تشمل يوم الشراء، وما بعدها تبدأ بعد يوم التطوير
       const hist = [{ date: pu.date, text: 'زُرعت النبتة' }];
       let cyc = 0, cnt = 0; let complete = false; const cycleStart = [pu.date];
@@ -1348,7 +1404,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
 
   /* ---------- الإنجازات: ١٠٠ إنجاز بثلاثة تبويبات، مشتقة بالكامل من السجل ---------- */
   const ACH_TABS = ['الاستمرارية والإنجاز', 'تطوير الشخصية', 'النباتات', 'مزايا التطبيق'];
-  const ACH_MAX_REWARD = 250;
+  const ACH_MAX_REWARD = 200;
   // [المقياس، الهدف، الندرة، المكافأة، الاسم، الوصف، الرمز، الإطار]
   const ACH_DEF = [
     [0, [
@@ -1384,8 +1440,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       ['perfectDays', 1, 1, 30, 'يوم مثالي', 'أكملي كل المهام الرئيسية والجانبية في يوم واحد', 'star', 'plain'],
       ['perfectDays', 20, 3, 140, 'عشرون يومًا مثاليًا', 'أكملي كل المهام الرئيسية والجانبية في ٢٠ يومًا', 'star', 'laurel'],
       ['quietUsed', 1, 0, 12, 'يوم للراحة', 'استعملي يومًا هادئًا لتهدأ الشعلة', 'moon', 'plain'],
-      ['coinsEarned', 500, 1, 40, 'جامعة العملات', 'اجمعي ٥٠٠ ⃁ من إنجازاتك', 'coin', 'rings'],
-      ['coinsEarned', 2500, 3, 120, 'ثروة صغيرة', 'اجمعي ٢٥٠٠ ⃁ من إنجازاتك', 'coin', 'gems'],
+      ['coinsEarned', 100, 1, 10, 'جامعة العملات', 'اجمعي ١٠٠ ⃁ من إنجازاتك', 'coin', 'rings'],
+      ['coinsEarned', 500, 3, 100, 'ثروة صغيرة', 'اجمعي ٥٠٠ ⃁ من إنجازاتك', 'coin', 'gems'],
     ]],
     [1, [
       ['overallLevel', 2, 0, 15, 'البداية الحقيقية', 'ارفعي مستواك الكلي إلى ٢', 'level', 'plain'],
@@ -1500,7 +1556,98 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   ACH_EXTRA.forEach((x) => { const a = x[1]; const id = 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'); ACHIEVEMENTS.push({ id, tab: x[0], m: a[0], t: a[1], rar: a[2], reward: Math.min(ACH_MAX_REWARD, a[3]), name: a[4], desc: a[5], g: a[6], mod: a[7], gift: x[2] || null }); if (x[2]) ACH_GIFT[id] = x[2]; });
   ACH_NEW.forEach((a) => { const id = 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'); ACHIEVEMENTS.push({ id, tab: 3, m: a[0], t: a[1], rar: a[2], reward: Math.min(ACH_MAX_REWARD, a[3]), name: a[4], desc: a[5], g: a[6], mod: a[7], gift: null }); });
 
-  function computeAchievements(st, days, events, ledger, plants, levelHist, traitHist, pts, today) {
+  /* ---------- مولّد سلاسل الأوسمة (يُضاف إلى النهاية دائمًا حتى لا تتغير معرّفات القديمة) ---------- */
+  const arN = (n) => Number(n).toLocaleString('ar-EG', { useGrouping: false });
+  const unitOf = (n, u) => (n === 1 ? u[0] : n === 2 ? u[1] : n <= 10 ? u[2] : u[3]);
+  const GEN_FRAMES = ['plain', 'rings', 'rays', 'laurel', 'hex', 'ribbon', 'stars', 'gems', 'shield', 'banner', 'wings', 'crown'];
+  // كل سلسلة: [المقياس، التبويب، الرمز، قالب الاسم، قالب الوصف، وحدة العدّ، [[العتبة، الندرة، (معرّف الهدية)]…]]
+  const GEN = [
+    ['streakMax', 0, 'flame', 'شعلة {n} {u}', 'حافظي على الاستمرارية {n} {u} متتالية', ['يوم', 'يومين', 'أيام', 'يومًا'], [[10, 0], [28, 1], [75, 2], [100, 3], [150, 3], [200, 3], [300, 4], [400, 4], [600, 5], [730, 6], [800, 6], [900, 6]]],
+    ['successDays', 0, 'check', 'أيام النجاح {n}', 'أنجزي {n} {u} ناجحًا', ['يوم', 'يومين', 'أيام', 'يومًا'], [[5, 0], [20, 0], [30, 0], [75, 1], [150, 2], [250, 3], [300, 3], [365, 3], [400, 4], [500, 4], [600, 5], [800, 6], [1000, 6], [1600, 7, 'g09'], [2000, 7]]],
+    ['tasksDone', 0, 'tasks', '{n} مهمة منجزة', 'أنجزي {n} {u} إجمالًا', ['مهمة', 'مهمتين', 'مهام', 'مهمة'], [[5, 0], [10, 0], [50, 0], [150, 1], [250, 1], [350, 1], [750, 2], [1500, 3], [2000, 3], [2500, 4], [3000, 5, 'g05'], [4000, 5], [5000, 6], [7500, 6], [10000, 7]]],
+    ['daysUsed', 0, 'moon', 'رفيقة {n} {u}', 'استخدمي التطبيق مدة {n} {u} منذ أول يوم', ['يوم', 'يومين', 'أيام', 'يومًا'], [[3, 0], [7, 0], [14, 0], [30, 1], [60, 1], [100, 2], [180, 2], [365, 3], [500, 3], [730, 4], [1000, 5], [1500, 6]]],
+    ['perfectDays', 0, 'star', 'يوم مكتمل {n}', 'أكملي كل المهام الرئيسية والجانبية في {n} {u}', ['يوم', 'يومين', 'أيام', 'يومًا'], [[3, 1], [5, 1], [10, 2], [30, 3], [50, 3], [75, 4], [100, 4], [200, 5], [365, 6], [500, 7]]],
+    ['freezeEarned', 0, 'snow', 'تجميدات مكسوبة {n}', 'اكسبي {n} {u} من الاستمرارية', ['تجميدة', 'تجميدتين', 'تجميدات', 'تجميدة'], [[10, 3], [15, 3], [20, 4], [30, 4], [50, 5], [100, 6]]],
+    ['quietUsed', 0, 'wind', 'أيام هادئة {n}', 'استخدمي {n} {u} هادئًا', ['يوم', 'يومين', 'أيام', 'يومًا'], [[5, 1], [12, 2], [30, 3]]],
+    ['coinsEarned', 0, 'coin', 'كنز {n}', 'اجمعي {n} ⃁ من إنجازاتك', null, [[25, 0], [50, 0], [250, 1], [1000, 3], [2000, 3], [5000, 4], [10000, 6, 'g07'], [20000, 7]]],
+    ['pointsEarned', 1, 'bolt', 'نقاط تطوير {n}', 'اجمعي {n} نقطة تطوير من مهامك', null, [[5, 0], [25, 0], [100, 0], [250, 1], [600, 2], [1500, 3], [2500, 3], [4000, 4], [6000, 5], [10000, 6]]],
+    ['overallLevel', 1, 'level', 'المستوى {n}', 'ارفعي مستواك الكلي إلى {n}', null, [[7, 3], [9, 3], [12, 4], [25, 4], [30, 4], [40, 4], [50, 4], [60, 4], [80, 5, 'g04'], [100, 5], [130, 5], [170, 6, 'g06'], [220, 7, 'g08'], [300, 7]]],
+    ['minTrait', 1, 'balance', 'سماتك كلها {n}', 'ارفعي كل سماتك الست إلى المستوى {n} على الأقل', null, [[10, 2], [25, 2], [50, 2], [100, 2], [200, 2], [300, 3], [500, 4], [800, 5], [1200, 6], [2000, 7]]],
+    ['outfits', 1, 'shirt', 'خزانة {n}', 'امتلكي {n} {u} من متجر الملابس', ['قطعة', 'قطعتين', 'قطع', 'قطعة'], [[3, 0], [5, 1], [7, 2], [8, 2], [10, 3], [11, 3], [13, 4], [14, 4], [15, 5]]],
+    ['allocs', 1, 'dumbbell', 'توزيع {n} نقطة', 'وزّعي {n} {u} على سماتك', ['نقطة', 'نقطتين', 'نقاط', 'نقطة'], [[5, 0], [10, 0], [50, 1], [100, 2], [200, 3], [500, 4], [1000, 5]]],
+    ['plantsOwned', 2, 'sprout', 'حديقة {n}', 'امتلكي {n} {u} من المتجر', ['نبتة', 'نبتتين', 'نبتات', 'نبتة'], [[2, 0], [7, 1], [15, 1], [25, 2], [40, 3], [60, 3], [90, 4]]],
+    ['plantDone', 2, 'flower', 'أزهار مكتملة {n}', 'أكملي نمو {n} {u}', ['نبتة', 'نبتتين', 'نبتات', 'نبتة'], [[2, 0], [7, 1], [15, 2], [25, 3], [40, 4], [50, 4], [75, 5], [100, 6]]],
+    ['upgrades', 2, 'pot', 'ترقيات {n}', 'طوّري النباتات {n} {u}', ['مرة', 'مرتين', 'مرات', 'مرة'], [[2, 1], [4, 2], [5, 2], [8, 3], [12, 4], [15, 4], [20, 5], [30, 6]]],
+    ['housesOwned', 2, 'house', 'بيوت {n}', 'امتلكي {n} {u} زجاجية', ['بيت', 'بيتين', 'بيوت', 'بيتًا'], [[3, 0], [5, 1], [7, 2], [8, 2], [10, 3], [11, 3], [13, 4], [14, 4]]],
+    ['waterings', 2, 'drop', 'سقاية {n}', 'اسقي نباتاتك {n} {u}', ['مرة', 'مرتين', 'مرات', 'مرة'], [[5, 0], [20, 1], [50, 2], [75, 2], [100, 3], [200, 3], [365, 4], [500, 5], [1000, 6]]],
+    ['goalsDone', 3, 'compass', 'أهداف {n}', 'أكملي {n} {u} شخصيًا', ['هدف', 'هدفين', 'أهداف', 'هدفًا'], [[2, 0], [15, 3], [30, 4], [50, 4], [75, 5], [100, 6]]],
+    ['stepGoals', 3, 'check', 'خطوات واثقة {n}', 'أكملي {n} {u} بخطوات', ['هدف', 'هدفين', 'أهداف', 'هدفًا'], [[2, 1], [5, 3], [10, 4], [20, 5]]],
+    ['amountGoals', 3, 'coin', 'أرقام وصلتِ إليها {n}', 'أكملي {n} {u} بمبلغ أو رقم', ['هدف', 'هدفين', 'أهداف', 'هدفًا'], [[2, 2], [5, 4], [10, 5]]],
+    ['onceDone', 3, 'tasks', 'مهام عابرة {n}', 'أنجزي {n} {u} مؤقتة', ['مهمة', 'مهمتين', 'مهام', 'مهمة'], [[5, 0], [20, 1], [50, 3], [200, 4], [500, 5], [1000, 6]]],
+    ['recurring', 3, 'refresh', 'جدولة {n}', 'أنشئي {n} {u} بجدولة مخصصة', ['عادة', 'عادتين', 'عادات', 'عادة'], [[2, 1], [5, 3], [10, 4]]],
+    ['weekGoals', 3, 'star', 'أسابيع ناجحة {n}', 'حققي هدف الأسبوع {n} {u}', ['مرة', 'مرتين', 'مرات', 'مرة'], [[2, 0], [8, 2], [20, 3], [30, 4], [52, 5], [100, 6]]],
+    ['surprises', 3, 'gem', 'هدايا مفاجئة {n}', 'استلمي {n} {u} مفاجئة', ['هدية', 'هديتين', 'هدايا', 'هدية'], [[3, 1], [5, 1], [20, 3], [30, 4], [50, 5], [100, 6]]],
+    ['treePhase', 3, 'tree', 'نمو الشجرة {n}', 'اجعلي شجرة تصل إلى الطور {n} من ١٥', null, [[2, 0], [6, 2], [10, 3], [14, 4]]],
+  ];
+  const TRAIT_GEN = [['str', 'القوة', 'dumbbell'], ['spd', 'السرعة', 'wind'], ['end', 'القدرة على التحمل', 'mountain'], ['foc', 'التركيز', 'eye'], ['dis', 'الانضباط', 'shield'], ['int', 'الذكاء والتعلم', 'bulb']];
+  const TRAIT_STEPS = [[10, 1], [25, 1], [50, 2], [100, 2], [200, 3], [300, 3], [500, 4], [800, 5], [1200, 6], [2000, 7]];
+  TRAIT_GEN.forEach((tg, ti) => { const f = [1, 1.1, 1.25, 1.4, 1.6, 1.8][ti]; GEN.push(['trait_' + tg[0], 1, tg[2], tg[1] + ' {n}', 'ارفعي سمة «' + tg[1] + '» إلى المستوى {n}', null, [30, 80, 150, 250, 400, 700, 1000, 1500, 2500].map((v) => [Math.round(v * f / 5) * 5, 0])]); });
+  const GEN_GIFT_DESC = { g04: 'مكافأتك نبتة خرافية مهيمنة', g05: 'مكافأتك نبتة خرافية مهيمنة', g06: 'مكافأتك نبتة خرافية متسامية', g07: 'مكافأتك نبتة خرافية متسامية', g08: 'مكافأتك نبتة خرافية مطلقة', g09: 'مكافأتك نبتة خرافية مطلقة' };
+  // أوسمة تدرّجية إضافية كي لا تمرّ على اللاعب فترة طويلة بلا وسام (الندرة تُحسب من زمن الوصول المتوقع)
+  const MORE = { streakMax: [35, 50, 65, 80, 110, 135, 165, 220, 280, 330, 450], successDays: [40, 60, 90, 120, 180, 220, 270, 330, 450, 550], tasksDone: [75, 175, 300, 400, 600, 900, 1250, 1750], pointsEarned: [200, 350, 500, 800, 1200, 1800, 2200, 3000], coinsEarned: [150, 350, 750, 1500, 3000], weekGoals: [3, 5, 6, 10, 15, 25, 40], surprises: [2, 7, 15, 25, 40, 75], perfectDays: [7, 15, 40, 60, 90, 150, 250, 300, 400], freezeEarned: [2, 4, 5, 7, 8, 12, 25, 40], overallLevel: [11, 13, 14, 16, 18, 35, 45, 70, 90, 110, 150, 190], minTrait: [12, 18, 35, 60, 150, 250, 400, 650, 1000], allocs: [75, 150, 300, 400, 600, 800, 1500, 2500], daysUsed: [45, 75, 90, 105, 120, 135, 150, 165, 180, 200, 220, 240, 260, 280, 300, 320, 340, 400, 450, 500, 550, 650, 800] };
+  GEN.forEach((sr) => { (MORE[sr[0]] || []).forEach((t) => { if (!sr[6].some((x) => x[0] === t)) sr[6].push([t, 0]); }); sr[6].sort((a, b) => a[0] - b[0]); });
+  // تخفيف الازدحام: تُبقي السلسلة على الأوسمة المولّدة المتباعدة زمنيًا (حسب زمن الوصول المتوقع) وتُسقط ما يقع قريبًا من سابقه
+  const GEN_EST = { streakMax: (t) => t, successDays: (t) => t, daysUsed: (t) => t, perfectDays: (t) => t * 1.1, tasksDone: (t) => t / 6, pointsEarned: (t) => t / 10, allocs: (t) => t / 10, overallLevel: (L) => 0.6 * (L <= 1 ? 0 : L === 2 ? 5 : L === 3 ? 10 : 20 + 10 * (L - 4)), minTrait: (t) => 0.6 * t, coinsEarned: (t) => t / 10, weekGoals: (t) => t * 7, surprises: (t) => t * 4, freezeEarned: (t) => 5 + 10 * (t - 1) };
+  delete GEN_EST.daysUsed; // مقياس زمني بحت لا يتزاحم مع النشاط فيبقى كاملًا
+  TRAIT_GEN.forEach((tg) => { GEN_EST['trait_' + tg[0]] = (t) => 0.6 * t; });
+  GEN.forEach((sr) => {
+    const est = GEN_EST[sr[0]]; if (!est) return;
+    const old = ACHIEVEMENTS.filter((x) => x.m === sr[0]).map((x) => ({ t: x.t, d: est(x.t), keep: true }));
+    const all = old.concat(sr[6].filter((x) => !old.some((o) => o.t === x[0])).map((x) => ({ t: x[0], d: est(x[0]), keep: false }))).sort((x, y) => x.t - y.t);
+    let prev = 0; const ok = new Set();
+    all.forEach((x) => { const gap = x.d < 60 ? 2.6 : x.d < 200 ? 1.5 : 1.3; if (x.keep || x.d >= Math.max(prev * gap, 8)) { ok.add(x.t); prev = x.d; } });
+    sr[6] = sr[6].filter((x) => ok.has(x[0]) || x[2]);
+  });
+  GEN.forEach((sr) => {
+    const has = new Set(ACHIEVEMENTS.filter((a) => a.m === sr[0]).map((a) => a.t)); const base = ACHIEVEMENTS.find((a) => a.m === sr[0]);
+    const tab = base ? base.tab : sr[1]; const gl = base ? base.g : sr[2]; let k = 0;
+    sr[6].forEach((it) => {
+      if (has.has(it[0])) return; const n = arN(it[0]); const u = sr[5] ? unitOf(it[0], sr[5]) : '';
+      const fill = (s) => s.replace('{n}', n).replace('{u}', u).replace(/\s+$/, '').replace(/ +/g, ' ');
+      const gid = it[2] || null; const id = 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0');
+      ACHIEVEMENTS.push({ id, tab, m: sr[0], t: it[0], rar: it[1], reward: 0, name: fill(sr[3]), desc: fill(sr[4]) + (gid ? '. ' + GEN_GIFT_DESC[gid] : ''), g: gl, mod: GEN_FRAMES[(k++ * 5 + (it[1] * 3)) % GEN_FRAMES.length], gift: gid });
+      if (gid) ACH_GIFT[id] = gid;
+    });
+  });
+  // أوسمة جمع كل قطع ندرة معيّنة من الملابس والبيوت، وأوسمة البيوت الممتلئة بالنباتات
+  { const RN = ['العادية', 'النادرة', 'الملحمية', 'الأسطورية', 'الخرافية', 'الخرافية المهيمنة', 'الخرافية المتسامية', 'الخرافية المطلقة'];
+    const push = (tab, m, t, rar, name, desc, g, mod) => ACHIEVEMENTS.push({ id: 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'), tab, m, t, rar, reward: 0, name, desc, g, mod, gift: null });
+    const nOut = (r) => OUTFITS.filter((o) => o.rar === r && o.id !== 'starter').length; const nHouse = (r) => HOUSES.filter((h) => h.rar === r).length;
+    for (let r = 0; r < 8; r++) if (nOut(r)) push(1, 'outfitsR' + r, nOut(r), r, 'كل الملابس ' + RN[r], 'اشتري كل الملابس ' + RN[r] + ' (' + arN(nOut(r)) + ')', 'shirt', GEN_FRAMES[(r * 3 + 1) % GEN_FRAMES.length]);
+    for (let r = 0; r < 5; r++) push(2, 'housesR' + r, nHouse(r), r, 'كل البيوت ' + RN[r], 'امتلكي كل البيوت الزجاجية ' + RN[r] + ' (' + arN(nHouse(r)) + ')', 'house', GEN_FRAMES[(r * 3 + 4) % GEN_FRAMES.length]);
+    for (let r = 0; r < 8; r++) { const n = PLANTS.filter((x) => x.rar === r).length; if (n) push(2, 'plantsR' + r, n, r, 'كل النباتات ' + RN[r], 'امتلكي كل النباتات ' + RN[r] + ' في المتجر (' + arN(n) + ')', 'sprout', GEN_FRAMES[(r * 3 + 7) % GEN_FRAMES.length]); }
+    [[1, 1], [2, 1], [3, 2], [5, 3], [8, 3], [12, 4], [15, 4]].forEach((x, i) => push(2, 'fullHouses', x[0], x[1], x[0] === 1 ? 'بيت مكتمل' : x[0] === 2 ? 'بيتان مكتملان' : arN(x[0]) + ' بيوت مكتملة', x[0] === 1 ? 'املئي بيتًا زجاجيًا بالنباتات حتى تمتلئ سعته كاملة' : 'املئي ' + (x[0] === 2 ? 'بيتين زجاجيين' : x[0] <= 10 ? arN(x[0]) + ' بيوت زجاجية' : arN(x[0]) + ' بيتًا زجاجيًا') + ' بالنباتات حتى تمتلئ سعتها', 'pot', GEN_FRAMES[(i * 5 + 2) % GEN_FRAMES.length]));
+  }
+  // رفع الأوسمة الثلاثة الأولى للهدايا إلى مستواها الصحيح (مهيمن ← متسامٍ ← مطلق)
+  { // الندرة تتبع زمن الوصول المتوقع للاعب مجتهد (أيام): ≤١٤ عادي، ≤٤٥ نادر، ≤١٢٠ ملحمي، ≤٣٠٠ أسطوري، ≤٦٠٠ خرافي، ≤١٠٠٠ مهيمن، ≤١٥٠٠ متسامٍ، وأكثر مطلق
+    const lvDays = (L) => 0.6 * (L <= 1 ? 0 : L === 2 ? 5 : L === 3 ? 10 : 20 + 10 * (L - 4));
+    const EST = { streakMax: (t) => t, successDays: (t) => t, daysUsed: (t) => t, perfectDays: (t) => t * 1.1, tasksDone: (t) => t / 6, pointsEarned: (t) => t / 10, allocs: (t) => t / 10, overallLevel: lvDays, minTrait: (t) => 0.6 * t, coinsEarned: (t) => t / 10, weekGoals: (t) => t * 7, surprises: (t) => t * 4, freezeEarned: (t) => 5 + 10 * (t - 1) };
+    TRAIT_GEN.forEach((tg) => { EST['trait_' + tg[0]] = (t) => 0.6 * t; });
+    const tierOf = (d) => (d <= 14 ? 0 : d <= 45 ? 1 : d <= 120 ? 2 : d <= 300 ? 3 : d <= 600 ? 4 : d <= 1000 ? 5 : d <= 1500 ? 6 : 7);
+    ACHIEVEMENTS.forEach((a) => { if (EST[a.m]) a.rar = tierOf(EST[a.m](a.t)); }); }
+  { const up = { streakMax: { 500: 5, 1000: 7 }, successDays: { 700: 6 }, overallLevel: { 80: 5, 170: 6, 220: 7 }, tasksDone: { 3000: 5 }, coinsEarned: { 10000: 6 }, successDays2: {} }; ACHIEVEMENTS.forEach((a) => { if (up[a.m] && up[a.m][a.t] != null) a.rar = up[a.m][a.t]; }); }
+  // اتساق الندرة داخل كل مقياس: لا تنقص مع زيادة العتبة
+  { const by = {}; ACHIEVEMENTS.forEach((a) => { (by[a.m] = by[a.m] || []).push(a); });
+    Object.keys(by).forEach((m) => { const l = by[m].slice().sort((x, y) => x.t - y.t); for (let i = 1; i < l.length; i++) if (l[i].rar < l[i - 1].rar) { if (l[i].id > 'a132' && l[i - 1].id <= 'a132') l[i].rar = l[i - 1].rar; else if (l[i].id > 'a132') l[i].rar = l[i - 1].rar; else l[i - 1].rar = l[i].rar; } }); }
+
+  // اقتصاد جديد: مكافآت الأوسمة بمراتب غير متساوية لكل ندرة (ثابتة وتزيد مع العتبة)، وأوسمة «الفشل» لا تتجاوز ٣ ⃁
+  { const BANDS = [[1, 2, 3, 5], [5, 8, 10, 15], [20, 30, 40, 60], [60, 80, 120, 150], [150, 200, 200, 200], [200, 200, 200, 200], [200, 200, 200, 200], [200, 200, 200, 200]];
+    const grp = {}; ACHIEVEMENTS.forEach((x) => { const k = x.m + '|' + x.rar; (grp[k] = grp[k] || []).push(x); });
+    Object.keys(grp).forEach((k) => { const l = grp[k].slice().sort((p, q) => p.t - q.t); l.forEach((x, i) => { const b = BANDS[Math.min(7, x.rar)]; x.reward = b[Math.min(3, Math.floor((i + 0.5) * 4 / l.length))]; }); });
+    ACHIEVEMENTS.forEach((x) => { if (x.m === 'frozenSave' || x.m === 'restored') x.reward = Math.min(3, x.reward); });
+  }
+
+  function computeAchievements(st, days, events, ledger, plants, levelHist, traitHist, pts, today, extra) {
     const dates = Object.keys(days).sort(); const n = dates.length; const at = new Map(dates.map((d, i) => [d, i]));
     const S = {}; const zeros = () => new Array(n).fill(0);
     const cumFrom = (arr) => { let r = 0; return arr.map((v) => (r += v)); };
@@ -1516,7 +1663,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     S.frozenSave = fromDates(events.filter((e) => e.type === 'frozenSave').map((e) => e.D));
     S.restored = fromDates(events.filter((e) => e.type === 'restored').map((e) => e.D));
     S.quietUsed = fromDates(st.quiet.filter((d) => d <= today));
-    { const a = zeros(); ledger.forEach((e) => { if (e.key !== 'start' && e.key.indexOf('ach:') !== 0 && e.amount > 0) bump(a, e.date, e.amount); }); S.coinsEarned = cumFrom(a); }
+    { const a = zeros(); const ef0 = econFrom(st); ledger.forEach((e) => { if (e.key !== 'start' && e.key.indexOf('ach:') !== 0 && e.amount > 0 && e.date >= ef0) bump(a, e.date, e.amount); }); S.coinsEarned = cumFrom(a); }
     { const a = zeros(); pts.forEach((e) => bump(a, e.date, e.amount)); S.pointsEarned = cumFrom(a); }
     S.allocs = fromDates(st.alloc.map((x) => x.date));
     { const a = zeros(); levelHist.forEach((e) => bump(a, e.date, 0)); const lv = zeros(); levelHist.forEach((e) => { const i = at.has(e.date) ? at.get(e.date) : -1; if (i >= 0) lv[i] = Math.max(lv[i], e.level); }); S.overallLevel = mxFrom(lv.map((v, i) => v)).map((v) => Math.max(1, v)); }
@@ -1524,6 +1671,10 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     { const cur = {}; TRAITS.forEach((t) => { cur[t.id] = 1; }); const a = zeros(); traitHist.forEach((h) => { cur[h.trait] = h.level; const i = at.has(h.date) ? at.get(h.date) : -1; if (i >= 0) a[i] = Math.max(a[i], Math.min.apply(null, TRAITS.map((t) => cur[t.id]))); }); S.minTrait = mxFrom(a).map((v) => Math.max(1, v)); }
     const oi = (id) => OUTFITS.findIndex((o) => o.id === id);
     { const a = zeros(); st.purchases.filter((p) => p.kind === 'outfit').forEach((p) => bump(a, p.date, 1)); const c = cumFrom(a); S.outfits = c.map((v) => v + 1); const b = zeros(); st.purchases.filter((p) => p.kind === 'outfit').forEach((p) => { const i = at.has(p.date) ? at.get(p.date) : -1; if (i >= 0) b[i] = Math.max(b[i], oi(p.item)); }); S.bestOutfit = mxFrom(b); }
+    { for (let r = 0; r < 8; r++) { const a = zeros(); st.purchases.filter((p) => p.kind === 'outfit' && (OUTFITS.find((o) => o.id === p.item) || {}).rar === r).forEach((p) => bump(a, p.date, 1)); S['outfitsR' + r] = cumFrom(a); }
+      for (let r = 0; r < 5; r++) { const a = zeros(); st.purchases.filter((p) => p.kind === 'house' && (HOUSES.find((h) => h.id === p.item) || {}).rar === r).forEach((p) => bump(a, p.date, 1)); S['housesR' + r] = cumFrom(a).map((v) => v + (r === 0 ? 1 : 0)); }
+      for (let r = 0; r < 8; r++) { const a = zeros(); st.purchases.filter((p) => p.kind === 'plant' && (PLANTS.find((x) => x.id === p.item) || {}).rar === r).forEach((p) => bump(a, p.date, 1)); S['plantsR' + r] = cumFrom(a); }
+      const fe = (extra && extra.fullHouses) || {}; const ks = Object.keys(fe).sort(); S.fullHouses = mxFrom(dates.map((d) => { let v = 0; for (const k of ks) { if (k <= d) v = fe[k]; else break; } return v; })); }
     S.plantsOwned = fromDates(st.purchases.filter((p) => p.kind === 'plant').map((p) => p.date));
     S.plantDone = fromDates(ledger.filter((e) => e.key.indexOf('plantdone:') === 0).map((e) => e.date));
     S.upgrades = fromDates(st.purchases.filter((p) => p.kind === 'plantUp').map((p) => p.date));
@@ -1566,6 +1717,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
         need = Math.max(0.01, g.target || 1); let sum = 0;
         (g.adds || []).slice().sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : a.ts - b.ts)).forEach((a) => { sum += a.amount; if (!doneDate && sum >= need) doneDate = a.date; });
         have = sum;
+      } else if (g.type === 'free') {
+        need = 1; if (g.doneDate) { have = 1; doneDate = g.doneDate; }
       } else {
         const steps = g.steps || []; need = Math.max(1, steps.length); have = steps.filter((x) => x.done).length;
         if (steps.length && have === steps.length) doneDate = steps.reduce((a, x) => (x.done > a ? x.done : a), '');
@@ -1577,9 +1730,10 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
   function addGoal(st, f, today) {
     const title = String(f.title || '').trim(); if (!title) return { ok: false, error: 'اكتبي عنوان الهدف' };
-    const type = f.type === 'steps' ? 'steps' : f.type === 'amount' ? 'amount' : 'task';
-    const g = { id: nid(st, 'g'), title: title.slice(0, 80), emoji: f.emoji || '🎯', size: ['s', 'm', 'l'].includes(f.size) ? f.size : 'm', type, createdDate: today, note: String(f.note || '').slice(0, 200) };
-    if (type === 'task') {
+    const type = f.type === 'steps' ? 'steps' : f.type === 'amount' ? 'amount' : f.type === 'free' ? 'free' : 'task';
+    const g = { id: nid(st, 'g'), title: title.slice(0, 80), emoji: f.emoji || '🎯', size: ['xs', 's', 'm', 'l', 'xl'].includes(f.size) ? f.size : 'm', type, createdDate: today, note: String(f.note || '').slice(0, 200) };
+    if (type === 'free') { g.doneDate = null; }
+    else if (type === 'task') {
       const t = st.tasks.find((x) => x.id === f.taskId && !x.once && !x.deletedDate); if (!t) return { ok: false, error: 'اختاري العادة المرتبطة بالهدف' };
       g.taskId = t.id; g.target = Math.max(1, Math.min(999, parseInt(f.target, 10) || 0)); if (!parseInt(f.target, 10)) return { ok: false, error: 'اكتبي عدد الأيام المطلوبة' };
     } else if (type === 'amount') {
@@ -1613,7 +1767,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     const title = String(f.title == null ? g.title : f.title).trim(); if (!title) return { ok: false, error: 'اكتبي عنوان الهدف' };
     const next = { title: title.slice(0, 80), note: String(f.note == null ? (g.note || '') : f.note).slice(0, 200), emoji: f.emoji || g.emoji || '🎯' };
     if (!done) {
-      if (['s', 'm', 'l'].includes(f.size)) next.size = f.size;
+      if (['xs', 's', 'm', 'l', 'xl'].includes(f.size)) next.size = f.size;
       if (g.type === 'steps' && f.steps != null) {
         const lines = (Array.isArray(f.steps) ? f.steps : String(f.steps).split('\n')).map((x) => String(x).trim()).filter(Boolean).slice(0, 30);
         if (!lines.length) return { ok: false, error: 'اكتبي خطوة واحدة على الأقل' };
@@ -1630,6 +1784,15 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     }
     Object.assign(g, next); return { ok: true, goal: g };
   }
+  // هدف حرّ بلا شرط: تضغطين «أنجزته» فيكتمل، ويمكنك التراجع (المكافأة تُحسب من السجل فلا تتكرر)
+  function completeGoal(st, gid, today) {
+    const g = (st.goals || []).find((x) => x.id === gid); if (!g || g.type !== 'free') return { ok: false, error: 'الهدف غير موجود' };
+    if (!g.doneDate) g.doneDate = today; return { ok: true };
+  }
+  function reopenGoal(st, gid) {
+    const g = (st.goals || []).find((x) => x.id === gid); if (!g || g.type !== 'free') return { ok: false, error: 'الهدف غير موجود' };
+    g.doneDate = null; return { ok: true };
+  }
   function deleteGoal(st, gid, today) {
     const ix = buildIndex(st); const g = computeGoals(st, ix, today).find((x) => x.id === gid);
     if (!g) return { ok: false, error: 'الهدف غير موجود' };
@@ -1638,6 +1801,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
 
   function replay(st, today) {
+    const efrom = econFrom(st);
     const ix = buildIndex(st);
     const ledger = [{ key: 'start', amount: C.START_COINS, reason: 'رصيد البداية', date: st.startDate }];
     const pts = [];
@@ -1647,10 +1811,11 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     const boughtUpTo = (D) => st.purchases.filter((p) => p.kind === 'freeze' && p.date <= D).length;
     let todayModel = null, todayStatus = null;
 
+    const ltl = levelTimeline(st);
     for (let D = st.startDate; D <= today; D = addDays(D, 1)) {
       const provisional = D === today;
       const m = dayModel(st, D, ix);
-      for (const r of dayRewards(st, m)) ledger.push(r);
+      for (const r of dayRewards(st, m, 1 + levelBonusPct(levelAtDay(ltl, D)) / 100)) ledger.push(r);
       for (const r of dayPoints(st, m)) pts.push(r);
       let status;
       const mo = monthOf(D);
@@ -1697,15 +1862,17 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     }
     const goalsCalc = computeGoals(st, ix, today);
     goalsCalc.forEach((g) => { if (g.done) ledger.push({ key: 'goalp:' + g.id, amount: g.reward, reason: 'إنجاز هدفك «' + g.title + '»', date: g.doneDate }); });
+    const keepE = (e) => e.key === 'start' || e.date >= efrom; const trim = () => { const k = ledger.filter(keepE); ledger.length = 0; k.forEach((e) => ledger.push(e)); };
     const giftsPre = []; { const pre = computeAchievements(st, days, events, ledger.slice(), [], levelHist, traitHist, pts, today); pre.list.forEach((a) => { const g = ACH_GIFT[a.id]; if (g && a.done) giftsPre.push({ ach: a.id, plant: g, date: a.date }); }); }
-    const pl = computePlants(st, days, events, today, giftsPre); pl.rewards.forEach((r) => ledger.push(r));
+    const pl = computePlants(st, days, events, today, giftsPre);
     const hs = computeHouses(st, pl.plants);
-    const ac = computeAchievements(st, days, events, ledger, pl.plants, levelHist, traitHist, pts, today); ac.rewards.forEach((r) => ledger.push(r));
+    const hb = houseEffects(st, pl, hs, efrom); pl.rewards.forEach((r) => { hb.adjust(r); ledger.push(r); });
+    const ac = computeAchievements(st, days, events, ledger, pl.plants, levelHist, traitHist, pts, today, { fullHouses: hb.fullAt }); ac.rewards.forEach((r) => ledger.push(r)); trim();
     const successDays = Object.keys(days).filter((d) => days[d].status === 'success');
     const ptsEarned = pts.reduce((a, e) => a + e.amount, 0); const ptsSpent = st.alloc.length;
     const penalty = frozenDays.length; const level = Math.max(1, derived - penalty);
-    const earned = ledger.reduce((a, e) => a + e.amount, 0);
-    const spent = st.purchases.reduce((a, p) => a + p.price, 0);
+    const earned = r2(ledger.reduce((a, e) => a + e.amount, 0));
+    const spent = r2(st.purchases.reduce((a, p) => a + (p.date < efrom ? 0 : p.price), 0));
     const ln = computeLoans(st, ledger);
     const owned = st.settings.initialFreezes + earnedFreezes + st.purchases.filter((p) => p.kind === 'freeze').length;
     const leastOwned = st.purchases.filter((p) => p.kind === 'least').length - st.leastUses.length;
@@ -1723,7 +1890,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     const nextFreezeAt = (streak >= C.FREEZE_FIRST_AT && (streak - C.FREEZE_FIRST_AT) % C.FREEZE_EVERY === 0) ? streak + C.FREEZE_EVERY : nextAt;
 
     return {
-      today, days, ledger, events, earned, spent, balance: earned - spent + ln.borrowed - ln.repaid, loans: ln.loans, loanPays: ln.pays, loanActive: ln.active, loanLeft: ln.active ? ln.active.left : 0, loanRate: C.LOAN_RATE,
+      houseFx: HOUSES.reduce((o, H) => { o[H.id] = { flat: HOUSE_FLAT[H.rar], bless: hb.blessAt(H.id, today) }; return o; }, {}), levelBonus: levelBonusPct(derived),
+      today, days, ledger, events, earned, spent, balance: r2(earned - spent + ln.borrowed - ln.repaid), loans: ln.loans, loanPays: ln.pays, loanActive: ln.active, loanLeft: ln.active ? ln.active.left : 0, loanRate: C.LOAN_RATE,
       streak, bestStreak: best, savedStreak: saved, flame, flameKind,
       freezes: owned - usedFreezes, freezesUsed: usedFreezes, freezesEarned: earnedFreezes, nextFreezeAt,
       restoresThisMonth: restores[monthOf(today)] || 0, frozenDays,
@@ -1872,9 +2040,9 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     else { const h = r.houses.find((x) => x.owned && fit(x)); target = h ? h.id : null; }
     const pid = nid(st, 'p'); pinPlacements(st, r);
     st.purchases.push({ id: pid, kind: 'plant', item: id, date: today, ts: Date.now(), price: sp.price });
-    if (!st.place) st.place = {}; if (target) st.place[pid] = target;
+    if (!st.place) st.place = {}; if (target) { st.place[pid] = target; (st.placeLog = st.placeLog || []).push({ pid, house: target, date: today, ts: Date.now() }); }
     if (opId) { st.ops.push(opId); if (st.ops.length > 200) st.ops.shift(); }
-    return { ok: true, price: sp.price, reward: PLANT_GET[sp.rar] };
+    return { ok: true, price: sp.price, reward: plantGet(sp) };
   }
   function upgradePlant(st, pid, today, opId) {
     if (opId && st.ops.includes(opId)) return { ok: false, error: 'تمت هذه العملية بالفعل', dup: true };
@@ -1903,7 +2071,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     const h = r.houses.find((x) => x.id === houseId); if (!h || !h.owned) return { ok: false, error: 'لا تملكين هذا البيت' };
     if (h.plants.includes(pid) || h.trees.includes(pid)) return { ok: true, same: true };
     if (p.tree ? h.trees.length >= 2 : h.cap - h.used < p.slots) return { ok: false, error: p.tree ? 'تعذّر النقل: بجانب هذا البيت شجرتان بالفعل (الحد شجرتان)' : 'تعذّر النقل: ' + h.name + ' ممتلئ (' + h.used + ' من ' + h.cap + (p.slots > 1 ? '، وهذه النبتة تحتاج ' + p.slots + ' خانات' : '') + ')' };
-    pinPlacements(st, r); st.place[pid] = houseId; return { ok: true };
+    pinPlacements(st, r); st.place[pid] = houseId; (st.placeLog = st.placeLog || []).push({ pid, house: houseId, date: today, ts: Date.now() }); return { ok: true };
   }
   // السقي مرئي فقط: النمو يُحتسب تلقائيًا من أيام النجاح، والدلو يعرض أثره على النباتات مرة لكل يوم نجاح
   function waterPending(st, r) {
@@ -1921,10 +2089,10 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
 
   return { C, pd, fd, addDays, diff, dow, monthOf, weekStart, daysLeftInWeek, localToday, roundHalfDown,
-    newState, clone, ver, isActive, isMainLike, allowance, addTask, updateTask, deleteTask, schedText, everyLabel, schedOk, hijriDay, addGoal, addGoalAmount, removeGoalAmount, updateGoal, toggleStep, deleteGoal, computeGoals, onceStatus, normalizeAllowance,
+    newState, clone, ver, isActive, isMainLike, allowance, addTask, updateTask, deleteTask, schedText, everyLabel, schedOk, hijriDay, addGoal, addGoalAmount, removeGoalAmount, updateGoal, completeGoal, reopenGoal, toggleStep, deleteGoal, computeGoals, onceStatus, normalizeAllowance,
     setCount, countOf, buildIndex, dayModel, dayRewards, mainBonus, sideBonus, freezePrice, itemPrice, replay,
     ledgerDiff, previewEdit, quietInMonth, addQuiet, removeQuiet, buy, leastAllowed, useLeast, setCompStep, compSteps, compNeeded, compComplete,
-    taskHistory, weekReview, weekGoal, hashStr, logEdit, validate, migrate, PLANTS, HOUSES, ACHIEVEMENTS, ACH_TABS, buyHouse, takeLoan, movePlant, PLANT_LEVELS, TIERS, LEVEL_BANDS, levelTier, upgradeCost, GIFT_PLANTS, ACH_GIFT, PLANT_GET, plantDoneReward, GROW_DAYS, UPGRADE_COST, STAGE_NAMES, plantStage, treePhase, TREE_SCHEDULE, TREE_PHASES, plantLeafTotal, buyPlant, upgradePlant, waterPending, markWatered, TRAITS, OUTFITS, RARITY, levelReward, levelClass, overallOf, nextGoal, dayPoints, ptsDiff,
+    taskHistory, weekReview, weekGoal, hashStr, logEdit, validate, migrate, PLANTS, HOUSES, HOUSE_FLAT, BLESS_PCT, LEVEL_REWARD, PLANT_GET_RANGE, plantGet, levelBonusPct, ACHIEVEMENTS, ACH_TABS, buyHouse, takeLoan, movePlant, PLANT_LEVELS, TIERS, LEVEL_BANDS, levelTier, upgradeCost, GIFT_PLANTS, ACH_GIFT, PLANT_GET, plantDoneReward, GROW_DAYS, UPGRADE_COST, STAGE_NAMES, plantStage, treePhase, TREE_SCHEDULE, TREE_PHASES, plantLeafTotal, buyPlant, upgradePlant, waterPending, markWatered, TRAITS, OUTFITS, RARITY, levelReward, levelClass, overallOf, nextGoal, dayPoints, ptsDiff,
     ownedOutfits, allocate, autoAllocate, buyOutfit, equipOutfit };
 });
 
@@ -2037,7 +2205,7 @@ const Store = {
 };
 
 /* ---------- الحالة ---------- */
-let PFILTER = -1, WATERING = false, ATAB = 0, AFILT = 'all';
+let PFILTER = -1, WATERING = false, ATAB = 0, AFILT = 'all', ARAR = -1;
 let TASKTAB = 'habits';
 let ST, R, VIEW = 'tasks', VIEWDAY = null, MARKET = 'items', lastToday = TODAY();
 const PLACEHOLDER = {
@@ -2059,18 +2227,18 @@ const GUIDE = [
     ['كيف أضيف مهمة؟', '<p>اضغطي «+ مهمة جديدة». ستختارين: الاسم، ووصفًا اختياريًا، وسؤال «لماذا أفعل هذا؟» (يذكّرك به التطبيق في أيام الثقل)، والنوع، والأيام، وعدد المرات في اليوم، ووقت المهمة (فجرًا أو ظهرًا أو ليلًا)، وإيموجي ولونًا تحبينهما.</p>'],
     ['نقاط التطوير', '<p>كل مهمة تمنحك عند إنجازها من <b>١ إلى ٣ نقاط تطوير</b> (أنتِ تحددين القيمة). هذه النقاط ترفعين بها سمات شخصيتك. اجعلي المهام الأصعب أعلى نقاطًا.</p>'],
     ['المهمة «المسؤولة عن الاستمرارية»', '<p>لا تُحسب كل مهمة في الشعلة. عند إنشاء المهمة تختارين هل هي مسؤولة عن الاستمرارية أم لا. يُسمح باستثناء <b>٣٠٪ فقط</b> من مهامك الرئيسية، حتى لا يتأثر يومك في أوقات الانشغال.</p>'],
-    ['كم عملة أكسب؟', '<ul><li>مهمة رئيسية مكتملة: <b>٢ ⃁</b></li><li>مهمة جانبية مكتملة: <b>٤ ⃁</b></li><li>مرة أسبوعية: <b>٢ ⃁</b></li><li>إكمال كل الرئيسية في اليوم: مكافأة إضافية (٤، أو ٦، أو ١٠ حسب عددها)</li><li>إكمال كل الجانبية: مكافأة إضافية (٦ أو ١٠)</li></ul>'],
+    ['كم عملة أكسب؟', '<ul><li>مهمة رئيسية مكتملة: بين <b>٠٫٥ و١ ⃁</b>، وتقل كلما زاد عدد مهامك في اليوم.</li><li>مهمة جانبية مكتملة: أقل قليلًا من الرئيسية (لا تقل عن ٠٫٥ ⃁).</li><li>مرة أسبوعية أو مؤقتة: مثل الرئيسية.</li><li>إكمال كل الرئيسية في اليوم: مكافأة إضافية (١٫٥ أو ٢ أو ٣ ⃁ حسب عددها)</li><li>إكمال كل الجانبية: مكافأة إضافية (١ أو ١٫٥ ⃁)</li></ul><p>المكافآت صغيرة عمدًا، فالمشتريات الكبيرة تحتاج صبرًا طويلًا.</p>'],
     ['عادة أم مهمة مؤقتة؟', '<p>عند إضافة مهمة تختارين: <b>عادة دائمة</b> تتكرر في أيامك وتدخل في الاستمرارية، أو <b>مهمة مؤقتة</b> لا تتكرر (مثل «حجز موعد» أو «شراء هدية»). تحدّدين متى تبدأ وكم يومًا تبقى، وتجدينها في تبويب «مهامي المؤقتة» أعلى صفحة المهام. تختفي فور إنجازها، ولا تؤثر على الاستمرارية، ومكافأتها <b>٢ ⃁</b>.</p>'],
-    ['أهدافي', '<p>من القائمة الجانبية افتحي «أهدافي». اكتبي هدفًا مثل «إنهاء كتاب»، واربطيه بعادة (مثلًا قراءة ورد) لعدد أيام تحدّدينه، أو اكتبي له خطوات تنجزينها واحدة واحدة. عند اكتماله بالكامل تنالين مكافأة ثابتة حسب حجمه: صغير ٣٠ ⃁، متوسط ٨٠ ⃁، كبير ٢٠٠ ⃁. يمكن حذف الهدف غير المكتمل، أما المكتمل فيبقى في سجلك.</p>'],
+    ['أهدافي', '<p>من القائمة الجانبية افتحي «أهدافي». اكتبي هدفًا مثل «إنهاء كتاب»، واربطيه بعادة (مثلًا قراءة ورد) لعدد أيام تحدّدينه، أو اكتبي له خطوات تنجزينها واحدة واحدة. عند اكتماله بالكامل تنالين مكافأة ثابتة حسب حجمه: صغير جدًا ٢ ⃁، صغير ٥ ⃁، متوسط ١٥ ⃁، كبير ٤٠ ⃁، كبير جدًا ١٠٠ ⃁. يمكن حذف الهدف غير المكتمل، أما المكتمل فيبقى في سجلك.</p>'],
     ['نسيتُ تسجيل مهمة في يوم سابق', '<p>يمكنك فتح اليوم السابق من أسهم اليوم في أعلى صفحة المهام. أي تعديل يمرّ بتأكيد واضح، ويُعاد حساب الاستمرارية والعملات تلقائيًا، ويُسجَّل في سجل العمليات. لا تتكرر المكافآت.</p>'],
   ] },
   { id: 'flame', ic: 'flame', t: 'الاستمرارية والشعلة', intro: 'الشعلة هي قلب التطبيق. تُضاء بإنجازك وتحميها التجميدات والأيام الهادئة.', items: [
     ['متى يُحسب اليوم ناجحًا؟', '<p>حين تُنجزين جميع المهام الرئيسية المسؤولة عن الاستمرارية. كل يوم ناجح يزيد عدّاد الاستمرارية بواحد وتكبر الشعلة.</p>'],
     ['حالات الشعلة', '<ul><li><b>مضيئة:</b> كل شيء بخير.</li><li><b>صغيرة:</b> عادت للتو بعد استعادة، وتكبر مع النجاح.</li><li><b>فانوس:</b> يوم هادئ، الشعلة محفوظة بأمان.</li><li><b>مجمّدة:</b> استهلكتِ تجميدة لحمايتها من الانطفاء ليوم فاتك.</li><li><b>منطفئة:</b> لم تبقَ تجميدات ففاتك اليوم. وتحتاجين المهمة التعويضية (انظري قسمها).</li></ul>'],
-    ['التجميدات', '<p>التجميدة تحمي شعلتك تلقائيًا إذا فاتك يوم، بدل أن تنطفئ.</p><ul><li>تبدأين بـ<b>٣ تجميدات</b>.</li><li>تكسبين تجميدة جديدة عند الوصول إلى <b>٥ أيام</b> متتالية، ثم كل <b>١٠ أيام</b> بعدها.</li><li>يمكنك شراؤها من السوق: السعر ٢٠ ⃁ ثم يزيد ١٠ مع كل شراء حتى ١٠٠.</li><li>تُستهلك تلقائيًا، تجميدة واحدة لكل يوم فائت.</li></ul>'],
+    ['التجميدات', '<p>التجميدة تحمي شعلتك تلقائيًا إذا فاتك يوم، بدل أن تنطفئ.</p><ul><li>تبدأين بـ<b>٣ تجميدات</b>.</li><li>تكسبين تجميدة جديدة عند الوصول إلى <b>٥ أيام</b> متتالية، ثم كل <b>١٠ أيام</b> بعدها.</li><li>يمكنك شراؤها من السوق: السعر ٢٠ ⃁ ثم يزيد ٥ مع كل شراء حتى ٦٠.</li><li>تُستهلك تلقائيًا، تجميدة واحدة لكل يوم فائت.</li></ul>'],
     ['الأيام الهادئة', '<p>يوم محمي تختارينه بنفسك لأنك مريضة أو مسافرة أو متعبة. لا يُطلب فيه إنجاز، ولا تنقطع الاستمرارية، ولا تُستهلك فيه تجميدة. يحق لك <b>٣ أيام هادئة في الشهر</b>. تختارينها من صفحة الاستمرارية.</p>'],
     ['التقويم والإحصاءات', '<p>في صفحة الاستمرارية تجدين تقويمًا بمربعات ملوّنة لكل يوم (ثلاث درجات للنجاح، ولون هادئ، ولون للتجميد، ولون للانطفاء). اضغطي على أي يوم لكتابة ملاحظة أو خطة له. وزر <b>الإحصاءات الكاملة</b> يعرض أرقامك بالتفصيل، لكل المهام أو لمهمة واحدة.</p>'],
-    ['مراجعة الأسبوع وهدفه', '<p>تظهر لك بطاقة قصيرة تلخّص أسبوعك الماضي. وهناك <b>هدف أسبوعي</b>: إذا أنجزتِ ٥ أيام ناجحة في الأسبوع تحصلين على ٢٥ ⃁ هدية.</p>'],
+    ['مراجعة الأسبوع وهدفه', '<p>تظهر لك بطاقة قصيرة تلخّص أسبوعك الماضي. وهناك <b>هدف أسبوعي</b>: إذا أنجزتِ ٥ أيام ناجحة في الأسبوع تحصلين على ٥ ⃁ هدية.</p>'],
   ] },
   { id: 'comp', ic: 'bolt', t: 'الانطفاء والمهمة التعويضية', intro: 'إذا انطفأت شعلتك فهذه ليست نهاية الطريق. مهمة واحدة تعيد لك كل شيء.', items: [
     ['ماذا يحدث إذا انطفأت الشعلة؟', '<ol><li><b>يوم الانطفاء:</b> تختفي مهامك مؤقتًا (لا تُحذف) وتظهر مكانها «المهمة التعويضية». لا يُخصم منك شيء في هذا اليوم.</li><li><b>إن لم تنفذيها حتى نهاية اليوم:</b> تتجمد الواجهة بالكامل غدًا.</li><li><b>في التجمد الكامل:</b> تذبل أوراق النباتات وتسقط، ويقل مستوى الشخصية نقطة واحدة عن كل يوم يستمر فيه التجمد.</li></ol>'],
@@ -2080,11 +2248,11 @@ const GUIDE = [
     ['هل للاستعادة حد؟', '<p>نعم، ٣ استعادات في الشهر افتراضيًا، ويمكنك تغيير الحد من الإعدادات.</p>'],
   ] },
   { id: 'coins', ic: 'store', t: 'العملات والسوق', intro: 'العملات ⃁ مكافأتك على جهدك. تنفقينها فيما يسعدك ويحفزك.', items: [
-    ['من أين تأتي العملات؟', '<ul><li>إنجاز المهام (انظري قسم المهام).</li><li>رفع المستوى الكلي لشخصيتك.</li><li>فتح الإنجازات.</li><li>الحصول على نبتة وإكمال نموها.</li><li><b>هدايا مفاجئة:</b> في بعض الأيام التي تكملين فيها مهامك الرئيسية تأتيك هدية من ٥ إلى ١٥ ⃁ دون إنذار.</li><li>الهدف الأسبوعي (٢٥ ⃁).</li></ul><p>تبدئين برصيد ٢٠ ⃁ هدية ترحيب.</p>'],
+    ['من أين تأتي العملات؟', '<ul><li>إنجاز المهام (انظري قسم المهام).</li><li>رفع المستوى الكلي لشخصيتك: ٠٫٥ ⃁ لكل مستوى في النطاق العادي، و١ في النادر، ثم تزيد ١ ⃁ مع كل نطاق أعلى (ملحمي ٢ ثم أسطوري ٣ ثم خرافي ٤ ثم مهيمن ٥ ثم متسامٍ ٦ ثم مطلق ٧).</li><li>فتح الإنجازات.</li><li>الحصول على نبتة وإكمال نموها.</li><li><b>هدايا مفاجئة:</b> في بعض الأيام التي تكملين فيها مهامك الرئيسية تأتيك هدية من ١ إلى ٥ ⃁ دون إنذار.</li><li>الهدف الأسبوعي (٥ ⃁).</li></ul><p><b>المستوى يرفع مكافآت المهام:</b> كل مستوى لشخصيتك يزيدها ١٠٪ (حتى +١٠٠٪ عند المستوى ١١، ثم تتباطأ الزيادة حتى +٢٠٠٪).</p><p><b>البيوت الزجاجية:</b> كل نبتة يكتمل نموها داخل بيت تزيد مكافأتها ١٠ ⃁ في البيوت العادية، وتزيد أكثر كلما ندر البيت (١٥ ثم ٢٥ ثم ٤٠ ثم ٦٠). وإذا وضعتِ داخل البيت نبتة عالية المستوى (ملحمي فأعلى) تتباركين بنسبة إضافية على مكافأة أي نبتة تكتمل فيه: ملحمي ١٠٪ ثم ٢٠٪ ثم ٤٠٪ ثم ٧٠٪ ثم ١٠٠٪ ثم ١٥٠٪. البركة تعمل ما دامت النبتة العالية داخل البيت، فإن نقلتِها تذهب.</p><p>تبدئين برصيد ٢٠ ⃁ هدية ترحيب.</p>'],
     ['ماذا أجد في السوق؟', '<p>ثلاثة أقسام: <b>العناصر</b> (تجميدة الشعلة، بطاقة زيادة المكافأة، بطاقة أقل ما يمكن، السلفة)، و<b>الملابس</b> لشخصيتك، و<b>النباتات والبيوت</b> (من صفحة البيت الزجاجي).</p>'],
-    ['بطاقة زيادة المكافأة', '<p>بـ٥٠ ⃁ تُفعَّل لليوم نفسه: كل مهمة تنفذينها فيه تزيد مكافأتها ٣ ⃁.</p>'],
-    ['بطاقة أقل ما يمكن', '<p>بـ٤٠ ⃁، تتيح لك في يوم متعب أن تنفذي <b>الجزء الأقل فقط</b> من مهامك (حتى ٤٠٪ من القائمة) ويُحسب اليوم ناجحًا. تُحفظ في صفحة الاستمرارية ولا تُستعمل إلا عندما تختارين.</p>'],
-    ['السلفة', '<p>إذا احتجتِ عملات الآن، اكتبي المبلغ (من ١٠ إلى ٣٠٠) وتحصلين عليه فورًا <b>دون فوائد ولا غرامات</b>. ثم تُخصم نسبة صغيرة (٢٥٪) من كل مكافأة تأتيك بدءًا من الغد حتى يكتمل السداد. لا يُخصم أبدًا مبلغ كبير دفعة واحدة. سلفة واحدة فقط في كل مرة.</p>'],
+    ['بطاقة زيادة المكافأة', '<p>بـ٢٠ ⃁ تُفعَّل لليوم نفسه: كل مهمة تنفذينها فيه تزيد مكافأتها نصف ⃁.</p>'],
+    ['بطاقة أقل ما يمكن', '<p>بـ٢٠ ⃁، تتيح لك في يوم متعب أن تنفذي <b>الجزء الأقل فقط</b> من مهامك (حتى ٤٠٪ من القائمة) ويُحسب اليوم ناجحًا. تُحفظ في صفحة الاستمرارية ولا تُستعمل إلا عندما تختارين.</p>'],
+    ['السلفة', '<p>إذا احتجتِ عملات الآن، اكتبي المبلغ (من ١٠ إلى ١٠٠) وتحصلين عليه فورًا <b>دون فوائد ولا غرامات</b>. ثم تُخصم نسبة (٦٠٪) من كل مكافأة تزيد على ١ ⃁ (كالأوسمة والأهداف) بدءًا من الغد حتى يكتمل السداد. مكافآت المهام العادية (١ ⃁ فأقل) لا يُخصم منها شيء. سلفة واحدة فقط في كل مرة.</p>'],
   ] },
   { id: 'person', ic: 'person', t: 'الشخصية والسمات', intro: 'شخصيتك الصغيرة تكبر وتتطور بقدر ما تستمرين.', items: [
     ['السمات الست', '<p>القوة، والسرعة، والقدرة على التحمل، والتركيز، والانضباط، والذكاء والتعلم. لكل سمة مستوى وشريط يظهر تقدمك نحو هدفها القريب.</p>'],
@@ -2101,14 +2269,14 @@ const GUIDE = [
     ['كيف تنمو النباتات؟', '<p>كل نباتاتك تنمو معًا. يُحسب <b>يوم نمو</b> كلما أنجزتِ جميع مهامك الرئيسية المسؤولة عن الاستمرارية. تكتمل النبتة بعد <b>٣٠ يوم نمو</b> وتمرّ بمراحل: بذرة، ثم برعم، ثم نبتة صغيرة، ثم نامية، ثم مكتملة ومزهرة.</p>'],
     ['السقاية', '<p>أداة السقاية في صفحة البيت الزجاجي تمرّ على كل نباتاتك دفعة واحدة وتسقيها عن الأيام الناجحة.</p>'],
     ['شراء الشتلات', '<p>في المتجر أكثر من ١٠٠ نبتة في فئات ندرة من عادي إلى خرافي، وخمس نبتات فاخرة بأسعار عالية في المستويات الخرافية العليا (ومنها شجرتان تُزرعان بجانب البيت الزجاجي وتنموان سنة كاملة عبر ١٥ طورًا). اضغطي على أي نبتة لتري تفاصيلها. كلما ندرت زاد سعرها وزادت مكافأة الحصول عليها. وتأتيك مكافأة أخرى عند اكتمال نموها.</p>'],
-    ['تطوير النبتة', '<p>بعد اكتمال النبتة تستطيعين <b>ترقيتها</b> لمستوى أعلى فيتغير أصيصها وتتألق بتأثيرات جميلة. الترقية بـ١٠٠ ⃁ للمستويات الأولى ثم ٢٥٠ و٤٠٠ و٧٠٠ للمستويات الثلاثة العليا. الترقية فقط للأعلى، لا تنزل.</p>'],
-    ['النباتات الخاصة بالأوسمة', '<p>ثلاث نباتات مميزة جدًا، <b>لا تُباع في المتجر أبدًا</b>، وتحصلين عليها فقط من الإنجازات الصعبة: «شجرة الهيمنة الذهبية» (خرافي مهيمن)، و«سوسنة الأفق المتسامية» (خرافي متسامٍ)، و«وردة الأبد المطلقة» (خرافي مطلق). تُدار كبقية النباتات.</p>'],
+    ['تطوير النبتة', '<p>بعد اكتمال النبتة تستطيعين <b>ترقيتها</b> لمستوى أعلى فيتغير أصيصها وتتألق بتأثيرات جميلة. تبدأ الترقية بـ٥٠ ⃁ وتزيد مع كل مستوى حتى ٧٠٠٠ ⃁ للمستوى الأعلى. الترقية فقط للأعلى، لا تنزل.</p>'],
+    ['النباتات الخاصة بالأوسمة', '<p>تسع نباتات مميزة جدًا، <b>لا تُباع في المتجر أبدًا</b>، وتحصلين عليها فقط من الأوسمة الصعبة: ثلاث بمستوى «خرافي مهيمن»، وثلاث بمستوى «خرافي متسامٍ»، وثلاث بمستوى «خرافي مطلق». مستوى النبتة هو نفسه ندرة الوسام الذي يمنحها. تُدار كبقية النباتات.</p>'],
     ['البيوت الزجاجية', '<p>١٥ بيتًا بسعات وأسعار مختلفة، من «بيت الشرفة» المجاني الصغير إلى «القبة الملكية». يمكنك امتلاك عدة بيوت ونقل نباتاتك بينها. كلما صغرت السعة صغر البيت.</p>'],
     ['إذا تجمّد كل شيء', '<p>عند التجمد الكامل تبدأ أوراق النباتات تتحول للبني وتسقط تدريجيًا. لا تموت النبتة أبدًا، وتعود أوراقها بعد عودتك إلى الاستمرارية.</p>'],
   ] },
   { id: 'achv', ic: 'trophy', t: 'الإنجازات والأوسمة', intro: 'رحلتك مكتوبة هنا على شكل أوسمة.', items: [
-    ['كيف تعمل؟', '<p>هناك <b>١٣٢ إنجازًا</b> في أربعة تبويبات: الاستمرارية والإنجاز، وتطوير الشخصية، والنباتات، ومزايا التطبيق (الأهداف والمهام المؤقتة والجدولة والأشجار وغيرها). لكل إنجاز أيقونة مختلفة ومهمة واضحة ومستوى صعوبة من خمسة. تفتح تلقائيًا وتحصلين على مكافأة عملات (تصل إلى ٢٥٠ ⃁).</p>'],
-    ['الإنجازات الثلاثة الكبرى', '<ul><li><b>٥٠٠ يوم استمرارية متتالٍ:</b> نبتة خرافية مهيمنة.</li><li><b>٧٠٠ يوم ناجح:</b> نبتة خرافية متسامية.</li><li><b>١٠٠٠ يوم استمرارية متتالٍ:</b> نبتة خرافية مطلقة.</li></ul>'],
+    ['كيف تعمل؟', '<p>هناك <b>' + N(E.ACHIEVEMENTS.length) + ' وسامًا</b> في أربعة تبويبات: الاستمرارية والإنجاز، وتطوير الشخصية، والنباتات، ومزايا التطبيق (الأهداف والمهام المؤقتة والجدولة والأشجار وغيرها). لكل إنجاز أيقونة مختلفة ومهمة واضحة ومستوى ندرة من ثمانية (عادي، نادر، ملحمي، أسطوري، خرافي، ثم خرافي مهيمن، ومتسامٍ، ومطلق). وفي صفحة الإنجازات صف لتصفية الأوسمة حسب الندرة. تفتح تلقائيًا وتحصلين على مكافأة عملات (تصل إلى ٢٠٠ ⃁).</p>'],
+    ['أوسمة النباتات الهدية', '<ul><li><b>مهيمن:</b> ٥٠٠ يوم استمرارية، أو المستوى ٥٠، أو ٣٠٠٠ مهمة.</li><li><b>متسامٍ:</b> ٧٠٠ يوم ناجح، أو المستوى ٨٠، أو جمع ١٠٠٠٠ ⃁.</li><li><b>مطلق:</b> ١٠٠٠ يوم استمرارية، أو المستوى ١٣٠، أو ١٠٠٠ يوم ناجح.</li></ul><p>كل وسام منها يمنح نبتة بنفس مستواه.</p>'],
     ['أين أرى ما تبقّى؟', '<p>القائمة الجانبية ← الإنجازات. المفتوحة بألوانها، والمغلقة باهتة مع وصف ما يلزم لفتحها.</p>'],
   ] },
   { id: 'diary', ic: 'edit', t: 'اليوميات', intro: 'مساحة خاصة جدًا لتكتبي فيها ما تشائين.', items: [
@@ -2148,7 +2316,7 @@ const GMETA = {
   person: { c: '#8B5CF6', hook: 'شخصية صغيرة تكبر معك', facts: ['٣ سمات', 'مستويات'], quick: ['كل مهمة تمنح نقاط تطوير', 'السمات ترفع مستواك', 'المستوى يغيّر لقبك'], art: () => charSVG(), tour: 'person' },
   outfits: { c: '#E0529C', hook: '١٥ زيًّا تنتظرك', facts: ['١٥ زيًّا', 'أزياء نادرة'], quick: ['تشترين الأزياء بالعملات', 'تلبسينها بضغطة', 'الأندر تُفتح بالإنجازات'], art: () => charSVG('n3'), tour: 'person' },
   plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١٠٧ نباتات', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
-  achv: { c: '#D9822B', hook: '١٣٢ وسامًا بانتظارك', facts: ['١٣٢ وسامًا', '٤ تبويبات'], quick: ['كل وسام له شرط واضح', 'يمنحك عملات', 'الأندر يعطيك نباتات خرافية'], art: () => { const a = (R && R.ach && R.ach[0]) || { rar: 3, g: 'star', mod: 'plain', t: 1 }; return AchArt.icon(a, { noNum: true }); }, tour: 'achv' },
+  achv: { c: '#D9822B', hook: N(E.ACHIEVEMENTS.length) + ' وسامًا بانتظارك', facts: [N(E.ACHIEVEMENTS.length) + ' وسامًا', '٤ تبويبات'], quick: ['كل وسام له شرط واضح', 'يمنحك عملات', 'الأندر يعطيك نباتات خرافية'], art: () => { const a = (R && R.ach && R.ach[0]) || { rar: 3, g: 'star', mod: 'plain', t: 1 }; return AchArt.icon(a, { noNum: true }); }, tour: 'achv' },
   diary: { c: '#5B7CFA', hook: 'مساحتك الخاصة جدًّا', facts: ['خاصة', 'بمشاعر', 'بنسخة احتياطية'], quick: ['اكتبي بحرية', 'اختاري وجهًا لمزاجك', 'لا يراها أحد'], art: () => moodSVG('hap', 96), tour: 'diary' },
   hope: { c: '#2F4FAE', hook: 'كوكبات تضيء ليلك', facts: ['٣٠ نجمة لكل كوكبة'], quick: ['كل يوم نجمة', 'الكوكبة تكتمل بـ٣٠', 'الانتكاس لا يطفئها'], art: () => '<div class="gbig sky">' + ico('star') + '</div>', tour: 'hope' },
   data: { c: '#0E8A8A', hook: 'بياناتك ملكك أنتِ', facts: ['نسخة احتياطية', 'رحلتي'], quick: ['كل شيء محفوظ على جهازك', 'خذي نسخة احتياطية أسبوعيًا', 'رحلتي تعرض إنجازاتك'], art: () => '<div class="gbig">' + ico('save') + '</div>', tour: 'backup' },
@@ -3037,8 +3205,8 @@ function viewMarket() {
   if (MARKET === 'houses') return h + viewHouseShop();
   const fp = E.freezePrice(ST);
   const items = [
-    { k: 'freeze', ic: 'snow', n: 'تجميدة الشعلة', p: fp, d: 'تُستهلك تلقائيًا عند فوات يوم لتجميد الشعلة بدل انطفائها، بحد تجميدة واحدة لليوم الفائت. سعرها يرتفع ١٠ مع كل شراء حتى ١٠٠ ثم يثبت.', own: 'لديك الآن: ' + N(R.freezes), dis: false },
-    { k: 'bonus', ic: 'bolt', n: 'بطاقة زيادة المكافأة', p: E.C.PRICE_BONUS, d: 'تُفعَّل تلقائيًا عند الشراء. كل مهمة تنفذينها في ذلك اليوم تزيد مكافأتها +٣.', own: R.bonusActiveToday ? 'مفعّلة اليوم' : '', dis: R.bonusActiveToday },
+    { k: 'freeze', ic: 'snow', n: 'تجميدة الشعلة', p: fp, d: 'تُستهلك تلقائيًا عند فوات يوم لتجميد الشعلة بدل انطفائها، بحد تجميدة واحدة لليوم الفائت. سعرها يرتفع ٥ مع كل شراء حتى ٦٠ ثم يثبت.', own: 'لديك الآن: ' + N(R.freezes), dis: false },
+    { k: 'bonus', ic: 'bolt', n: 'بطاقة زيادة المكافأة', p: E.C.PRICE_BONUS, d: 'تُفعَّل تلقائيًا عند الشراء. كل مهمة تنفذينها في ذلك اليوم تزيد مكافأتها نصف ⃁.', own: R.bonusActiveToday ? 'مفعّلة اليوم' : '', dis: R.bonusActiveToday },
     { k: 'least', ic: 'card', n: 'بطاقة أقل ما يمكن', p: E.C.PRICE_LEAST, d: 'يُمكّنك هذا العنصر من اختيار وتنفيذ الجزء الأقل من مهامك اليومية (حتى 40% من القائمة). تُحفظ في قسم الاستمرارية ولا تُستعمل تلقائيًا.', own: 'محفوظة لديك: ' + N(R.leastOwned), dis: false },
   ];
   h += items.map((i) => '<div class="card item"><div class="ico">' + ico(i.ic) + '</div><div class="info stack" style="gap:6px"><h3>' + i.n + '</h3><p class="muted small" style="margin:0">' + i.d + '</p><div class="row" style="flex-wrap:wrap;justify-content:space-between"><span>' + money(i.p) + (i.own ? ' <span class="pill ok">' + i.own + '</span>' : '') + '</span><button class="btn" data-act="buy" data-k="' + i.k + '" ' + (i.dis || R.balance < i.p ? 'disabled' : '') + '>شراء</button></div>' + (R.balance < i.p && !i.dis ? '<div class="small muted">ينقصك ' + N(i.p - R.balance) + ' للشراء</div>' : '') + '</div></div>').join('');
@@ -3061,14 +3229,14 @@ function loanCard() {
   return h + '</div></div>';
 }
 function openLoan() {
-  const rate = E.C.LOAN_RATE; let avg = 0; { const from = E.addDays(TODAY(), -6); avg = R.ledger.filter((x) => x.amount > 0 && x.date >= from && x.date <= TODAY()).reduce((n, x) => n + x.amount, 0) / 7; }
-  const m = modal('<h2>طلب سلفة</h2><div class="stack" style="gap:10px"><label class="small muted" for="loanAmt">المبلغ (من ' + N(E.C.LOAN_MIN) + ' إلى ' + N(E.C.LOAN_MAX) + ')</label><input id="loanAmt" class="inp num" inputmode="numeric" autocomplete="off" placeholder="مثلًا ١٠٠"><div id="loanPrev" class="small muted"></div></div><div class="actions" style="margin-top:16px"><button class="btn" id="loanOk" disabled>تأكيد السلفة</button><button class="btn ghost" data-close>إلغاء</button></div>');
+  const rate = E.C.LOAN_RATE; let avg = 0; { const from = E.addDays(TODAY(), -6); avg = R.ledger.filter((x) => x.amount > E.C.LOAN_EXEMPT && x.date >= from && x.date <= TODAY()).reduce((n, x) => n + x.amount, 0) / 7; }
+  const m = modal('<h2>طلب سلفة</h2><div class="stack" style="gap:10px"><label class="small muted" for="loanAmt">المبلغ (من ' + N(E.C.LOAN_MIN) + ' إلى ' + N(E.C.LOAN_MAX) + ')</label><input id="loanAmt" class="inp num" inputmode="numeric" autocomplete="off" placeholder="مثلًا ٥٠"><div id="loanPrev" class="small muted"></div></div><div class="actions" style="margin-top:16px"><button class="btn" id="loanOk" disabled>تأكيد السلفة</button><button class="btn ghost" data-close>إلغاء</button></div>');
   const inp = m.el.querySelector('#loanAmt'), prev = m.el.querySelector('#loanPrev'), ok = m.el.querySelector('#loanOk');
   const AR = '٠١٢٣٤٥٦٧٨٩'; const norm = (s) => s.replace(/[٠-٩]/g, (c) => AR.indexOf(c)).replace(/[^0-9]/g, '');
   const upd = () => {
     const v = parseInt(norm(inp.value) || '0', 10); const good = v >= E.C.LOAN_MIN && v <= E.C.LOAN_MAX;
     ok.disabled = !good;
-    prev.textContent = !inp.value ? '' : !good ? 'المبلغ بين ' + N(E.C.LOAN_MIN) + ' و' + N(E.C.LOAN_MAX) : 'يُضاف ' + N(v) + ' إلى رصيدك الآن، ويُخصم ' + N(Math.round(rate * 100)) + '٪ من كل مكافأة لاحقة' + (avg > 0 ? '، أي نحو ' + N(Math.ceil(v / (avg * rate))) + ' يومًا بحسب مكافآتك هذا الأسبوع (تقدير فقط)' : '') + '.';
+    prev.textContent = !inp.value ? '' : !good ? 'المبلغ بين ' + N(E.C.LOAN_MIN) + ' و' + N(E.C.LOAN_MAX) : 'يُضاف ' + N(v) + ' إلى رصيدك الآن، ويُخصم ' + N(Math.round(rate * 100)) + '٪ من كل مكافأة تزيد على ' + N(E.C.LOAN_EXEMPT) + ' ⃁' + (avg > 0 ? '، أي نحو ' + N(Math.ceil(v / (avg * rate))) + ' يومًا بحسب مكافآتك هذا الأسبوع (تقدير فقط)' : '') + '.';
   };
   inp.addEventListener('input', upd);
   ok.addEventListener('click', () => {
@@ -3096,7 +3264,7 @@ function plantTile(p) {
 function houseView(H) {
   const ps = H.plants.map((id) => R.plants.find((p) => p.id === id)).filter(Boolean); const ts = (H.trees || []).map((id) => R.plants.find((p) => p.id === id)).filter(Boolean);
   const art = HouseArt.houseSVG(H.id, { cap: H.cap, plants: ps.map((p) => ({ id: p.id, sp: p.sp, stage: p.stage, level: p.level, leaves: p.leaves, fallen: p.fallen, slots: p.slots })), trees: ts.map((p) => ({ id: p.id, sp: p.sp, stage: p.stage, level: p.level, leaves: p.leaves, g: p.g })) });
-  return '<div class="card stack hcard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">' + esc(H.name) + ' <span class="pill rarbtn ' + RAR_PILL[H.rar] + '" data-act="rarInfo" data-k="house" data-r="' + H.rar + '" role="button" tabindex="0">' + E.RARITY[H.rar] + '</span></h3><span class="pill ' + (H.used >= H.cap ? 'warn' : 'ok') + ' num">' + N(H.used) + ' / ' + N(H.cap) + '</span></div><div class="hart">' + art + '</div>' + (ps.length + ts.length ? '<div class="pgrid">' + ps.concat(ts).map(plantTile).join('') + '</div>' : '<p class="muted small">هذا البيت فارغ. انقلي إليه نباتات أو اشتري شتلة جديدة.</p>') + '</div>';
+  return '<div class="card stack hcard"><div class="row" style="justify-content:space-between"><h3 style="margin:0">' + esc(H.name) + ' <span class="pill rarbtn ' + RAR_PILL[H.rar] + '" data-act="rarInfo" data-k="house" data-r="' + H.rar + '" role="button" tabindex="0">' + E.RARITY[H.rar] + '</span></h3><span class="pill ' + (H.used >= H.cap ? 'warn' : 'ok') + ' num">' + N(H.used) + ' / ' + N(H.cap) + '</span></div><div class="small muted">عند اكتمال نمو أي نبتة هنا: ' + money(R.houseFx[H.id].flat) + ' إضافية' + (R.houseFx[H.id].bless ? ' · بركة <b class="num">+' + N(R.houseFx[H.id].bless) + '٪</b> من أعلى نبتة فيه' : '') + '</div><div class="hart">' + art + '</div>' + (ps.length + ts.length ? '<div class="pgrid">' + ps.concat(ts).map(plantTile).join('') + '</div>' : '<p class="muted small">هذا البيت فارغ. انقلي إليه نباتات أو اشتري شتلة جديدة.</p>') + '</div>';
 }
 function viewPlants() {
   const pend = E.waterPending(ST, R).length; const owned = R.houses.filter((x) => x.owned);
@@ -3134,7 +3302,7 @@ function shopDetail(s) {
   const gd = s.grow || E.GROW_DAYS; const aid = s.art || s.id; const owned = s.gift ? R.plants.some((p) => p.gift && p.sp === s.art) : R.plants.some((p) => p.sp === s.id);
   const months = gd >= 60 ? ' (نحو ' + N(Math.round(gd / 30)) + ' ' + (gd / 30 < 11 ? 'أشهر' : 'شهرًا') + ')' : '';
   const rows = [['المستوى', E.TIERS[s.rar]], ['مدة النمو', N(gd) + ' يوم نجاح' + months], ['المكان', s.tree ? 'شجرة تُزرع بجانب البيت الزجاجي (لكل بيت شجرتان كحد أقصى)' : (s.slots || 1) > 1 ? 'تشغل ' + N(s.slots) + ' أماكن في بيت واحد، وتأتي في أصيص أكبر' : 'مكان واحد داخل البيت الزجاجي']];
-  if (!s.gift) rows.push(['مكافأة الحصول عليها', money(E.PLANT_GET[s.rar])], ['مكافأة اكتمال نموها', money(s.doneReward || E.plantDoneReward(s.rar))]);
+  if (!s.gift) rows.push(['مكافأة الحصول عليها', money(E.plantGet(s))], ['مكافأة اكتمال نموها', money(s.doneReward || E.plantDoneReward(s.rar))]);
   const rowH = rows.map((r) => '<div class="row" style="justify-content:space-between;gap:10px"><span class="muted small">' + r[0] + '</span><b class="small">' + r[1] + '</b></div>').join('');
   const foot = s.gift ? '<div class="note" style="text-align:center">يمكن الحصول عليهم عن طريق الإنجازات/الأوسمة فقط</div>' + (owned ? '<div style="text-align:center"><span class="pill ok">حصلتِ عليها</span></div>' : '') : (owned ? '<div style="text-align:center"><span class="pill ok">في غرفتك</span></div>' : '<div class="row" style="justify-content:space-between">' + money(s.price) + '<button class="btn" data-act="buyPlant" data-sp="' + s.id + '" ' + (R.balance >= s.price && shopFit(s) ? '' : 'disabled') + '>شراء</button></div>' + (R.balance < s.price ? '<div class="small muted">ينقصك ' + N(s.price - R.balance) + '</div>' : !shopFit(s) ? '<div class="small muted">' + (s.tree ? 'لا بيت متاح بجانبه شجرة جديدة' : 'لا يتسع لها أي بيت الآن') + '</div>' : ''));
   return '<div style="max-width:220px;margin:0 auto">' + PlantArt.plantSVG(aid, { stage: 4, level: s.rar, leaves: 8 + s.rar * 2, fallen: 0, g: 1 }) + '</div><h2 style="text-align:center;margin:4px 0">' + esc(s.name) + '</h2><div style="text-align:center"><span class="pill ' + RAR_PILL[s.rar] + '">' + E.TIERS[s.rar] + '</span></div><p style="margin:8px 0">' + esc(s.desc || plantDefault(s)) + '</p><div class="stack" style="gap:6px;margin:8px 0">' + rowH + '</div>' + foot + '<div class="actions"><button class="btn soft" data-close>إغلاق</button></div>';
@@ -3175,7 +3343,9 @@ function viewAchv() {
   let h = '<div class="card stack"><div class="row" style="justify-content:space-between"><div><div class="small muted">الإنجازات المفتوحة</div><div class="bigmoney num">' + N(done.length) + ' / ' + N(all.length) + '</div></div><div style="text-align:end"><div class="small muted">كسبتِ منها</div><div class="bigmoney num">' + N(total) + ' ' + sar + '</div></div></div><div class="pbar"><i style="width:' + Math.round(done.length / all.length * 100) + '%"></i></div></div>';
   h += '<div class="tabs" role="tablist">' + E.ACH_TABS.map((n, i) => '<button role="tab" data-act="atab" data-t="' + i + '" aria-selected="' + (ATAB === i) + '">' + n + ' <span class="num small">' + N(all.filter((a) => a.tab === i && a.done).length) + '/' + N(all.filter((a) => a.tab === i).length) + '</span></button>').join('') + '</div>';
   h += '<div class="pfilters">' + [['all', 'الكل'], ['open', 'المفتوحة'], ['lock', 'المقفلة']].map((f) => '<button data-act="afilt" data-f="' + f[0] + '" aria-pressed="' + (AFILT === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
-  const list = all.filter((a) => a.tab === ATAB && (AFILT === 'all' || (AFILT === 'open' ? a.done : !a.done)));
+  { const inTab = all.filter((a) => a.tab === ATAB); const rs = E.RARITY.map((n, k) => [k, n]).filter((x) => inTab.some((a) => a.rar === x[0]));
+    h += '<div class="pfilters" aria-label="الندرة"><button data-act="arar" data-r="-1" aria-pressed="' + (ARAR === -1) + '">كل المستويات</button>' + rs.map((x) => '<button data-act="arar" data-r="' + x[0] + '" aria-pressed="' + (ARAR === x[0]) + '">' + x[1] + ' <span class="num small">' + N(inTab.filter((a) => a.rar === x[0] && a.done).length) + '/' + N(inTab.filter((a) => a.rar === x[0]).length) + '</span></button>').join('') + '</div>'; }
+  const list = all.filter((a) => a.tab === ATAB && (ARAR === -1 || a.rar === ARAR) && (AFILT === 'all' || (AFILT === 'open' ? a.done : !a.done)));
   h += list.length ? '<div class="achgrid">' + list.map(achCard).join('') + '</div>' : '<div class="card muted">لا شيء هنا الآن.</div>';
   return h;
 }
@@ -3300,7 +3470,7 @@ function openTaskForm(task, preset) {
 
 
 /* ---------- أهدافي ---------- */
-const GSIZE = { s: 'صغير', m: 'متوسط', l: 'كبير' };
+const GSIZE = { xs: 'صغير جدًا', s: 'صغير', m: 'متوسط', l: 'كبير', xl: 'كبير جدًا' };
 function goalCard(g) {
   const pct = Math.round(100 * g.have / g.need);
   let body = '';
@@ -3310,14 +3480,15 @@ function goalCard(g) {
     body = '<div class="small" style="font-weight:600">' + (g.done ? 'وصلتِ إلى ' + N(g.need) + ' ' + U : 'باقيلك ' + N(Math.round(rem * 100) / 100) + ' ' + U + ' وتوصلين ' + N(g.need) + ' ' + U) + '</div>' + (g.done ? '' : '<button class="btn soft" data-act="goalAmt" data-g="' + g.id + '">+ أضفت مقدارًا</button>') +
       ((g.adds || []).length ? '<ul class="gsteps">' + g.adds.slice(-5).reverse().map((x) => '<li><span class="num small">+ ' + N(x.amount) + ' ' + U + ' <span class="muted">· ' + dshort(x.date) + '</span></span>' + (g.done ? '' : '<button class="edit" data-act="goalAmtDel" data-g="' + g.id + '" data-a="' + x.id + '" aria-label="حذف الإضافة">✕</button>') + '</li>').join('') + '</ul>' : '');
   }
+  else if (g.type === 'free') body = g.done ? '<button class="btn soft" data-act="goalUndo" data-g="' + g.id + '">تراجعت، لم أُنجزه بعد</button>' : '<button class="btn" data-act="goalDone" data-g="' + g.id + '">✓ أنجزتُ هذا الهدف</button>';
   else { const t = ST.tasks.find((x) => x.id === g.taskId); body = '<div class="small muted">العادة المرتبطة: ' + (t ? esc(t.emoji) + ' ' + esc((E.ver(t, TODAY()) || t.versions[0]).name) : 'محذوفة') + ' · تُحسب الأيام التي تنجزينها فيها منذ ' + dshort(g.createdDate) + '</div>'; }
   return '<div class="card stack goalitem' + (g.done ? ' gdone' : '') + '"><div class="row" style="gap:10px;align-items:center"><div class="gemo">' + esc(g.emoji) + '</div><div class="tbody"><b>' + esc(g.title) + '</b>' + (g.note ? '<div class="small muted">' + esc(g.note) + '</div>' : '') + '</div>' + '<button class="edit" data-act="goalEdit" data-g="' + g.id + '" aria-label="تعديل الهدف">✎</button>' + (g.done ? '<span class="pill ok">اكتمل ✓</span>' : '<button class="edit" data-act="goalDel" data-g="' + g.id + '" aria-label="حذف الهدف">' + '✕' + '</button>') + '</div>' +
-    '<div class="row" style="justify-content:space-between"><span class="small num">' + N(Math.round(g.have * 100) / 100) + ' من ' + N(g.need) + (g.type === 'task' ? ' يومًا' : g.type === 'amount' ? ' ' + esc(g.unit || '⃁') : ' خطوات') + '</span><span class="small muted">المكافأة: ' + money(g.reward) + '</span></div><div class="bar"><i style="width:' + pct + '%"></i></div>' + body +
+    '<div class="row" style="justify-content:space-between"><span class="small num">' + (g.type === 'free' ? '' : N(Math.round(g.have * 100) / 100) + ' من ' + N(g.need) + (g.type === 'task' ? ' يومًا' : g.type === 'amount' ? ' ' + esc(g.unit || '⃁') : ' خطوات')) + '</span><span class="small muted">المكافأة: ' + money(g.reward) + '</span></div>' + (g.type === 'free' ? '' : '<div class="bar"><i style="width:' + pct + '%"></i></div>') + body +
     (g.done ? '<div class="small muted">اكتمل في ' + dlabel(g.doneDate) + ' وحصلتِ على مكافأته.</div>' : '') + '</div>';
 }
 function viewGoals() {
   const gs = R.goals || []; const act1 = gs.filter((g) => !g.done); const dn = gs.filter((g) => g.done);
-  let h = '<div class="card stack full"><p class="muted small" style="margin:0">هدف تكتبينه بنفسك، مثل إنهاء كتاب أو تعلّم مهارة. يُربط بعادة تنجزينها كل يوم، أو بخطوات تحدّدينها، أو بمقدار تدّخرينه أو تصلين إليه (مثل ثمن ساعة أو درجة اختبار)، وتنالين مكافأة عند اكتماله بالكامل.</p><button class="btn" data-act="goalAdd">+ هدف جديد</button></div>';
+  let h = '<div class="card stack full"><p class="muted small" style="margin:0">هدف تكتبينه بنفسك، مثل إنهاء كتاب أو تعلّم مهارة. يمكن أن يبقى بلا أي شرط وتضغطين «أنجزتُه» حين يتحقق، أو يُربط بعادة تنجزينها كل يوم، أو بخطوات تحدّدينها، أو بمقدار تدّخرينه أو تصلين إليه (مثل ثمن ساعة أو درجة اختبار)، وتنالين مكافأة عند اكتماله بالكامل.</p><button class="btn" data-act="goalAdd">+ هدف جديد</button></div>';
   if (!gs.length) h += '<div class="card full"><p class="muted" style="margin:0">لا أهداف بعد. جرّبي مثلًا: «إنهاء كتاب» مرتبطًا بعادة القراءة، لمدة ٣٠ يومًا.</p></div>';
   if (act1.length) h += '<div class="stack gsec2" style="gap:8px"><h3 class="sec-title">قيد الإنجاز</h3>' + act1.map(goalCard).join('') + '</div>';
   if (dn.length) h += '<div class="stack gsec2" style="gap:8px"><h3 class="sec-title">المكتملة</h3>' + dn.map(goalCard).join('') + '</div>';
@@ -3326,7 +3497,7 @@ function viewGoals() {
 function openGoalForm(gid) {
   const today = TODAY();
   const habits = ST.tasks.filter((t) => !t.once && E.isActive(t, today));
-  const f = { title: '', emoji: '🎯', note: '', atarget: '', unit: '⃁', type: habits.length ? 'task' : 'steps', taskId: habits.length ? habits[0].id : '', target: 30, steps: '', size: 'm' };
+  const f = { title: '', emoji: '🎯', note: '', atarget: '', unit: '⃁', type: 'free', taskId: habits.length ? habits[0].id : '', target: 30, steps: '', size: 'm' };
   const EG = gid ? (R.goals || []).find((x) => x.id === gid) : null; if (gid && !EG) return;
   if (EG) Object.assign(f, { title: EG.title, emoji: EG.emoji || '🎯', note: EG.note || '', type: EG.type, taskId: EG.taskId || '', target: EG.target || 30, atarget: EG.target || '', unit: EG.unit || '⃁', size: EG.size || 'm', steps: (EG.steps || []).map((x) => x.text).join('\n') });
   let m;
@@ -3335,11 +3506,12 @@ function openGoalForm(gid) {
     m.el.querySelector('.sheet').innerHTML = '<h2>' + (EG ? 'تعديل الهدف' : 'هدف جديد') + '</h2>' +
       '<div class="field"><label for="gTitle">عنوان الهدف</label><input type="text" id="gTitle" maxlength="80" value="' + esc(f.title) + '" placeholder="مثال: إنهاء كتاب"></div>' +
       '<div class="field"><label for="gNote">وصف (اختياري)</label><input type="text" id="gNote" maxlength="200" value="' + esc(f.note) + '"></div>' +
-      '<div class="field"><div class="lbl">كيف يكتمل الهدف؟</div><div class="seg"><button data-gt="task" aria-pressed="' + (f.type === 'task') + '">أيام إنجاز عادة</button><button data-gt="steps" aria-pressed="' + (f.type === 'steps') + '">خطوات أحدّدها</button><button data-gt="amount" aria-pressed="' + (f.type === 'amount') + '">مبلغ أو رقم أصل إليه</button></div></div>' +
+      '<div class="field"><div class="lbl">كيف يكتمل الهدف؟</div><div class="seg"><button data-gt="free" aria-pressed="' + (f.type === 'free') + '">بدون شرط</button><button data-gt="task" aria-pressed="' + (f.type === 'task') + '">أيام إنجاز عادة</button><button data-gt="steps" aria-pressed="' + (f.type === 'steps') + '">خطوات أحدّدها</button><button data-gt="amount" aria-pressed="' + (f.type === 'amount') + '">مبلغ أو رقم أصل إليه</button></div></div>' +
       (f.type === 'task' ? (habits.length ? '<div class="field"><label for="gTask">العادة المرتبطة</label><select id="gTask">' + habits.map((t) => '<option value="' + t.id + '"' + (t.id === f.taskId ? ' selected' : '') + '>' + esc(t.emoji) + ' ' + esc((E.ver(t, today) || t.versions[0]).name) + '</option>').join('') + '</select></div><div class="field"><label for="gTarget">كم يومًا تحتاجين لإنجازها؟</label><input type="number" id="gTarget" inputmode="numeric" min="1" max="999" value="' + esc(String(f.target)) + '"><div class="small muted">يُحسب كل يوم تنجزين فيه العادة بعد إنشاء الهدف، ولا يلزم أن تكون الأيام متتالية.</div></div>' : '<div class="note">لا توجد عادة دائمة بعد. أضيفي عادة من صفحة المهام، أو اختاري «خطوات أحدّدها».</div>') :
-        f.type === 'amount' ? '<div class="field"><label for="gATarget">المقدار الذي تريدين الوصول إليه</label><input type="number" id="gATarget" inputmode="decimal" min="1" value="' + esc(String(f.atarget)) + '" placeholder="مثال: ١٠٠٠"></div><div class="field"><label for="gUnit">الوحدة</label><input type="text" id="gUnit" maxlength="12" value="' + esc(f.unit) + '"><div class="seg" style="margin-top:6px">' + ['⃁', 'درجة', 'ريال', 'كتاب'].map((u) => '<button data-gu="' + esc(u) + '" aria-pressed="' + (f.unit === u) + '">' + esc(u) + '</button>').join('') + '</div><div class="small muted">مثال: ادخار ثمن ساعة بالرمز ⃁، أو الوصول لدرجة ٩٥ في اختبار. تضيفين ما حققتِه كلما تقدمتِ، ويخبرك الهدف بالباقي. المكافأة من التطبيق ثابتة حسب حجم الهدف، وليست من مبلغك.</div></div>' :
+        f.type === 'amount' ? '<div class="field"><label for="gATarget">المقدار الذي تريدين الوصول إليه</label><input type="number" id="gATarget" inputmode="decimal" min="1" value="' + esc(String(f.atarget)) + '" placeholder="مثال: ١٠٠٠"></div><div class="field"><label for="gUnit">الوحدة</label><input type="text" id="gUnit" maxlength="12" value="' + esc(f.unit) + '"><div class="seg" style="margin-top:6px">' + ['⃁', 'درجة', 'صفحة', 'مرة'].map((u) => '<button data-gu="' + esc(u) + '" aria-pressed="' + (f.unit === u) + '">' + esc(u) + '</button>').join('') + '</div><div class="small muted">مثال: ادخار ثمن ساعة بالرمز ⃁، أو الوصول لدرجة ٩٥ في اختبار. تضيفين ما حققتِه كلما تقدمتِ، ويخبرك الهدف بالباقي. المكافأة من التطبيق ثابتة حسب حجم الهدف، وليست من مبلغك.</div></div>' :
+        f.type === 'free' ? '<div class="small muted" style="margin:4px 0 8px">هدف بلا خطوات ولا أرقام: تكتبينه كما تشائين، وتضغطين «أنجزتُه» حين يتحقق.</div>' :
         '<div class="field"><label for="gSteps">الخطوات (خطوة في كل سطر)</label><textarea id="gSteps" rows="5" placeholder="الفصل الأول&#10;الفصل الثاني">' + esc(f.steps) + '</textarea></div>') +
-      '<div class="field"><div class="lbl">حجم الهدف (يحدّد المكافأة)</div><div class="seg">' + ['s', 'm', 'l'].map((k) => '<button data-gs="' + k + '" aria-pressed="' + (f.size === k) + '">' + GSIZE[k] + ' · ' + N(E.C.GOAL_REWARD[k]) + '</button>').join('') + '</div><div class="small muted">المكافأة ثابتة حسب الحجم حتى تبقى عادلة، وتُمنح مرة واحدة عند اكتمال الهدف بالكامل.</div></div>' +
+      '<div class="field"><div class="lbl">حجم الهدف (يحدّد المكافأة)</div><div class="seg five">' + ['xs', 's', 'm', 'l', 'xl'].map((k) => '<button data-gs="' + k + '" aria-pressed="' + (f.size === k) + '"><span class="gsn">' + GSIZE[k] + '</span><span class="gsr num">' + money(E.C.GOAL_REWARD[k]) + '</span></button>').join('') + '</div><div class="small muted">المكافأة ثابتة حسب الحجم حتى تبقى عادلة، وتُمنح مرة واحدة عند اكتمال الهدف بالكامل.</div></div>' +
       '<div class="field"><div class="lbl">الإيموجي</div><input type="text" id="gEmoji" value="' + esc(f.emoji) + '" maxlength="8" style="font-size:22px;text-align:center" aria-label="الإيموجي"></div>' +
       '<div class="actions" style="margin-top:14px"><button class="btn" data-save>' + (EG ? 'حفظ التعديل' : 'إضافة الهدف') + '</button><button class="btn soft" data-close>إلغاء</button></div>';
     const el = m.el;
@@ -4387,6 +4559,13 @@ const PlantArt = (function () {
   add('peony', { a: '#2F7A45' }, { big: true }, 'sparkle');
   add('tree', { a: '#6FB066' }, { treeKind: 'jac' }, 'moon');
   add('tree', { a: '#6FAE5A' }, { treeKind: 'plum' }, 'sparkle');
+  // نباتات هدايا الأوسمة العليا (مهيمن ×٢، متسامٍ ×٢، مطلق ×٢): ٦٠٩ ← ١١١ إلى ١١٦
+  add('orchid', { a: '#2F7A4F', f: '#F6C830', g: '#E8402A', k: '#8A1A3A' }, { kind: 'phal', r: 14 }, 'gold');                            // أوركيد الفجر الملكي
+  add('lotus', { a: '#2F8A6A', f: '#FF7FB0', g: '#FFC4DA', k: '#FFE070' }, { bl: 'lotus' }, 'sparkle');                                 // لوتس الشفق الوردي
+  add('bush', { a: '#1F5F4A', f: '#4A6BE8', g: '#A8C0FF', k: '#F6F0A0' }, { kind: 'rose', r: 12, size: 18, seed: 21 }, 'moon');          // وردة الليل الماسية
+  add('orchid', { a: '#2F8A5A', f: '#BFF2E0', g: '#5FD2B0', k: '#2F6A5A' }, { kind: 'bee', r: 13 }, 'jade2');                          // أوركيد الزمرد المتلألئ
+  add('bush', { a: '#2F8A4A', f: '#FFFFFF', k: '#FFD34E' }, { kind: 'star', r: 12, size: 16, seed: 31 }, 'sparkle');                  // نجمة النور المطلقة
+  add('orchid', { a: '#3F8F5F', f: '#FFF6D8', g: '#F6D870', k: '#E8A82A' }, { kind: 'phal', r: 15 }, 'dragon');                        // أوركيد الأبد المتألقة
 
   /* ---------- المؤثرات الفخمة (للنباتات الخيالية وللمستويات العالية) ---------- */
   const sparkles = (pts, col) => pts.map((p, i) => `<path class="twk" style="animation-delay:${(i * .37).toFixed(2)}s" d="M${p[0]} ${p[1] - p[2]}L${p[0] + p[2] * .3} ${p[1] - p[2] * .3}L${p[0] + p[2]} ${p[1]}L${p[0] + p[2] * .3} ${p[1] + p[2] * .3}L${p[0]} ${p[1] + p[2]}L${p[0] - p[2] * .3} ${p[1] + p[2] * .3}L${p[0] - p[2]} ${p[1]}L${p[0] - p[2] * .3} ${p[1] - p[2] * .3}Z" fill="${col}"/>`).join('');
@@ -4560,7 +4739,7 @@ const HouseArt = (function () {
 const AchArt = (function () {
   /* أيقونات الإنجازات: رمز لكل مقياس + إطار مختلف لكل إنجاز + لون حسب الندرة + رقم الهدف */
   const O = '#2B1612';
-  const RC = [['#B9CDB4', '#7FA27A'], ['#8EC3E8', '#4A8DBF'], ['#C49BEA', '#8A55C4'], ['#FFD05A', '#E09A18'], ['#FF8FB4', '#E8A52A']];
+  const RC = [['#B9CDB4', '#7FA27A'], ['#8EC3E8', '#4A8DBF'], ['#C49BEA', '#8A55C4'], ['#FFD05A', '#E09A18'], ['#FF8FB4', '#E8A52A'], ['#FF6F91', '#C2185B'], ['#7FE0FF', '#2A6FD0'], ['#FFF1A8', '#E8A800']];
   const st = (w) => `stroke="${O}" stroke-width="${w || 2}" stroke-linejoin="round" stroke-linecap="round"`;
   // كل رمز مرسوم في مربع ٤٨×٤٨؛ m لون رئيسي، a لون ثانوي
   const GL = {
@@ -4608,7 +4787,7 @@ const AchArt = (function () {
     banner: (c) => ({ back: '', front: `<path d="M30 0h36v14L48 8 30 14z" fill="#E8283E" ${st(1.8)}/><path d="M48 8V0" stroke="${O}" stroke-width="2"/>` }),
   };
   function icon(spec, o) {
-    o = o || {}; const rar = Math.max(0, Math.min(4, spec.rar || 0)); const c = RC[rar]; const md = (MODS[spec.mod] || MODS.plain)(c); const g = GL[spec.g] || GL.star;
+    o = o || {}; const rar = Math.max(0, Math.min(7, spec.rar || 0)); const c = RC[rar]; const md = (MODS[spec.mod] || MODS.plain)(c); const g = GL[spec.g] || GL.star;
     const locked = !!o.locked; const id = 'ai' + (AchArt._n = (AchArt._n || 0) + 1);
     const ring = md.shape ? '' : `<circle cx="48" cy="48" r="38" fill="url(#${id})" ${st(2.4)}/>`;
     const inner = md.shape ? `<circle cx="48" cy="48" r="29" fill="url(#${id})" ${st(1.8)}/>` : `<circle cx="48" cy="48" r="30" fill="#fff" opacity=".28"/>`;
@@ -4653,7 +4832,7 @@ function viewPerson() {
   const rarIdx = Math.min(4, E.levelTier(r.level));
   let h = '<div class="pbox"><div class="card stack pstage rar' + rarIdx + '"><button class="lvbadge" data-act="lvInfo" aria-label="معنى المستوى"><span class="lvb-n num">' + N(r.level) + '</span><span class="lvb-t">المستوى · ' + r.levelName + '</span></button>' + stageHTML(r.equipped) +
     '<div class="stack" style="gap:6px"><div class="small">الهدف التالي: ' + goalTxt + ' <b class="num">(' + N(g.have) + ' من ' + N(g.need) + ')</b></div><div class="bar"><i style="width:' + Math.round(prog * 100) + '%"></i></div></div>' +
-    (r.penalty > 0 ? '<div class="note warn">خُصمت ' + N(r.penalty) + ' من المستوى الكلي بسبب أيام التجمد الكامل. المستوى المحسوب من سماتك: ' + N(r.derivedLevel) + '.</div>' : '') + '</div>';
+    (r.levelBonus > 0 ? '<div class="small muted">مكافآت مهامك الآن <b class="num">+' + N(r.levelBonus) + '٪</b> بفضل مستواك</div>' : '') + (r.penalty > 0 ? '<div class="note warn">خُصمت ' + N(r.penalty) + ' من المستوى الكلي بسبب أيام التجمد الكامل. المستوى المحسوب من سماتك: ' + N(r.derivedLevel) + '.</div>' : '') + '</div>';
   h += '<div class="card stack pside"><div class="row ptsrow" style="justify-content:space-between"><div><div class="small muted">نقاط التطوير المتاحة</div><div class="pts num">' + N(r.ptsAvail) + '</div></div><div class="small muted ptsnote" style="text-align:end;max-width:190px">تتجمع تلقائيًا من إنجازاتك حتى لو لم تفتحي هذه الصفحة. وزعيها كما تريدين.</div></div>';
   h += '<div class="stack" style="gap:8px"><h3 class="sec-title">السمات</h3>' + E.TRAITS.map((t) => {
     const L = r.traitLevels[t.id]; const tg = tgtOf(L);
@@ -5090,6 +5269,8 @@ document.addEventListener('click', async (e) => {
     case 'goalAmt': { const gid = a.dataset.g; const g = (R.goals || []).find((x) => x.id === gid); if (!g) return; const m = modal('<h2>إضافة إلى «' + esc(g.title) + '»</h2><div class="field"><label for="gAdd">كم تقدّمتِ؟ (' + esc(g.unit || '⃁') + ')</label><input type="number" id="gAdd" inputmode="decimal" min="0" placeholder="مثال: ١٠٠"></div><div class="actions"><button class="btn" data-save>إضافة</button><button class="btn soft" data-close>إلغاء</button></div>'); m.el.querySelector('[data-save]').addEventListener('click', () => { const v = m.el.querySelector('#gAdd').value; const probe = E.clone(ST); const r = E.addGoalAmount(probe, gid, v, TODAY()); if (!r.ok) { err(r.error); return; } m.close(); act((s) => E.addGoalAmount(s, gid, v, TODAY())); }); setTimeout(() => m.el.querySelector('#gAdd').focus(), 50); return; }
     case 'goalAmtDel': return act((s) => E.removeGoalAmount(s, a.dataset.g, a.dataset.a));
     case 'goalStep': return act((s) => E.toggleStep(s, a.dataset.g, a.dataset.s, TODAY()));
+    case 'goalDone': return act((s) => E.completeGoal(s, a.dataset.g, TODAY()));
+    case 'goalUndo': return act((s) => E.reopenGoal(s, a.dataset.g));
     case 'goalDel': return (async () => { const ok = await confirmDlg({ title: 'حذف الهدف؟', body: '<p>يُحذف هذا الهدف وتقدّمه. لا تتأثر مهامك ولا مكافآتك السابقة.</p>', ok: 'حذف', danger: true }); if (ok) act((s) => E.deleteGoal(s, a.dataset.g, TODAY())); })();
     case 'ttab': TASKTAB = a.dataset.v; render(); return;
     case 'addTask': return openTaskForm(null, TASKTAB === 'temp' ? { once: TODAY(), kind: 'side', streak: false } : null);
@@ -5121,8 +5302,9 @@ document.addEventListener('click', async (e) => {
       toast({ html: 'صار «' + esc(hs.name) + '» لك. تتسع نباتاتك الآن لـ ' + N(R.houseCap) + '.<div class="bal">الرصيد الآن: ' + N(R.balance) + '</div>' }); return;
     }
     case 'movePlant': { const pid = a.dataset.pid; const probe = E.clone(ST); const rr = E.movePlant(probe, pid, a.dataset.h, today); if (!rr.ok) { err(rr.error); return; } closeModals(); act((x) => { E.movePlant(x, pid, a.dataset.h, today); }, { noPts: true }); toast({ text: 'نُقلت النبتة.', amount: 0 }); return; }
-    case 'atab': ATAB = +a.dataset.t; return render();
+    case 'atab': ATAB = +a.dataset.t; ARAR = -1; return render();
     case 'afilt': AFILT = a.dataset.f; return render();
+    case 'arar': ARAR = +a.dataset.r; return render();
     case 'shopInfo': { const s = shopItems().find((x) => x.id === a.dataset.sp); if (s) modal(shopDetail(s), { noFocus: true }); return; }
     case 'pfilter': PFILTER = +a.dataset.r; return render();
     case 'toPlantShop': closeModals(); MARKET = 'plants'; VIEW = 'market'; render(); window.scrollTo(0, 0); return;
@@ -5131,7 +5313,7 @@ document.addEventListener('click', async (e) => {
       const s = E.PLANTS.find((x) => x.id === a.dataset.sp);
       const hopts = R.houses.filter((x) => x.owned && houseFits(x, s)); let hid = null;
       if (s.tree && hopts.length > 1) { hid = await pickHouse(s, hopts); if (!hid) return; } else if (s.tree) hid = hopts[0] && hopts[0].id;
-      const ok = await confirmDlg({ title: 'شراء ' + s.name, body: '<p>السعر: ' + money(s.price) + '</p><p class="muted small">رصيدك بعد الشراء: ' + N(R.balance - s.price) + '</p><p class="muted small">تحصلين على ' + money(E.PLANT_GET[s.rar]) + ' مكافأة عند الشراء.</p>' + (s.tree ? '<p class="muted small">ستُزرع بجانب «' + esc((R.houses.find((x) => x.id === hid) || {}).name || '') + '» وتكتمل بعد ' + N(s.grow) + ' يوم نجاح.</p>' : s.slots > 1 ? '<p class="muted small">تحجز ' + N(s.slots) + ' أماكن في بيت واحد من أول يوم، وتكتمل بعد ' + N(s.grow) + ' يوم نجاح.</p>' : ''), ok: 'شراء' });
+      const ok = await confirmDlg({ title: 'شراء ' + s.name, body: '<p>السعر: ' + money(s.price) + '</p><p class="muted small">رصيدك بعد الشراء: ' + N(R.balance - s.price) + '</p><p class="muted small">تحصلين على ' + money(E.plantGet(s)) + ' مكافأة عند الشراء.</p>' + (s.tree ? '<p class="muted small">ستُزرع بجانب «' + esc((R.houses.find((x) => x.id === hid) || {}).name || '') + '» وتكتمل بعد ' + N(s.grow) + ' يوم نجاح.</p>' : s.slots > 1 ? '<p class="muted small">تحجز ' + N(s.slots) + ' أماكن في بيت واحد من أول يوم، وتكتمل بعد ' + N(s.grow) + ' يوم نجاح.</p>' : ''), ok: 'شراء' });
       if (!ok) return;
       const opId = 'pb-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
       const probe = E.clone(ST); const rr = E.buyPlant(probe, s.id, today, opId, hid); if (!rr.ok) { err(rr.error); return; }
@@ -5285,7 +5467,7 @@ function lvInfo() {
   const L = R.level;
   const rng = (i) => { const lo = i ? E.LEVEL_BANDS[i - 1][0] + 1 : 1; const hi = E.LEVEL_BANDS[i][0]; return hi > 1e6 ? 'من ' + N(lo) + ' فما فوق' : 'من ' + N(lo) + ' إلى ' + N(hi); };
   const rows = E.TIERS.map((nm, i) => '<li' + (nm === R.levelName ? ' style="font-weight:700;color:var(--green)"' : '') + '>' + nm + ': ' + rng(i) + '</li>').join('');
-  infoModal('مستوى الشخصية', '<p style="margin:0">المستوى الكلي يرتفع كلما رفعتِ سماتك الست. وتصنيف الشخصية يعتمد على رقم هذا المستوى:</p><ul class="eff">' + rows + '</ul><p class="small muted" style="margin:0">مستواك الآن ' + N(L) + ' وتصنيفك «' + R.levelName + '».</p>');
+  infoModal('مستوى الشخصية', '<p style="margin:0">المستوى الكلي يرتفع كلما رفعتِ سماتك الست. وتصنيف الشخصية يعتمد على رقم هذا المستوى:</p><ul class="eff">' + rows + '</ul><p class="small muted" style="margin:0">مستواك الآن ' + N(L) + ' وتصنيفك «' + R.levelName + '».</p><p class="small" style="margin:0">وتكسبين عملات مع كل مستوى جديد بحسب نطاقه: ' + E.LEVEL_REWARD.map((v, i) => E.TIERS[i] + ' ' + N(v) + ' ⃁').join('، ') + '.</p><p class="small" style="margin:0">كل مستوى يرفع مكافآت مهامك ١٠٪ حتى المستوى ١١ (+١٠٠٪)، ثم ١٪ لكل مستوى بعده حتى +٢٠٠٪. مستواك يمنحك الآن +' + N(R.levelBonus) + '٪.</p>');
 }
 async function diaryAct(a) {
   const k = a.dataset.act;
