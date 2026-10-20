@@ -760,7 +760,15 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     { id: 'm2', name: 'زيّ التنين الذهبي', rar: 4, price: 4500, pal: { top: '#FFF3D6', vest: '#E3A92A', pants: '#5A1E12', boots: '#4A1A10', belt: '#B8741E', trim: '#FFE27A' }, ex: ['cape', 'pauldron', 'scarf', 'glow', 'stars'] },
     { id: 'n1', name: 'زيّ المحاربة المهيمنة', rar: 5, price: 5000, pal: { top: '#F6E6D8', vest: '#C0566A', pants: '#3C4A70', boots: '#5A3A40', belt: '#C9A24A', trim: '#E9C46A' }, ex: ['cape', 'pauldron', 'glow'] },
     { id: 'n2', name: 'زيّ القطة الخفيّة', rar: 6, price: 9000, pal: { top: '#EFE8F7', vest: '#7C77AE', pants: '#403C5C', boots: '#4A4466', belt: '#E9B7D0', trim: '#F2C6DE' }, ex: ['pauldron', 'glow', 'stars'] },
-    { id: 'n3', name: 'زيّ الفجر الأبدي', rar: 7, price: 15000, pal: { top: '#FFFDF8', vest: '#F4DCEB', pants: '#E4EEF8', boots: '#EBDDF2', belt: '#E9C46A', trim: '#F0D58A' }, ex: ['cape', 'glow', 'stars'] },  ];
+    { id: 'n3', name: 'زيّ الفجر الأبدي', rar: 7, price: 15000, pal: { top: '#FFFDF8', vest: '#F4DCEB', pants: '#E4EEF8', boots: '#EBDDF2', belt: '#E9C46A', trim: '#F0D58A' }, ex: ['cape', 'glow', 'stars'] },
+    { id: 'b1', name: 'حارسة الظلّ', rar: 4, price: 0, badge: true, pal: { top: '#C9CFE0', vest: '#44507F', pants: '#242A4A', boots: '#2B2F3F', belt: '#6D77A0', trim: '#BFC9EA' }, ex: ['cape'] },
+    { id: 'b2', name: 'حاملة الضوء', rar: 5, price: 0, badge: true, pal: { top: '#F2F7EC', vest: '#6FCBA2', pants: '#33503F', boots: '#3A4A38', belt: '#8A7A3A', trim: '#EAF7C4' }, ex: ['glow'] },
+    { id: 'b3', name: 'العدّاءة الخاطفة', rar: 4, price: 0, badge: true, pal: { top: '#C4161F', vest: '#D92B33', pants: '#5E3434', boots: '#F2C84B', belt: '#C98A4A', trim: '#FFD9A0' }, ex: [] },
+    { id: 'b4', name: 'سيّدة البأس', rar: 5, price: 0, badge: true, pal: { top: '#3A6FC4', vest: '#2F62B8', pants: '#8E1A32', boots: '#8E1A32', belt: '#C9A24A', trim: '#F2C86B' }, ex: ['cape', 'glow', 'pauldron'] },
+    { id: 'b5', name: 'رامية الريح', rar: 6, price: 0, badge: true, pal: { top: '#E7EEF0', vest: '#3F8A5A', pants: '#24432F', boots: '#3B3A36', belt: '#7A5A36', trim: '#D8C080' }, ex: ['sash'] },
+    { id: 'b6', name: 'الرفيقة الصغيرة', rar: 4, price: 0, badge: true, pal: { top: '#E5484D', vest: '#B8242E', pants: '#3FAE6E', boots: '#1C1C20', belt: '#F2C84B', trim: '#F2C84B' }, ex: ['scarf', 'cape'] },
+    { id: 'b7', name: 'حارسة الفجر', rar: 4, price: 0, badge: true, pal: { top: '#3A78D8', vest: '#1F2F5E', pants: '#162040', boots: '#162040', belt: '#2F62B8', trim: '#7FB6F0' }, ex: [] },
+  ];
   const PLANTS = [{"id":"p001","name":"البوتس الذهبية","rar":0,"price":20},
     {"id":"p002","name":"نبات العنكبوت","rar":0,"price":21},
     {"id":"p003","name":"ترادسكانتيا بنفسجية","rar":0,"price":23},
@@ -1623,7 +1631,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   // أوسمة جمع كل قطع ندرة معيّنة من الملابس والبيوت، وأوسمة البيوت الممتلئة بالنباتات
   { const RN = ['العادية', 'النادرة', 'الملحمية', 'الأسطورية', 'الخرافية', 'الخرافية المهيمنة', 'الخرافية المتسامية', 'الخرافية المطلقة'];
     const push = (tab, m, t, rar, name, desc, g, mod) => ACHIEVEMENTS.push({ id: 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'), tab, m, t, rar, reward: 0, name, desc, g, mod, gift: null });
-    const nOut = (r) => OUTFITS.filter((o) => o.rar === r && o.id !== 'starter').length; const nHouse = (r) => HOUSES.filter((h) => h.rar === r).length;
+    const nOut = (r) => OUTFITS.filter((o) => o.rar === r && o.id !== 'starter' && !o.badge).length; const nHouse = (r) => HOUSES.filter((h) => h.rar === r).length;
     for (let r = 0; r < 8; r++) if (nOut(r)) push(1, 'outfitsR' + r, nOut(r), r, 'كل الملابس ' + RN[r], 'اشتري كل الملابس ' + RN[r] + ' (' + arN(nOut(r)) + ')', 'shirt', GEN_FRAMES[(r * 3 + 1) % GEN_FRAMES.length]);
     for (let r = 0; r < 5; r++) push(2, 'housesR' + r, nHouse(r), r, 'كل البيوت ' + RN[r], 'امتلكي كل البيوت الزجاجية ' + RN[r] + ' (' + arN(nHouse(r)) + ')', 'house', GEN_FRAMES[(r * 3 + 4) % GEN_FRAMES.length]);
     for (let r = 0; r < 8; r++) { const n = PLANTS.filter((x) => x.rar === r).length; if (n) push(2, 'plantsR' + r, n, r, 'كل النباتات ' + RN[r], 'امتلكي كل النباتات ' + RN[r] + ' في المتجر (' + arN(n) + ')', 'sprout', GEN_FRAMES[(r * 3 + 7) % GEN_FRAMES.length]); }
@@ -1647,6 +1655,16 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     Object.keys(grp).forEach((k) => { const l = grp[k].slice().sort((p, q) => p.t - q.t); l.forEach((x, i) => { const b = BANDS[Math.min(7, x.rar)]; x.reward = b[Math.min(3, Math.floor((i + 0.5) * 4 / l.length))]; }); });
     ACHIEVEMENTS.forEach((x) => { if (x.m === 'frozenSave' || x.m === 'restored') x.reward = Math.min(3, x.reward); });
   }
+  // أوسمة سرّية تمنح أزياء البطلات: لا يظهر اسمها ولا شرطها قبل فتحها
+  const ACH_OUTFIT = {};
+  [['b3', 'trait_spd', 520, 'wind', 'crown', 'أسرع من الريح', 'بلغتِ المستوى ٥٢٠ في سمة السرعة', 1, 150],
+   ['b1', 'trait_int', 880, 'bulb', 'laurel', 'سرّ الحكمة', 'بلغتِ المستوى ٨٨٠ في سمة الذكاء والتعلم', 1, 150],
+   ['b6', 'trait_dis', 770, 'shield', 'rings', 'العهد الوثيق', 'بلغتِ المستوى ٧٧٠ في سمة الانضباط', 1, 150],
+   ['b4', 'trait_str', 1010, 'dumbbell', 'rays', 'بأس لا يلين', 'بلغتِ المستوى ١٠١٠ في سمة القوة', 1, 180],
+   ['b2', 'trait_end', 1230, 'mountain', 'laurel', 'نَفَس لا ينقطع', 'بلغتِ المستوى ١٢٣٠ في سمة القدرة على التحمل', 1, 180],
+   ['b5', 'trait_foc', 1740, 'eye', 'crown', 'عين لا تحيد', 'بلغتِ المستوى ١٧٤٠ في سمة التركيز', 1, 200],
+   ['b7', 'hopeStars', 400, 'star', 'wings', 'فجر بعد ليل طويل', 'أضأتِ ٤٠٠ نجمة نقيّة في أفق الأمل', 3, 150]
+  ].forEach((x) => { const o = OUTFITS.find((q) => q.id === x[0]); const id = 'a' + String(ACHIEVEMENTS.length + 1).padStart(3, '0'); ACHIEVEMENTS.push({ id, tab: x[7], m: x[1], t: x[2], rar: o.rar, reward: x[8], name: x[5], desc: x[6] + '. تحصلين على زيّ «' + o.name + '»', g: x[3], mod: x[4], gift: null, secret: true, outfit: x[0] }); ACH_OUTFIT[id] = x[0]; });
 
   function computeAchievements(st, days, events, ledger, plants, levelHist, traitHist, pts, today, extra) {
     const dates = Object.keys(days).sort(); const n = dates.length; const at = new Map(dates.map((d, i) => [d, i]));
@@ -1667,6 +1685,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     { const a = zeros(); const ef0 = econFrom(st); ledger.forEach((e) => { if (e.key !== 'start' && e.key.indexOf('ach:') !== 0 && e.amount > 0 && e.date >= ef0) bump(a, e.date, e.amount); }); S.coinsEarned = cumFrom(a); }
     { const a = zeros(); pts.forEach((e) => bump(a, e.date, e.amount)); S.pointsEarned = cumFrom(a); }
     S.allocs = fromDates(st.alloc.map((x) => x.date));
+    { const a = zeros(); (((st.hope || {}).habits) || []).forEach((h) => { const rel = new Set(h.relapses || []); for (let D = h.start; D && D <= today; D = addDays(D, 1)) if (!rel.has(D)) bump(a, D, 1); }); S.hopeStars = cumFrom(a); }
     { const a = zeros(); levelHist.forEach((e) => bump(a, e.date, 0)); const lv = zeros(); levelHist.forEach((e) => { const i = at.has(e.date) ? at.get(e.date) : -1; if (i >= 0) lv[i] = Math.max(lv[i], e.level); }); S.overallLevel = mxFrom(lv.map((v, i) => v)).map((v) => Math.max(1, v)); }
     TRAITS.forEach((t) => { const a = zeros(); traitHist.filter((h) => h.trait === t.id).forEach((h) => { const i = at.has(h.date) ? at.get(h.date) : -1; if (i >= 0) a[i] = Math.max(a[i], h.level); }); S['trait_' + t.id] = mxFrom(a.map((v) => v)).map((v) => Math.max(1, v)); });
     { const cur = {}; TRAITS.forEach((t) => { cur[t.id] = 1; }); const a = zeros(); traitHist.forEach((h) => { cur[h.trait] = h.level; const i = at.has(h.date) ? at.get(h.date) : -1; if (i >= 0) a[i] = Math.max(a[i], Math.min.apply(null, TRAITS.map((t) => cur[t.id]))); }); S.minTrait = mxFrom(a).map((v) => Math.max(1, v)); }
@@ -1695,7 +1714,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       const arr = S[a.m] || zeros(); const value = n ? arr[n - 1] : 0; let date = null;
       for (let i = 0; i < n; i++) if (arr[i] >= a.t) { date = dates[i]; break; }
       const done = date !== null;
-      out.push({ id: a.id, tab: a.tab, rar: a.rar, name: a.name, desc: a.desc, reward: a.reward, g: a.g, mod: a.mod, t: a.t, m: a.m, value: Math.min(value, a.t), raw: value, done, date });
+      out.push({ id: a.id, tab: a.tab, rar: a.rar, name: a.name, desc: a.desc, reward: a.reward, g: a.g, mod: a.mod, t: a.t, m: a.m, value: Math.min(value, a.t), raw: value, done, date, secret: !!a.secret, outfit: a.outfit || null });
       if (done) rewards.push({ key: 'ach:' + a.id, amount: a.reward, reason: 'إنجاز «' + a.name + '»', date });
     }
     return { list: out, rewards };
@@ -1898,7 +1917,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       restoresThisMonth: restores[monthOf(today)] || 0, frozenDays,
       leastOwned, bonusActiveToday, todayModel, todayStatus, ix,
       pts, ptsEarned, ptsSpent, ptsAvail: ptsEarned - ptsSpent, traitLevels, derivedLevel: derived, level, penalty, levelName: levelClass(level),
-      goals: goalsCalc, levelHist, traitHist, goal: nextGoal(TRAITS.map((t) => traitLevels[t.id])), owned: ownedOutfits(st), equipped: st.equip,
+      goals: goalsCalc, levelHist, traitHist, goal: nextGoal(TRAITS.map((t) => traitLevels[t.id])), owned: ownedOutfits(st).concat(ac.list.filter((a) => a.done && ACH_OUTFIT[a.id]).map((a) => ACH_OUTFIT[a.id])), equipped: (ownedOutfits(st).concat(ac.list.filter((a) => a.done && ACH_OUTFIT[a.id]).map((a) => ACH_OUTFIT[a.id]))).includes(st.equip) ? st.equip : 'starter',
       plants: pl.plants, successDays, ach: ac.list, houses: hs.houses, unplaced: hs.unplaced, houseCap: hs.totalCap, houseFree: hs.free,
       hidden: (flame === 'out' || flame === 'frozen') && todayStatus !== 'quiet',
     };
@@ -2024,6 +2043,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   function buyOutfit(st, id, today, opId) {
     if (opId && st.ops.includes(opId)) return { ok: false, error: 'تمت هذه العملية بالفعل', dup: true };
     const o = OUTFITS.find((x) => x.id === id); if (!o || o.price <= 0) return { ok: false, error: 'قطعة غير معروفة' };
+    if (o.badge) return { ok: false, error: 'هذا الزي يُمنح بوسام فقط' };
     if (ownedOutfits(st).includes(id)) return { ok: false, error: 'تملكين هذه القطعة بالفعل' };
     const r = replay(st, today);
     if (r.balance < o.price) return { ok: false, error: 'رصيدك لا يكفي (تحتاجين ' + o.price + ' وعندك ' + r.balance + ')' };
@@ -2031,8 +2051,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     if (opId) { st.ops.push(opId); if (st.ops.length > 200) st.ops.shift(); }
     return { ok: true, price: o.price };
   }
-  function equipOutfit(st, id) {
-    if (!ownedOutfits(st).includes(id)) return { ok: false, error: 'لا تملكين هذه القطعة' };
+  function equipOutfit(st, id, owned) {
+    if (!(owned || ownedOutfits(st)).includes(id)) return { ok: false, error: 'لا تملكين هذه القطعة' };
     st.equip = id; return { ok: true };
   }
 
@@ -3347,6 +3367,7 @@ function checkPlantDone() {
 
 /* --- الإنجازات --- */
 function achCard(a) {
+  if (a.secret && !a.done) return '<div class="card ach locked secret"><div class="aico">' + AchArt.icon(Object.assign({}, a, { g: 'star', mod: 'plain' }), { locked: true, noNum: true }) + '</div><div class="stack" style="gap:3px;min-width:0"><div class="row" style="gap:6px;flex-wrap:wrap"><b>وسام سري</b><span class="pill ' + RAR_PILL[a.rar] + '">' + E.RARITY[a.rar] + '</span></div><div class="small muted">يخفي سرًّا. يُكشف حين تبلغينه، وتنالين معه هدية.</div></div></div>';
   const pct = Math.min(100, Math.round(a.value / a.t * 100));
   return '<div class="card ach' + (a.done ? ' done' : ' locked') + '"><div class="aico">' + AchArt.icon(a, { locked: !a.done }) + '</div><div class="stack" style="gap:3px;min-width:0"><div class="row" style="gap:6px;flex-wrap:wrap"><b>' + esc(a.name) + '</b><span class="pill ' + RAR_PILL[a.rar] + '">' + E.RARITY[a.rar] + '</span></div><div class="small muted">' + esc(a.desc) + '</div>' +
     (a.done ? '<div class="small"><span class="pill ok">مفتوح</span> <span class="muted num">' + dshort(a.date) + '</span></div>' : '<div class="pbar" aria-label="التقدم"><i style="width:' + pct + '%"></i></div><div class="small muted num">' + N(a.value) + ' / ' + N(a.t) + '</div>') +
@@ -3361,7 +3382,7 @@ function viewAchv() {
     if (AOPEN === 'type') h += '<div class="pfilters fpanel" aria-label="النوع"><button data-act="atab" data-t="-1" aria-pressed="' + (ATAB < 0) + '">الكل' + cnt(pool) + '</button>' + E.ACH_TABS.map((n, i) => '<button data-act="atab" data-t="' + i + '" aria-pressed="' + (ATAB === i) + '">' + n + cnt(pool.filter((a) => a.tab === i)) + '</button>').join('') + '</div>';
     if (AOPEN === 'rar') h += '<div class="pfilters fpanel" aria-label="المستوى"><button data-act="arar" data-r="-1" aria-pressed="' + (ARAR < 0) + '">الكل' + cnt(inT) + '</button>' + E.RARITY.map((n, k) => [k, n]).filter((x) => inT.some((a) => a.rar === x[0])).map((x) => '<button data-act="arar" data-r="' + x[0] + '" aria-pressed="' + (ARAR === x[0]) + '">' + x[1] + cnt(inT.filter((a) => a.rar === x[0])) + '</button>').join('') + '</div>'; }
   h += '<div class="pfilters">' + [['all', 'الكل'], ['open', 'المفتوحة'], ['lock', 'المقفلة']].map((f) => '<button data-act="afilt" data-f="' + f[0] + '" aria-pressed="' + (AFILT === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
-  { const near = all.filter((a) => !a.done && a.value > 0).map((a) => ({ a, p: a.value / a.t })).sort((x, y) => y.p - x.p).slice(0, 3);
+  { const near = all.filter((a) => !a.done && !a.secret && a.value > 0).map((a) => ({ a, p: a.value / a.t })).sort((x, y) => y.p - x.p).slice(0, 3);
     if (near.length && ATAB < 0 && ARAR < 0 && AFILT === 'all') h += '<div class="card stack nearbox"><b>الأقرب إليك</b>' + near.map((x) => '<div class="row" style="gap:10px"><div style="width:40px;flex:none">' + AchArt.icon(x.a, { locked: true, noNum: true }) + '</div><div class="stack" style="gap:3px;flex:1;min-width:0"><div class="small"><b>' + esc(x.a.name) + '</b> <span class="muted">· ' + esc(x.a.desc) + '</span></div><div class="pbar"><i style="width:' + Math.min(100, Math.round(x.p * 100)) + '%"></i></div></div><span class="small muted num">' + N(Math.min(100, Math.round(x.p * 100))) + '٪</span></div>').join('') + '</div>'; }
   const list = all.filter((a) => (ATAB < 0 || a.tab === ATAB) && (ARAR === -1 || a.rar === ARAR) && (AFILT === 'all' || (AFILT === 'open' ? a.done : !a.done)));
   h += list.length ? '<div class="achgrid">' + list.map(achCard).join('') + '</div>' : '<div class="card muted">لا شيء هنا الآن.</div>';
@@ -3375,7 +3396,7 @@ function checkAchSeen() {
   if (!fresh.length) return;
   fresh.forEach((a) => ST.ack.push('achseen:' + a.id)); persist();
   const sum = fresh.reduce((s, a) => s + a.reward, 0);
-  if (fresh.length <= 3) fresh.forEach((a, i) => setTimeout(() => toast({ html: '<div class="row" style="gap:10px"><div style="width:42px;flex:none">' + AchArt.icon(a, { noNum: true }) + '</div><div>فتحتِ إنجاز «' + esc(a.name) + '» <b class="num">+' + N(a.reward) + '</b> ' + sar + (i === fresh.length - 1 ? '<div class="bal">الرصيد الآن: ' + N(R.balance) + '</div>' : '') + '</div></div>' }), 500 + i * 300));
+  if (fresh.length <= 3) fresh.forEach((a, i) => setTimeout(() => toast({ html: '<div class="row" style="gap:10px"><div style="width:42px;flex:none">' + AchArt.icon(a, { noNum: true }) + '</div><div>فتحتِ إنجاز «' + esc(a.name) + '» <b class="num">+' + N(a.reward) + '</b> ' + sar + (a.outfit ? '<div class="bal">وحصلتِ على زيّ «' + esc((E.OUTFITS.find((x) => x.id === a.outfit) || {}).name || '') + '»</div>' : '') + (i === fresh.length - 1 ? '<div class="bal">الرصيد الآن: ' + N(R.balance) + '</div>' : '') + '</div></div>' }), 500 + i * 300));
   else setTimeout(() => toast({ html: 'فتحتِ <b class="num">' + N(fresh.length) + '</b> إنجازات جديدة <b class="num">+' + N(sum) + '</b> ' + sar + '<div class="bal">الرصيد الآن: ' + N(R.balance) + '</div>' }), 500);
   if (fresh.some((a) => a.rar >= 2)) setTimeout(() => burst(innerWidth / 2, innerHeight / 3, 70), 600);
 }
@@ -3675,8 +3696,8 @@ const CharArt = (function () {
   W.gladius = (p) => shp('M-7 -128L0 -142L7 -128V-22H-7Z', '#F4F0E4', 3) + '<path d="M0 -132V-26" stroke="#E9C46A" stroke-width="2.4"/>' + shp('M-21 -22H21V-12H-21Z', '#E9C46A', 3) + shp('M-4.5 -12H4.5V30H-4.5Z', '#C0455A', 3) + '<circle cx="0" cy="34" r="6.5" fill="#E9C46A" stroke="' + OUT + '" stroke-width="2.6"/>';
   W.claw = (p) => shp('M-10 0C-14 -26 -8 -52 4 -66C4 -44 8 -22 10 0Z', '#F1F4F8', 2.6) + shp('M-2 0C-4 -30 4 -58 16 -74C14 -48 14 -24 14 0Z', '#F1F4F8', 2.6) + shp('M4 0C6 -26 16 -48 28 -58C22 -38 20 -18 20 0Z', '#F1F4F8', 2.6);
   W.aurora = (p) => shp('M-3.5 -90H3.5V74H-3.5Z', '#F6EAF4', 3) + '<path d="M-3.5 -30C-18 -40 -22 -58 -12 -70M3.5 -10C20 -22 24 -42 14 -54" stroke="#F5B5C8" stroke-width="3" fill="none"/>' + shp('M0 -148L9 -118L40 -116L16 -98L24 -68L0 -86L-24 -68L-16 -98L-40 -116L-9 -118Z', '#FFE9F6', 3) + '<circle cx="0" cy="-106" r="9" fill="#C9F2E2" stroke="' + OUT + '" stroke-width="2.4"/>' + star(30, -140, 6, '#FFE9F6', 'twk', .2) + star(-34, -132, 5, '#D8F5E8', 'twk', .5);
-  const WEAPON = { starter: ['dagger', -16], c1: ['staff', -5], c2: ['bow', -4], r1: ['axe', -12], r2: ['scimitar', -14], r3: ['katana', -14], e1: ['sword', -16], e2: ['orb', -6], l1: ['spear', -8], l2: ['sceptre', -5], m1: ['moon', -6], m2: ['dragon', -14], n1: ['gladius', -8], n2: ['claw', -6], n3: ['aurora', -6] };
-  const STYLE = { starter: 'casual', c1: 'casual', c2: 'casual', r1: 'casual', r2: 'casual', r3: 'casual', e1: 'armor', e2: 'robe', l1: 'armor', l2: 'robe', m1: 'robe', m2: 'armor', n1: 'armor', n2: 'armor', n3: 'robe' };
+  const WEAPON = {b1:['none',0],b2:['lamp',-6],b5:['bow',-4],b3:['none',0],b4:['none',0],b6:['none',0],b7:['twin',-10], starter: ['dagger', -16], c1: ['staff', -5], c2: ['bow', -4], r1: ['axe', -12], r2: ['scimitar', -14], r3: ['katana', -14], e1: ['sword', -16], e2: ['orb', -6], l1: ['spear', -8], l2: ['sceptre', -5], m1: ['moon', -6], m2: ['dragon', -14], n1: ['gladius', -8], n2: ['claw', -6], n3: ['aurora', -6] };
+  const STYLE = {b1:'robe',b2:'casual',b5:'armor',b3:'casual',b4:'casual',b6:'casual',b7:'casual', starter: 'casual', c1: 'casual', c2: 'casual', r1: 'casual', r2: 'casual', r3: 'casual', e1: 'armor', e2: 'robe', l1: 'armor', l2: 'robe', m1: 'robe', m2: 'armor', n1: 'armor', n2: 'armor', n3: 'robe' };
   const GX = 72, GY = 268;
 
   /* ---------- الأجسام ---------- */
@@ -3747,7 +3768,64 @@ const CharArt = (function () {
   }
 
   /* ---------- التجميع ---------- */
-  function charSVG(id) {
+  W.none = () => '';
+  W.lamp = (p) => '<path d="M-2 -4V-40" stroke="' + OUT + '" stroke-width="5"/>' + shp('M-14 -40H14L10 -78H-10Z', '#F4FFD0', 3) + shp('M-12 -80H12L0 -94Z', '#8A7A3A', 2.6) + '<circle cx="0" cy="-60" r="26" fill="#F4FFD0" opacity=".35"/><circle cx="0" cy="-60" r="6" fill="#fff"/>';
+  W.twin = (p) => shp('M-5 -86H5V10H-5Z', '#9FB8E8', 3) + shp('M-7 -30H7V-18H-7Z', '#7FB6F0', 2.4);
+  /* ===== أزياء البطلات: تُمنح بالأوسمة السرّية فقط ===== */
+const LF='M113 208C98 230 90 252 72 260', RF='M187 208C200 226 206 240 206 254', LL='M92 242C88 250 80 256 72 260', RL='M204 230C206 240 206 246 206 254';
+// وشاح القلنسوة المطوية على الكتفين
+const cowl=(c,l)=>shp('M92 206C92 184 118 182 150 190C182 182 208 184 208 206C214 232 190 246 150 246C110 246 86 232 92 206Z',c,3)+`<path d="M108 204C124 196 176 196 192 204" stroke="${l}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/>`+shp('M100 190C96 170 108 160 120 168C122 178 116 188 108 196Z',c,2.6)+shp('M200 190C204 170 192 160 180 168C178 178 184 188 192 196Z',c,2.6);
+const BSPEC=[
+ {id:'b1',n:'حارسة الظلّ',style:'robe',w:'none',arms:'normal',pal:{top:'#C9CFE0',vest:'#44507F',pants:'#242A4A',boots:'#2B2F3F',belt:'#6D77A0',trim:'#BFC9EA'},ex:['cape'],
+  back:'',mid:'',front:shp('M40 62C70 56 120 54 150 54C180 54 230 56 260 62C270 88 252 112 234 102C200 78 100 78 66 102C48 112 30 88 40 62Z','#2E3860',3)+shp('M72 68C62 20 106 2 150 2C194 2 238 20 228 68C196 58 104 58 72 68Z','#44507F',3)+`<path d="M76 58C114 48 186 48 224 58" stroke="#BFC9EA" stroke-width="5" fill="none" stroke-linecap="round"/>`},
+ {id:'b2',n:'حاملة الضوء',style:'casual',w:'lamp',arms:'glove-long',gc:'#8FDDB4',pal:{top:'#F2F7EC',vest:'#6FCBA2',pants:'#33503F',boots:'#3A4A38',belt:'#8A7A3A',trim:'#EAF7C4'},ex:['glow'],
+  back:'',mid:'',front:`<path d="M92 84C118 66 182 66 208 84" stroke="#EAF7C4" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="150" cy="70" r="7" fill="#F4FFD0" stroke="${OUT}" stroke-width="2.2"/><circle cx="150" cy="70" r="14" fill="#F4FFD0" opacity=".35"/><circle cx="150" cy="240" r="13" fill="#F4FFD0" stroke="${OUT}" stroke-width="3"/><circle cx="150" cy="240" r="7" fill="#6FCBA2" stroke="${OUT}" stroke-width="2"/><path d="M130 240H117M170 240H183M150 220V226M150 254V260" stroke="#EAF7C4" stroke-width="2.6" stroke-linecap="round"/>`},
+ {id:'b5',n:'رامية الريح',style:'armor',w:'bow',arms:'bracer',pal:{top:'#E7EEF0',vest:'#3F8A5A',pants:'#24432F',boots:'#3B3A36',belt:'#7A5A36',trim:'#D8C080'},ex:['sash'],
+  back:shp('M196 176L226 150L240 172L212 204Z','#7A5A36',3)+shp('M218 150L226 128L236 140Z','#F0D9A0',2.2)+shp('M228 160L240 140L248 154Z','#E8A87C',2.2)+shp('M206 160L212 138L224 148Z','#F0D9A0',2.2),
+  mid:cowl('#2F7A4A','#A8E0B4'),front:shp('M40 62C70 56 120 54 150 54C180 54 230 56 260 62C270 88 252 112 234 102C200 78 100 78 66 102C48 112 30 88 40 62Z','#2A6B40',3)+shp('M72 68C62 20 106 2 150 2C194 2 238 20 228 68C196 58 104 58 72 68Z','#2F7A4A',3)+`<path d="M76 58C114 48 186 48 224 58" stroke="#A8E0B4" stroke-width="5" fill="none" stroke-linecap="round"/>`+shp('M196 16L240 -2L232 40Z','#F0D9A0',2.4)},
+ {id:'b3',n:'العدّاءة الخاطفة',style:'casual',w:'none',arms:'glove-long',gc:'#F2C84B',pal:{top:'#C4161F',vest:'#D92B33',pants:'#5E3434',boots:'#F2C84B',belt:'#C98A4A',trim:'#FFD9A0'},ex:[],
+  back:`<path d="M70 190C30 196 10 214 0 238M72 214C36 224 20 244 12 268M70 240C44 250 30 266 26 290" stroke="#FFD9A0" stroke-width="7" fill="none" stroke-linecap="round" opacity=".85"/>`,mid:shp('M110 262C108 272 104 282 100 290C126 298 174 298 200 290C196 282 192 272 190 262Z','#B01A22',3)+`<path d="M130 270V294M150 270V296M170 270V294" stroke="#F2C84B" stroke-width="2.2" opacity=".7"/>`,
+  front:shp('M94 86C118 70 182 70 206 86L202 94C180 80 120 80 98 94Z','#F2C84B',2.6)+shp('M92 86C80 82 74 72 78 62C88 66 94 74 96 84Z','#FFF1E0',2.2)+shp('M208 86C220 82 226 72 222 62C212 66 206 74 204 84Z','#FFF1E0',2.2)+shp('M106 292C92 286 86 274 90 266C100 272 106 280 108 290Z','#FFE08A',2.2)+shp('M194 292C208 286 214 274 210 266C200 272 194 280 192 290Z','#FFE08A',2.2)},
+ {id:'b4',n:'سيّدة الأفق',style:'casual',w:'none',arms:'normal',pal:{top:'#3A6FC4',vest:'#2F62B8',pants:'#8E1A32',boots:'#8E1A32',belt:'#C9A24A',trim:'#F2C86B'},ex:['cape','glow','pauldron'],
+  back:'',mid:shp('M112 204C124 196 176 196 188 204L186 256C172 266 128 266 114 256Z','#2F62B8',3)+`<path d="M126 210V250M174 210V250M118 232H182" stroke="#F2C86B" stroke-width="2.4" opacity=".8"/>`,front:`<circle cx="150" cy="238" r="15" fill="#FFF3C8" stroke="${OUT}" stroke-width="3"/><circle cx="150" cy="238" r="8.5" fill="#F2C86B" stroke="${OUT}" stroke-width="2"/><path d="M150 214V220M150 256V262M126 238H132M168 238H174M133 221L137 225M167 221L163 225M133 255L137 251M167 255L163 251" stroke="#F2C86B" stroke-width="2.6" stroke-linecap="round"/>`+shp('M104 84C124 70 176 70 196 84L192 90C174 78 126 78 108 90Z','#F2C86B',2.6)},
+ {id:'b6',n:'الرفيقة الصغيرة',style:'casual',w:'none',arms:'glove-short',gc:'#3FAE6E',pal:{top:'#E5484D',vest:'#B8242E',pants:'#3FAE6E',boots:'#1C1C20',belt:'#F2C84B',trim:'#F2C84B'},ex:['scarf','cape'],
+  back:'',mid:limb('M127.4 300L127 318',21,'#1C1C20')+limb('M172.6 300L173 318',21,'#1C1C20'),front:`<path d="M76 60C110 44 190 44 224 60" stroke="#3FAE6E" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="112" cy="44" r="22" fill="#BDEBCF" stroke="${OUT}" stroke-width="3.4"/><circle cx="188" cy="44" r="22" fill="#BDEBCF" stroke="${OUT}" stroke-width="3.4"/><circle cx="112" cy="44" r="13" fill="#3FAE6E" opacity=".6"/><circle cx="188" cy="44" r="13" fill="#3FAE6E" opacity=".6"/><path d="M134 44H166" stroke="${OUT}" stroke-width="3.4"/>`+shp('M118 262H132V276H118Z','#F2C84B',2.4)+shp('M168 262H182V276H168Z','#F2C84B',2.4)},
+ {id:'b7',n:'حارسة الفجر',style:'casual',w:'twin',arms:'glove',pal:{top:'#3A78D8',vest:'#1F2F5E',pants:'#162040',boots:'#162040',belt:'#2F62B8',trim:'#7FB6F0'},ex:[],
+  back:'',mid:'',front:shp('M116 196C130 214 170 214 184 196L190 206C172 226 128 226 110 206Z','#7FB6F0',2.8)+`<g transform="translate(206 258) rotate(12)">${shp('M-5 -86H5V10H-5Z','#9FB8E8',3)}${shp('M-7 -30H7V-18H-7Z','#7FB6F0',2.4)}<circle r="9.5" fill="#1F2F5E" stroke="${OUT}" stroke-width="3"/></g>`+shp('M206 70C226 60 238 72 232 86C222 80 214 78 206 70Z','#7FB6F0',2.4)+shp('M206 70C222 78 232 92 226 104C220 94 212 84 206 70Z','#7FB6F0',2.4)}
+];
+
+function arms(s,d){
+  const m=d.w==='none';
+  const LLx=m?'M96 230C94 240 94 246 94 254':LL;
+  const p=d.pal, sleeve=d.style==='armor'?p.vest:p.top; let mid='', rlow='';
+  const lowcol=d.arms==='glove'?p.vest:d.arms==='bracer'?'#7A5A36':null;
+  let recol=null;
+  if(d.arms==='glove-long'){recol=d.gc;mid=limb(LLx,19,d.gc)+(m?'':limb('M86 246L80 252',19,d.gc));rlow=limb(RL,19,d.gc)}
+  if(d.arms==='glove-short'){recol=d.gc;mid=m?limb('M96 232C94 238 94 242 94 246',19,SK)+limb('M94 246L94 254',19,d.gc):limb('M98 236C93 244 88 250 84 252',19,SK)+limb('M84 252C80 255 76 258 72 260',19,d.gc);rlow=limb('M204 230C206 236 206 242 206 246',19,SK)+limb('M206 246L206 254',19,d.gc)}
+  if(d.arms==='glove')recol=d.pal.vest;
+  d._recol=recol;
+  if(d.arms==='short'){mid=limb(LL,19,SK)+`<path d="M101 237L88 246" stroke="${OUT}" stroke-width="3"/>`;rlow=limb(RL,19,SK)}
+  if(d.arms==='sleeveless'){mid=limb(LF,19,SK)+limb(LL,19,'#FFD9A0');rlow=limb(RL,19,'#FFD9A0')}
+  if(d.arms==='glove'){mid=limb(LF,19,SK)+limb(LL,19,lowcol)+limb('M88 246L80 254',19,lowcol);rlow=limb(RL,19,lowcol)}
+  if(d.arms==='bracer'){mid=limb(LL,19,sleeve)+limb('M84 250C80 254 76 257 72 260',19,lowcol);rlow=limb('M205 242L206 254',19,lowcol)}
+  if(d.arms==='sleeveless'||d.arms==='glove'){ // الذراع اليمنى كاملة بلون الجلد
+    s=s.replace(`<path d="${RF}" fill="none" stroke="${sleeve}"`,`<path d="${RF}" fill="none" stroke="${SK}"`);
+    if(d.arms==='glove') rlow=limb('M203 238C205 244 206 248 206 254',19,p.vest);
+  }
+  s=s.replace('<g class="arm-r">',mid+'<g class="arm-r">'+'');
+  s=s.replace('<circle cx="206" cy="258"',rlow+'<circle cx="206" cy="258"');
+  if(d._recol){s=s.replace('<circle cx="206" cy="258" r="9.5" fill="'+SK+'"','<circle cx="206" cy="258" r="9.5" fill="'+d._recol+'"');const i=s.indexOf('<g class="wpnw">');s=s.slice(0,i)+s.slice(i).split('fill="'+SK+'"').join('fill="'+d._recol+'"');}
+  return s;
+}
+function sym(s,d){
+  const col=d._recol||SK;
+  s=s.split('M113 208C98 230 90 252 72 260').join('M113 208C100 226 94 240 94 254');
+  s=s.replace(/<path d="M90 252L104 238"[^>]*\/>/,'');
+  s=s.replace(/<g class="wpnw">.*?<\/g><\/g>/,'<circle cx="94" cy="258" r="9.5" fill="'+col+'" stroke="'+OUT+'" stroke-width="3"/>');
+  return s;
+}
+
+  function charSVGBase(id) {
     const u = 'q' + (uid++);
     const o = (window.__OUTFITS || []).find((x) => x.id === id) || (window.__OUTFITS || [])[0];
     const p = o.pal, ex = o.ex, st = STYLE[o.id] || 'casual';
@@ -3790,6 +3868,17 @@ const CharArt = (function () {
     if (o.id === 'n3') { let b = ''; for (let k = 0; k < 6; k++) { const an = k * Math.PI / 3 + .3; b += star(Math.round(150 + Math.cos(an) * 128), Math.round(172 + Math.sin(an) * 118), 11, ['#FFE9A8', '#F5B5C8', '#BFE3D3'][k % 3], 'bst', 0); } s += `<g class="burst">${b}</g>`; }
     s += '</g></svg>';
     return s;
+  }
+
+  function charSVG(id) {
+    let s = charSVGBase(id); const d = BSPEC.find((x) => x.id === id); if (!d) return s;
+    d._recol = null; if (d.arms !== 'normal') s = arms(s, d);
+    if (d.w === 'none') s = sym(s, d);
+    if (d.id === 'b4') s = s.replace(/(<g class="cape"><path d="[^"]*" fill=")[^"]*"/, '$1#8E1A32"');
+    if (d.id === 'b6') s = s.split('stroke="#E5484D" stroke-width="19"').join('stroke="#3FAE6E" stroke-width="19"');
+    s = s.replace('<g class="breath">', '<g class="breath">' + d.back);
+    if (d.mid) s = s.replace(/(<rect x="136" y="184" width="28" height="22")/, d.mid + '$1');
+    return s.replace(/<\/g><\/svg>$/, d.front + '</g></svg>');
   }
   return { charSVG };
 })();
@@ -4865,11 +4954,12 @@ function clothCard(o, r, wardrobe) {
   let btn;
   if (worn) btn = '<span class="pill ok">مرتدية الآن</span>';
   else if (owned) btn = '<button class="btn" data-act="equip" data-o="' + o.id + '">ارتداء</button>';
+  else if (o.badge) btn = '<span class="pill">بوسام سري فقط</span>';
   else btn = '<button class="btn" data-act="buyOutfit" data-o="' + o.id + '" ' + (r.balance < o.price ? 'disabled' : '') + '>شراء</button>';
-  return '<div class="cloth rar' + o.rar + ' ' + (worn ? 'on' : '') + '"><div class="thumb">' + charSVG(o.id) + '</div><b class="small">' + o.name + '</b><span class="pill rpill">' + E.TIERS[o.rar] + '</span>' + (o.price ? (owned ? '<span class="small muted">مملوكة</span>' : '<span>' + money(o.price) + '</span>') : '<span class="small muted">الزي الأساسي</span>') + btn + '</div>';
+  return '<div class="cloth rar' + o.rar + ' ' + (worn ? 'on' : '') + '"><div class="thumb">' + charSVG(o.id) + '</div><b class="small">' + o.name + '</b><span class="pill rpill">' + E.TIERS[o.rar] + '</span>' + (o.badge ? (owned ? '<span class="small muted">نلتِه بوسام</span>' : '<span class="small muted">لا يُشترى</span>') : o.price ? (owned ? '<span class="small muted">مملوكة</span>' : '<span>' + money(o.price) + '</span>') : '<span class="small muted">الزي الأساسي</span>') + btn + '</div>';
 }
 function viewClothes() {
-  return '<div class="note">الشخصية تبدأ بزي واحد. اشتري قطعًا أجمل بعملاتك وسترين أثرها على الشخصية فورًا.</div><div class="wardrobe">' + E.OUTFITS.filter((o) => o.price > 0).map((o) => clothCard(o, R, false)).join('') + '</div>';
+  return '<div class="note">الشخصية تبدأ بزي واحد. اشتري قطعًا أجمل بعملاتك وسترين أثرها على الشخصية فورًا. وفي آخر القائمة أزياء لا تُشترى، تنالينها بأوسمة سرّية عند تقدّمك في مهاراتك.</div><div class="wardrobe">' + E.OUTFITS.filter((o) => o.price > 0 || o.badge).map((o) => clothCard(o, R, false)).join('') + '</div>';
 }
 
 const blobToDataURL = (b) => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = rej; fr.readAsDataURL(b); });
@@ -5357,7 +5447,7 @@ document.addEventListener('click', async (e) => {
     }
     case 'toClothes': MARKET = 'clothes'; VIEW = 'market'; render(); window.scrollTo(0, 0); return;
     case 'autoAlloc': return act((s) => { s.settings.autoAlloc = a.dataset.v === '1'; });
-    case 'equip': return act((s) => { E.equipOutfit(s, a.dataset.o); }, { noPts: true });
+    case 'equip': return act((s) => { E.equipOutfit(s, a.dataset.o, R.owned); }, { noPts: true });
     case 'alloc': {
       const tr = a.dataset.t; const b4 = R; const opId = 'al-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
       const probe = E.clone(ST); const rr = E.allocate(probe, tr, today, opId); if (!rr.ok) { err(rr.error); return; }
