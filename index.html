@@ -2382,7 +2382,7 @@ function viewGuide() {
 const SIDE = [['market', 'السوق', 'store'], ['achv', 'الإنجازات', 'trophy'], ['journey', 'رحلتي', 'route'], ['goals', 'أهدافي', 'flag'], ['guide', 'دليل التطبيق', 'book'], ['backup', 'النسخ الاحتياطي', 'save'], ['settings', 'الإعدادات', 'gear']];
 
 let saveTimer = null;
-function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(() => Store.save(ST), 60); if (typeof cloudSchedule === 'function') cloudSchedule(); }
+function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(() => Store.save(ST), 60); if (typeof cloudSchedule === 'function') cloudSchedule(); try { pushRemSchedule(); } catch (x) {} }
 function bellUnread() { const seen = (ST.settings && ST.settings.bellSeen) || 0; return (ST.activity || []).filter((a) => a.t > seen).length; }
 function drawBell() { const c = document.getElementById('topchip'); if (!c) return; const n = ST ? bellUnread() : 0; c.innerHTML = '<button class="bellbtn" data-act="bell" aria-label="سجل النشاط"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>' + (n ? '<span class="bdot num">' + (n > 99 ? '٩٩+' : N(n)) + '</span>' : '') + '</button>'; }
 function timeLabel(t) { const d = new Date(t); let h = d.getHours(); const m = d.getMinutes(); const ap = h >= 12 ? 'م' : 'ص'; h = h % 12 || 12; return N(h) + ':' + N(String(m).padStart(2, '0')) + ' ' + ap; }
@@ -5520,7 +5520,7 @@ const b64u2buf = (s) => { const p = '='.repeat((4 - s.length % 4) % 4); const b 
 function pushStatus() {
   if (!pushSupported()) return { k: 'no', t: isInstalled() ? 'هذا المتصفح لا يدعم الإشعارات.' : 'افتحي التطبيق من أيقونته على الشاشة الرئيسية (وليس من سفاري) ثم ارجعي إلى هنا.' };
   if (Notification.permission === 'denied') return { k: 'denied', t: 'الإشعارات مرفوضة. فعّليها من إعدادات الجوال ثم الإشعارات ثم استمرّ.' };
-  if (Notification.permission === 'granted' && PUSHSUB) return { k: 'on', t: 'الإشعارات مفعّلة على هذا الجهاز.' + (PUSHSUB.cloud ? '' : ' (لم تُحفظ في حسابك بعد)') };
+  if (Notification.permission === 'granted' && PUSHSUB) return { k: 'on', t: 'الإشعارات مفعّلة على هذا الجهاز.' + (PUSHSUB.cloud ? (PUSHSUB.rem != null ? ' التذكيرات المجدولة للأيام القادمة: ' + N(PUSHSUB.rem) + '.' : '') : ' (لم تُحفظ في حسابك بعد)') };
   return { k: 'off', t: 'الإشعارات غير مفعّلة بعد.' };
 }
 let PUSHSUB = (() => { try { return JSON.parse(localStorage.getItem('istimrar-push') || 'null'); } catch (x) { return null; } })();
@@ -5540,9 +5540,35 @@ async function pushEnable() {
   let reg; try { reg = await navigator.serviceWorker.ready; } catch (x) { return err('خدمة التطبيق غير جاهزة بعد. أعيدي فتح التطبيق وحاولي.'); }
   let sub; try { sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u2buf(VAPID_PUB) }); } catch (x) { return err('تعذّر إنشاء الاشتراك. تأكدي أن التطبيق مثبّت على الشاشة الرئيسية وأن الإنترنت يعمل.'); }
   const up = await pushUpload(sub);
-  PUSHSUB = { endpoint: sub.endpoint.slice(-24), cloud: up, at: new Date().toISOString() }; pushSave(); logAct('تفعيل الإشعارات خارج التطبيق'); render();
+  PUSHSUB = { endpoint: sub.endpoint.slice(-24), cloud: up, at: new Date().toISOString() }; pushSave(); logAct('تفعيل الإشعارات خارج التطبيق'); render(); pushRemSync();
   toast({ text: up ? 'فُعّلت الإشعارات وحُفظت في حسابك.' : 'فُعّلت الإشعارات على الجهاز. حفظها في الحساب يحتاج الخطوة التالية.' });
 }
+let pushRemTimer = null, pushRemBusy = false;
+function pushRemRows() {
+  const today = TODAY(); const now = Date.now(); const rows = []; const seen = {};
+  for (let i = 0; i < 7; i++) {
+    const D = E.addDays(today, i); const m = i === 0 && R.todayModel ? R.todayModel : E.dayModel(ST, D, R.ix);
+    for (const it of m.items) {
+      const t = it.task; if (!t.remind || it.complete) continue;
+      const when = new Date(D + 'T' + t.remind + ':00'); if (isNaN(when) || when.getTime() <= now + 20000) continue;
+      const key = t.id + ':' + D; if (seen[key]) continue; seen[key] = 1;
+      rows.push({ user_id: CS.uid, key, fire_at: when.toISOString(), title: 'حان وقت «' + E.ver(t, D).name + '»', body: t.why || 'خطوة صغيرة الآن تكفي.', sent: false });
+    }
+  }
+  return rows;
+}
+async function pushRemSync() {
+  if (pushRemBusy || !PUSHSUB || !cloudOn() || !CS.refresh || !navigator.onLine || !R || !R.ix) return;
+  pushRemBusy = true;
+  try {
+    const rows = pushRemRows(); const tk = await cToken();
+    await cReq('/rest/v1/istimrar_rem?user_id=eq.' + CS.uid + '&sent=eq.false&fire_at=gt.' + encodeURIComponent(new Date().toISOString()), { method: 'DELETE' }, tk);
+    if (rows.length) await cReq('/rest/v1/istimrar_rem?on_conflict=user_id,key', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(rows) }, tk);
+    PUSHSUB.rem = rows.length; PUSHSUB.remAt = new Date().toISOString(); pushSave();
+  } catch (x) { /* اختياري: تُعاد المحاولة مع التغيير التالي */ }
+  pushRemBusy = false;
+}
+function pushRemSchedule() { try { if (!PUSHSUB) return; clearTimeout(pushRemTimer); pushRemTimer = setTimeout(pushRemSync, 4000); } catch (x) {} }
 async function pushTest() {
   try { const reg = await navigator.serviceWorker.ready; await reg.showNotification('استمرّ', { body: 'هكذا سيصلك التذكير بإذن الله.', tag: 'test', icon: 'icon-192.png', dir: 'rtl', lang: 'ar' }); } catch (x) { err('تعذّر عرض الإشعار التجريبي.'); }
 }
@@ -5655,10 +5681,11 @@ async function boot() {
   loadDiary().then(() => { if (VIEW === 'diary') render(); });
   recompute(); render(); persist(); showNotices(); checkPlantDone(); checkAchSeen(); checkMilestones(R); compWarnModal();
   if (cloudOn() && CS.refresh) setTimeout(() => cloudSyncState(false).then((s) => { if (s === 'pulled') render(); }).catch(() => {}), 3000);
+  setTimeout(pushRemSchedule, 6000);
   setInterval(checkReminders, 20000); setTimeout(checkReminders, 2500);
   setInterval(() => { if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } }, 30000);
   document.addEventListener('visibilitychange', () => { if (document.hidden) Store.save(ST); else if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } });
-  window.__app = { checkReminders, compWarnModal, checkMilestones, charSVG, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
+  window.__app = { pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
 }
 startMoves();
 boot();
