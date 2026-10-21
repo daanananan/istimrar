@@ -1,4 +1,4 @@
-const V='istimrar-v50', FONTS='istimrar-fonts';
+const V='istimrar-v55', FONTS='istimrar-fonts';
 const MUST=['./','./index.html'];
 const EXTRA=['./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png','./apple-touch-icon-152.png','./apple-touch-icon-167.png','./apple-touch-icon-180.png'];
 // ردّ نظيف: بدون علامة إعادة التوجيه التي تمنع استخدام الرد المحفوظ لتصفّح الصفحة
@@ -23,4 +23,12 @@ self.addEventListener('fetch',e=>{
   }else if(/fonts\.(googleapis|gstatic)\.com$/.test(u.host)){
     e.respondWith(caches.open(FONTS).then(c=>c.match(r).then(m=>{const f=fetch(r).then(res=>{c.put(r,res.clone());return res;}).catch(()=>m);return m||f;})));
   }
+});
+self.addEventListener('push',e=>{
+  let d={}; try{ d=e.data?e.data.json():{}; }catch(x){ d={body:e.data?e.data.text():''}; }
+  e.waitUntil(self.registration.showNotification(d.title||'استمرّ',{body:d.body||'حان وقت مهمتك.',tag:d.tag||'istimrar',icon:'icon-192.png',badge:'icon-192.png',dir:'rtl',lang:'ar',data:{url:d.url||'./'}}));
+});
+self.addEventListener('notificationclick',e=>{
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(cs=>{ for(const c of cs){ if('focus' in c) return c.focus(); } return self.clients.openWindow((e.notification.data&&e.notification.data.url)||'./'); }));
 });

@@ -761,7 +761,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     { id: 'n1', name: 'زيّ المحاربة المهيمنة', rar: 5, price: 5000, pal: { top: '#F6E6D8', vest: '#C0566A', pants: '#3C4A70', boots: '#5A3A40', belt: '#C9A24A', trim: '#E9C46A' }, ex: ['cape', 'pauldron', 'glow'] },
     { id: 'n2', name: 'زيّ القطة الخفيّة', rar: 6, price: 9000, pal: { top: '#EFE8F7', vest: '#7C77AE', pants: '#403C5C', boots: '#4A4466', belt: '#E9B7D0', trim: '#F2C6DE' }, ex: ['pauldron', 'glow', 'stars'] },
     { id: 'n3', name: 'زيّ الفجر الأبدي', rar: 7, price: 15000, pal: { top: '#FFFDF8', vest: '#F4DCEB', pants: '#E4EEF8', boots: '#EBDDF2', belt: '#E9C46A', trim: '#F0D58A' }, ex: ['cape', 'glow', 'stars'] },
-    { id: 'b1', name: 'حارسة الظلّ', rar: 4, price: 0, badge: true, pal: { top: '#C9CFE0', vest: '#44507F', pants: '#242A4A', boots: '#2B2F3F', belt: '#6D77A0', trim: '#BFC9EA' }, ex: ['cape'] },
+    { id: 'b1', name: 'محققة الظل', rar: 4, price: 0, badge: true, pal: { top: '#C9CFE0', vest: '#44507F', pants: '#242A4A', boots: '#2B2F3F', belt: '#6D77A0', trim: '#BFC9EA' }, ex: ['cape'] },
     { id: 'b2', name: 'حاملة الضوء', rar: 5, price: 0, badge: true, pal: { top: '#F2F7EC', vest: '#6FCBA2', pants: '#33503F', boots: '#3A4A38', belt: '#8A7A3A', trim: '#EAF7C4' }, ex: ['glow'] },
     { id: 'b3', name: 'العدّاءة الخاطفة', rar: 4, price: 0, badge: true, pal: { top: '#C4161F', vest: '#D92B33', pants: '#5E3434', boots: '#F2C84B', belt: '#C98A4A', trim: '#FFD9A0' }, ex: [] },
     { id: 'b4', name: 'سيّدة البأس', rar: 5, price: 0, badge: true, pal: { top: '#3A6FC4', vest: '#2F62B8', pants: '#8E1A32', boots: '#8E1A32', belt: '#C9A24A', trim: '#F2C86B' }, ex: ['cape', 'glow', 'pauldron'] },
@@ -3411,6 +3411,7 @@ function viewSettings() {
   const edits = ST.editLog.slice(-15).reverse().map((e) => '<li class="small">تعديل ' + dshort(e.date) + ': ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
   return '<div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><i style="background:' + p[2] + '"></i>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
 '<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
+    (() => { const p = pushStatus(); return '<div class="card stack"><h3>الإشعارات خارج التطبيق</h3><p class="muted small">تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية.</p><div class="note" id="pushState">' + esc(p.t) + '</div><div class="actions">' + (p.k === 'on' ? '<button class="btn soft" data-act="pushTest">إشعار تجريبي</button><button class="btn ghost" data-act="pushOff">إيقاف</button>' : '<button class="btn" data-act="pushOn">تفعيل الإشعارات</button>') + '</div></div>'; })() +
     '<div class="card stack"><h3>الأسبوع</h3><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
     '<div class="card stack"><h3>استعادة الاستمرارية</h3><div class="field"><label>أقصى عدد استعادات في الشهر</label><div class="stepper"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
     '<div class="field"><div class="lbl">نوع المهمة التعويضية</div><div class="seg"><button data-act="compMode" data-m="single" aria-pressed="' + (s.compMode === 'single') + '">مهمة واحدة</button><button data-act="compMode" data-m="sequence" aria-pressed="' + (s.compMode === 'sequence') + '">مهام متتابعة</button></div></div>' +
@@ -3776,22 +3777,22 @@ const LF='M113 208C98 230 90 252 72 260', RF='M187 208C200 226 206 240 206 254',
 // وشاح القلنسوة المطوية على الكتفين
 const cowl=(c,l)=>shp('M92 206C92 184 118 182 150 190C182 182 208 184 208 206C214 232 190 246 150 246C110 246 86 232 92 206Z',c,3)+`<path d="M108 204C124 196 176 196 192 204" stroke="${l}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/>`+shp('M100 190C96 170 108 160 120 168C122 178 116 188 108 196Z',c,2.6)+shp('M200 190C204 170 192 160 180 168C178 178 184 188 192 196Z',c,2.6);
 const BSPEC=[
- {id:'b1',n:'حارسة الظلّ',style:'robe',w:'none',arms:'normal',pal:{top:'#C9CFE0',vest:'#44507F',pants:'#242A4A',boots:'#2B2F3F',belt:'#6D77A0',trim:'#BFC9EA'},ex:['cape'],
+ {id:'b1',n:'محققة الظل',style:'robe',w:'none',arms:'normal',pal:{top:'#C9CFE0',vest:'#44507F',pants:'#242A4A',boots:'#2B2F3F',belt:'#6D77A0',trim:'#BFC9EA'},ex:['cape'],
   back:'',mid:'',front:shp('M40 62C70 56 120 54 150 54C180 54 230 56 260 62C270 88 252 112 234 102C200 78 100 78 66 102C48 112 30 88 40 62Z','#2E3860',3)+shp('M72 68C62 20 106 2 150 2C194 2 238 20 228 68C196 58 104 58 72 68Z','#44507F',3)+`<path d="M76 58C114 48 186 48 224 58" stroke="#BFC9EA" stroke-width="5" fill="none" stroke-linecap="round"/>`},
- {id:'b2',n:'حاملة الضوء',style:'casual',w:'lamp',arms:'glove-long',gc:'#8FDDB4',pal:{top:'#F2F7EC',vest:'#6FCBA2',pants:'#33503F',boots:'#3A4A38',belt:'#8A7A3A',trim:'#EAF7C4'},ex:['glow'],
-  back:'',mid:'',front:`<path d="M92 84C118 66 182 66 208 84" stroke="#EAF7C4" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="150" cy="70" r="7" fill="#F4FFD0" stroke="${OUT}" stroke-width="2.2"/><circle cx="150" cy="70" r="14" fill="#F4FFD0" opacity=".35"/><circle cx="150" cy="240" r="13" fill="#F4FFD0" stroke="${OUT}" stroke-width="3"/><circle cx="150" cy="240" r="7" fill="#6FCBA2" stroke="${OUT}" stroke-width="2"/><path d="M130 240H117M170 240H183M150 220V226M150 254V260" stroke="#EAF7C4" stroke-width="2.6" stroke-linecap="round"/>`},
+ {id:'b2',n:'حاملة الضوء',style:'casual',w:'lamp',arms:'glove-long',gc:'#9ECEB5',pal:{top:'#F2F7EC',vest:'#6FCBA2',pants:'#33503F',boots:'#3A4A38',belt:'#8A7A3A',trim:'#EAF7C4'},ex:['glow'],
+  back:'',mid:'',front:`<path d="M92 84C118 66 182 66 208 84" stroke="#EAF7C4" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="150" cy="70" r="7" fill="#E8F2C8" stroke="${OUT}" stroke-width="2.2"/><circle cx="150" cy="70" r="14" fill="#E8F2C8" opacity=".35"/><circle cx="150" cy="240" r="13" fill="#E8F2C8" stroke="${OUT}" stroke-width="3"/><circle cx="150" cy="240" r="7" fill="#6FCBA2" stroke="${OUT}" stroke-width="2"/><path d="M130 240H117M170 240H183M150 220V226M150 254V260" stroke="#EAF7C4" stroke-width="2.6" stroke-linecap="round"/>`},
  {id:'b5',n:'رامية الريح',style:'armor',w:'bow',arms:'bracer',pal:{top:'#E7EEF0',vest:'#3F8A5A',pants:'#24432F',boots:'#3B3A36',belt:'#7A5A36',trim:'#D8C080'},ex:['sash'],
-  back:shp('M196 176L226 150L240 172L212 204Z','#7A5A36',3)+shp('M218 150L226 128L236 140Z','#F0D9A0',2.2)+shp('M228 160L240 140L248 154Z','#E8A87C',2.2)+shp('M206 160L212 138L224 148Z','#F0D9A0',2.2),
-  mid:cowl('#2F7A4A','#A8E0B4'),front:shp('M40 62C70 56 120 54 150 54C180 54 230 56 260 62C270 88 252 112 234 102C200 78 100 78 66 102C48 112 30 88 40 62Z','#2A6B40',3)+shp('M72 68C62 20 106 2 150 2C194 2 238 20 228 68C196 58 104 58 72 68Z','#2F7A4A',3)+`<path d="M76 58C114 48 186 48 224 58" stroke="#A8E0B4" stroke-width="5" fill="none" stroke-linecap="round"/>`+shp('M196 16L240 -2L232 40Z','#F0D9A0',2.4)},
+  back:shp('M196 176L226 150L240 172L212 204Z','#7A5A36',3)+shp('M218 150L226 128L236 140Z','#DFD0AA',2.2)+shp('M228 160L240 140L248 154Z','#D4AD92',2.2)+shp('M206 160L212 138L224 148Z','#DFD0AA',2.2),
+  mid:cowl('#4D8862','#AFD3B7'),front:shp('M40 62C70 56 120 54 150 54C180 54 230 56 260 62C270 88 252 112 234 102C200 78 100 78 66 102C48 112 30 88 40 62Z','#2A6B40',3)+shp('M72 68C62 20 106 2 150 2C194 2 238 20 228 68C196 58 104 58 72 68Z','#2F7A4A',3)+`<path d="M76 58C114 48 186 48 224 58" stroke="#A8E0B4" stroke-width="5" fill="none" stroke-linecap="round"/>`+shp('M196 16L240 -2L232 40Z','#F0D9A0',2.4)},
  {id:'b3',n:'العدّاءة الخاطفة',style:'casual',w:'none',arms:'glove-long',gc:'#F2C84B',pal:{top:'#C4161F',vest:'#D92B33',pants:'#5E3434',boots:'#F2C84B',belt:'#C98A4A',trim:'#FFD9A0'},ex:[],
-  back:`<path d="M70 190C30 196 10 214 0 238M72 214C36 224 20 244 12 268M70 240C44 250 30 266 26 290" stroke="#FFD9A0" stroke-width="7" fill="none" stroke-linecap="round" opacity=".85"/>`,mid:shp('M110 262C108 272 104 282 100 290C126 298 174 298 200 290C196 282 192 272 190 262Z','#B01A22',3)+`<path d="M130 270V294M150 270V296M170 270V294" stroke="#F2C84B" stroke-width="2.2" opacity=".7"/>`,
-  front:shp('M94 86C118 70 182 70 206 86L202 94C180 80 120 80 98 94Z','#F2C84B',2.6)+shp('M92 86C80 82 74 72 78 62C88 66 94 74 96 84Z','#FFF1E0',2.2)+shp('M208 86C220 82 226 72 222 62C212 66 206 74 204 84Z','#FFF1E0',2.2)+shp('M106 292C92 286 86 274 90 266C100 272 106 280 108 290Z','#FFE08A',2.2)+shp('M194 292C208 286 214 274 210 266C200 272 194 280 192 290Z','#FFE08A',2.2)},
+  back:`<path d="M70 190C30 196 10 214 0 238M72 214C36 224 20 244 12 268M70 240C44 250 30 266 26 290" stroke="#FFD9A0" stroke-width="7" fill="none" stroke-linecap="round" opacity=".85"/>`,mid:shp('M110 262C108 272 104 282 100 290C126 298 174 298 200 290C196 282 192 272 190 262Z','#AE4046',3)+`<path d="M130 270V294M150 270V296M170 270V294" stroke="#F2C84B" stroke-width="2.2" opacity=".7"/>`,
+  front:shp('M94 86C118 70 182 70 206 86L202 94C180 80 120 80 98 94Z','#F2C84B',2.6)+shp('M92 86C80 82 74 72 78 62C88 66 94 74 96 84Z','#F4E5D2',2.2)+shp('M208 86C220 82 226 72 222 62C212 66 206 74 204 84Z','#F4E5D2',2.2)+shp('M106 292C92 286 86 274 90 266C100 272 106 280 108 290Z','#E8D49C',2.2)+shp('M194 292C208 286 214 274 210 266C200 272 194 280 192 290Z','#E8D49C',2.2)},
  {id:'b4',n:'سيّدة الأفق',style:'casual',w:'none',arms:'normal',pal:{top:'#3A6FC4',vest:'#2F62B8',pants:'#8E1A32',boots:'#8E1A32',belt:'#C9A24A',trim:'#F2C86B'},ex:['cape','glow','pauldron'],
-  back:'',mid:shp('M112 204C124 196 176 196 188 204L186 256C172 266 128 266 114 256Z','#2F62B8',3)+`<path d="M126 210V250M174 210V250M118 232H182" stroke="#F2C86B" stroke-width="2.4" opacity=".8"/>`,front:`<circle cx="150" cy="238" r="15" fill="#FFF3C8" stroke="${OUT}" stroke-width="3"/><circle cx="150" cy="238" r="8.5" fill="#F2C86B" stroke="${OUT}" stroke-width="2"/><path d="M150 214V220M150 256V262M126 238H132M168 238H174M133 221L137 225M167 221L163 225M133 255L137 251M167 255L163 251" stroke="#F2C86B" stroke-width="2.6" stroke-linecap="round"/>`+shp('M104 84C124 70 176 70 196 84L192 90C174 78 126 78 108 90Z','#F2C86B',2.6)},
+  back:'',mid:shp('M112 204C124 196 176 196 188 204L186 256C172 266 128 266 114 256Z','#2F62B8',3)+`<path d="M126 210V250M174 210V250M118 232H182" stroke="#F2C86B" stroke-width="2.4" opacity=".8"/>`,front:`<circle cx="150" cy="238" r="15" fill="#F1E7C3" stroke="${OUT}" stroke-width="3"/><circle cx="150" cy="238" r="8.5" fill="#F2C86B" stroke="${OUT}" stroke-width="2"/><path d="M150 214V220M150 256V262M126 238H132M168 238H174M133 221L137 225M167 221L163 225M133 255L137 251M167 255L163 251" stroke="#F2C86B" stroke-width="2.6" stroke-linecap="round"/>`+shp('M104 84C124 70 176 70 196 84L192 90C174 78 126 78 108 90Z','#F2C86B',2.6)},
  {id:'b6',n:'الرفيقة الصغيرة',style:'casual',w:'none',arms:'glove-short',gc:'#3FAE6E',pal:{top:'#E5484D',vest:'#B8242E',pants:'#3FAE6E',boots:'#1C1C20',belt:'#F2C84B',trim:'#F2C84B'},ex:['scarf','cape'],
-  back:'',mid:limb('M127.4 300L127 318',21,'#1C1C20')+limb('M172.6 300L173 318',21,'#1C1C20'),front:`<path d="M76 60C110 44 190 44 224 60" stroke="#3FAE6E" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="112" cy="44" r="22" fill="#BDEBCF" stroke="${OUT}" stroke-width="3.4"/><circle cx="188" cy="44" r="22" fill="#BDEBCF" stroke="${OUT}" stroke-width="3.4"/><circle cx="112" cy="44" r="13" fill="#3FAE6E" opacity=".6"/><circle cx="188" cy="44" r="13" fill="#3FAE6E" opacity=".6"/><path d="M134 44H166" stroke="${OUT}" stroke-width="3.4"/>`+shp('M118 262H132V276H118Z','#F2C84B',2.4)+shp('M168 262H182V276H168Z','#F2C84B',2.4)},
+  back:'',mid:shp('M110 296C110 290 144 290 144 296L146 332C146 338 140 340 132 340L108 340C102 340 102 332 106 326Z','#1C1C20')+shp('M156 296C156 290 190 290 190 296L194 326C198 332 198 340 192 340L168 340C160 340 154 338 154 332Z','#1C1C20')+`<path d="M110 306H144M156 306H190" stroke="#57575E" stroke-width="4"/>`,front:`<path d="M76 60C110 44 190 44 224 60" stroke="#3FAE6E" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="112" cy="44" r="22" fill="#BDDECA" stroke="${OUT}" stroke-width="3.4"/><circle cx="188" cy="44" r="22" fill="#BDDECA" stroke="${OUT}" stroke-width="3.4"/><circle cx="112" cy="44" r="13" fill="#3FAE6E" opacity=".6"/><circle cx="188" cy="44" r="13" fill="#3FAE6E" opacity=".6"/><path d="M134 44H166" stroke="${OUT}" stroke-width="3.4"/>`+shp('M118 262H132V276H118Z','#F2C84B',2.4)+shp('M168 262H182V276H168Z','#F2C84B',2.4)},
  {id:'b7',n:'حارسة الفجر',style:'casual',w:'twin',arms:'glove',pal:{top:'#3A78D8',vest:'#1F2F5E',pants:'#162040',boots:'#162040',belt:'#2F62B8',trim:'#7FB6F0'},ex:[],
-  back:'',mid:'',front:shp('M116 196C130 214 170 214 184 196L190 206C172 226 128 226 110 206Z','#7FB6F0',2.8)+`<g transform="translate(206 258) rotate(12)">${shp('M-5 -86H5V10H-5Z','#9FB8E8',3)}${shp('M-7 -30H7V-18H-7Z','#7FB6F0',2.4)}<circle r="9.5" fill="#1F2F5E" stroke="${OUT}" stroke-width="3"/></g>`+shp('M206 70C226 60 238 72 232 86C222 80 214 78 206 70Z','#7FB6F0',2.4)+shp('M206 70C222 78 232 92 226 104C220 94 212 84 206 70Z','#7FB6F0',2.4)}
+  back:'',mid:'',front:shp('M116 196C130 214 170 214 184 196L190 206C172 226 128 226 110 206Z','#7FB6F0',2.8)+shp('M206 70C226 60 238 72 232 86C222 80 214 78 206 70Z','#7FB6F0',2.4)+shp('M206 70C222 78 232 92 226 104C220 94 212 84 206 70Z','#7FB6F0',2.4)}
 ];
 
 function arms(s,d){
@@ -3805,7 +3806,7 @@ function arms(s,d){
   if(d.arms==='glove')recol=d.pal.vest;
   d._recol=recol;
   if(d.arms==='short'){mid=limb(LL,19,SK)+`<path d="M101 237L88 246" stroke="${OUT}" stroke-width="3"/>`;rlow=limb(RL,19,SK)}
-  if(d.arms==='sleeveless'){mid=limb(LF,19,SK)+limb(LL,19,'#FFD9A0');rlow=limb(RL,19,'#FFD9A0')}
+  if(d.arms==='sleeveless'){mid=limb(LF,19,SK)+limb(LL,19,'#EBD1AA');rlow=limb(RL,19,'#EBD1AA')}
   if(d.arms==='glove'){mid=limb(LF,19,SK)+limb(LL,19,lowcol)+limb('M88 246L80 254',19,lowcol);rlow=limb(RL,19,lowcol)}
   if(d.arms==='bracer'){mid=limb(LL,19,sleeve)+limb('M84 250C80 254 76 257 72 260',19,lowcol);rlow=limb('M205 242L206 254',19,lowcol)}
   if(d.arms==='sleeveless'||d.arms==='glove'){ // الذراع اليمنى كاملة بلون الجلد
@@ -3874,11 +3875,17 @@ function sym(s,d){
     let s = charSVGBase(id); const d = BSPEC.find((x) => x.id === id); if (!d) return s;
     d._recol = null; if (d.arms !== 'normal') s = arms(s, d);
     if (d.w === 'none') s = sym(s, d);
+    if (d.id === 'b7') {
+      const i0 = s.indexOf('<path d="M113 208C98 230 90 252 72 260"'); const i1 = s.indexOf('<g class="arm-r">'); const left = s.slice(i0, i1); const rEnd = s.indexOf('</g>', i1) + 4;
+      s = s.slice(0, i1) + '<g class="arm-r"><g transform="translate(300 0) scale(-1 1)">' + left + '</g></g>' + s.slice(rEnd);
+      const w = s.match(/<g class="wpnw">.*?<\/g><\/g>/); if (w) s = s.replace(w[0], w[0] + '<g transform="translate(300 0) scale(-1 1)">' + w[0] + '</g>');
+    }
     if (d.id === 'b4') s = s.replace(/(<g class="cape"><path d="[^"]*" fill=")[^"]*"/, '$1#8E1A32"');
     if (d.id === 'b6') s = s.split('stroke="#E5484D" stroke-width="19"').join('stroke="#3FAE6E" stroke-width="19"');
     s = s.replace('<g class="breath">', '<g class="breath">' + d.back);
     if (d.mid) s = s.replace(/(<rect x="136" y="184" width="28" height="22")/, d.mid + '$1');
-    return s.replace(/<\/g><\/svg>$/, d.front + '</g></svg>');
+    const fr = d.front;
+    return s.replace(/<\/g><\/svg>$/, fr + '</g></svg>');
   }
   return { charSVG };
 })();
@@ -5471,6 +5478,9 @@ document.addEventListener('click', async (e) => {
     case 'bkLater': { ST.settings.bkNag = TODAY(); persist(); render(); return; }
     case 'pal': { ST.settings.palette = a.dataset.v; applyTheme(); persist(); render(); return; }
     case 'theme': { ST.settings.theme = a.dataset.v; applyTheme(); persist(); render(); return; }
+    case 'pushOn': await pushEnable(); break;
+    case 'pushTest': await pushTest(); break;
+    case 'pushOff': await pushOff(); break;
     case 'copyExp': { ST.settings.lastBackup = TODAY(); persist(); const txt = packBackup(ST); try { await navigator.clipboard.writeText(txt); toast({ text: 'نُسخت النسخة الاحتياطية. الصقيها في ملاحظات أو رسالة لنفسك.', amount: 0 }); } catch (x) { $('#expBox').innerHTML = '<textarea id="exp" class="code" readonly>' + esc(txt) + '</textarea>'; const ta = $('#exp'); ta.focus(); ta.select(); toast({ text: 'حدّدتُ النص، انسخيه يدويًا.', amount: 0 }); } return; }
     case 'cIn': case 'cUp': case 'cSync': case 'cOut': return cloudAction(a.dataset.act);
     case 'dBackup': return diaryBackup();
@@ -5502,6 +5512,44 @@ document.addEventListener('change', (e) => {
 const REMKEY = 'istimrar-rem';
 const remLoad = () => { try { const o = JSON.parse(localStorage.getItem(REMKEY) || '{}'); return o && typeof o === 'object' ? o : {}; } catch (x) { return {}; } };
 const remSave = (o) => { try { localStorage.setItem(REMKEY, JSON.stringify(o)); } catch (x) {} };
+/* ---------- إشعارات خارج التطبيق (المرحلة ١: التفعيل والاشتراك) ---------- */
+const VAPID_PUB = 'BNEHHw5twvCyVQvi5R7DcjF2ZGA4M45ARjHXbAh7Uutjti2LsAWig1d8uusfe7riE1oIR56ENyVOs1VtAY8AYcw';
+const pushSupported = () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+const isInstalled = () => { try { return !!(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)); } catch (x) { return false; } };
+const b64u2buf = (s) => { const p = '='.repeat((4 - s.length % 4) % 4); const b = atob((s + p).replace(/-/g, '+').replace(/_/g, '/')); const a = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; };
+function pushStatus() {
+  if (!pushSupported()) return { k: 'no', t: isInstalled() ? 'هذا المتصفح لا يدعم الإشعارات.' : 'افتحي التطبيق من أيقونته على الشاشة الرئيسية (وليس من سفاري) ثم ارجعي إلى هنا.' };
+  if (Notification.permission === 'denied') return { k: 'denied', t: 'الإشعارات مرفوضة. فعّليها من إعدادات الجوال ثم الإشعارات ثم استمرّ.' };
+  if (Notification.permission === 'granted' && PUSHSUB) return { k: 'on', t: 'الإشعارات مفعّلة على هذا الجهاز.' + (PUSHSUB.cloud ? '' : ' (لم تُحفظ في حسابك بعد)') };
+  return { k: 'off', t: 'الإشعارات غير مفعّلة بعد.' };
+}
+let PUSHSUB = (() => { try { return JSON.parse(localStorage.getItem('istimrar-push') || 'null'); } catch (x) { return null; } })();
+const pushSave = () => { try { localStorage.setItem('istimrar-push', JSON.stringify(PUSHSUB)); } catch (x) {} };
+async function pushUpload(sub) {
+  if (!cloudOn() || !CS.refresh) return false;
+  try {
+    const tk = await cToken();
+    await cReq('/rest/v1/istimrar_push?on_conflict=user_id,endpoint', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify({ user_id: CS.uid, endpoint: sub.endpoint, sub: sub.toJSON(), tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Riyadh'), updated_at: new Date().toISOString() }) }, tk);
+    return true;
+  } catch (x) { return false; }
+}
+async function pushEnable() {
+  if (!pushSupported()) return err(pushStatus().t);
+  const perm = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
+  if (perm !== 'granted') { render(); return err('لم يُسمح بالإشعارات.'); }
+  let reg; try { reg = await navigator.serviceWorker.ready; } catch (x) { return err('خدمة التطبيق غير جاهزة بعد. أعيدي فتح التطبيق وحاولي.'); }
+  let sub; try { sub = await reg.pushManager.getSubscription() || await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u2buf(VAPID_PUB) }); } catch (x) { return err('تعذّر إنشاء الاشتراك. تأكدي أن التطبيق مثبّت على الشاشة الرئيسية وأن الإنترنت يعمل.'); }
+  const up = await pushUpload(sub);
+  PUSHSUB = { endpoint: sub.endpoint.slice(-24), cloud: up, at: new Date().toISOString() }; pushSave(); logAct('تفعيل الإشعارات خارج التطبيق'); render();
+  toast({ text: up ? 'فُعّلت الإشعارات وحُفظت في حسابك.' : 'فُعّلت الإشعارات على الجهاز. حفظها في الحساب يحتاج الخطوة التالية.' });
+}
+async function pushTest() {
+  try { const reg = await navigator.serviceWorker.ready; await reg.showNotification('استمرّ', { body: 'هكذا سيصلك التذكير بإذن الله.', tag: 'test', icon: 'icon-192.png', dir: 'rtl', lang: 'ar' }); } catch (x) { err('تعذّر عرض الإشعار التجريبي.'); }
+}
+async function pushOff() {
+  try { const reg = await navigator.serviceWorker.ready; const s = await reg.pushManager.getSubscription(); if (s) { if (cloudOn() && CS.refresh) { try { const tk = await cToken(); await cReq('/rest/v1/istimrar_push?user_id=eq.' + CS.uid + '&endpoint=eq.' + encodeURIComponent(s.endpoint), { method: 'DELETE' }, tk); } catch (x) {} } await s.unsubscribe(); } } catch (x) {}
+  PUSHSUB = null; pushSave(); render();
+}
 function askNotifyPerm() { try { if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission(); } catch (x) {} }
 const hm2min = (s) => { const p = String(s).split(':'); return (+p[0]) * 60 + (+p[1]); };
 function checkReminders() {
