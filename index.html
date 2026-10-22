@@ -3411,7 +3411,7 @@ function viewSettings() {
   const edits = ST.editLog.slice(-15).reverse().map((e) => '<li class="small">تعديل ' + dshort(e.date) + ': ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
   return '<div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><i style="background:' + p[2] + '"></i>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
 '<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
-    (() => { const p = pushStatus(); return '<div class="card stack"><h3>الإشعارات خارج التطبيق</h3><p class="muted small">تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية.</p><div class="note" id="pushState">' + esc(p.t) + '</div><div class="actions">' + (p.k === 'on' ? '<button class="btn soft" data-act="pushTest">إشعار تجريبي</button><button class="btn ghost" data-act="pushOff">إيقاف</button>' : '<button class="btn" data-act="pushOn">تفعيل الإشعارات</button>') + '</div></div>'; })() +
+    (() => { const p = pushStatus(); return '<div class="card stack"><h3>الإشعارات خارج التطبيق</h3><p class="muted small">تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية.</p><div class="note" id="pushState">' + esc(p.t) + '</div><div class="actions">' + (p.k === 'on' ? '<button class="btn soft" data-act="pushSync">تحديث التذكيرات</button><button class="btn soft" data-act="pushTest">إشعار تجريبي</button><button class="btn ghost" data-act="pushOff">إيقاف</button>' : '<button class="btn" data-act="pushOn">تفعيل الإشعارات</button>') + '</div></div>'; })() +
     '<div class="card stack"><h3>الأسبوع</h3><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
     '<div class="card stack"><h3>استعادة الاستمرارية</h3><div class="field"><label>أقصى عدد استعادات في الشهر</label><div class="stepper"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
     '<div class="field"><div class="lbl">نوع المهمة التعويضية</div><div class="seg"><button data-act="compMode" data-m="single" aria-pressed="' + (s.compMode === 'single') + '">مهمة واحدة</button><button data-act="compMode" data-m="sequence" aria-pressed="' + (s.compMode === 'sequence') + '">مهام متتابعة</button></div></div>' +
@@ -5480,6 +5480,7 @@ document.addEventListener('click', async (e) => {
     case 'theme': { ST.settings.theme = a.dataset.v; applyTheme(); persist(); render(); return; }
     case 'pushOn': await pushEnable(); break;
     case 'pushTest': await pushTest(); break;
+    case 'pushSync': await pushRemSync(); render(); break;
     case 'pushOff': await pushOff(); break;
     case 'copyExp': { ST.settings.lastBackup = TODAY(); persist(); const txt = packBackup(ST); try { await navigator.clipboard.writeText(txt); toast({ text: 'نُسخت النسخة الاحتياطية. الصقيها في ملاحظات أو رسالة لنفسك.', amount: 0 }); } catch (x) { $('#expBox').innerHTML = '<textarea id="exp" class="code" readonly>' + esc(txt) + '</textarea>'; const ta = $('#exp'); ta.focus(); ta.select(); toast({ text: 'حدّدتُ النص، انسخيه يدويًا.', amount: 0 }); } return; }
     case 'cIn': case 'cUp': case 'cSync': case 'cOut': return cloudAction(a.dataset.act);
@@ -5520,7 +5521,7 @@ const b64u2buf = (s) => { const p = '='.repeat((4 - s.length % 4) % 4); const b 
 function pushStatus() {
   if (!pushSupported()) return { k: 'no', t: isInstalled() ? 'هذا المتصفح لا يدعم الإشعارات.' : 'افتحي التطبيق من أيقونته على الشاشة الرئيسية (وليس من سفاري) ثم ارجعي إلى هنا.' };
   if (Notification.permission === 'denied') return { k: 'denied', t: 'الإشعارات مرفوضة. فعّليها من إعدادات الجوال ثم الإشعارات ثم استمرّ.' };
-  if (Notification.permission === 'granted' && PUSHSUB) return { k: 'on', t: 'الإشعارات مفعّلة على هذا الجهاز.' + (PUSHSUB.cloud ? (PUSHSUB.rem != null ? ' التذكيرات المجدولة للأيام القادمة: ' + N(PUSHSUB.rem) + '.' : '') : ' (لم تُحفظ في حسابك بعد)') };
+  if (Notification.permission === 'granted' && PUSHSUB) return { k: 'on', t: 'الإشعارات مفعّلة على هذا الجهاز.' + (PUSHSUB.cloud ? '' : ' (لم تُحفظ في حسابك بعد)') + (PUSHSUB.rem != null ? ' التذكيرات المجدولة للأيام القادمة: ' + N(PUSHSUB.rem) + '.' : '') + (PUSHSUB.err ? ' سبب التعذّر: ' + PUSHSUB.err : '') };
   return { k: 'off', t: 'الإشعارات غير مفعّلة بعد.' };
 }
 let PUSHSUB = (() => { try { return JSON.parse(localStorage.getItem('istimrar-push') || 'null'); } catch (x) { return null; } })();
@@ -5558,15 +5559,19 @@ function pushRemRows() {
   return rows;
 }
 async function pushRemSync() {
-  if (pushRemBusy || !PUSHSUB || !cloudOn() || !CS.refresh || !navigator.onLine || !R || !R.ix) return;
+  if (!PUSHSUB) return;
+  if (!cloudOn() || !CS.refresh) { PUSHSUB.err = 'سجّلي الدخول إلى حسابك السحابي أولًا'; pushSave(); try { if (VIEW === 'settings') render(); } catch (x) {} return; }
+  if (pushRemBusy || !navigator.onLine || !R || !R.ix) return;
   pushRemBusy = true;
   try {
+    if (!PUSHSUB.cloud) { try { const reg = await navigator.serviceWorker.ready; const s = await reg.pushManager.getSubscription(); if (s) PUSHSUB.cloud = await pushUpload(s); } catch (x) {} }
     const rows = pushRemRows(); const tk = await cToken();
     await cReq('/rest/v1/istimrar_rem?user_id=eq.' + CS.uid + '&sent=eq.false&fire_at=gt.' + encodeURIComponent(new Date().toISOString()), { method: 'DELETE' }, tk);
     if (rows.length) await cReq('/rest/v1/istimrar_rem?on_conflict=user_id,key', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: JSON.stringify(rows) }, tk);
-    PUSHSUB.rem = rows.length; PUSHSUB.remAt = new Date().toISOString(); pushSave();
-  } catch (x) { /* اختياري: تُعاد المحاولة مع التغيير التالي */ }
+    PUSHSUB.rem = rows.length; PUSHSUB.err = ''; PUSHSUB.remAt = new Date().toISOString(); pushSave();
+  } catch (x) { PUSHSUB.err = x && x.status === 404 ? 'الجدول غير موجود' : x && x.status === 401 ? 'سجّلي الدخول من جديد' : x && x.status ? 'خطأ ' + N(x.status) : 'لا اتصال'; pushSave(); }
   pushRemBusy = false;
+  try { if (VIEW === 'settings') render(); } catch (x) {}
 }
 function pushRemSchedule() { try { if (!PUSHSUB) return; clearTimeout(pushRemTimer); pushRemTimer = setTimeout(pushRemSync, 4000); } catch (x) {} }
 async function pushTest() {
