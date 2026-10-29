@@ -71,6 +71,9 @@ h1,h2,h3{font-family:var(--font-display);margin:0;font-weight:700;text-wrap:bala
 .dedit{position:fixed;inset:0;z-index:65;background:var(--bg);display:flex;flex-direction:column}
 .dhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 8px;border-bottom:1px solid var(--line)}
 .dsaved{font-size:12px;color:var(--green)}
+.dscroll>*{flex-shrink:0}
+.dplus{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink2);display:grid;place-items:center;padding:0}.dplus svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}.dplus[aria-expanded=true]{background:var(--surface2);color:var(--ink)}
+.dmenu{display:flex;gap:8px;flex-wrap:wrap}.dmenu .btn{flex:1;min-width:70px;padding:10px 8px}
 .dscroll{flex:1;overflow:auto;overscroll-behavior:contain;padding:14px 14px calc(60px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
 .moodrow{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .mood{background:var(--surface);border:2px solid transparent;border-radius:14px;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--ink2)}
@@ -119,6 +122,9 @@ body.hopeview #app{position:relative;z-index:1}
 body.hopeview header.top{background:rgba(8,12,28,.6)!important;border-color:rgba(255,255,255,.12)!important;color:#FFE9B5;backdrop-filter:blur(6px)}body.hopeview header.top *{color:#FFE9B5}
 body.hopeview .nav{background:rgba(8,12,28,.75);border-color:rgba(255,255,255,.12)}
 body.hopeview .pghead{display:none}
+.hinfo{background:none;border:0;color:var(--ink2);font:inherit;font-size:13px;padding:2px;text-align:start;cursor:pointer}
+body.hopeview .drawer{background:#0C1430;color:#EAF0FF;--ink:#EAF0FF;--ink2:#AEBBDD;--surface:rgba(255,255,255,.09);--line:rgba(255,255,255,.16)}body.hopeview .drawer h2{color:#FFE9B5}
+body.hopeview .sheet{background:#121B3A;color:#EAF0FF;--ink:#EAF0FF;--ink2:#AEBBDD;--surface:rgba(255,255,255,.09);--surface2:rgba(255,255,255,.14);--line:rgba(255,255,255,.18)}
 .qa{font-family:'Amiri Quran','Amiri','Noto Naskh Arabic',serif;font-size:21px;line-height:2.1}
 .qcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
 .qcard .qt{font-size:17px;line-height:1.9;margin:0}.qcard .qs{font-size:12.5px;color:var(--ink2)}
@@ -356,9 +362,14 @@ canvas#fx{position:fixed;inset:0;width:100%;height:100%;z-index:90;pointer-event
   radial-gradient(50% 120% at 110% 50%,rgba(200,240,255,.8),transparent 55%),
   repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.07) 0 6deg,transparent 6deg 12deg)}
 #dim{background:rgba(5,10,8,.42)}
-body.is-frozen #frost{opacity:.9}
-body.is-out #dim{opacity:1}
-body.is-frozen .card,body.is-frozen .task{border-color:var(--ice)}
+body.is-out #dim,body.is-frozen #frost{display:none}
+body.is-out{--bg:#CBCBCD;--surface:#D9D9DB;--surface2:#BFBFC2;--ink:#161618;--ink2:#505054;--line:#A9A9AD;--green:#3B3B3F;--green-ink:#EDEDEE;--leaf:#8E8E92;--a2:#4A4A4E;--a3:#6A6A6E;--gold:#6A6A6E;--ok:#4A4A4E;--ok-ink:#EDEDEE;--danger:#2A2A2C;--flame:#555;--rwall:#8F8F93;--rfloor:#6F6F73;--rline:#2A2A2C}
+body.is-out #app,body.is-out header.top,body.is-out .nav{filter:saturate(.25) contrast(.94)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body:not(.hopeview).is-out{--bg:#1B1B1D;--surface:#262628;--surface2:#303033;--ink:#DCDCDE;--ink2:#9A9A9E;--line:#3C3C40;--green:#B5B5B9;--green-ink:#1B1B1D;--leaf:#6E6E72;--a2:#9A9A9E;--a3:#7C7C80;--gold:#8C8C90;--ok:#B5B5B9;--ok-ink:#1B1B1D;--rwall:#3E3E42;--rfloor:#2E2E31;--rline:#9A9A9E}}
+:root[data-theme="dark"] body:not(.hopeview).is-out{--bg:#1B1B1D;--surface:#262628;--surface2:#303033;--ink:#DCDCDE;--ink2:#9A9A9E;--line:#3C3C40;--green:#B5B5B9;--green-ink:#1B1B1D;--leaf:#6E6E72;--a2:#9A9A9E;--a3:#7C7C80;--gold:#8C8C90;--ok:#B5B5B9;--ok-ink:#1B1B1D;--rwall:#3E3E42;--rfloor:#2E2E31;--rline:#9A9A9E}
+body.is-frozen{--bg:#ECEFF2;--surface:#F8F9FB;--surface2:#DFE4E9;--ink:#23282D;--ink2:#667078;--line:#CBD2D9;--green:#5C6873;--green-ink:#F5F7F9;--leaf:#A9B4BE;--a2:#76838E;--a3:#8E9AA5;--gold:#8E9AA5;--ok:#5C6873;--ok-ink:#F5F7F9;--rwall:#C9D1D8;--rfloor:#A9B2BA;--rline:#5C6873}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body:not(.hopeview).is-frozen{--bg:#1A1D20;--surface:#23272B;--surface2:#2D3237;--ink:#E4E8EB;--ink2:#9AA3AB;--line:#3A4046;--green:#B7C0C8;--green-ink:#1A1D20;--leaf:#6F7A84;--a2:#8E9AA5;--a3:#76838E;--gold:#8E9AA5;--ok:#B7C0C8;--ok-ink:#1A1D20;--rwall:#343A40;--rfloor:#2A2F34;--rline:#9AA3AB}}
+:root[data-theme="dark"] body:not(.hopeview).is-frozen{--bg:#1A1D20;--surface:#23272B;--surface2:#2D3237;--ink:#E4E8EB;--ink2:#9AA3AB;--line:#3A4046;--green:#B7C0C8;--green-ink:#1A1D20;--leaf:#6F7A84;--a2:#8E9AA5;--a3:#76838E;--gold:#8E9AA5;--ok:#B7C0C8;--ok-ink:#1A1D20;--rwall:#343A40;--rfloor:#2A2F34;--rline:#9AA3AB}
 body.is-lantern{--bg:#EFEBD6}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
@@ -543,10 +554,10 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 .logo{width:42px;height:42px;border-radius:13px;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .brand{font-size:27px}
 .menubtn{border-radius:14px;width:42px;height:42px}
-.pghead{margin:8px 2px 4px}
+.pghead{margin:2px 2px 0}
 .pghead .kick{font-size:12px;letter-spacing:.4px;color:var(--ink2)}
-.pghead h1{font-size:31px;line-height:1.25;margin-top:2px;color:var(--ink)}
-.pghead p{margin:4px 0 0;color:var(--ink2);font-size:14px}
+.pghead h1{font-size:26px;line-height:1.25;margin-top:0;color:var(--ink)}
+.pghead p{margin:2px 0 0;color:var(--ink2);font-size:13px}
 .nav{padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -10px 24px -18px rgba(0,0,0,.35)}
 .nav button{border-radius:18px;padding:7px 0}
 .nav button[aria-current="page"]{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}
@@ -2742,10 +2753,12 @@ function render() {
   else if (VIEW === 'backup') html = viewBackup();
   else html = viewSoon(VIEW);
   if (TIPV !== VIEW) { TIPV = VIEW; TIPT = pickTip(VIEW); }
-  if (TIPT && TIPS[VIEW]) html = '<div class="tipcard" role="note"><span>' + esc(TIPT) + '</span><button data-act="tipX" aria-label="إخفاء">×</button></div>' + html;
-  if (PGHEAD[VIEW]) html = '<div class="pghead"><div class="kick">مساحة آمنة للنمو على مهل</div><h1>' + PGHEAD[VIEW][0] + '</h1><p>' + PGHEAD[VIEW][1] + '</p></div>' + html;
+  const tipHTML = (TIPT && TIPS[VIEW]) ? '<div class="tipcard" role="note"><span>' + esc(TIPT) + '</span><button data-act="tipX" aria-label="إخفاء">×</button></div>' : '';
+  if (PGHEAD[VIEW]) html = '<div class="pghead"><h1>' + PGHEAD[VIEW][0] + '</h1><p>' + PGHEAD[VIEW][1] + '</p></div>' + html;
   if (R.hidden && VIEW !== 'tasks') html = compStrip() + html;
-  app.innerHTML = html; app.dataset.view = VIEW; fillCols(app);
+  app.innerHTML = html; app.dataset.view = VIEW;
+  if (tipHTML) { const first = [...app.children].find((el) => !el.matches('.pghead,.compstrip,.compalert')); if (first) first.insertAdjacentHTML('afterend', tipHTML); else app.insertAdjacentHTML('beforeend', tipHTML); }
+  fillCols(app);
   hopeBgSync();
   $('.fab') && $('.fab').remove();
   if (VIEW === 'tasks' && (VIEWDAY || TODAY()) >= TODAY() && !(R.hidden && !VIEWDAY)) { const f = document.createElement('button'); f.className = 'btn fab'; f.dataset.act = 'addTask'; f.innerHTML = '+ مهمة جديدة'; document.body.appendChild(f); }
@@ -2833,7 +2846,7 @@ function dEditorHTML() {
     '<div class="dscroll"><div class="row" style="gap:10px"><label for="ddate" class="muted">التاريخ</label><input type="date" id="ddate" value="' + e.date + '" max="' + TODAY() + '" style="max-width:190px"></div>' +
     '<div class="muted" style="margin-top:12px">كيف كان شعورك؟</div><div class="moodrow">' + MOODS.map((m) => '<button class="mood' + (e.mood === m[0] ? ' on' : '') + '" data-act="dMood" data-m="' + m[0] + '" aria-label="' + m[1] + '" aria-pressed="' + (e.mood === m[0]) + '">' + moodSVG(m[0], 46) + '<span>' + m[1] + '</span></button>').join('') + '</div>' +
     '<div class="dwrap" id="dparts"></div>' +
-    '<div class="actions"><label class="btn soft" style="text-align:center;cursor:pointer">إرفاق صورة أو فيديو أو ملف<input type="file" id="dfile" multiple hidden></label><button class="btn soft" data-act="dLink">إضافة رابط</button></div><div id="dlinkbox"></div></div>';
+    '<div><button class="dplus" data-act="dAddMenu" aria-label="إضافة وسائط" aria-expanded="false">' + ico('plus') + '</button></div><div id="dmenu"></div><input type="file" id="dfile" multiple hidden><div id="dlinkbox"></div></div>';
 }
 function dOpenEditor(entry, isNew) {
   DE = entry; DE._new = !!isNew; closeDrawer();
@@ -3010,7 +3023,7 @@ function hopeMsg(st) {
 }
 function viewHope() {
   const today = TODAY(); const H = hopeEnsure();
-  let h = '<div class="stack"><div class="card stack"><p class="muted small" style="margin:0">مكان للتعافي من العادات التي تريدين تركها. كل يوم نظيف تُضاء نجمة جديدة في سمائك. وإن تعثّرتِ فنجومك لا تُحذف، فقط تخفت قليلًا حتى تعودين.</p><button class="btn" data-act="hAdd">+ عادة جديدة</button></div>';
+  let h = '<div class="stack"><div class="card stack"><button class="btn" data-act="hAdd">+ عادة جديدة</button><button class="hinfo" data-act="hInfo" aria-expanded="false">عن هذا القسم ▾</button><p class="muted small" id="hinfop" hidden style="margin:0">مكان للتعافي من العادات التي تريدين تركها. كل يوم نظيف تُضاء نجمة جديدة في سمائك. وإن تعثّرتِ فنجومك لا تُحذف، فقط تخفت قليلًا حتى تعودين.</p></div>';
   if (!H.habits.length) h += '<div class="hopesky"><p style="margin:0">لا عادات بعد. اضغطي «عادة جديدة» واكتبي اسم العادة التي تريدين تركها، وسأبدأ سماءك من اليوم.</p></div>';
   H.habits.forEach((x) => {
     const st = hopeStats(x, today); const shapeK = st.sectors;
@@ -5612,7 +5625,7 @@ document.addEventListener('click', async (e) => {
     const sk = e.target.closest('[data-act=stTask]'); if (sk) { STTASK = sk.dataset.id; stRedraw(); return; }
     const st = e.target.closest('[data-act=stTab]'); if (st) { STTAB = st.dataset.t; stRedraw(); return; }
     const sp = e.target.closest('[data-act=stPrev],[data-act=stNext]'); if (sp) { const dir = sp.dataset.act === 'stPrev' ? -1 : 1; if (STTAB === 'month') { const y = +STM.slice(0, 4), mo = +STM.slice(5, 7) - 1 + dir; const dd = new Date(Date.UTC(y, mo, 1)); STM = dd.getUTCFullYear() + '-' + String(dd.getUTCMonth() + 1).padStart(2, '0'); } else STY += dir; stRedraw(); return; } }
-  { const ha = e.target.closest('[data-act=hAdd]'); if (ha) { hopeAdd(null); return; } const he = e.target.closest('[data-act=hEdit]'); if (he) { hopeAdd(hopeEnsure().habits.find((x) => x.id === he.dataset.id)); return; } const hr = e.target.closest('[data-act=hRelapse]'); if (hr) { hopeRelapse(hr.dataset.id); return; } const hs = e.target.closest('[data-act=hSupport]'); if (hs) { hopeSupport(hs.dataset.id); return; } }
+  { const hi = e.target.closest('[data-act=hInfo]'); if (hi) { const pp = $('#hinfop'); const on = pp.hidden; pp.hidden = !on; hi.setAttribute('aria-expanded', on); hi.textContent = on ? 'إخفاء ▴' : 'عن هذا القسم ▾'; return; } const ha = e.target.closest('[data-act=hAdd]'); if (ha) { hopeAdd(null); return; } const he = e.target.closest('[data-act=hEdit]'); if (he) { hopeAdd(hopeEnsure().habits.find((x) => x.id === he.dataset.id)); return; } const hr = e.target.closest('[data-act=hRelapse]'); if (hr) { hopeRelapse(hr.dataset.id); return; } const hs = e.target.closest('[data-act=hSupport]'); if (hs) { hopeSupport(hs.dataset.id); return; } }
   { const qa = e.target.closest('[data-act=qadd]'); if (qa) { quoteForm(null); return; }
     const qt = e.target.closest('[data-act=qtab]'); if (qt) { QTAB = qt.dataset.v; render(); return; }
     const qh = e.target.closest('[data-act=qhide]'); if (qh) { quotesEnsure().hide = TODAY(); persist(); render(); return; }
@@ -5940,7 +5953,9 @@ async function diaryAct(a) {
   if (k === 'dClose') { await dCloseEditor(); return true; }
   if (k === 'dMood') { DE.mood = DE.mood === a.dataset.m ? '' : a.dataset.m; $('#dedit').querySelectorAll('.mood').forEach((b) => { const on = b.dataset.m === DE.mood; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); dQueue(); return true; }
   if (k === 'dAttDel') { const id = a.dataset.id; a.closest('.att').remove(); if (!$('#dparts').lastChild || $('#dparts').lastChild.tagName !== 'TEXTAREA') $('#dparts').appendChild(dPart('')); if (a.dataset.kind !== 'link') DB.bdel(id); await dFlush(); return true; }
-  if (k === 'dLink') { const box = $('#dlinkbox'); if (box.firstChild) { box.innerHTML = ''; return true; } box.innerHTML = '<div class="row"><input type="text" id="dlinkin" dir="ltr" placeholder="الصقي الرابط هنا"><button class="btn" data-act="dLinkOk">إضافة</button></div>'; $('#dlinkin').focus(); return true; }
+  if (k === 'dAddMenu') { const box = $('#dmenu'); const on = !box.firstChild; a.setAttribute('aria-expanded', on); box.innerHTML = on ? '<div class="dmenu"><button class="btn soft" data-act="dPick" data-t="image">صورة</button><button class="btn soft" data-act="dPick" data-t="video">فيديو</button><button class="btn soft" data-act="dPick" data-t="file">ملف</button><button class="btn soft" data-act="dLink">رابط</button></div>' : ''; if (on) box.scrollIntoView({ block: 'nearest' }); return true; }
+  if (k === 'dPick') { const f = $('#dfile'); const t = a.dataset.t; if (t === 'file') f.removeAttribute('accept'); else f.setAttribute('accept', t + '/*'); $('#dmenu').innerHTML = ''; const pb = $('.dplus'); if (pb) pb.setAttribute('aria-expanded', 'false'); f.click(); return true; }
+  if (k === 'dLink') { $('#dmenu').innerHTML = ''; const pb = $('.dplus'); if (pb) pb.setAttribute('aria-expanded', 'false'); const box = $('#dlinkbox'); if (box.firstChild) { box.innerHTML = ''; return true; } box.innerHTML = '<div class="row"><input type="text" id="dlinkin" dir="ltr" placeholder="الصقي الرابط هنا"><button class="btn" data-act="dLinkOk">إضافة</button></div>'; $('#dlinkin').focus(); return true; }
   if (k === 'dLinkOk') { const u = dLinkNorm($('#dlinkin').value); if (!u) { toast({ text: 'الرابط غير صالح', amount: 0 }); return true; } const at = { id: uid(), kind: 'link', url: u }; dInsertAtt(at); $('#dlinkbox').innerHTML = ''; await dFlush(); return true; }
   if (k === 'dDel') { if (!(await confirmDlg({ title: 'حذف اليومية؟', body: '<p>تُحذف اليومية ومرفقاتها نهائيًا من هذا المتصفح.</p>', ok: 'حذف', danger: true }))) return true; const e = DE; clearTimeout(dTimer); DIARY = DIARY.filter((x) => x.id !== e.id); await DB.del(e.id); for (const x of (e.att || [])) if (x.kind !== 'link') await DB.bdel(x.id); DE = null; const ov = $('#dedit'); if (ov) ov.remove(); dUrls.forEach((u) => URL.revokeObjectURL(u)); dUrls = []; if (VIEW === 'diary') render(); return true; }
   if (k === 'dExport') { const txt = DIARY.map((e) => dshort(e.date) + (e.mood ? ' · ' + moodName(e.mood) : '') + '\n' + (e.text || '')).join('\n\n———\n\n'); try { await navigator.clipboard.writeText(txt); toast({ text: 'نُسخت نصوص اليوميات (دون المرفقات).', amount: 0 }); } catch (x) { modal('<h2>نصوص اليوميات</h2><textarea class="code" style="direction:rtl;text-align:start" readonly>' + esc(txt) + '</textarea><div class="actions"><button class="btn" data-close>تم</button></div>'); } return true; }
