@@ -2339,6 +2339,8 @@ function flameSVG(kind) {
   if (kind === 'out') {
     body = '<ellipse cx="50" cy="120" rx="30" ry="7" fill="var(--ink2)" opacity=".35"/><path d="M26 118c6-8 14-10 24-10s18 2 24 10z" fill="var(--ink2)" opacity=".6"/>' +
       '<circle class="smoke" cx="44" cy="100" r="6" fill="var(--ink2)"/><circle class="smoke d2" cx="56" cy="96" r="5" fill="var(--ink2)"/><ellipse cx="50" cy="112" rx="6" ry="3" fill="var(--flame)" opacity=".5"/>';
+  } else if (kind === 'iced') {
+    body = '<ellipse cx="50" cy="120" rx="30" ry="7" fill="var(--ink2)" opacity=".3"/><path d="M26 118c6-8 14-10 24-10s18 2 24 10z" fill="var(--ink2)" opacity=".5"/><g fill="#fff" stroke="var(--ice)" stroke-width="1.2" opacity=".95"><path d="M14 112l8-26 6 24z"/><path d="M86 112l-8-30-6 28z"/><path d="M30 120l6-20 5 20z"/><path d="M70 120l-6-18-6 18z"/><path d="M50 124l-6-14h12z" opacity=".8"/><path d="M40 112l6-40 7 40z" opacity=".9"/></g>';
   } else if (kind === 'frozen') {
     body = paths(1, '') + '<g fill="#fff" stroke="var(--ice)" stroke-width="1.2" opacity=".95"><path d="M14 112l8-26 6 24z"/><path d="M86 112l-8-30-6 28z"/><path d="M30 120l6-20 5 20z"/><path d="M70 120l-6-18-6 18z"/><path d="M50 124l-6-14h12z" opacity=".8"/></g>';
   } else if (kind === 'lantern') {
@@ -2755,8 +2757,8 @@ function fillCols(app) {
 function iceSync() {
   const on = document.body.classList.contains('is-frozen'); let el = document.getElementById('iceedge');
   if (!on) { if (el) el.remove(); return; }
-  const W = innerWidth, H = innerHeight; const hd = document.querySelector('header.top'); const nv = document.getElementById('nav');
-  const top = hd ? Math.round(hd.getBoundingClientRect().bottom) : 60; const bot = nv ? Math.round(nv.getBoundingClientRect().top) : H - 76;
+  const W = innerWidth, H = innerHeight; const nv = document.getElementById('nav');
+  let pr = document.getElementById('icepr'); if (!pr) { pr = document.createElement('div'); pr.id = 'icepr'; pr.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-top,0px);visibility:hidden;pointer-events:none'; document.body.appendChild(pr); } const top = Math.round(pr.getBoundingClientRect().height); const bot = nv ? Math.round(nv.getBoundingClientRect().top) : H - 76;
   const key = W + 'x' + H + ':' + top + ':' + bot; if (el && el.dataset.k === key) return;
   let seed = 11; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
   const spikes = (len, dir, y0, wmin, wmax) => { let x = -6, o = ''; while (x < W + 6) { const w = wmin + rnd() * (wmax - wmin); const l = len * (.3 + rnd() * .8); const lean = (rnd() - .5) * w * .5; const yt = y0 + dir * l; o += '<polygon points="' + x + ',' + y0 + ' ' + (x + w) + ',' + y0 + ' ' + (x + w / 2 + lean) + ',' + yt + '" fill="url(#ig)" stroke="#9FCBE6" stroke-width=".7" stroke-opacity=".8"/><polygon points="' + (x + w * .2) + ',' + y0 + ' ' + (x + w * .45) + ',' + y0 + ' ' + (x + w * .45 + lean * .6) + ',' + (y0 + dir * l * .7) + '" fill="#fff" opacity=".6"/>'; x += w * (.6 + rnd() * .5); } return o; };
@@ -3416,7 +3418,7 @@ function hiddenCard() {
   const steps = E.compSteps(ST); const need = steps.length; const doneSet = R.ix.comp(TODAY());
   const canRestore = R.restoresThisMonth < ST.settings.restoreLimit;
   const frozen = R.flame === 'frozen';
-  let h = compAlert() + '<div class="card hero full s-' + (frozen ? 'frozen' : 'out') + '"><div class="big">' + flameSVG(frozen ? 'frozen' : 'out') + '</div><h2>' + (frozen ? 'تجمّدت الواجهة' : 'انطفأت الشعلة') + '</h2><p class="muted">مهام اليوم مخفية مؤقتًا ولم تُحذف ولم تتغير مواعيدها. تعود كلها بعد إنجاز المهمة التعويضية. ' + (R.savedStreak ? ' الاستمرارية المحفوظة للاستعادة: ' + N(R.savedStreak) + ' يومًا.' : '') + '</p>' +
+  let h = compAlert() + '<div class="card hero full s-' + (frozen ? 'frozen' : 'out') + '"><div class="big">' + flameSVG(frozen ? 'iced' : 'out') + '</div><h2>' + (frozen ? 'تجمّدت الواجهة' : 'انطفأت الشعلة') + '</h2><p class="muted">مهام اليوم مخفية مؤقتًا ولم تُحذف ولم تتغير مواعيدها. تعود كلها بعد إنجاز المهمة التعويضية. ' + (R.savedStreak ? ' الاستمرارية المحفوظة للاستعادة: ' + N(R.savedStreak) + ' يومًا.' : '') + '</p>' +
     ''+ '</div>';
   h += '<div class="card stack full"><h3>المهمة التعويضية</h3>' + (ST.settings.compSteps.filter(Boolean).length ? '' : '<div class="note">لم تحدّدي مهمتك التعويضية بعد. أضيفيها من الإعدادات. هذا نص افتراضي مؤقت.</div>');
   if (!canRestore) h += '<div class="note warn">استهلكتِ فرص الاستعادة لهذا الشهر (' + N(ST.settings.restoreLimit) + '). تبقى الحالة كما هي ولا تُستعاد تلقائيًا. يمكنك رفع الحد من الإعدادات.</div>';
@@ -3523,7 +3525,7 @@ function viewStreak() {
   const quietList = ST.quiet.filter((d) => d >= today).slice(0, 6);
   const al = E.allowance(ST, today, 0);
   const kind = R.flameKind;
-  return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '"><div class="big">' + flameSVG(kind) + '</div><div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
+  return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '"><div class="big">' + flameSVG(kind === 'frozen' ? 'iced' : kind) + '</div><div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
     '<div class="row small muted" style="gap:14px;flex-wrap:wrap;justify-content:center"><span>أفضل استمرارية: <b class="num">' + N(R.bestStreak) + '</b></span><span>التجميدات: <b class="num">' + N(R.freezes) + '</b></span><span>تجميدة جديدة عند: <b class="num">' + N(R.nextFreezeAt) + '</b> أيام</span></div></div>' +
     viewCal() + weekReviewCard() + '<div class="card stack"><h3>هذا الأسبوع</h3><div class="week">' + weekHtml + '</div><div class="small muted">الأيام المثالية: ما اكتملت فيها كل المهام الرئيسية والإضافية.</div></div>' +
     '<div class="card charts stack"><h3>الأسبوع الحالي مقابل الماضي</h3>' + barChart(wg, ['var(--green)', 'var(--leaf)']) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الأسبوع (' + N(weekTicks) + ')</span><span><i style="background:var(--leaf)"></i>الأسبوع الماضي (' + N(prevTicks) + ')</span></div></div>' +
@@ -5977,7 +5979,7 @@ function showNotices() {
   const list = dayNotices(); if (!list.length) return;
   const ev = list.shift(); ST.ack.push(ev.type + ':' + ev.D); persist(); logAct(ev.type === 'frozenSave' ? 'استُهلكت تجميدة لحماية ' + dlabel(ev.D) : ev.type === 'out' ? 'انطفأت الشعلة بعد فوات ' + dlabel(ev.D) : 'تجمدت الواجهة بعد فوات ' + dlabel(ev.D));
   const msg = { frozenSave: 'فاتك ' + dlabel(ev.D) + '. استُهلكت تجميدة واحدة فبقيت الاستمرارية محمية. المتبقي: ' + N(R.freezes) + '.', out: 'انطفأت الشعلة بعد فوات ' + dlabel(ev.D) + '. ' + (R.savedStreak ? 'الاستمرارية السابقة (' + N(R.savedStreak) + ' يومًا) محفوظ.' : '') + ' نفّذي المهمة التعويضية اليوم لإعادتها.', freezeStart: 'تجمّدت الواجهة بعد يوم من الانطفاء. نفّذي المهمة التعويضية لإنهاء التجمد.' }[ev.type];
-  modal('<h2>' + (ev.type === 'frozenSave' ? 'تجميدة استُهلكت' : ev.type === 'out' ? 'انطفأت الشعلة' : 'الواجهة متجمدة') + '</h2><div class="row"><div style="width:70px;height:90px;flex:none">' + flameSVG(ev.type === 'frozenSave' ? 'frozen' : ev.type === 'out' ? 'out' : 'frozen') + '</div><p>' + msg + '</p></div><div class="actions"><button class="btn" data-close>فهمت</button></div>', { onClose: () => setTimeout(showNotices, 200) });
+  modal('<h2>' + (ev.type === 'frozenSave' ? 'تجميدة استُهلكت' : ev.type === 'out' ? 'انطفأت الشعلة' : 'الواجهة متجمدة') + '</h2><div class="row"><div style="width:70px;height:90px;flex:none">' + flameSVG(ev.type === 'frozenSave' ? 'frozen' : ev.type === 'out' ? 'out' : 'iced') + '</div><p>' + msg + '</p></div><div class="actions"><button class="btn" data-close>فهمت</button></div>', { onClose: () => setTimeout(showNotices, 200) });
 }
 
 /* ---------- إقلاع ---------- */
