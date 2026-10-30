@@ -103,17 +103,17 @@ h1,h2,h3{font-family:var(--font-display);margin:0;font-weight:700;text-wrap:bala
 .cal.y .sq{border-radius:4px;font-size:0}
 .sq.hd{background:none;aspect-ratio:auto;font-size:11px;color:var(--ink2);font-weight:500}
 .sq.fut{background:color-mix(in srgb,var(--ink) 6%,transparent);color:var(--ink2)}
-.sq.s1{background:color-mix(in srgb,var(--ok) 40%,var(--bg));color:var(--ink)}
-.sq.s2{background:color-mix(in srgb,var(--ok) 70%,var(--bg));color:#fff}
-.sq.s3{background:var(--ok);color:var(--ok-ink)}
+.sq.s1{background:color-mix(in srgb,var(--green) 34%,var(--bg));color:var(--ink)}
+.sq.s2{background:color-mix(in srgb,var(--green) 66%,var(--bg));color:var(--green-ink)}
+.sq.s3{background:var(--green);color:var(--green-ink)}
 .sq.qt{background:color-mix(in srgb,var(--leaf) 16%,var(--bg));border:1.5px dashed var(--leaf)}
 .sq.fz{background:var(--ice-bg);color:var(--ice);border:1.5px solid var(--ice)}
-.sq.ot{background:color-mix(in srgb,var(--danger) 70%,var(--bg));color:#fff}
-.sq.rs{background:color-mix(in srgb,var(--gold) 55%,var(--bg));color:var(--ink)}
+.sq.ot{background:color-mix(in srgb,var(--ink2) 38%,var(--bg));color:var(--ink)}
+.sq.rs{background:color-mix(in srgb,var(--a2) 50%,var(--bg));color:var(--ink)}
 .sq.id{background:transparent;border:1.5px dashed var(--line);color:var(--ink2)}
 .sq.td{outline:2.5px solid var(--ink);outline-offset:1px}
 .cal.y .sq.td{outline-width:2px}
-.sq .nd{position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.sq .nd{position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--a2)}
 .cal.y .sq .nd{display:none}
 .callegend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:var(--ink2)}
 .callegend i{display:inline-block;width:12px;height:12px;border-radius:4px;vertical-align:-1px;margin-inline-end:4px}
@@ -167,19 +167,19 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .arch{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .arch .a{background:rgba(255,255,255,.07);border-radius:14px;padding:6px;text-align:center;font-size:11px;color:#AEBBDD}
 .stat{position:fixed;inset:0;z-index:65;background:var(--bg);display:flex;flex-direction:column}
-.stbody{flex:1;overflow:auto;padding:12px 14px calc(30px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px}
+.stbody{max-width:760px;width:100%;margin-inline:auto;flex:1;overflow:auto;padding:12px 14px calc(30px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px}
 .sttabs{display:flex;border-bottom:1px solid var(--line);padding:0 8px}
 .sttabs button{flex:1;background:none;border:0;border-bottom:3px solid transparent;padding:12px 4px;color:var(--ink2);font-weight:600}
-.sttabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--flame)}
+.sttabs button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--green)}
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .stile{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
 .stile .k{font-size:12px;color:var(--ink2);font-weight:600}
 .stile .v{font-size:30px;font-weight:700;line-height:1.1}.stile .v small{font-size:14px;font-weight:500;color:var(--ink2)}
 .stile .s{font-size:12px;color:var(--ink2)}
-.stile.hero{grid-column:1/-1;background:color-mix(in srgb,var(--flame) 14%,var(--surface))}
+.stile.hero{grid-column:1/-1;background:color-mix(in srgb,var(--green) 13%,var(--surface))}
 .sbars{display:flex;gap:4px;align-items:flex-end;height:46px}
 .sbars i{flex:1;background:color-mix(in srgb,var(--green) 70%,transparent);border-radius:4px;min-height:3px}
-.sbars i.hi{background:var(--flame)}
+.sbars i.hi{background:var(--green)}
 .sbarl{display:flex;gap:4px;font-size:11px;color:var(--ink2)}.sbarl span{flex:1;text-align:center}
 .tipcard{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--a3) 13%,var(--surface));border:1px solid color-mix(in srgb,var(--a3) 38%,var(--line));border-radius:16px;padding:10px 12px;font-size:14px;line-height:1.7}
 .tipcard button{background:none;border:0;color:var(--ink2);font-size:18px;line-height:1;padding:0 4px;margin-inline-start:auto}
@@ -268,11 +268,11 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .wd{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--ink2)}
 .wd .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--surface2);border:2px solid transparent}
 .wd .dot svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.wd .dot.success{background:color-mix(in srgb,var(--flame) 22%,transparent);color:var(--flame)}
+.wd .dot.success{background:color-mix(in srgb,var(--green) 24%,transparent);color:var(--green)}
 .wd .dot.frozenSave,.wd .dot.freezeStart,.wd .dot.frozenDay{background:var(--ice-bg);color:var(--ice)}
-.wd .dot.out{background:color-mix(in srgb,var(--danger) 18%,transparent);color:var(--danger)}
-.wd .dot.quiet{background:color-mix(in srgb,var(--gold) 22%,transparent);color:var(--gold)}
-.wd .dot.restored{background:color-mix(in srgb,var(--ok) 22%,transparent);color:var(--ok)}
+.wd .dot.out{background:color-mix(in srgb,var(--ink2) 22%,transparent);color:var(--ink2)}
+.wd .dot.quiet{background:color-mix(in srgb,var(--leaf) 24%,transparent);color:var(--leaf)}
+.wd .dot.restored{background:color-mix(in srgb,var(--a2) 24%,transparent);color:var(--a2)}
 .wd .dot.today{border-color:var(--green)}
 .wd .perfect{color:var(--gold);font-size:10px;font-weight:600;min-height:14px}
 .charts svg{width:100%;height:auto;display:block}
@@ -287,7 +287,7 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .money{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-variant-numeric:tabular-nums}
 .sar{display:inline-block;color:var(--gold);font-weight:700;line-height:1;white-space:nowrap}
 .sar-g{font-family:'Noto Sans','Noto Sans Arabic','SF Arabic','Geeza Pro','Segoe UI',system-ui,sans-serif}
-.sar-fb{display:none;width:.82em;height:.95em;vertical-align:-.12em;fill:none;stroke:currentColor;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.sar-fb{display:none;width:.8em;height:.94em;vertical-align:-.12em;fill:currentColor;stroke:none}
 html.no-sar .sar-g{display:none}
 html.no-sar .sar-fb{display:inline-block}
 .bigmoney{font-family:var(--font-display);font-size:34px;color:var(--gold)}
@@ -371,6 +371,26 @@ body.is-frozen{--bg:#ECEFF2;--surface:#F8F9FB;--surface2:#DFE4E9;--ink:#23282D;-
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body:not(.hopeview).is-frozen{--bg:#1A1D20;--surface:#23272B;--surface2:#2D3237;--ink:#E4E8EB;--ink2:#9AA3AB;--line:#3A4046;--green:#B7C0C8;--green-ink:#1A1D20;--leaf:#6F7A84;--a2:#8E9AA5;--a3:#76838E;--gold:#8E9AA5;--ok:#B7C0C8;--ok-ink:#1A1D20;--rwall:#343A40;--rfloor:#2A2F34;--rline:#9AA3AB}}
 :root[data-theme="dark"] body:not(.hopeview).is-frozen{--bg:#1A1D20;--surface:#23272B;--surface2:#2D3237;--ink:#E4E8EB;--ink2:#9AA3AB;--line:#3A4046;--green:#B7C0C8;--green-ink:#1A1D20;--leaf:#6F7A84;--a2:#8E9AA5;--a3:#76838E;--gold:#8E9AA5;--ok:#B7C0C8;--ok-ink:#1A1D20;--rwall:#343A40;--rfloor:#2A2F34;--rline:#9AA3AB}
 body.is-lantern{--bg:#EFEBD6}
+
+
+@media (min-width:720px){
+  #app>.fbar,#app>.achgrid{grid-column:1/-1}
+  .achgrid{grid-template-columns:1fr 1fr;gap:16px}
+  .nearbox{padding:20px;gap:16px}.nearbox>b{font-size:20px}
+  .nearbox>.row{gap:18px!important}.nearbox>.row>div:first-child{width:76px!important}
+  .nearbox .small{font-size:16px}.nearbox .pbar{height:12px}
+  .hero.full{padding-block:34px}.hero.full .big{width:240px;height:290px}.hero.full h2{font-size:30px}.hero.full p{max-width:560px;font-size:17px}
+  .card>.wardrobe{grid-template-columns:1fr 1fr;gap:18px}.card>.wardrobe>.cloth{max-width:none}
+  #app[data-view=achv] .achgrid .card,.achgrid>*{min-height:0}
+}
+/* ===== جليد الحواف عند التجمد ===== */
+#iceedge{position:fixed;inset:0;z-index:60;pointer-events:none}
+body.is-frozen .icyp{position:relative}
+body.is-frozen .icy::after{content:"";position:absolute;pointer-events:none;z-index:2;background:linear-gradient(#F4FBFF,#A9D6F2);filter:drop-shadow(0 0 1.5px rgba(120,180,220,.8))}
+body.is-frozen .icy1::after{top:calc(100% - 3px);inset-inline-end:14%;width:22px;height:11px;clip-path:polygon(0 0,100% 0,88% 30%,76% 100%,58% 25%,42% 80%,24% 20%,10% 55%)}
+body.is-frozen .icy2::after{top:-5px;inset-inline-start:12%;width:18px;height:9px;clip-path:polygon(0 100%,100% 100%,84% 55%,66% 0,48% 65%,30% 15%,14% 60%)}
+body.is-frozen .icy3::after{bottom:-3px;inset-inline-start:-2px;width:28px;height:11px;clip-path:polygon(0 100%,0 35%,18% 60%,30% 8%,46% 62%,60% 30%,76% 82%,100% 100%)}
+body.is-frozen :is(.nav button,header.top button,.btn,.circ,.edit,.gchip,.seg button,.pals button,.mood,.gtile,.tabs button,.sttabs button,.di,.tico,.fab) svg{filter:drop-shadow(0 0 2.5px rgba(170,220,250,.95))}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 /* ---------- الشخصية ---------- */
@@ -2298,7 +2318,7 @@ const IC = {
   dumbbell: '<path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/>', shield: '<path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/>', target: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/>', hourglass: '<path d="M7 3h10M7 21h10M8 3c0 5 8 5 8 9s-8 4-8 9M16 3c0 5-8 5-8 9"/>', book: '<path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/>',
 };
 const ico = (n, cls) => '<svg viewBox="0 0 24 24" aria-hidden="true"' + (cls ? ' class="' + cls + '"' : '') + '>' + IC[n] + '</svg>';
-const SAR_FB = '<svg class="sar-fb" viewBox="0 0 100 110" aria-hidden="true"><path d="M62 8v38c0 24-12 38-36 50"/><path d="M34 8v52"/><path d="M8 52h80M8 70h80"/></svg>';
+const SAR_FB = '<svg class="sar-fb" viewBox="0 0 100 118" aria-hidden="true"><path d="M31.7,4.4 L47.1,1.0 L48.1,84.2 Q47.6,97.6 34.2,99.6 L0.7,106.1 L0.7,87.4 L31.0,81.7 Z"/><polygon points="6.1,47.6 100.0,30.5 100.0,49.5 6.1,67.8"/><polygon points="59.0,7.8 74.4,4.9 75.2,80.5 59.0,89.8"/><polygon points="75.2,61.5 100.0,59.0 100.0,79.1 75.2,84.9"/><polygon points="58.8,96.4 100.0,92.2 100.0,109.3 58.8,118.3"/></svg>';
 const sar = '<span class="sar" aria-label="ريال"><span class="sar-g">\u20C1</span>' + SAR_FB + '</span>';
 const money = (n) => '<span class="money">' + N(n) + sar + '</span>';
 
@@ -2707,7 +2727,7 @@ const PALS = [['green', 'أخضر (الأصلي)', '#2C6A49', '#6F8E3A', '#C7993
 function applyTheme() { { const p = (ST && ST.settings && ST.settings.palette) || 'green'; if (p === 'green') document.documentElement.removeAttribute('data-pal'); else document.documentElement.setAttribute('data-pal', p); }  const t = (ST && ST.settings && ST.settings.theme) || 'auto'; const r = document.documentElement; if (t === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', t); syncBar(); }
 function syncBar() { try { let m = document.querySelector('meta[name=theme-color]'); if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); } const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(); if (bg) m.setAttribute('content', bg); } catch (e) {} }
 try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => syncBar()); } catch (e) {}
-const SPANSEL = '.wardrobe,.pgrid,.pfilters,.hgrid,.tabs,.pghead,.tipcard,.daynav,.note,.pbox,.balance,.summary,.flamenote,.supcard,.goalcard,.hopeintro,.bkcard,.compalert,.compstrip,.jhero,.gchips,.gsec2,.hcard,.jline,.full';
+const SPANSEL = '.fbar,.achgrid,.wardrobe,.pgrid,.pfilters,.hgrid,.tabs,.pghead,.tipcard,.daynav,.note,.pbox,.balance,.summary,.flamenote,.supcard,.goalcard,.hopeintro,.bkcard,.compalert,.compstrip,.jhero,.gchips,.gsec2,.hcard,.jline,.full';
 /* الشاشات العريضة (الآيباد): نوزّع البطاقات على عمودين بالتوازن بدل صفوف تترك فراغًا تحت البطاقة الأقصر */
 function colify(parent, items) {
   items = items.filter((el) => el.offsetHeight > 0);
@@ -2723,18 +2743,44 @@ function colify(parent, items) {
 }
 function fillCols(app) {
   app.querySelectorAll('.hgrid').forEach((g) => g.classList.toggle('one', g.children.length < 2));
-  if (window.innerWidth < 720) return;
+  if (window.innerWidth < 720 || app.dataset.view === 'guide') return;
   const ch = [...app.children]; let run = [];
   const flush = () => { colify(app, run); run = []; };
   ch.forEach((el) => { if (el.matches(SPANSEL)) { flush(); } else run.push(el); });
   flush();
   app.querySelectorAll('.gsec2').forEach((g) => colify(g, [...g.children].filter((el) => !el.matches('.sec-title'))));
 }
+
+/* ---------- جليد الحواف ---------- */
+function iceSync() {
+  const on = document.body.classList.contains('is-frozen'); let el = document.getElementById('iceedge');
+  if (!on) { if (el) el.remove(); return; }
+  const W = innerWidth, H = innerHeight; const hd = document.querySelector('header.top'); const nv = document.getElementById('nav');
+  const top = hd ? Math.round(hd.getBoundingClientRect().bottom) : 60; const bot = nv ? Math.round(nv.getBoundingClientRect().top) : H - 76;
+  const key = W + 'x' + H + ':' + top + ':' + bot; if (el && el.dataset.k === key) return;
+  let seed = 11; const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  const spikes = (len, dir, y0, wmin, wmax) => { let x = -6, o = ''; while (x < W + 6) { const w = wmin + rnd() * (wmax - wmin); const l = len * (.3 + rnd() * .8); const lean = (rnd() - .5) * w * .5; const yt = y0 + dir * l; o += '<polygon points="' + x + ',' + y0 + ' ' + (x + w) + ',' + y0 + ' ' + (x + w / 2 + lean) + ',' + yt + '" fill="url(#ig)" stroke="#9FCBE6" stroke-width=".7" stroke-opacity=".8"/><polygon points="' + (x + w * .2) + ',' + y0 + ' ' + (x + w * .45) + ',' + y0 + ' ' + (x + w * .45 + lean * .6) + ',' + (y0 + dir * l * .7) + '" fill="#fff" opacity=".6"/>'; x += w * (.6 + rnd() * .5); } return o; };
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" aria-hidden="true"><defs><linearGradient id="ig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EAF6FF" stop-opacity=".95"/><stop offset="1" stop-color="#A9D6F2" stop-opacity=".75"/></linearGradient><linearGradient id="sl" x1="0" x2="1"><stop offset="0" stop-color="#DDF0FB" stop-opacity=".7"/><stop offset="1" stop-color="#DDF0FB" stop-opacity="0"/></linearGradient><linearGradient id="sr" x1="1" x2="0"><stop offset="0" stop-color="#DDF0FB" stop-opacity=".7"/><stop offset="1" stop-color="#DDF0FB" stop-opacity="0"/></linearGradient></defs><rect x="0" y="0" width="14" height="' + H + '" fill="url(#sl)"/><rect x="' + (W - 14) + '" y="0" width="14" height="' + H + '" fill="url(#sr)"/>' + spikes(26, 1, top, 8, 18) + spikes(28, -1, bot, 9, 20) + '</svg>';
+  if (!el) { el = document.createElement('div'); el.id = 'iceedge'; document.body.appendChild(el); }
+  el.dataset.k = key; el.innerHTML = svg;
+}
+let iceN = 0;
+function iceDress(root) {
+  if (!document.body.classList.contains('is-frozen')) return;
+  (root || document).querySelectorAll('.nav button,header.top button,.btn,.circ,.edit,.gchip,.seg button,.pals button,.mood,.gtile,.tabs button,.sttabs button,.di,.tico,.fab').forEach((el) => {
+    if (el.dataset.ice) return; iceN++; el.dataset.ice = '1';
+    if (iceN % 5 === 0 || iceN % 5 === 1 || iceN % 5 === 3) { el.classList.add('icy', 'icy' + (iceN % 3 + 1)); if (getComputedStyle(el).position === 'static') el.classList.add('icyp'); }
+  });
+}
+let iceT = 0;
+function iceAll() { iceSync(); iceDress(); }
+try { new MutationObserver(() => { clearTimeout(iceT); iceT = setTimeout(iceAll, 120); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+addEventListener('resize', () => { clearTimeout(iceT); iceT = setTimeout(iceAll, 150); });
 let WIDE0 = window.innerWidth >= 720;
 addEventListener('resize', () => { const w = window.innerWidth >= 720; if (w !== WIDE0) { WIDE0 = w; render(); } });
 function render() {
   const y = window.scrollY;
-  setBodyState(); renderTop(); renderNav();
+  setBodyState(); renderTop(); renderNav(); iceAll();
   const app = $('#app');
   let html = '';
   if (VIEW === 'tasks') html = viewTasks();
@@ -3370,9 +3416,9 @@ function hiddenCard() {
   const steps = E.compSteps(ST); const need = steps.length; const doneSet = R.ix.comp(TODAY());
   const canRestore = R.restoresThisMonth < ST.settings.restoreLimit;
   const frozen = R.flame === 'frozen';
-  let h = compAlert() + '<div class="card hero s-' + (frozen ? 'frozen' : 'out') + '"><div class="big">' + flameSVG(frozen ? 'frozen' : 'out') + '</div><h2>' + (frozen ? 'تجمّدت الواجهة' : 'انطفأت الشعلة') + '</h2><p class="muted">مهام اليوم مخفية مؤقتًا ولم تُحذف ولم تتغير مواعيدها. تعود كلها بعد إنجاز المهمة التعويضية. ' + (R.savedStreak ? ' الاستمرارية المحفوظة للاستعادة: ' + N(R.savedStreak) + ' يومًا.' : '') + '</p>' +
+  let h = compAlert() + '<div class="card hero full s-' + (frozen ? 'frozen' : 'out') + '"><div class="big">' + flameSVG(frozen ? 'frozen' : 'out') + '</div><h2>' + (frozen ? 'تجمّدت الواجهة' : 'انطفأت الشعلة') + '</h2><p class="muted">مهام اليوم مخفية مؤقتًا ولم تُحذف ولم تتغير مواعيدها. تعود كلها بعد إنجاز المهمة التعويضية. ' + (R.savedStreak ? ' الاستمرارية المحفوظة للاستعادة: ' + N(R.savedStreak) + ' يومًا.' : '') + '</p>' +
     ''+ '</div>';
-  h += '<div class="card stack"><h3>المهمة التعويضية</h3>' + (ST.settings.compSteps.filter(Boolean).length ? '' : '<div class="note">لم تحدّدي مهمتك التعويضية بعد. أضيفيها من الإعدادات. هذا نص افتراضي مؤقت.</div>');
+  h += '<div class="card stack full"><h3>المهمة التعويضية</h3>' + (ST.settings.compSteps.filter(Boolean).length ? '' : '<div class="note">لم تحدّدي مهمتك التعويضية بعد. أضيفيها من الإعدادات. هذا نص افتراضي مؤقت.</div>');
   if (!canRestore) h += '<div class="note warn">استهلكتِ فرص الاستعادة لهذا الشهر (' + N(ST.settings.restoreLimit) + '). تبقى الحالة كما هي ولا تُستعاد تلقائيًا. يمكنك رفع الحد من الإعدادات.</div>';
   steps.forEach((s, i) => {
     const d = doneSet.has(i); const lock = i > 0 && !doneSet.has(i - 1);
@@ -3636,7 +3682,7 @@ function achCard(a) {
 }
 function viewAchv() {
   const all = R.ach; const done = all.filter((a) => a.done); const total = done.reduce((s, a) => s + a.reward, 0);
-  let h = '<div class="card stack"><div class="row" style="justify-content:space-between"><div><div class="small muted">الإنجازات المفتوحة</div><div class="bigmoney num">' + N(done.length) + ' / ' + N(all.length) + '</div></div><div style="text-align:end"><div class="small muted">كسبتِ منها</div><div class="bigmoney num">' + N(total) + ' ' + sar + '</div></div></div><div class="pbar"><i style="width:' + Math.round(done.length / all.length * 100) + '%"></i></div></div>';
+  let h = '<div class="card stack full"><div class="row" style="justify-content:space-between"><div><div class="small muted">الإنجازات المفتوحة</div><div class="bigmoney num">' + N(done.length) + ' / ' + N(all.length) + '</div></div><div style="text-align:end"><div class="small muted">كسبتِ منها</div><div class="bigmoney num">' + N(total) + ' ' + sar + '</div></div></div><div class="pbar"><i style="width:' + Math.round(done.length / all.length * 100) + '%"></i></div></div>';
   { const inT = all.filter((a) => ATAB < 0 || a.tab === ATAB); const cnt = (arr) => ' <span class="num small">' + N(arr.filter((a) => a.done).length) + '/' + N(arr.length) + '</span>';
     const pool = all.filter((a) => ARAR < 0 || a.rar === ARAR);
     h += '<div class="fbar"><button class="fbtn" data-act="aopen" data-w="type" aria-expanded="' + (AOPEN === 'type') + '"><span class="small muted">النوع</span><b>' + (ATAB < 0 ? 'الكل' : E.ACH_TABS[ATAB]) + '</b></button><button class="fbtn" data-act="aopen" data-w="rar" aria-expanded="' + (AOPEN === 'rar') + '"><span class="small muted">المستوى</span><b>' + (ARAR < 0 ? 'الكل' : E.RARITY[ARAR]) + '</b></button></div>';
@@ -3644,7 +3690,7 @@ function viewAchv() {
     if (AOPEN === 'rar') h += '<div class="pfilters fpanel" aria-label="المستوى"><button data-act="arar" data-r="-1" aria-pressed="' + (ARAR < 0) + '">الكل' + cnt(inT) + '</button>' + E.RARITY.map((n, k) => [k, n]).filter((x) => inT.some((a) => a.rar === x[0])).map((x) => '<button data-act="arar" data-r="' + x[0] + '" aria-pressed="' + (ARAR === x[0]) + '">' + x[1] + cnt(inT.filter((a) => a.rar === x[0])) + '</button>').join('') + '</div>'; }
   h += '<div class="pfilters">' + [['all', 'الكل'], ['open', 'المفتوحة'], ['lock', 'المقفلة']].map((f) => '<button data-act="afilt" data-f="' + f[0] + '" aria-pressed="' + (AFILT === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
   { const near = all.filter((a) => !a.done && !a.secret && a.value > 0).map((a) => ({ a, p: a.value / a.t })).sort((x, y) => y.p - x.p).slice(0, 3);
-    if (near.length && ATAB < 0 && ARAR < 0 && AFILT === 'all') h += '<div class="card stack nearbox"><b>الأقرب إليك</b>' + near.map((x) => '<div class="row" style="gap:10px"><div style="width:40px;flex:none">' + AchArt.icon(x.a, { locked: true, noNum: true }) + '</div><div class="stack" style="gap:3px;flex:1;min-width:0"><div class="small"><b>' + esc(x.a.name) + '</b> <span class="muted">· ' + esc(x.a.desc) + '</span></div><div class="pbar"><i style="width:' + Math.min(100, Math.round(x.p * 100)) + '%"></i></div></div><span class="small muted num">' + N(Math.min(100, Math.round(x.p * 100))) + '٪</span></div>').join('') + '</div>'; }
+    if (near.length && ATAB < 0 && ARAR < 0 && AFILT === 'all') h += '<div class="card stack nearbox full"><b>الأقرب إليك</b>' + near.map((x) => '<div class="row" style="gap:10px"><div style="width:40px;flex:none">' + AchArt.icon(x.a, { locked: true, noNum: true }) + '</div><div class="stack" style="gap:3px;flex:1;min-width:0"><div class="small"><b>' + esc(x.a.name) + '</b> <span class="muted">· ' + esc(x.a.desc) + '</span></div><div class="pbar"><i style="width:' + Math.min(100, Math.round(x.p * 100)) + '%"></i></div></div><span class="small muted num">' + N(Math.min(100, Math.round(x.p * 100))) + '٪</span></div>').join('') + '</div>'; }
   const list = all.filter((a) => (ATAB < 0 || a.tab === ATAB) && (ARAR === -1 || a.rar === ARAR) && (AFILT === 'all' || (AFILT === 'open' ? a.done : !a.done)));
   h += list.length ? '<div class="achgrid">' + list.map(achCard).join('') + '</div>' : '<div class="card muted">لا شيء هنا الآن.</div>';
   return h;
@@ -3663,6 +3709,14 @@ function checkAchSeen() {
 }
 
 /* --- الإعدادات --- */
+function logDayHTML(D) {
+  const log = R.ledger.filter((e) => e.date === D).reverse().map((e) => '<li class="small"><b class="num">' + (e.amount >= 0 ? '+' : '') + N(e.amount) + '</b> ' + sar + ' · ' + esc(e.reason) + '</li>').join('');
+  const buys = ST.purchases.filter((p) => p.date === D).reverse().map((p) => '<li class="small">شراء ' + (p.kind === 'outfit' ? 'زي «' + ((E.OUTFITS.find((x) => x.id === p.item) || {}).name || '') + '»' : { freeze: 'تجميدة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن' }[p.kind]) + ' بـ ' + N(p.price) + '</li>').join('');
+  const edits = ST.editLog.filter((e) => e.date === D).reverse().map((e) => '<li class="small">تعديل: ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
+  if (!log && !buys && !edits) return '<p class="muted small" style="margin:0">لا عمليات في هذا اليوم.</p>';
+  return (log ? '<div class="small muted">المكافآت</div><ul class="eff">' + log + '</ul>' : '') + (buys ? '<div class="small muted">المشتريات</div><ul class="eff">' + buys + '</ul>' : '') + (edits ? '<div class="small muted">تعديلات</div><ul class="eff">' + edits + '</ul>' : '');
+}
+document.addEventListener('change', (e) => { if (e.target && e.target.id === 'logDay' && e.target.value) { const o = $('#logOut'); if (o) o.innerHTML = logDayHTML(e.target.value); } });
 function viewSettings() {
   const s = ST.settings; 
   const wsOpts = [6, 0, 1].map((d) => '<option value="' + d + '" ' + (s.weekStart === d ? 'selected' : '') + '>' + DAYS[d] + '</option>').join('');
@@ -3683,7 +3737,7 @@ function viewSettings() {
     '<div class="field"><label for="imp">استيراد</label><textarea id="imp" class="code" placeholder="الصقي النسخة الاحتياطية هنا"></textarea><div class="actions"><button class="btn ghost" data-act="doImport">استيراد النص</button><label class="btn soft" style="display:inline-grid;place-items:center;cursor:pointer">اختيار ملف<input type="file" id="impFile" accept=".txt,text/plain" hidden></label></div></div>' +
     '<div class="field"><div class="lbl">نسخة اليوميات (مع الصور والملفات)</div><p class="muted small" style="margin:0 0 8px">اليوميات تُحفظ بمعزل عن النسخة أعلاه لأنها قد تكون كبيرة. احفظي ملفًا منها من وقت لآخر.</p><div class="actions"><button class="btn" data-act="dBackup">حفظ ملف اليوميات</button><label class="btn soft" style="display:inline-grid;place-items:center;cursor:pointer">استعادة من ملف<input type="file" id="dImpFile" accept=".json,application/json" hidden></label></div></div>' +
     '<div class="field"><button class="btn danger" data-act="reset">إعادة ضبط كل البيانات</button></div></div></details>' +
-    '<div class="card stack"><h3>سجل العمليات</h3><div class="small muted">آخر المكافآت (مرتبة من الأحدث)</div><ul class="eff">' + (log || '') + '</ul>' + (buys ? '<div class="small muted">المشتريات</div><ul class="eff">' + buys + '</ul>' : '') + (edits ? '<div class="small muted">تعديلات الأيام السابقة</div><ul class="eff">' + edits + '</ul>' : '') + '</div>' +
+    '<details class="card bkdet"><summary><b>سجل العمليات</b></summary><div class="stack" style="margin-top:10px"><div class="row" style="gap:10px"><label for="logDay" class="muted">اختاري اليوم</label><input type="date" id="logDay" value="' + TODAY() + '" max="' + TODAY() + '" style="max-width:190px"></div><div id="logOut">' + logDayHTML(TODAY()) + '</div></div></details>' +
     '<div class="note">التخزين: ' + ({ idb: 'قاعدة بيانات المتصفح (دائمة على هذا المتصفح)', ls: 'التخزين المحلي', mem: 'مؤقت، سيضيع عند الإغلاق' }[Store.mode]) + '</div>';
 }
 
@@ -5202,7 +5256,7 @@ function viewPerson() {
   }).join('') + '</div></div></div>';
   h += '<button class="btn soft" data-act="traitFx">ما تمنحه سماتك</button>';
   h += '<div class="card row" style="justify-content:space-between"><b>التوزيع التلقائي</b><button class="btn ' + (ST.settings.autoAlloc ? '' : 'soft') + '" data-act="autoToggle" style="min-height:38px;padding:4px 16px">' + (ST.settings.autoAlloc ? 'مفعّل' : 'تفعيل') + '</button></div>';
-  h += '<div class="card stack"><h3>خزانة الملابس</h3><div class="wardrobe">' + r.owned.map((id) => { const o = E.OUTFITS.find((x) => x.id === id); return clothCard(o, r, true); }).join('') + '</div><button class="btn ghost" data-act="toClothes">متجر الملابس</button></div>';
+  h += '<div class="card stack full"><h3>خزانة الملابس</h3><div class="wardrobe">' + r.owned.map((id) => { const o = E.OUTFITS.find((x) => x.id === id); return clothCard(o, r, true); }).join('') + '</div><button class="btn ghost" data-act="toClothes">متجر الملابس</button></div>';
   return h;
 }
 function traitFxHTML() {
