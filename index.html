@@ -262,6 +262,18 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .spark{animation:spark 2s ease-out infinite;opacity:0}
 .spark.d2{animation-delay:.7s}.spark.d3{animation-delay:1.3s}
 @keyframes spark{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-40px);opacity:0}}
+.fa,.fb,.fc{transform-box:fill-box;transform-origin:50% 100%;animation:fla 1.7s ease-in-out infinite}
+.fb{animation-name:flb;animation-duration:1.3s}.fc{animation-name:flc;animation-duration:1.05s;animation-delay:-.4s}
+@keyframes fla{0%,100%{transform:scale(1,1) skewX(0)}28%{transform:scale(.985,1.07) skewX(-2.5deg)}55%{transform:scale(1.01,.95) skewX(1.8deg)}78%{transform:scale(.99,1.04) skewX(-1deg)}}
+@keyframes flb{0%,100%{transform:scale(1,1) skewX(0)}35%{transform:scale(1.01,.96) skewX(2deg)}70%{transform:scale(.99,1.05) skewX(-2deg)}}
+@keyframes flc{0%,100%{transform:scale(1,1)}40%{transform:scale(.98,1.06) skewX(-1.5deg)}75%{transform:scale(1.01,.97) skewX(1.5deg)}}
+.still *{animation:none!important}.still .fsp{display:none}
+.fsp{animation:fsp 2.6s ease-out infinite;opacity:0}
+@keyframes fsp{0%{transform:translateY(0);opacity:0}15%{opacity:.95}100%{transform:translateY(-34px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.fa,.fb,.fc{animation:none!important}.fsp{animation:none!important;opacity:.8}}
+.flname{font-family:var(--font-display);font-size:20px;line-height:1.2;margin-top:4px}
+.flbd{position:absolute;top:12px;inset-inline-start:12px;font-size:12px;font-weight:700;padding:2px 10px;border:1.5px solid;border-radius:10px;background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.hero{position:relative}
 .glow{filter:drop-shadow(0 0 14px color-mix(in srgb,var(--flame) 70%,transparent))}
 
 .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
@@ -2324,34 +2336,77 @@ const money = (n) => '<span class="money">' + N(n) + sar + '</span>';
 
 /* ---------- الشعلة ---------- */
 let fuid = 0;
-function flameSVG(kind) {
+/* ---------- مستويات الشعلة: ثمانية، تُحسب من أيام الاستمرارية (٣ أشهر ثم ٤ ثم ٥ …) ---------- */
+const FL_DAYS = [0, 90, 210, 360, 540, 750, 990, 1260];
+const FL = [
+  { n: 'شعلة البداية', c: 'البرتقالي الدافئ', t: 'عادي', b: '#8A9A7B', cols: ['#C2300F', '#FF6A1F', '#FFB040', '#FFF0B8'], sx: 1, sy: 1, core: 1, sp: [[14, 50, 2], [88, 44, 2.2], [80, 14, 1.8], [24, 22, 1.6]] },
+  { n: 'اللهب المتوهج', c: 'الأصفر الساطع', t: 'نادر', b: '#3E9BE0', cols: ['#D97A00', '#FFB000', '#FFD83A', '#FFFBD0'], sx: 1, sy: 1.02, core: 1, sp: [[14, 50, 2.2], [88, 44, 2.5], [80, 14, 2], [24, 22, 1.8], [94, 84, 1.5]] },
+  { n: 'الشعلة المتأججة', c: 'الأصفر المائل للأبيض', t: 'ملحمي', b: '#9B5CE6', cols: ['#E0AE30', '#FFD966', '#FFEFA8', '#FFFFFF'], sx: .94, sy: 1.12, core: 1, sp: [[14, 50, 2.2], [88, 44, 2.5], [80, 14, 2], [24, 22, 1.8]] },
+  { n: 'الشعلة النقية', c: 'الأبيض الناصع', t: 'أسطوري', b: '#F0A020', cols: ['#FFD21A', '#FFF3A8', '#FFFFFF', '#FFFFFF'], gl: '#FF7A12', wide: 1.2, sx: 1, sy: 1.02, core: 1, sp: [[14, 50, 2.2], [88, 44, 2.5], [80, 14, 2], [24, 22, 1.8]] },
+  { n: 'شعلة الغاز', c: 'الأزرق السماوي', t: 'خرافي', b: '#E0507A', cols: ['#0E5FB8', '#2B9BF0', '#7ED2FF', '#F0FCFF'], sx: 1, sy: 1.04, core: 1.45, sp: [[14, 50, 2.2], [88, 44, 2.5], [80, 14, 2], [24, 22, 1.8], [94, 84, 1.5]] },
+  { n: 'شعلة البلازما', c: 'الأزرق النيلي', t: 'خرافي مهيمن', b: '#E0442E', cols: ['#0C1458', '#2A3CC4', '#6A84F5', '#DDE4FF'], sx: 1, sy: 1.06, core: 1.45, sp: [[40, -6, 1.5], [52, -12, 1.4], [62, -4, 1.4], [46, -18, 1.1], [30, 10, 1.3], [72, 8, 1.3]] },
+  { n: 'الشعلة الخارقة', c: 'الأزرق الملكي البنفسجي', t: 'خرافي متسامٍ', b: '#8A52F0', cols: ['#1A1070', '#5A32CC', '#9A66F2', '#F2E6FF'], sx: 1.06, sy: 1.12, core: 1.45, sp: [[14, 50, 2.4], [88, 44, 2.8], [80, 14, 2.2], [24, 22, 1.8], [94, 84, 1.6], [52, -14, 2.4]] },
+  { n: 'الشعلة المطلقة', c: 'البنفسجي المطلق', t: 'خرافي مطلق', b: '#D92FE8', cols: ['#3A0A66', '#A02ED6', '#DD70FF', '#FFF4FF'], sx: 1.12, sy: 1.16, core: 1.45, sp: [[26, 22, 2.8], [80, 16, 3], [52, -16, 3.2], [12, 60, 2], [92, 56, 2.2], [38, -8, 2], [66, -10, 2]] }
+];
+function flameLevel(d) { let i = 0; FL_DAYS.forEach((x, k) => { if ((d || 0) >= x) i = k; }); return i; }
+const FL_SIL = 'M50 138C76 134 96 112 91 84C88 66 72 58 68 42C66 28 58 22 62 10C63 4 67 0 71 -5C62 3 52 18 52 34C54 50 38 58 28 74C10 96 6 124 28 133C36 136 43 137 50 138Z';
+const FL_CAL = 'M52 36C56 66 62 96 60 118C59 130 55 137 50 138C45 137 41 130 40 118C38 96 46 66 52 36Z';
+const flDia = (x, y, s, c, i) => '<path class="fsp" style="animation-delay:' + (-(i * 0.7)).toFixed(1) + 's" d="M' + x + ' ' + (y - s) + 'L' + (x + s * .55) + ' ' + y + 'L' + x + ' ' + (y + s) + 'L' + (x - s * .55) + ' ' + y + 'Z" fill="' + c + '"/>';
+/* شعلة بسيطة مريحة للعين: جسم واحد بقاعدة مستديرة، طبقات داخلية مندمجة بتمويه، وحافة خارجية ناعمة غير محددة */
+const FL_BODY = 'M256 96C276 150 330 186 340 262C348 328 306 388 256 388C206 388 164 328 172 262C178 224 200 202 214 176C222 204 238 214 250 214C244 176 246 132 256 96Z';
+const FL_CALM = 'M256 180C268 240 292 290 290 340C289 366 275 384 256 388C237 384 223 366 222 340C220 290 244 240 256 180Z';
+const FL_SPK = [[190, 150, 4], [340, 120, 4.5], [268, 60, 4], [150, 260, 3.4], [370, 250, 3.4], [230, 40, 3.2], [300, 30, 3], [120, 170, 3]];
+function flMix(a, b, t) { const h = (x) => [1, 3, 5].map((i) => parseInt(x.slice(i, i + 2), 16)); const A = h(a), B = h(b); return '#' + A.map((v, i) => Math.round(v * (1 - t) + B[i] * t).toString(16).padStart(2, '0')).join(''); }
+function flameFancy(u, L, calm, sc, anim) {
+  const lvl = FL.indexOf(L), gl = L.gl, ce = L.cols[1], gc = gl || ce;
+  const cv = flMix(L.cols[0], ce, .35), cc = flMix(L.cols[2], ce, .3), cw = flMix(L.cols[3], ce, .38), core = Math.min(L.core, 1.15);
+  const sil = calm ? FL_CALM : FL_BODY, kx = calm ? .8 : 1.2, ky = calm ? .85 : 1;
+  const lay = (k, fill, f, op, cls) => '<g class="' + cls + '"><g transform="translate(256 388) scale(' + (k * kx).toFixed(3) + ' ' + (k * ky).toFixed(3) + ') translate(-256 -388)" filter="url(#' + u + 'f' + f + ')"><path d="' + sil + '" fill="' + fill + '" opacity="' + op + '"/></g></g>';
+  const nsp = calm ? 2 : 4 + Math.round(lvl * 4 / 7);
+  const spk = (calm ? [[210, 260, 3.4], [310, 250, 3]] : FL_SPK.slice(0, nsp)).map((q, i) => '<circle class="fsp" style="animation-delay:' + (-(i * 0.7)).toFixed(1) + 's" cx="' + q[0] + '" cy="' + q[1] + '" r="' + q[2] + '" fill="' + (gl || cc) + '"/>').join('');
+  const w = 1 + lvl * .015;
+  const defs = '<defs><filter id="' + u + 'f0" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="1.4"/></filter>' +
+    '<filter id="' + u + 'f1" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter><filter id="' + u + 'f2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>' +
+    '<radialGradient id="' + u + 'g"><stop offset="0" stop-color="' + gc + '" stop-opacity="' + (gl ? .55 : .28) + '"/><stop offset=".6" stop-color="' + (gl ? gc : cv) + '" stop-opacity="' + (gl ? .4 : .25) + '"/><stop offset="1" stop-color="' + gc + '" stop-opacity="0"/></radialGradient></defs>';
+  const inner = '<ellipse cx="256" cy="' + (calm ? 320 : 300) + '" rx="' + (calm ? 100 : (gl ? 200 : 170) * w) + '" ry="' + (calm ? 130 : (gl ? 210 : 180) * w) + '" fill="url(#' + u + 'g)"/>' +
+    '<g class="fa" style="filter:drop-shadow(0 0 5px ' + gc + ')">' + lay(1, cv, 0, 1, 'fb') + lay(.78, ce, 1, 1, 'fb') + lay(.5 * core, cw, 2, .95, 'fc') + '</g>' + spk;
+  const S = .5 * sc * (calm ? 1.25 : 1 + lvl * .025);
+  return defs + '<g transform="translate(50 138) scale(' + S.toFixed(3) + ') translate(-256 -388)"><g' + (calm ? ' transform="rotate(-8 256 388)"' : '') + '>' + inner + '</g></g>';
+}
+function flameSVG(kind, lvOverride) {
   const u = 'f' + (fuid++);
-  const ice = kind === 'frozen';
-  const c = ice ? ['#5FB5E6', '#B8E8FF', '#A5DCF7', '#EAF9FF', '#FFFFFF', '#F3FCFF'] : ['#F2541B', '#FF9A2E', '#FF9A2E', '#FFD34E', '#FFE98A', '#FFFBE0'];
-  const defs = '<defs><linearGradient id="' + u + 'o" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="' + c[0] + '"/><stop offset="1" stop-color="' + c[1] + '"/></linearGradient>' +
-    '<linearGradient id="' + u + 'm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="' + c[2] + '"/><stop offset="1" stop-color="' + c[3] + '"/></linearGradient>' +
-    '<linearGradient id="' + u + 'i" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="' + c[4] + '"/><stop offset="1" stop-color="' + c[5] + '"/></linearGradient></defs>';
-  const paths = (scale, extra) =>
-    '<g transform="translate(50 124) scale(' + (scale * 1.5).toFixed(3) + ' ' + (scale * .9).toFixed(3) + ') translate(-50 -124)" class="' + (extra || '') + '"><g class="flameg"><path fill="url(#' + u + 'o)" d="M52 3C55 22 77 38 77 74c0 27-12 47-27 50-15-3-27-23-27-50 0-16 8-26 14-38 3 7 7 11 11 12-3-14-2-31 4-45z"/>' +
-    '<g class="flameg b"><path fill="url(#' + u + 'm)" d="M51 46c5 14 16 24 16 44 0 18-7 28-17 29-10-1-17-11-17-29 0-12 6-20 10-30 2 4 4 6 6 6-2-7-1-14 2-20z"/>' +
-    '<g class="flameg inner"><path fill="url(#' + u + 'i)" d="M50 84c5 8 9 14 9 21 0 8-4 12-9 13-5-1-9-5-9-13 0-7 4-13 9-21z"/></g></g></g></g>';
-  let body = '';
+  const lv = lvOverride != null ? lvOverride : flameLevel(typeof R !== 'undefined' && R ? R.streak : 0);
+  const L = FL[lv];
+  const VB = '-24 -28 148 184';
+  let body = '', vb = VB;
   if (kind === 'out') {
+    vb = '0 0 100 130';
     body = '<ellipse cx="50" cy="120" rx="30" ry="7" fill="var(--ink2)" opacity=".35"/><path d="M26 118c6-8 14-10 24-10s18 2 24 10z" fill="var(--ink2)" opacity=".6"/>' +
       '<circle class="smoke" cx="44" cy="100" r="6" fill="var(--ink2)"/><circle class="smoke d2" cx="56" cy="96" r="5" fill="var(--ink2)"/><ellipse cx="50" cy="112" rx="6" ry="3" fill="var(--flame)" opacity=".5"/>';
   } else if (kind === 'iced') {
+    vb = '0 0 100 130';
     body = '<ellipse cx="50" cy="120" rx="30" ry="7" fill="var(--ink2)" opacity=".3"/><path d="M26 118c6-8 14-10 24-10s18 2 24 10z" fill="var(--ink2)" opacity=".5"/><g fill="#fff" stroke="var(--ice)" stroke-width="1.2" opacity=".95"><path d="M14 112l8-26 6 24z"/><path d="M86 112l-8-30-6 28z"/><path d="M30 120l6-20 5 20z"/><path d="M70 120l-6-18-6 18z"/><path d="M50 124l-6-14h12z" opacity=".8"/><path d="M40 112l6-40 7 40z" opacity=".9"/></g>';
   } else if (kind === 'frozen') {
-    body = paths(1, '') + '<g fill="#fff" stroke="var(--ice)" stroke-width="1.2" opacity=".95"><path d="M14 112l8-26 6 24z"/><path d="M86 112l-8-30-6 28z"/><path d="M30 120l6-20 5 20z"/><path d="M70 120l-6-18-6 18z"/><path d="M50 124l-6-14h12z" opacity=".8"/></g>';
+    /* شعلة ثابتة داخل كتلة جليد غير منتظمة */
+    vb = '0 0 100 135';
+    const block = '14,42 26,20 44,9 63,12 70,6 86,24 94,50 89,80 96,102 82,120 60,127 40,124 30,128 12,114 6,90 11,66';
+    body = '<defs><linearGradient id="' + u + 'o" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E4572E"/><stop offset="1" stop-color="#FF9A2E"/></linearGradient><linearGradient id="' + u + 'm" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FF9A2E"/><stop offset="1" stop-color="#FFD34E"/></linearGradient><linearGradient id="' + u + 'i" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#FFE98A"/><stop offset="1" stop-color="#FFFBE0"/></linearGradient>' +
+      '<linearGradient id="' + u + 'b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2FAFF"/><stop offset=".55" stop-color="#CBE6F6"/><stop offset="1" stop-color="#8FC3E3"/></linearGradient><linearGradient id="' + u + 'd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ED0EC" stop-opacity="0"/><stop offset="1" stop-color="#5E9FCB" stop-opacity=".65"/></linearGradient><clipPath id="' + u + 'c"><polygon points="' + block + '"/></clipPath></defs>' +
+      '<ellipse cx="50" cy="129" rx="40" ry="5" fill="#000" opacity=".12"/><polygon points="' + block + '" fill="url(#' + u + 'b)" stroke="#86BADB" stroke-width="1.4" stroke-linejoin="round"/><g clip-path="url(#' + u + 'c)"><rect width="100" height="135" fill="url(#' + u + 'd)"/>' +
+      '<g class="still" transform="translate(50 122) scale(.46) translate(-50 -138)">' + flameFancy(u + 'x', L, true, 1, false) + '</g>' +
+      '<rect width="100" height="135" fill="#CFEAFA" opacity=".26"/><polygon points="26,20 44,9 40,40 18,52" fill="#fff" opacity=".55"/><polygon points="44,9 63,12 58,32 40,40" fill="#E9F6FF" opacity=".45"/><polygon points="63,12 70,6 86,24 72,34 58,32" fill="#fff" opacity=".38"/><polygon points="86,24 94,50 80,56 72,34" fill="#A9D3EE" opacity=".5"/><polygon points="14,42 18,52 12,66 6,90 16,84 20,58" fill="#fff" opacity=".5"/><polygon points="94,50 89,80 96,102 84,96 80,56" fill="#7FB4D8" opacity=".45"/><polygon points="6,90 12,114 30,128 40,124 22,100 16,84" fill="#8DBFE0" opacity=".5"/><polygon points="82,120 96,102 84,96 74,112" fill="#5E9FCB" opacity=".5"/>' +
+      '<path d="M30 44L38 58L33 70L42 84" fill="none" stroke="#fff" stroke-width="1" opacity=".85" stroke-linecap="round" stroke-linejoin="round"/><path d="M74 66L66 80L72 92L64 104" fill="none" stroke="#fff" stroke-width="1" opacity=".8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 40L30 24" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/></g><polygon points="' + block + '" fill="none" stroke="#fff" stroke-width=".7" opacity=".6" stroke-linejoin="round"/>';
   } else if (kind === 'lantern') {
+    vb = '0 0 100 130';
     body = '<g stroke="var(--ink2)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M38 22c0-10 24-10 24 0"/></g><rect x="30" y="22" width="40" height="8" rx="3" fill="var(--ink2)"/>' +
-      '<rect x="26" y="30" width="48" height="84" rx="10" fill="#FFD27A" opacity=".28" stroke="var(--gold)" stroke-width="3"/>' + paths(.5, 'glow') + '<rect x="24" y="112" width="52" height="10" rx="4" fill="var(--ink2)"/>';
+      '<rect x="26" y="30" width="48" height="84" rx="10" fill="#FFD27A" opacity=".28" stroke="var(--gold)" stroke-width="3"/><g transform="translate(50 112) scale(.44) translate(-50 -138)">' + flameFancy(u, L, true, 1, false) + '</g><rect x="24" y="112" width="52" height="10" rx="4" fill="var(--ink2)"/>';
+  } else if (kind === 'small') {
+    body = flameFancy(u, L, true, .63, false);
   } else {
-    const s = { small: .5, lit1: .7, lit2: .86, lit3: 1, blaze: 1.08 }[kind] || .8;
-    body = paths(s, kind === 'blaze' || kind === 'lit3' ? 'glow' : '');
-    if (kind === 'blaze' || kind === 'lit3') body += '<circle class="spark" cx="30" cy="70" r="2.4" fill="#FFD34E"/><circle class="spark d2" cx="70" cy="64" r="2" fill="#FF9A2E"/><circle class="spark d3" cx="50" cy="52" r="2.2" fill="#FFE98A"/>';
+    const sc = { lit1: .86, lit2: .93, lit3: 1, blaze: 1 }[kind] || .93;
+    body = flameFancy(u, L, false, sc, true);
   }
-  return '<svg viewBox="0 0 100 130" role="img" aria-label="الشعلة" style="overflow:visible">' + defs + body + '</svg>';
+  return '<svg viewBox="' + vb + '" role="img" aria-label="الشعلة" style="overflow:visible">' + body + '</svg>';
 }
 const flameLabel = { blaze: 'متوهجة اليوم', lit1: 'مشتعلة', lit2: 'متقدة', lit3: 'ملتهبة', small: 'شعلة صغيرة', out: 'منطفئة', frozen: 'متجمدة', lantern: 'محفوظة في الفانوس' };
 
@@ -2416,7 +2471,8 @@ const GUIDE = [
   ] },
   { id: 'flame', ic: 'flame', t: 'الاستمرارية والشعلة', intro: 'الشعلة هي قلب التطبيق. تُضاء بإنجازك وتحميها التجميدات والأيام الهادئة.', items: [
     ['متى يُحسب اليوم ناجحًا؟', '<p>حين تُنجزين جميع المهام الرئيسية المسؤولة عن الاستمرارية. كل يوم ناجح يزيد عدّاد الاستمرارية بواحد وتكبر الشعلة.</p>'],
-    ['حالات الشعلة', '<ul><li><b>مضيئة:</b> كل شيء بخير.</li><li><b>صغيرة:</b> عادت للتو بعد استعادة، وتكبر مع النجاح.</li><li><b>فانوس:</b> يوم هادئ، الشعلة محفوظة بأمان.</li><li><b>مجمّدة:</b> استهلكتِ تجميدة لحمايتها من الانطفاء ليوم فاتك.</li><li><b>منطفئة:</b> لم تبقَ تجميدات ففاتك اليوم. وتحتاجين المهمة التعويضية (انظري قسمها).</li></ul>'],
+    ['مستويات الشعلة', '<p>شكل شعلتك ولونها يتغيران كلما طالت استمراريتك. لها <b>ثمانية مستويات</b>، ولكل مستوى اسم ولون وشارة صغيرة في زاوية بطاقة الشعلة تكتب فئته.</p><ul><li><b>شعلة البداية</b> (عادي): البرتقالي الدافئ، من أول يوم.</li><li><b>اللهب المتوهج</b> (نادر): الأصفر الساطع، من اليوم ٩٠ (٣ أشهر).</li><li><b>الشعلة المتأججة</b> (ملحمي): الأصفر المائل للأبيض، من اليوم ٢١٠.</li><li><b>الشعلة النقية</b> (أسطوري): الأبيض الناصع بتوهج برتقالي، من اليوم ٣٦٠.</li><li><b>شعلة الغاز</b> (خرافي): الأزرق السماوي، من اليوم ٥٤٠.</li><li><b>شعلة البلازما</b> (خرافي مهيمن): الأزرق النيلي، من اليوم ٧٥٠.</li><li><b>الشعلة الخارقة</b> (خرافي متسامٍ): الأزرق الملكي البنفسجي، من اليوم ٩٩٠.</li><li><b>الشعلة المطلقة</b> (خرافي مطلق): البنفسجي المطلق، من اليوم ١٢٦٠.</li></ul><p>كل مستوى يدوم أطول من الذي قبله: ٣ أشهر ثم ٤ ثم ٥ وهكذا. الشعلة تهتز بهدوء وتصعد منها شرارات صغيرة، وتتوقف الحركة إن فعّلتِ «تقليل الحركة» في جهازك.</p>'],
+    ['حالات الشعلة', '<ul><li><b>مضيئة:</b> كل شيء بخير.</li><li><b>الشعلة الهادئة:</b> شعلة نحيلة بلون مستواك، تظهر عند بقاء مهام لحماية استمراريتك وبعد الاستعادة، وتكبر مع النجاح.</li><li><b>فانوس:</b> يوم هادئ، الشعلة الهادئة محفوظة بأمان.</li><li><b>مجمّدة:</b> استهلكتِ تجميدة لحمايتها من الانطفاء ليوم فاتك. تظهر شعلة مستواك ثابتة داخل كتلة جليد.</li><li><b>منطفئة:</b> لم تبقَ تجميدات ففاتك اليوم. وتحتاجين المهمة التعويضية (انظري قسمها).</li></ul>'],
     ['التجميدات', '<p>التجميدة تحمي شعلتك تلقائيًا إذا فاتك يوم، بدل أن تنطفئ.</p><ul><li>تبدأين بـ<b>٣ تجميدات</b>.</li><li>تكسبين تجميدة جديدة عند الوصول إلى <b>٥ أيام</b> متتالية، ثم كل <b>١٠ أيام</b> بعدها.</li><li>يمكنك شراؤها من السوق: السعر ٢٠ ⃁ ثم يزيد ٥ مع كل شراء حتى ٦٠.</li><li>تُستهلك تلقائيًا، تجميدة واحدة لكل يوم فائت.</li></ul>'],
     ['الأيام الهادئة', '<p>يوم محمي تختارينه بنفسك لأنك مريضة أو مسافرة أو متعبة. لا يُطلب فيه إنجاز، ولا تنقطع الاستمرارية، ولا تُستهلك فيه تجميدة. يحق لك <b>٣ أيام هادئة في الشهر</b>. تختارينها من صفحة الاستمرارية.</p>'],
     ['التقويم والإحصاءات', '<p>في صفحة الاستمرارية تجدين تقويمًا بمربعات ملوّنة لكل يوم (ثلاث درجات للنجاح، ولون هادئ، ولون للتجميد، ولون للانطفاء). اضغطي على أي يوم لكتابة ملاحظة أو خطة له. وزر <b>الإحصاءات الكاملة</b> يعرض أرقامك بالتفصيل، لكل المهام أو لمهمة واحدة.</p>'],
@@ -2500,7 +2556,7 @@ const GUIDE = [
 const GMETA = {
   start: { c: '#2E9E6B', hook: 'تعرّفي على التطبيق في دقيقة', facts: ['بلا ضغط', 'بلا عقاب', 'عربي بالكامل'], quick: ['أضيفي مهمة صغيرة', 'أنجزيها بضغطة', 'شاهدي الشعلة تُضاء'], art: () => charSVG() },
   tasks: { c: '#3B82C4', hook: 'أساس كل شيء: مهمة، ضغطة، مكافأة', facts: ['رئيسية', 'جانبية', 'تذكير اختياري'], quick: ['الرئيسية تحمي استمراريتك', 'الجانبية مكافأة إضافية', 'لكل مهمة تذكير اختياري'], art: () => '<div class="gbig">' + ico('tasks') + '</div>', tour: 'tasks' },
-  flame: { c: '#F2541B', hook: 'شعلتك تحميها التجميدات والأيام الهادئة', facts: ['٣ تجميدات', '٣ أيام هادئة شهريًا'], quick: ['كل يوم نجاح يزيدها', 'التجميد ينقذ يومك', 'الأيام الهادئة بلا حساب'], art: () => '<div class="flw">' + flameSVG('lit2') + '</div>', tour: 'streak' },
+  flame: { c: '#F2541B', hook: 'شعلتك تكبر وتتغير ألوانها مع أيامك', facts: ['٨ مستويات', '٣ تجميدات', '٣ أيام هادئة شهريًا'], quick: ['كل يوم نجاح يزيدها', 'المستوى يغيّر لونها واسمها', 'التجميد ينقذ يومك'], art: () => '<div class="flw">' + flameSVG('lit2') + '</div>', tour: 'streak' },
   comp: { c: '#C0504D', hook: 'إن انطفأت الشعلة فهناك طريق للعودة', facts: ['مهمة تعويضية', 'تعودين بقوة'], quick: ['المهام لا تُحذف أبدًا', 'أنجزي المهمة التعويضية', 'تعود شعلتك ومستواك'], art: () => '<div class="flw">' + flameSVG('out') + '</div>', tour: 'streak' },
   coins: { c: '#D9A21B', hook: 'عملاتك تشتري الجمال لا العقاب', facts: ['لا خصم أبدًا', 'سلفة بلا فوائد'], quick: ['تكسبين من كل إنجاز', 'تنفقينها في السوق', 'لا تُخصم منك أبدًا'], art: () => '<div class="gbig">' + ico('store') + '</div>', tour: 'market' },
   person: { c: '#8B5CF6', hook: 'شخصية صغيرة تكبر معك', facts: ['٣ سمات', 'مستويات'], quick: ['كل مهمة تمنح نقاط تطوير', 'السمات ترفع مستواك', 'المستوى يغيّر لقبك'], art: () => charSVG(), tour: 'person' },
@@ -3525,8 +3581,8 @@ function viewStreak() {
   const quietList = ST.quiet.filter((d) => d >= today).slice(0, 6);
   const al = E.allowance(ST, today, 0);
   const kind = R.flameKind;
-  return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '"><div class="big">' + flameSVG(kind === 'frozen' ? 'iced' : kind) + '</div><div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
-    '<div class="row small muted" style="gap:14px;flex-wrap:wrap;justify-content:center"><span>أفضل استمرارية: <b class="num">' + N(R.bestStreak) + '</b></span><span>التجميدات: <b class="num">' + N(R.freezes) + '</b></span><span>تجميدة جديدة عند: <b class="num">' + N(R.nextFreezeAt) + '</b> أيام</span></div></div>' +
+  return (() => { const FLd = FL[flameLevel(R.streak)]; return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '">' + (kind === 'out' || kind === 'frozen' ? '' : '<span class="flbd" style="color:' + FLd.b + ';border-color:' + FLd.b + '">' + FLd.t + '</span>') + '<div class="big">' + flameSVG(kind === 'frozen' ? 'iced' : kind) + '</div>' + (kind === 'out' || kind === 'frozen' ? '' : '<div class="flname">' + FLd.n + '</div><div class="small muted">' + FLd.c + '</div>') + '<div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
+    '<div class="row small muted" style="gap:14px;flex-wrap:wrap;justify-content:center"><span>أفضل استمرارية: <b class="num">' + N(R.bestStreak) + '</b></span><span>التجميدات: <b class="num">' + N(R.freezes) + '</b></span><span>تجميدة جديدة عند: <b class="num">' + N(R.nextFreezeAt) + '</b> أيام</span></div></div>'; })() +
     viewCal() + weekReviewCard() + '<div class="card stack"><h3>هذا الأسبوع</h3><div class="week">' + weekHtml + '</div><div class="small muted">الأيام المثالية: ما اكتملت فيها كل المهام الرئيسية والإضافية.</div></div>' +
     '<div class="card charts stack"><h3>الأسبوع الحالي مقابل الماضي</h3>' + barChart(wg, ['var(--green)', 'var(--leaf)']) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الأسبوع (' + N(weekTicks) + ')</span><span><i style="background:var(--leaf)"></i>الأسبوع الماضي (' + N(prevTicks) + ')</span></div></div>' +
     '<div class="card charts stack"><h3>الشهر الحالي مقابل الماضي</h3>' + barChart(mg, ['var(--green)', 'var(--leaf)'], 140) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الشهر</span><span><i style="background:var(--leaf)"></i>الشهر الماضي</span></div></div>' +
@@ -6034,7 +6090,7 @@ async function boot() {
   setInterval(checkReminders, 20000); setTimeout(checkReminders, 2500);
   setInterval(() => { if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } }, 30000);
   document.addEventListener('visibilitychange', () => { if (document.hidden) Store.save(ST); else if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } });
-  window.__app = { pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
+  window.__app = { pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, flameSVG, FL, flameLevel, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
 }
 startMoves();
 boot();

@@ -1,4 +1,4 @@
-const V='istimrar-v69', FONTS='istimrar-fonts';
+const V='istimrar-v73', FONTS='istimrar-fonts';
 const MUST=['./','./index.html'];
 const EXTRA=['./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png','./apple-touch-icon-152.png','./apple-touch-icon-167.png','./apple-touch-icon-180.png'];
 // ردّ نظيف: بدون علامة إعادة التوجيه التي تمنع استخدام الرد المحفوظ لتصفّح الصفحة
