@@ -68,6 +68,8 @@ h1,h2,h3{font-family:var(--font-display);margin:0;font-weight:700;text-wrap:bala
 .dface{flex:none;width:40px;height:40px}.dnone{display:block;width:40px;height:40px;border-radius:50%;border:2px dashed var(--line)}
 .dbody{display:flex;flex-direction:column;gap:4px;min-width:0}.dmeta{font-size:12px;color:var(--ink2)}
 .dtxt{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
+.dback{position:fixed;inset:0;z-index:64;background:var(--bg)}
+html.dlock,html.dlock body{overflow:hidden!important;overscroll-behavior:none}
 .dedit{position:fixed;inset:0;z-index:65;background:var(--bg);display:flex;flex-direction:column}
 .dhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:calc(10px + env(safe-area-inset-top,0px)) 14px 8px;border-bottom:1px solid var(--line)}
 .dsaved{font-size:12px;color:var(--green)}
@@ -958,6 +960,16 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     {"id":"p117","name":"زهرة الخزامى","rar":1,"price":230},
     {"id":"p118","name":"زهرة دوار الشمس","rar":1,"price":235},
     {"id":"p119","name":"زهرة التوليب","rar":1,"price":245},
+    {"id":"p120","name":"الزنبق المنقّط","rar":1,"price":232},
+    {"id":"p121","name":"الجوري الأحمر","rar":2,"price":128},
+    {"id":"p122","name":"الهيدرانجيا البنفسجية","rar":1,"price":234},
+    {"id":"p123","name":"الهيدرانجيا السماوية","rar":1,"price":236},
+    {"id":"p124","name":"زهرة لا تنسني","rar":1,"price":238},
+    {"id":"p125","name":"الكلانشو الأبيض","rar":1,"price":236},
+    {"id":"p126","name":"الفينكا البيضاء","rar":1,"price":240},
+    {"id":"p127","name":"زهرة البنفسج","rar":1,"price":242},
+    {"id":"p128","name":"الكاميليا القرمزية","rar":1,"price":239},
+    {"id":"p129","name":"أقحوان الحقول","rar":1,"price":243},
     {"id":"p106","name":"زهرة العنكبوت الحمراء","rar":5,"price":1500,"grow":60,"doneReward":200,"desc":"زنبقة حمراء نارية تنبت أزهارها المخمليّة بخيوطها الطويلة المنحنية كأنها شرارات، يقال إنها تزهر على حدود الأحلام."},
     {"id":"p107","name":"زهرة الخفاش الأسود","rar":5,"price":2200,"grow":75,"doneReward":260,"desc":"زهرة غامضة بأجنحة داكنة وخيوط متدلّية تشبه الخفّاش المحلّق، نادرة الجمال مهيبة الحضور."},
     {"id":"p108","name":"الفاوانيا الشجرية المعمّرة","rar":6,"price":3500,"grow":150,"slots":3,"doneReward":500,"desc":"شجيرة خشبية معمّرة تحمل أزهارًا ضخمة مكرمشة بلون الوردي. تحتاج إلى أصيص كبير وتحجز ٣ أماكن في البيت الزجاجي، وتكتمل بعد نحو ٥ أشهر."},
@@ -2581,7 +2593,7 @@ const GMETA = {
   coins: { c: '#D9A21B', hook: 'عملاتك تشتري الجمال لا العقاب', facts: ['لا خصم أبدًا', 'سلفة بلا فوائد'], quick: ['تكسبين من كل إنجاز', 'تنفقينها في السوق', 'لا تُخصم منك أبدًا'], art: () => '<div class="gbig">' + ico('store') + '</div>', tour: 'market' },
   person: { c: '#8B5CF6', hook: 'شخصية صغيرة تكبر معك', facts: ['٣ سمات', 'مستويات'], quick: ['كل مهمة تمنح نقاط تطوير', 'السمات ترفع مستواك', 'المستوى يغيّر لقبك'], art: () => charSVG(), tour: 'person' },
   outfits: { c: '#E0529C', hook: '١٥ زيًّا تنتظرك', facts: ['١٥ زيًّا', 'أزياء نادرة'], quick: ['تشترين الأزياء بالعملات', 'تلبسينها بضغطة', 'الأندر تُفتح بالإنجازات'], art: () => charSVG('n3'), tour: 'person' },
-  plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١١٠ نباتات', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
+  plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١٢٠ نباتًا', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
   achv: { c: '#D9822B', hook: N(E.ACHIEVEMENTS.length) + ' وسامًا بانتظارك', facts: [N(E.ACHIEVEMENTS.length) + ' وسامًا', '٤ تبويبات'], quick: ['كل وسام له شرط واضح', 'يمنحك عملات', 'الأندر يعطيك نباتات خرافية'], art: () => { const a = (R && R.ach && R.ach[0]) || { rar: 3, g: 'star', mod: 'plain', t: 1 }; return AchArt.icon(a, { noNum: true }); }, tour: 'achv' },
   diary: { c: '#5B7CFA', hook: 'مساحتك الخاصة جدًّا', facts: ['خاصة', 'بمشاعر', 'بنسخة احتياطية'], quick: ['اكتبي بحرية', 'اختاري وجهًا لمزاجك', 'لا يراها أحد'], art: () => moodSVG('hap', 96), tour: 'diary' },
   quotes: { c: '#B8862B', hook: 'كلمات تُلهمك كل يوم', facts: ['أحاديث محققة', 'عباراتك أنتِ'], quick: ['عبارة كل يوم', 'ثبّتي مفضلتك', 'أضيفي عباراتك'], art: () => '<div class="gbig sky">' + ico('quote') + '</div>' },
@@ -2974,7 +2986,7 @@ function dEditorHTML() {
 }
 function dOpenEditor(entry, isNew) {
   DE = entry; DE._new = !!isNew; closeDrawer();
-  const ov = document.createElement('div'); ov.className = 'dedit'; ov.id = 'dedit'; ov.innerHTML = dEditorHTML(); document.body.appendChild(ov);
+  const ov = document.createElement('div'); ov.className = 'dedit'; ov.id = 'dedit'; ov.innerHTML = dEditorHTML(); dLockPage(true); document.body.appendChild(ov);
   const wrap = ov.querySelector('#dparts');
   const blocks = entry.blocks || [{ k: 't', v: entry.text || '' }].concat((entry.att || []).map((x) => ({ k: 'a', id: x.id })));
   blocks.forEach((bl) => {
@@ -3018,6 +3030,12 @@ function dEnsureCaret(ta) {
   const y = r.top + top; const topEdge = sr.top + 8; const botEdge = sr.bottom - lh - 24;
   if (y > botEdge) sc.scrollTop += y - botEdge; else if (y < topEdge) sc.scrollTop -= topEdge - y;
 }
+function dLockPage(on) {
+  const h = document.documentElement; let b = document.getElementById('dback');
+  if (on) { h.classList.add('dlock'); if (!b) { b = document.createElement('div'); b.id = 'dback'; b.className = 'dback'; document.body.appendChild(b); } }
+  else { h.classList.remove('dlock'); if (b) b.remove(); }
+}
+document.addEventListener('focusin', (e) => { const ov = document.getElementById('dedit'); if (!ov || !ov.contains(e.target)) return; [0, 120, 300, 600].forEach((t) => setTimeout(() => { if (window.scrollY) window.scrollTo(0, 0); dFitVV(); }, t)); });
 function dFitVV() {
   const ov = document.getElementById('dedit'); const v = window.visualViewport; if (!ov || !v) return;
   ov.style.bottom = 'auto'; ov.style.height = v.height + 'px'; ov.style.top = v.offsetTop + 'px';
@@ -3071,7 +3089,7 @@ async function dFlush() {
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (x) {}
 }
 async function dCloseEditor() {
-  await dFlush(); const ov = $('#dedit'); if (ov) ov.remove();
+  await dFlush(); const ov = $('#dedit'); if (ov) ov.remove(); dLockPage(false);
   dUrls.forEach((u) => URL.revokeObjectURL(u)); dUrls = []; DE = null; dSort(); if (VIEW === 'diary') render();
 }
 function dLinkNorm(v) { v = v.trim(); if (!v) return ''; if (!/^[a-z][a-z0-9+.-]*:/i.test(v)) v = 'https://' + v; return /^(https?|mailto):/i.test(v) ? v : ''; }
@@ -4385,6 +4403,78 @@ const PlantArt = (function () {
       case 'iris': { for (let i = -1; i <= 1; i += 2) s += g(`rotate(${i * 38})`, sh(petalD(r * .8, r * .35), f, 1.5)); s += sh(`M${-r * .3} ${-r * .1}C${-r * .45} ${r * .6} ${-r * .15} ${r * .9} 0 ${r * .95}C${r * .15} ${r * .9} ${r * .45} ${r * .6} ${r * .3} ${-r * .1}Z`, f2, 1.5) + ln(`M0 0L0 ${r * .6}`, k, 2.6) + sh(petalD(r * .9, r * .3), f, 1.5); break; }
       case 'rainbow': { const cols = ['#E8283E', '#F2742A', '#F6D020', '#4FB84A', '#2E8AE8', '#8A4AD0']; cols.forEach((cc, i) => { const rr = r * (1 - i * .15); s += `<circle cx="0" cy="0" r="${rr}" fill="${cc}" stroke="${O}" stroke-width="1.2"/><path d="M${-rr * .8} ${-rr * .1}C${-rr * .5} ${-rr * .75} ${rr * .6} ${-rr * .75} ${rr * .8} ${-rr * .05}" fill="none" stroke="${shade(cc, 1.35)}" stroke-width="1.8" opacity=".9"/>`; }); s += circ(0, 0, r * .12, '#fff', 0); break; }
       case 'moon': { for (let i = -2; i <= 2; i++) s += g(`rotate(${i * 26})`, sh(petalD(r * (1 - Math.abs(i) * .1), r * .3), i % 2 ? f2 : f, 1.4)); for (let i = -1; i <= 1; i++) s += g(`rotate(${i * 16})`, sh(petalD(r * .72, r * .24), '#E8F6FF', 1.2)); s += circ(0, -r * .1, r * .14, '#fff', 0.8); break; }
+
+      case 'lily': {
+        const pt = (len, w) => `M0 0C${-w} ${-len * .25} ${-w * .95} ${-len * .75} 0 ${-len}C${w * .95} ${-len * .75} ${w} ${-len * .25} 0 0Z`;
+        const rr = rng(Math.round(r * 7) + 3); const sp = c.spot || '#D8402A';
+        [0, 1].forEach((ring) => { for (let i = 0; i < 3; i++) {
+          const a = i * 120 + (ring ? 60 : 0) + 8; const len = r * (ring ? .98 : 1.08), w = r * (ring ? .34 : .28);
+          let t = sh(pt(len, w), f, 1.5) + ln(`M0 ${-len * .08}L0 ${-len * .86}`, f2, 1.3, .8) + ln(`M${-w * .5} ${-len * .3}C${-w * .6} ${-len * .55} ${-w * .4} ${-len * .75} ${-w * .1} ${-len * .9}`, shade(f, 1.12), 1, .7) + ln(`M${w * .5} ${-len * .3}C${w * .6} ${-len * .55} ${w * .4} ${-len * .75} ${w * .1} ${-len * .9}`, shade(f, 1.12), 1, .7);
+          t += `<path d="M0 0C${-w * .6} ${-len * .2} ${-w * .55} ${-len * .45} 0 ${-len * .55}C${w * .55} ${-len * .45} ${w * .6} ${-len * .2} 0 0Z" fill="${c.k || '#F2A52A'}" opacity=".55"/>`;
+          for (let k = 0; k < 7; k++) { const yy = -len * (.16 + rr() * .42), xx = (rr() - .5) * w * 1.1; t += `<circle cx="${xx.toFixed(1)}" cy="${yy.toFixed(1)}" r="${(r * .042 + rr() * r * .03).toFixed(1)}" fill="${sp}" opacity=".95"/>`; }
+          s += g(`rotate(${a})`, t);
+        } });
+        for (let i = 0; i < 6; i++) { const a = (i - 2.5) * 6, L = r * (.5 + (i % 3) * .05), x2 = Math.sin(a * Math.PI / 180) * L, y2 = -Math.cos(a * Math.PI / 180) * L; s += ln(`M0 0L${x2.toFixed(1)} ${y2.toFixed(1)}`, '#B8D090', 1.2) + `<ellipse cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" rx="${(r * .06).toFixed(1)}" ry="${(r * .13).toFixed(1)}" fill="#8A3A1A" stroke="${O}" stroke-width=".8" transform="rotate(${a} ${x2.toFixed(1)} ${y2.toFixed(1)})"/>`; }
+        s += circ(0, 0, r * .1, '#C8D890', 1); break; }
+
+      case 'roses': {
+        const v = (c.i || 0) % 3, hi = shade(f, 1.3), dk = f2;
+        const o = v === 0 ? 1 : v === 1 ? .8 : .62;
+        s += sh(`M${-r * .5} ${r * .2}C${-r * .6} ${r * .75} ${-r * .15} ${r * .95} 0 ${r * .95}C${r * .15} ${r * .95} ${r * .6} ${r * .75} ${r * .5} ${r * .2}Z`, f2, 1.5);
+        s += sh(`M${-r * .78 * o} ${-r * .2}C${-r * .95 * o} ${r * .35} ${-r * .55} ${r * .8} 0 ${r * .85}C${r * .55} ${r * .8} ${r * .95 * o} ${r * .35} ${r * .78 * o} ${-r * .2}C${r * .5} ${-r * .5} ${-r * .5} ${-r * .5} ${-r * .78 * o} ${-r * .2}Z`, f, 1.6);
+        s += ln(`M${-r * .5} ${r * .1}C${-r * .4} ${r * .55} ${-r * .1} ${r * .75} ${r * .15} ${r * .78}`, hi, 1.4, .8);
+        s += sh(`M${-r * .5 * o} ${-r * .15}C${-r * .75 * o} ${-r * .75} ${-r * .3} ${-r * 1.0} ${-r * .02} ${-r * .98}C${-r * .02} ${-r * .6} ${-r * .15} ${-r * .3} ${-r * .5 * o} ${-r * .15}Z`, shade(f, .94), 1.4);
+        s += sh(`M${r * .5 * o} ${-r * .15}C${r * .75 * o} ${-r * .75} ${r * .3} ${-r * 1.0} ${r * .05} ${-r * 1.05}C${r * .02} ${-r * .6} ${r * .15} ${-r * .3} ${r * .5 * o} ${-r * .15}Z`, dk, 1.4);
+        s += sh(`M${-r * .28} ${-r * .3}C${-r * .32} ${-r * .75} ${r * .2} ${-r * .9} ${r * .28} ${-r * .35}C${r * .1} ${-r * .15} ${-r * .15} ${-r * .15} ${-r * .28} ${-r * .3}Z`, f, 1.3);
+        s += ln(`M${-r * .15} ${-r * .45}C${-r * .05} ${-r * .62} ${r * .12} ${-r * .6} ${r * .15} ${-r * .42}`, dk, 1.3, .9) + ln(`M${-r * .08} ${-r * .5}C0 ${-r * .56} ${r * .06} ${-r * .55} ${r * .08} ${-r * .48}`, O, 1, .6);
+        s += sh(`M${-r * .42} ${r * .42}L${-r * .8} ${r * .62}L${-r * .3} ${r * .58}Z`, '#3F8A3A', 1.1) + sh(`M${r * .42} ${r * .42}L${r * .8} ${r * .62}L${r * .3} ${r * .58}Z`, '#3F8A3A', 1.1) + sh(`M${-r * .12} ${r * .55}L0 ${r * 1.05}L${r * .12} ${r * .55}Z`, '#3F8A3A', 1.1); break; }
+      case 'rosec': {
+        const hi = shade(f, 1.3), dk = f2;
+        const pet = (sc, fill, w) => `<path d="M0 0C${-r * w} ${-r * .12 * sc} ${-r * (w + .1)} ${-r * .98 * sc} 0 ${-r * 1.0 * sc}C${r * (w + .1)} ${-r * .98 * sc} ${r * w} ${-r * .12 * sc} 0 0Z" fill="${fill}" stroke="${O}" stroke-width="1.3" stroke-linejoin="round"/>`;
+        for (let i = 0; i < 6; i++) { const a = i * 60 + 10; s += g(`rotate(${a})`, pet(1, i % 2 ? f : shade(f, .94), .72) + ln(`M${-r * .5} ${-r * .8}C${-r * .25} ${-r * .98} ${r * .25} ${-r * .98} ${r * .5} ${-r * .8}`, hi, 1.5, .8) + ln(`M${-r * .3} ${-r * .3}C${-r * .35} ${-r * .55} ${-r * .3} ${-r * .7} ${-r * .2} ${-r * .78}`, dk, 1, .6)); }
+        for (let i = 0; i < 5; i++) { const a = i * 72 + 36; s += g(`rotate(${a})`, pet(.74, i % 2 ? dk : f, .74) + ln(`M${-r * .38} ${-r * .6}C${-r * .15} ${-r * .74} ${r * .15} ${-r * .74} ${r * .38} ${-r * .6}`, hi, 1.3, .8)); }
+        for (let i = 0; i < 4; i++) { const a = i * 90 + 12; s += g(`rotate(${a})`, pet(.5, i % 2 ? f : dk, .78) + ln(`M${-r * .22} ${-r * .4}C${-r * .1} ${-r * .5} ${r * .1} ${-r * .5} ${r * .22} ${-r * .4}`, hi, 1.1, .8)); }
+        s += circ(0, 0, r * .2, dk, 1.2) + ln(`M${-r * .13} ${r * .02}C${-r * .1} ${-r * .14} ${r * .12} ${-r * .14} ${r * .13} ${r * .02}`, hi, 1.2, .9) + ln(`M${-r * .06} ${-r * .01}C${-r * .02} ${-r * .08} ${r * .06} ${-r * .06} ${r * .05} ${r * .01}`, O, 1, .7); break; }
+      case 'hyd': {
+        const rr = rng(Math.round(r * 5) + 11); const pts = [];
+        const rings = [[0, 1], [6, .36], [12, .68], [18, 1]]; let nn = 0;
+        [[0, 0, 0], ...Array.from({ length: 6 }, (_, i) => [1, i * 60 + 15, .34]), ...Array.from({ length: 12 }, (_, i) => [2, i * 30, .66]), ...Array.from({ length: 16 }, (_, i) => [3, i * 22.5 + 6, .94])].forEach((q2) => { const dd = q2[2] * r * .84; pts.push([Math.cos(q2[1] * Math.PI / 180) * dd, Math.sin(q2[1] * Math.PI / 180) * dd * .86 - r * .05, q2[0]]); });
+        pts.sort((a, b) => b[2] - a[2]); const fr = r * .3;
+        const cols = [f, f2, shade(f, 1.25), shade(f, .88)];
+        pts.forEach((pp, i) => { const col = cols[(i * 5 + (rr() * 4 | 0)) % 4]; let t = ''; for (let k = 0; k < 4; k++) t += `<ellipse cx="0" cy="${(-fr * .5).toFixed(1)}" rx="${(fr * .5).toFixed(1)}" ry="${(fr * .56).toFixed(1)}" fill="${col}" stroke="${O}" stroke-width=".9" transform="rotate(${k * 90 + 45})"/>`; t += `<circle r="${(fr * .17).toFixed(1)}" fill="${shade(col, 1.45)}" stroke="${O}" stroke-width=".6"/>`; s += g(`translate(${pp[0].toFixed(1)} ${pp[1].toFixed(1)}) rotate(${(rr() * 60) | 0})`, t); });
+        break; }
+      case 'violet': {
+        const dk = f2, w = (a, rx, ry, dx, dy, fill) => `<ellipse cx="${dx}" cy="${dy}" rx="${rx}" ry="${ry}" fill="${fill}" stroke="${O}" stroke-width="1.3" transform="rotate(${a} ${dx} ${dy})"/>`;
+        s += w(-22, r * .44, r * .56, -r * .3, -r * .52, f) + w(22, r * .44, r * .56, r * .3, -r * .52, f) + w(-72, r * .42, r * .5, -r * .55, r * .02, shade(f, .94)) + w(72, r * .42, r * .5, r * .55, r * .02, shade(f, .94)) + w(0, r * .5, r * .58, 0, r * .5, shade(f, 1.06));
+        s += ln(`M${-r * .12} ${r * .12}L${-r * .2} ${r * .6}M0 ${r * .12}L0 ${r * .68}M${r * .12} ${r * .12}L${r * .2} ${r * .6}`, dk, 1.1, .85);
+        s += `<path d="M${-r * .22} ${r * .02}C${-r * .15} ${-r * .24} ${r * .15} ${-r * .24} ${r * .22} ${r * .02}C${r * .15} ${r * .3} ${-r * .15} ${r * .3} ${-r * .22} ${r * .02}Z" fill="${c.k || '#F6D84A'}" stroke="${O}" stroke-width="1"/>` + circ(0, 0, r * .07, '#E8A020', .8); break; }
+      case 'camel': { const s0 = s; s = ''; const vi = (c.i || 0) % 3;
+        const pet = (len, w) => `M0 0C${-w} ${-len * .22} ${-w * 1.08} ${-len * .88} ${-w * .26} ${-len * .99}Q0 ${-len * .9} ${w * .26} ${-len * .99}C${w * 1.08} ${-len * .88} ${w} ${-len * .22} 0 0Z`;
+        const ringsC = [[7, 1, .62, 4], [7, .84, .6, 26], [6, .68, .6, 10], [5, .52, .58, 40], [4, .36, .55, 20]];
+        ringsC.forEach((rg, ri) => { for (let i = 0; i < rg[0]; i++) { const col = ri % 2 ? f : shade(f, .93); s += g(`rotate(${i * 360 / rg[0] + rg[3]})`, sh(pet(r * rg[1], r * rg[2] * .5), col, 1.3) + ln(`M${-r * rg[1] * .3} ${-r * rg[1] * .7}C${-r * rg[1] * .1} ${-r * rg[1] * .82} ${r * rg[1] * .1} ${-r * rg[1] * .82} ${r * rg[1] * .3} ${-r * rg[1] * .7}`, shade(f, 1.3), 1.1, .8) + ln(`M0 ${-r * rg[1] * .15}L0 ${-r * rg[1] * .55}`, f2, 1, .55)); } });
+        for (let i = 0; i < 14; i++) { const a = i * 25.7; const dd = r * .13; s += `<circle cx="${(Math.cos(a) * dd * (.5 + (i % 3) * .3)).toFixed(1)}" cy="${(Math.sin(a) * dd * (.5 + (i % 3) * .3)).toFixed(1)}" r="${(r * .04).toFixed(1)}" fill="${k}" stroke="${O}" stroke-width=".5"/>`; }
+        s = s0 + (vi === 0 ? s : vi === 1 ? g(`translate(${-r * .05} ${r * .12}) rotate(-18) scale(1 .7)`, s) : g(`translate(${r * .1} ${r * .22}) rotate(14) scale(.95 .5)`, s)); break; }
+      case 'peon': {
+        const wv = (len, w) => `M0 0C${-w} ${-len * .2} ${-w * 1.1} ${-len * .75} ${-w * .62} ${-len * .93}Q${-w * .35} ${-len * 1.06} ${-w * .14} ${-len * .93}Q0 ${-len * 1.02} ${w * .14} ${-len * .93}Q${w * .35} ${-len * 1.06} ${w * .62} ${-len * .93}C${w * 1.1} ${-len * .75} ${w} ${-len * .2} 0 0Z`;
+        const rg = [[6, 1, .6, 0], [6, .84, .56, 30], [5, .68, .52, 14], [5, .52, .48, 44], [4, .34, .42, 22]];
+        rg.forEach((q2, ri) => { for (let i = 0; i < q2[0]; i++) { const col = ri % 2 ? f2 : f; s += g(`rotate(${i * 360 / q2[0] + q2[3]})`, sh(wv(r * q2[1], r * q2[2] * .55), col, 1.2) + ln(`M${-r * q2[1] * .28} ${-r * q2[1] * .5}C${-r * q2[1] * .22} ${-r * q2[1] * .68} ${-r * q2[1] * .1} ${-r * q2[1] * .8} 0 ${-r * q2[1] * .82}`, shade(f, 1.35), 1, .8) + ln(`M${r * q2[1] * .2} ${-r * q2[1] * .3}L${r * q2[1] * .26} ${-r * q2[1] * .62}`, shade(f, .8), .9, .5)); } });
+        for (let i = 0; i < 12; i++) { const a = i * 30 + 5; s += `<circle cx="${(Math.cos(a * Math.PI / 180) * r * .14).toFixed(1)}" cy="${(Math.sin(a * Math.PI / 180) * r * .14).toFixed(1)}" r="${(r * .035).toFixed(1)}" fill="#F6D040" stroke="${O}" stroke-width=".5"/>`; } break; }
+      case 'daisyd': {
+        const n = 18;
+        for (let i = 0; i < n; i++) s += g(`rotate(${i * 360 / n + 10})`, sh(`M0 0C${-r * .16} ${-r * .3} ${-r * .17} ${-r * .8} 0 ${-r * 1.02}C${r * .17} ${-r * .8} ${r * .16} ${-r * .3} 0 0Z`, shade(f, .93), 1.1));
+        for (let i = 0; i < n; i++) s += g(`rotate(${i * 360 / n})`, sh(`M0 0C${-r * .17} ${-r * .3} ${-r * .18} ${-r * .75} 0 ${-r * .94}C${r * .18} ${-r * .75} ${r * .17} ${-r * .3} 0 0Z`, f, 1.1) + ln(`M0 ${-r * .2}L0 ${-r * .72}`, shade(f, .82), .8, .7));
+        s += circ(0, 0, r * .34, k, 1.4) + circ(0, 0, r * .22, shade(k, .9), 0) + circ(-r * .08, -r * .08, r * .1, shade(k, 1.35), 0);
+        for (let i = 0; i < 9; i++) { const a = i * 40; s += `<circle cx="${(Math.cos(a * Math.PI / 180) * r * .24).toFixed(1)}" cy="${(Math.sin(a * Math.PI / 180) * r * .24).toFixed(1)}" r="${(r * .03).toFixed(1)}" fill="${shade(k, .65)}"/>`; } break; }
+      case 'vincaw': {
+        for (let i = 0; i < 5; i++) s += g(`rotate(${i * 72})`, sh(`M0 0C${-r * .15} ${-r * .5} ${-r * .55} ${-r * .98} ${-r * .08} ${-r * 1.0}C${r * .5} ${-r * .98} ${r * .78} ${-r * .42} 0 0Z`, i % 2 ? f : shade(f, .96), 1.3) + ln(`M${r * .05} ${-r * .3}C${r * .2} ${-r * .6} ${r * .2} ${-r * .8} ${r * .1} ${-r * .92}`, shade(f, .86), 1, .6));
+        for (let i = 0; i < 5; i++) s += g(`rotate(${i * 72 + 36})`, `<path d="M0 0L${-r * .1} ${-r * .3}L${r * .1} ${-r * .3}Z" fill="${c.eye || '#E8507A'}" opacity=".75"/>`);
+        s += circ(0, 0, r * .2, c.eye || '#E8507A', 1) + circ(0, 0, r * .08, '#FFF2A8', .8); break; }
+      case 'kal': {
+        for (let i = 0; i < 4; i++) s += g(`rotate(${i * 90 + 45})`, sh(`M0 0C${-r * .5} ${-r * .15} ${-r * .55} ${-r * .8} 0 ${-r * 1.05}C${r * .55} ${-r * .8} ${r * .5} ${-r * .15} 0 0Z`, f, 1.1));
+        s += circ(0, 0, r * .2, k, .8); break; }
+      case 'fmn': {
+        for (let i = 0; i < 5; i++) s += g(`rotate(${i * 72})`, sh(`M0 0C${-r * .6} ${-r * .15} ${-r * .62} ${-r * .98} 0 ${-r * 1.0}C${r * .62} ${-r * .98} ${r * .6} ${-r * .15} 0 0Z`, f, 1.1));
+        s += circ(0, 0, r * .34, '#FFFFFF', .9) + circ(0, 0, r * .16, k, .7); break; }
       case 'dot': s += circ(0, 0, r, f, 1.2); break;
     }
     return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot})">${s}</g>`;
@@ -4531,12 +4621,13 @@ const PlantArt = (function () {
     return s;
   };
   A.stems = (q) => {
-    const { c, p, fl } = q; const cnt = N(q.n / 2 + 1, 1, 5); const m = N(q.n + 2, 3, 20); let s = '';
+    const { c, p, fl } = q; const cnt = N(q.n / 2 + 1, 1, 5); const m = Math.max(N(q.n + 2, 3, 20), p.leafMin || 0); let s = '';
     const rn = rng(q.n + (p.seed || 7));
     for (let i = 0; i < m; i++) { const a = ((i / (m - 1 || 1)) * 2 - 1) * 62; s += leaf(Math.sin(a * Math.PI / 180) * 4, 0, p.leafSize || 22, a, c.a, { shape: p.leafShape || 'long', v: c.v, sw: 1.7 }); }
     for (let i = 0; i < cnt; i++) {
       const x = (i - (cnt - 1) / 2) * (p.multi ? 21 : 26) + (rn() - .5) * 6; const h = (p.multi ? 50 : 64) + (i % 2) * (p.multi ? 14 : 18) + (rn() * 10) + (p.multi ? q.n * .5 : q.n);
       const d = `M${x * .2} -4C${x * .3} ${-h * .4} ${x + 4} ${-h * .7} ${x} ${-h}`; s += stem(d, c.t || '#5E8F45', 2.6);
+      if (p.mid && fl >= 1) { const bp = [x * .2, -4, x * .3, -h * .4, x + 4, -h * .7, x, -h]; [[.3, 1], [.5, -1], [.68, 1]].forEach((mm, j) => { const b = bz(bp, mm[0]); s += leaf(b[0], b[1], p.mid * (1 - j * .12), mm[1] * (58 - j * 8), c.a, { shape: p.midShape || p.leafShape || 'oval', v: c.v, sw: 1.5 }); }); }
       if (fl >= 2 && p.multi) {
         const M = p.multi, pk = M[i % M.length], sk = M[(i + 2) % M.length];
         const rr0 = p.r || 12; for (let k = 0; k < 6; k++) { const an = k * 60 + 15; s += `<circle cx="${(x + Math.cos(an * Math.PI / 180) * rr0 * .78).toFixed(1)}" cy="${(-h - rr0 * .3 + Math.sin(an * Math.PI / 180) * rr0 * .78).toFixed(1)}" r="${(rr0 * .52).toFixed(1)}" fill="${k % 2 ? pk[1] : pk[0]}" stroke="#2B1612" stroke-width="1.5"/>`; }
@@ -4545,7 +4636,7 @@ const PlantArt = (function () {
         s += stem(`M${x + (i % 2 ? -1 : 1)} ${-h * .42}C${x} ${-h * .5} ${sx} ${-h * .52} ${sx} ${sy}`, c.t || '#5E8F45', 2);
         s += leaf(x + (i % 2 ? 3 : -3), -h * .36, 11, i % 2 ? 62 : -62, c.a, { shape: 'oval', sw: 1.4 });
         s += bloom('rose', sx, sy - 4, (p.r || 12) * .58, { f: sk[0], g: sk[1], k: '#FFE9A8' }, 0);
-      } else if (fl >= 2) { s += bloom(p.kind || 'daisy', x, -h - (p.r || 12) * .3, p.r || 12, c, (rn() - .5) * 24); if (p.kind2) s += leaf(x - 2, -h * .5, 12, -50, c.a, { shape: 'oval', sw: 1.4 }); }
+      } else if (fl >= 2) { s += bloom(p.kind || 'daisy', x, -h - (p.r || 12) * .3, (p.r || 12) * (p.vary ? 1 + ((i % 3) - 1) * .1 : 1), Object.assign({ i }, c), (rn() - .5) * 24); if (p.kind2) s += leaf(x - 2, -h * .5, 12, -50, c.a, { shape: 'oval', sw: 1.4 }); }
       else if (fl === 1) s += circ(x, -h - 3, 5, c.f, 1.6) + sh(`M${x - 6} ${-h + 2}C${x - 4} ${-h - 4} ${x + 4} ${-h - 4} ${x + 6} ${-h + 2}Z`, shade(c.a, .9), 1.2);
     }
     return s;
@@ -4640,10 +4731,11 @@ const PlantArt = (function () {
     return s;
   };
   A.bush = (q) => {
-    const { c, p, fl } = q; let s = ''; const rn = rng(q.n + (p.seed || 5)); const m = N(q.n * 1.4 + 6, 6, 40);
+    const { c, p, fl } = q; let s = ''; const rn = rng(q.n + (p.seed || 5)); const m = N(q.n * 1.4 + 10, 12, 40);
     s += stem('M0 0L0 -26', c.t || '#7A5A3A', 4);
-    const pts = []; for (let i = 0; i < m; i++) { const u = rn() * 2 - 1; const v = rn(); pts.push([u * 44 * Math.sqrt(1 - v * .6), -22 - v * (46 + q.n * 1.4), u * 60 + (rn() - .5) * 40]); }
+    const pts = []; for (let i = 0; i < m; i++) { const u = rn() * 2 - 1; const v = rn(); pts.push([u * 44 * Math.sqrt(1 - v * .6), -36 - v * (46 + q.n * 1.4), u * 60 + (rn() - .5) * 40]); }
     pts.sort((a, b) => b[1] - a[1]);
+    pts.forEach((pt) => { s += stem(`M0 -26C${pt[0] * .1} ${pt[1] * .5 - 8} ${pt[0] * .8} ${pt[1] * .6 - 6} ${pt[0]} ${pt[1] + 2}`, c.t || '#7A5A3A', 1.8); });
     pts.forEach((pt) => { s += leaf(pt[0], pt[1], p.size || 15, pt[2], c.a, { shape: p.shape || 'oval', v: c.v, sw: 1.6 }); });
     const nb = fl >= 2 ? N(q.n / 2 + 3, 3, 10) : 0;
     for (let i = 0; i < nb; i++) { const pt = pts[(i * 7 + 2) % pts.length]; if (p.kind === 'cluster') { for (let k = 0; k < 7; k++) s += bloom('dot', pt[0] + Math.cos(k * 1.1) * 6, pt[1] - 4 + Math.sin(k * 1.1) * 5, 3, { f: k % 2 ? c.f : c.g || c.f }); } else if (p.kind === 'bract') { for (let k = 0; k < 3; k++) s += g(`translate(${pt[0] + (k - 1) * 7} ${pt[1] - 4 + (k % 2) * 3}) rotate(${(k - 1) * 22})`, sh('M0 0C-8 -4 -8 -14 0 -16C8 -14 8 -4 0 0Z', c.f, 1.3)); } else s += bloom(p.kind || 'hibiscus', pt[0], pt[1] - 4, p.r || 8, c, i * 20); }
@@ -4659,6 +4751,33 @@ const PlantArt = (function () {
       s += stem(`M${x * .2} -4C${x * .3} ${-h * .4} ${x + 3} ${-h * .7} ${x} ${-h}`, c.t || '#6E9A55', 2.2);
       if (fl >= 2) { for (let k = 0; k < 9; k++) s += ell(x + (k % 2 ? -2.5 : 2.5), -h + k * 5, 3.5 - k * .08, 4.6, k % 3 ? c.f : c.g, 0, 1.2); s += ell(x, -h - 4, 2.6, 4, c.f, 0, 1.2); }
       else if (fl === 1) { for (let k = 0; k < 4; k++) s += circ(x + (k % 2 ? -1.5 : 1.5), -h + k * 5, 2.4, shade(c.a, 1.15), 1.1); }
+    }
+    return s;
+  };
+
+  A.kalan = (q) => {
+    const { c, p, fl } = q; let s = ''; const rn = rng(q.n + 9);
+    for (let i = 0; i < 16; i++) { const a = -84 + i * 11.2 + (i % 2) * 3; s += leaf(Math.sin(a * Math.PI / 180) * 7, 0, (i % 2 ? 30 : 36), a * 1.02, i % 2 ? shade(c.a, .92) : c.a, { shape: 'round', v: c.v, sw: 1.8 }); }
+    const cnt = N(q.n / 3 + 1, 1, 3);
+    for (let i = 0; i < cnt; i++) {
+      const x = (i - (cnt - 1) / 2) * 30, h = 58 + (i % 2) * 14 + q.n * .6; s += stem(`M${x * .2} -8C${x * .3} ${-h * .4} ${x} ${-h * .7} ${x} ${-h}`, c.t || '#6FA85A', 2.6);
+      const pts = [[0, 0], [-9, 4], [9, 4], [-5, -8], [5, -8], [-14, -3], [14, -3], [0, 10], [-9, -13], [9, -13]];
+      if (fl >= 2) pts.forEach((pt, j) => { s += bloom('kal', x + pt[0], -h + pt[1] - 4, 6.2, { f: c.f, k: c.k || '#F2C84B' }, j * 17); });
+      else if (fl === 1) pts.slice(0, 5).forEach((pt) => { s += circ(x + pt[0] * .6, -h + pt[1] * .6 - 3, 3, c.f, 1.2); });
+    }
+    return s;
+  };
+  A.spray = (q) => {
+    const { c, p, fl } = q; let s = ''; const rn = rng(q.n + 4);
+    for (let i = 0; i < 12; i++) { const a = -80 + i * 14.5; s += leaf(Math.sin(a * Math.PI / 180) * 6, 0, 17 + (i % 3) * 3, a, c.a, { shape: 'oval', v: c.v, sw: 1.5 }); }
+    const cnt = N(q.n / 2 + 2, 2, 5);
+    for (let i = 0; i < cnt; i++) {
+      const x = (i - (cnt - 1) / 2) * 24, h = 46 + (i % 2) * 14 + q.n * .8;
+      s += stem(`M${x * .2} -4C${x * .3} ${-h * .4} ${x + 2} ${-h * .7} ${x} ${-h}`, c.t || '#5E9A4A', 2.2);
+      const br = [[-13, -h * .62, -h * .78], [13, -h * .55, -h * .72], [0, -h, -h - 2]];
+      br.forEach((b, j) => { if (j < 2) s += stem(`M${x} ${b[1]}C${x + b[0] * .3} ${b[1] - 4} ${x + b[0]} ${b[1] - 6} ${x + b[0]} ${b[2]}`, c.t || '#5E9A4A', 1.6); });
+      if (fl >= 2) { br.forEach((b, j) => { s += bloom(p.kind || 'fmn', x + (j < 2 ? b[0] : 0), (j < 2 ? b[2] : -h) - 4, p.r || 6, c, j * 20 + i * 9); }); }
+      else if (fl === 1) s += circ(x, -h - 2, 3.5, c.f, 1.3);
     }
     return s;
   };
@@ -5132,6 +5251,18 @@ const PlantArt = (function () {
   add('lavender', { a: '#6F9A68', f: '#8A5FD0', g: '#B79AE8', t: '#6E9A55' }, {});                                                      // زهرة الخزامى
   add('stems', { a: '#4F9A45', f: '#F6C21A', g: '#E8A410', k: '#5A3418', n: 16, t: '#4F8A3A' }, { kind: 'sun', r: 17, leafShape: 'oval', leafSize: 22 });   // زهرة دوار الشمس
   add('stems', { a: '#4F9A4A', f: '#E8404E', g: '#B01E34', t: '#5E9A45' }, { kind: 'tulip', r: 13, leafShape: 'long', leafSize: 30 });     // زهرة التوليب
+
+  // أزهار جديدة (م ١٢٠ إلى ١٣٠)
+  add('stems', { a: '#4F9A45', f: '#FFF6F0', g: '#F4D8CC', k: '#F2A52A', spot: '#D8402A', t: '#5E9A45' }, { kind: 'lily', r: 17, leafShape: 'long', leafSize: 44, leafMin: 14, mid: 26, midShape: 'long', vary: true });   // الزنبق المنقّط
+  add('stems', { a: '#3F8A3F', f: '#D81E36', g: '#9E1228', k: '#F2C84B', t: '#4E8A3E' }, { kind: 'roses', r: 17, leafShape: 'ivy', leafSize: 20, mid: 16, midShape: 'oval', vary: true });          // الجوري الأحمر
+  add('stems', { a: '#3F8F45', f: '#9A62D8', g: '#7440B8', t: '#5E9A45' }, { kind: 'hyd', r: 19, leafShape: 'oval', leafSize: 40, leafMin: 14, mid: 26, vary: true });                         // الهيدرانجيا البنفسجية
+  add('stems', { a: '#3F8F45', f: '#6EC4F0', g: '#9AD8F8', t: '#5E9A45' }, { kind: 'hyd', r: 19, leafShape: 'oval', leafSize: 40, leafMin: 14, mid: 26, vary: true });                         // الهيدرانجيا السماوية
+  add('spray', { a: '#5E9E4A', f: '#6EBCF0', k: '#F6D84A', t: '#5E9A4A' }, { kind: 'fmn', r: 6 });                                                         // لا تنسني
+  add('kalan', { a: '#5E9E5A', f: '#FFFFFF', k: '#F2D060', t: '#7AAE62' }, {});                                                                            // الكلانشو الأبيض
+  add('bush', { a: '#2F7A3F', f: '#FFFFFF', eye: '#E8507A' }, { kind: 'vincaw', r: 9, size: 16, seed: 8 });                                                 // الفينكا البيضاء
+  add('stems', { a: '#4E9A4A', f: '#7A4FC8', g: '#4E2A98', k: '#F6D84A', t: '#5E9A45' }, { kind: 'violet', r: 11, leafShape: 'heartL', leafSize: 18, multi: null }); // البنفسج
+  add('stems', { a: '#1F5A33', f: '#E8284E', g: '#B01838', k: '#F2C84B', t: '#4E7A45' }, { kind: 'camel', r: 16, leafShape: 'oval', leafSize: 22, mid: 15, vary: true });          // الكاميليا القرمزية
+  add('stems', { a: '#5E9E4A', f: '#FFFFFF', k: '#F2B820', t: '#5E9A45' }, { kind: 'daisyd', r: 15, leafShape: 'long', leafSize: 22, mid: 14, midShape: 'narrow' });                       // أقحوان الحقول
 
   /* ---------- المؤثرات الفخمة (للنباتات الخيالية وللمستويات العالية) ---------- */
   const sparkles = (pts, col) => pts.map((p, i) => `<path class="twk" style="animation-delay:${(i * .37).toFixed(2)}s" d="M${p[0]} ${p[1] - p[2]}L${p[0] + p[2] * .3} ${p[1] - p[2] * .3}L${p[0] + p[2]} ${p[1]}L${p[0] + p[2] * .3} ${p[1] + p[2] * .3}L${p[0]} ${p[1] + p[2]}L${p[0] - p[2] * .3} ${p[1] + p[2] * .3}L${p[0] - p[2]} ${p[1]}L${p[0] - p[2] * .3} ${p[1] - p[2] * .3}Z" fill="${col}"/>`).join('');
