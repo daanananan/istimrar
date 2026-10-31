@@ -132,6 +132,7 @@ body.hopeview .sheet{background:#121B3A;color:#EAF0FF;--ink:#EAF0FF;--ink2:#AEBB
 .qcard .qs a{color:var(--a2)}
 .qcard .qrow{display:flex;gap:8px;align-items:center;justify-content:space-between}
 .qpin{min-height:36px;padding:2px 12px;width:auto;display:inline-flex;align-items:center;gap:6px}.qpin svg{width:16px;height:16px;flex:none}.qpin[aria-pressed=true]{background:color-mix(in srgb,var(--gold) 28%,var(--surface));border-color:var(--gold)}
+.qtp{font-size:12px;color:var(--ink2);margin-bottom:2px}
 .qday{background:color-mix(in srgb,var(--gold) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--gold) 35%,var(--line));border-radius:18px;padding:12px 14px;margin-block:8px;position:relative}
 .qday .qt{margin:0 0 4px;font-size:16px;line-height:1.85}.qday .qs{font-size:12px;color:var(--ink2)}
 .qday .qx{position:absolute;top:6px;inset-inline-start:8px;background:none;border:0;color:var(--ink2);font-size:18px;cursor:pointer}
@@ -272,7 +273,12 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 @keyframes fsp{0%{transform:translateY(0);opacity:0}15%{opacity:.95}100%{transform:translateY(-34px);opacity:0}}
 @media (prefers-reduced-motion:reduce){.fa,.fb,.fc{animation:none!important}.fsp{animation:none!important;opacity:.8}}
 .flname{font-family:var(--font-display);font-size:20px;line-height:1.2;margin-top:4px}
-.flbd{position:absolute;top:12px;inset-inline-start:12px;font-size:12px;font-weight:700;padding:2px 10px;border:1.5px solid;border-radius:10px;background:color-mix(in srgb,var(--surface) 70%,transparent)}
+.flmore{margin-top:2px;background:none;border:0;color:var(--a2);font:inherit;font-size:13px;cursor:pointer;padding:4px 8px}
+.fllist{display:grid;gap:8px;max-height:62vh;overflow:auto;padding:2px}
+.flrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.flrow.cur{border-color:var(--green);background:color-mix(in srgb,var(--green) 8%,var(--surface))}
+.flrow .fa0{width:62px;height:80px;flex:none}.flrow .fa0 svg{width:100%;height:100%;overflow:visible}
+.flbd{position:absolute;top:12px;inset-inline-start:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;padding:2px 10px;border:1.5px solid;border-radius:10px;background:color-mix(in srgb,var(--surface) 70%,transparent)}
 .hero{position:relative}
 .glow{filter:drop-shadow(0 0 14px color-mix(in srgb,var(--flame) 70%,transparent))}
 
@@ -386,7 +392,7 @@ body.is-lantern{--bg:#EFEBD6}
 
 
 @media (min-width:720px){
-  #app>.fbar,#app>.achgrid{grid-column:1/-1}
+  #app>.fbar,#app>.achgrid,#app>#pgridwrap,#app>.psbox{grid-column:1/-1}
   .achgrid{grid-template-columns:1fr 1fr;gap:16px}
   .nearbox{padding:20px;gap:16px}.nearbox>b{font-size:20px}
   .nearbox>.row{gap:18px!important}.nearbox>.row>div:first-child{width:76px!important}
@@ -446,6 +452,8 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 .house{pointer-events:none}.house .plant{pointer-events:auto}
 .hcard .pgrid{margin-top:4px}
 .mdays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px}.mdays button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 0;font-weight:700;color:var(--ink)}.mdays button[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.fsrch{flex:none;width:44px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer}.fsrch svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}.fsrch[aria-expanded=true]{border-color:var(--green)}
+.psbox input[type=search]::-webkit-search-cancel-button{display:none}.psbox{display:flex;gap:8px;align-items:center;margin:0 0 8px}.psbox input{flex:1;min-width:0}
 .fbar{display:flex;gap:8px;margin:8px 0}.fbtn{flex:1;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}.fbtn b{font-weight:700}.fbtn::after{content:'';width:7px;height:7px;border-right:2px solid var(--ink2);border-bottom:2px solid var(--ink2);transform:rotate(45deg);margin-top:-3px;order:3}.fbtn[aria-expanded=true]{border-color:var(--green)}.fbtn[aria-expanded=true]::after{transform:rotate(225deg);margin-top:3px}.fpanel{margin-top:0}
 .pfilters{display:flex;gap:6px;flex-wrap:wrap}
 .pfilters button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;font-weight:600;color:var(--ink2);min-height:36px}
@@ -947,6 +955,9 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     {"id":"p100","name":"أوركيد التنين الذهبي","rar":4,"price":1000},
     {"id":"p101","name":"الجوري الوردي","rar":2,"price":130},
     {"id":"p102","name":"الفلّ العطري","rar":2,"price":100},
+    {"id":"p117","name":"زهرة الخزامى","rar":1,"price":230},
+    {"id":"p118","name":"زهرة دوار الشمس","rar":1,"price":235},
+    {"id":"p119","name":"زهرة التوليب","rar":1,"price":245},
     {"id":"p106","name":"زهرة العنكبوت الحمراء","rar":5,"price":1500,"grow":60,"doneReward":200,"desc":"زنبقة حمراء نارية تنبت أزهارها المخمليّة بخيوطها الطويلة المنحنية كأنها شرارات، يقال إنها تزهر على حدود الأحلام."},
     {"id":"p107","name":"زهرة الخفاش الأسود","rar":5,"price":2200,"grow":75,"doneReward":260,"desc":"زهرة غامضة بأجنحة داكنة وخيوط متدلّية تشبه الخفّاش المحلّق، نادرة الجمال مهيبة الحضور."},
     {"id":"p108","name":"الفاوانيا الشجرية المعمّرة","rar":6,"price":3500,"grow":150,"slots":3,"doneReward":500,"desc":"شجيرة خشبية معمّرة تحمل أزهارًا ضخمة مكرمشة بلون الوردي. تحتاج إلى أصيص كبير وتحجز ٣ أماكن في البيت الزجاجي، وتكتمل بعد نحو ٥ أشهر."},
@@ -1021,7 +1032,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       v: 1, startDate: today, nextId: 1,
       tasks: [], goals: [], completions: [], quiet: [], purchases: [], leastUses: [], loans: [],
       compDone: [], editLog: [], ack: [], ops: [], alloc: [], equip: 'starter',
-      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, traitsFrom: today, econVer: 2, econFrom: today },
+      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, rescueFrom: today, traitsFrom: today, econVer: 2, econFrom: today },
       place: {},
     };
   }
@@ -1997,6 +2008,12 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       { const sp = traitPctAt(st, D, 'str'); if (sp) { strCarry += dps.reduce((a, e) => a + e.amount, 0) * sp / 100; const ex = Math.floor(strCarry + 1e-9); if (ex > 0) { strCarry -= ex; pts.push({ key: 'dp:str:' + D, amount: ex, reason: 'مكافأة القوة (+' + sp + '٪ نقاط)', date: D }); } } }
       let status;
       const mo = monthOf(D);
+      // يوم الإنقاذ لا يُعفي من مهام اليوم: بعد إنجاز التعويضية تعود الشعلة صغيرة لكن يُحسب اليوم كأي يوم (نجاح، أو تجميدة، أو انطفاء)
+      const strictRescue = !!(st.settings.rescueFrom && D >= st.settings.rescueFrom); let rescued = false;
+      if (strictRescue && (flame === 'out' || flame === 'frozen') && compComplete(st, ix, D) && (restores[mo] || 0) < restoreLimitAt(st, D)) {
+        restores[mo] = (restores[mo] || 0) + 1; flame = 'small'; streak = saved; rescued = true;
+        events.push({ D, type: 'restored' });
+      }
       if (flame === 'out' || flame === 'frozen') {
         const canRestore = (restores[mo] || 0) < restoreLimitAt(st, D);
         if (compComplete(st, ix, D) && canRestore) {
@@ -2018,7 +2035,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
         else { saved = streak; streak = 0; flame = 'out'; status = 'out'; events.push({ D, type: 'out', saved }); }
       }
       if (streak > best) best = streak;
-      days[D] = { status, streak, flame, main: m.reqMain.length, mainDone: m.reqMain.filter((i) => i.complete).length, side: m.sides.length, sideDone: m.sides.filter((i) => i.complete).length, ticks: m.items.reduce((a, i) => a + Math.min(i.done, i.target), 0), allMain: m.allMainDone, allSide: m.allSideDone, streakDone: m.streakDone, sn: m.reqStreak.length, exc: m.items.filter((i) => i.excused).map((i) => i.task.id) };
+      days[D] = { status, rescued, streak, flame, main: m.reqMain.length, mainDone: m.reqMain.filter((i) => i.complete).length, side: m.sides.length, sideDone: m.sides.filter((i) => i.complete).length, ticks: m.items.reduce((a, i) => a + Math.min(i.done, i.target), 0), allMain: m.allMainDone, allSide: m.allSideDone, streakDone: m.streakDone, sn: m.reqStreak.length, exc: m.items.filter((i) => i.excused).map((i) => i.task.id) };
       if (starByDay[D]) days[D].star = starByDay[D];
       if (provisional) { todayModel = m; todayStatus = status; }
       if (st.settings.extrasFrom && D >= st.settings.extrasFrom) {
@@ -2075,7 +2092,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       streak, bestStreak: best, savedStreak: saved, flame, flameKind,
       freezes: owned - usedFreezes, freezesUsed: usedFreezes, freezesEarned: earnedFreezes, nextFreezeAt,
       restoresThisMonth: restores[monthOf(today)] || 0, frozenDays,
-      leastOwned, bonusActiveToday, todayModel, todayStatus, ix, winLeft: Math.max(0, C.WIN_CAP - (winUsed[weekStart(today, st.settings.weekStart)] || 0)),
+      leastOwned, bonusActiveToday, todayModel, todayStatus, rescuedToday: !!(days[today] && days[today].rescued), ix, winLeft: Math.max(0, C.WIN_CAP - (winUsed[weekStart(today, st.settings.weekStart)] || 0)),
       pts, ptsEarned, ptsSpent, ptsAvail: ptsEarned - ptsSpent, traitLevels, derivedLevel: derived, level, penalty, levelName: levelClass(level),
       goals: goalsCalc, levelHist, traitHist, goal: nextGoal(TRAITS.map((t) => traitLevels[t.id])), owned: ownedOutfits(st).concat(ac.list.filter((a) => a.done && ACH_OUTFIT[a.id]).map((a) => ACH_OUTFIT[a.id])), equipped: (ownedOutfits(st).concat(ac.list.filter((a) => a.done && ACH_OUTFIT[a.id]).map((a) => ACH_OUTFIT[a.id]))).includes(st.equip) ? st.equip : 'starter',
       plants: pl.plants, successDays, ach: ac.list, houses: hs.houses, unplaced: hs.unplaced, houseCap: hs.totalCap, houseFree: hs.free,
@@ -2321,6 +2338,7 @@ const IC = {
   plant: '<path d="M12 21v-9"/><path d="M12 12C12 7 8 5 4 5c0 5 3 7 8 7z"/><path d="M12 14c0-4 3-6 8-6 0 5-3 7-8 6z"/>',
   trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4"/><path d="M12 13v4M8 21h8M9 17h6"/>',
   plus: '<path d="M12 5v14M5 12h14"/>', minus: '<path d="M5 12h14"/>', check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  search: '<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/>',
   edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>', x: '<path d="M6 6l12 12M18 6 6 18"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>', cloud: '<path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.8 4.8 0 0 1 .5 9.5z"/>',
   right: '<path d="m9 6 6 6-6 6"/>', left: '<path d="m15 6-6 6 6 6"/>', dash: '<path d="M8 12h8"/>', moon: '<path d="M19 14.5A7.5 7.5 0 0 1 9.5 5 7.5 7.5 0 1 0 19 14.5z"/>',
@@ -2442,6 +2460,7 @@ const Store = {
 };
 
 /* ---------- الحالة ---------- */
+let PQ = '', PSEARCH = false;
 let PFILTER = -1, WATERING = false, ATAB = -1, AFILT = 'all', ARAR = -1, AOPEN = '', POPEN = false;
 let TASKTAB = 'habits';
 let ST, R, VIEW = 'tasks', VIEWDAY = null, MARKET = 'items', lastToday = TODAY();
@@ -2471,7 +2490,7 @@ const GUIDE = [
   ] },
   { id: 'flame', ic: 'flame', t: 'الاستمرارية والشعلة', intro: 'الشعلة هي قلب التطبيق. تُضاء بإنجازك وتحميها التجميدات والأيام الهادئة.', items: [
     ['متى يُحسب اليوم ناجحًا؟', '<p>حين تُنجزين جميع المهام الرئيسية المسؤولة عن الاستمرارية. كل يوم ناجح يزيد عدّاد الاستمرارية بواحد وتكبر الشعلة.</p>'],
-    ['مستويات الشعلة', '<p>شكل شعلتك ولونها يتغيران كلما طالت استمراريتك. لها <b>ثمانية مستويات</b>، ولكل مستوى اسم ولون وشارة صغيرة في زاوية بطاقة الشعلة تكتب فئته.</p><ul><li><b>شعلة البداية</b> (عادي): البرتقالي الدافئ، من أول يوم.</li><li><b>اللهب المتوهج</b> (نادر): الأصفر الساطع، من اليوم ٩٠ (٣ أشهر).</li><li><b>الشعلة المتأججة</b> (ملحمي): الأصفر المائل للأبيض، من اليوم ٢١٠.</li><li><b>الشعلة النقية</b> (أسطوري): الأبيض الناصع بتوهج برتقالي، من اليوم ٣٦٠.</li><li><b>شعلة الغاز</b> (خرافي): الأزرق السماوي، من اليوم ٥٤٠.</li><li><b>شعلة البلازما</b> (خرافي مهيمن): الأزرق النيلي، من اليوم ٧٥٠.</li><li><b>الشعلة الخارقة</b> (خرافي متسامٍ): الأزرق الملكي البنفسجي، من اليوم ٩٩٠.</li><li><b>الشعلة المطلقة</b> (خرافي مطلق): البنفسجي المطلق، من اليوم ١٢٦٠.</li></ul><p>كل مستوى يدوم أطول من الذي قبله: ٣ أشهر ثم ٤ ثم ٥ وهكذا. الشعلة تهتز بهدوء وتصعد منها شرارات صغيرة، وتتوقف الحركة إن فعّلتِ «تقليل الحركة» في جهازك.</p>'],
+    ['مستويات الشعلة', '<p>شكل شعلتك ولونها يتغيران كلما طالت استمراريتك. لها <b>ثمانية مستويات</b>، ولكل مستوى اسم ولون وشارة صغيرة في زاوية بطاقة الشعلة تكتب فئته.</p><ul><li><b>شعلة البداية</b> (عادي): البرتقالي الدافئ، من أول يوم.</li><li><b>اللهب المتوهج</b> (نادر): الأصفر الساطع، من اليوم ٩٠ (٣ أشهر).</li><li><b>الشعلة المتأججة</b> (ملحمي): الأصفر المائل للأبيض، من اليوم ٢١٠.</li><li><b>الشعلة النقية</b> (أسطوري): الأبيض الناصع بتوهج برتقالي، من اليوم ٣٦٠.</li><li><b>شعلة الغاز</b> (خرافي): الأزرق السماوي، من اليوم ٥٤٠.</li><li><b>شعلة البلازما</b> (خرافي مهيمن): الأزرق النيلي، من اليوم ٧٥٠.</li><li><b>الشعلة الخارقة</b> (خرافي متسامٍ): الأزرق الملكي البنفسجي، من اليوم ٩٩٠.</li><li><b>الشعلة المطلقة</b> (خرافي مطلق): البنفسجي المطلق، من اليوم ١٢٦٠.</li></ul><p>للاطلاع على كل المستويات وأشكال شعلاتها اضغطي على شارة المستوى (مثل «عادي») أو على «كل مستويات الشعلة» في بطاقة الاستمرارية. كل مستوى يدوم أطول من الذي قبله: ٣ أشهر ثم ٤ ثم ٥ وهكذا. الشعلة تهتز بهدوء وتصعد منها شرارات صغيرة، وتتوقف الحركة إن فعّلتِ «تقليل الحركة» في جهازك.</p>'],
     ['حالات الشعلة', '<ul><li><b>مضيئة:</b> كل شيء بخير.</li><li><b>الشعلة الهادئة:</b> شعلة نحيلة بلون مستواك، تظهر عند بقاء مهام لحماية استمراريتك وبعد الاستعادة، وتكبر مع النجاح.</li><li><b>فانوس:</b> يوم هادئ، الشعلة الهادئة محفوظة بأمان.</li><li><b>مجمّدة:</b> استهلكتِ تجميدة لحمايتها من الانطفاء ليوم فاتك. تظهر شعلة مستواك ثابتة داخل كتلة جليد.</li><li><b>منطفئة:</b> لم تبقَ تجميدات ففاتك اليوم. وتحتاجين المهمة التعويضية (انظري قسمها).</li></ul>'],
     ['التجميدات', '<p>التجميدة تحمي شعلتك تلقائيًا إذا فاتك يوم، بدل أن تنطفئ.</p><ul><li>تبدأين بـ<b>٣ تجميدات</b>.</li><li>تكسبين تجميدة جديدة عند الوصول إلى <b>٥ أيام</b> متتالية، ثم كل <b>١٠ أيام</b> بعدها.</li><li>يمكنك شراؤها من السوق: السعر ٢٠ ⃁ ثم يزيد ٥ مع كل شراء حتى ٦٠.</li><li>تُستهلك تلقائيًا، تجميدة واحدة لكل يوم فائت.</li></ul>'],
     ['الأيام الهادئة', '<p>يوم محمي تختارينه بنفسك لأنك مريضة أو مسافرة أو متعبة. لا يُطلب فيه إنجاز، ولا تنقطع الاستمرارية، ولا تُستهلك فيه تجميدة. يحق لك <b>٣ أيام هادئة في الشهر</b>. تختارينها من صفحة الاستمرارية.</p>'],
@@ -2480,7 +2499,7 @@ const GUIDE = [
   ] },
   { id: 'comp', ic: 'bolt', t: 'الانطفاء والمهمة التعويضية', intro: 'إذا انطفأت شعلتك فهذه ليست نهاية الطريق. مهمة واحدة تعيد لك كل شيء.', items: [
     ['ماذا يحدث إذا انطفأت الشعلة؟', '<ol><li><b>يوم الانطفاء:</b> تختفي مهامك مؤقتًا (لا تُحذف) وتظهر مكانها «المهمة التعويضية». لا يُخصم منك شيء في هذا اليوم.</li><li><b>إن لم تنفذيها حتى نهاية اليوم:</b> تتجمد الواجهة بالكامل غدًا.</li><li><b>في التجمد الكامل:</b> تذبل أوراق النباتات وتسقط، ويقل مستوى الشخصية نقطة واحدة عن كل يوم يستمر فيه التجمد.</li></ol>'],
-    ['كيف أعيد كل شيء؟', '<p>أنجزي المهمة التعويضية فتعود المهام، وتعود الشعلة <b>صغيرة</b>، وتُستعاد الاستمرارية التي كانت قبل الانطفاء، وتُستعاد الأوراق الساقطة. وتكبر الشعلة بعدها مع كل يوم ناجح.</p>'],
+    ['كيف أعيد كل شيء؟', '<p>أنجزي المهمة التعويضية فتعود المهام، وتعود الشعلة <b>صغيرة</b>، وتُستعاد الاستمرارية التي كانت قبل الانطفاء، وتُستعاد الأوراق الساقطة. وتكبر الشعلة بعدها مع كل يوم ناجح.</p><p><b>يوم العودة لا يعفيك من مهام اليوم:</b> بعد إنجاز التعويضية يبقى عليك إكمال مهام اليوم الرئيسية كأي يوم، وإلا طُبّق عليه ما يطبّق على أي يوم لم يكتمل (تجميدة إن وُجدت، وإلا تنطفئ الشعلة).</p>'],
     ['تنبيه التعويضية', '<p>عندما تكون الشعلة منطفئة أو مجمّدة يظهر <b>تنبيه أحمر كبير</b> يقول: «أنجزي المهمة التعويضية، وإلا سينقص مستواك». يظهر في صفحة المهام، وكشريط في بقية الصفحات، وكنافذة مرة واحدة كل يوم. الهدف أن تعلمي وأنت بعيدة عن التطبيق أن مهمة واحدة تكفي.</p>'],
     ['كيف أختار مهمتي التعويضية؟', '<p>من <b>الإعدادات ← استعادة الاستمرارية</b>. يمكنك أن تجعليها <b>مهمة واحدة</b> أو <b>مجموعة مهام متتابعة</b> تُنجَز بالترتيب. اختاريها مناسبة لك: قصيرة لكنها ذات معنى.</p>'],
     ['هل للاستعادة حد؟', '<p>نعم، ٣ استعادات في الشهر افتراضيًا، ويمكنك تغيير الحد من الإعدادات.</p>'],
@@ -2507,6 +2526,7 @@ const GUIDE = [
   { id: 'plants', ic: 'plant', t: 'النباتات والبيوت الزجاجية', intro: 'حديقتك الخاصة التي تنمو بإنجازك.', items: [
     ['كيف تنمو النباتات؟', '<p>كل نباتاتك تنمو معًا. يُحسب <b>يوم نمو</b> كلما أنجزتِ جميع مهامك الرئيسية المسؤولة عن الاستمرارية. تكتمل النبتة بعد <b>٣٠ يوم نمو</b> وتمرّ بمراحل: بذرة، ثم برعم، ثم نبتة صغيرة، ثم نامية، ثم مكتملة ومزهرة.</p>'],
     ['السقاية', '<p>أداة السقاية في صفحة البيت الزجاجي تمرّ على كل نباتاتك دفعة واحدة وتسقيها عن الأيام الناجحة.</p>'],
+    ['البحث عن نبتة', '<p>في صفحة الشتلات زرّ صغير بعدسة بجانب «تصفية بالمستوى». اضغطيه فيظهر حقل تكتبين فيه اسم النبتة (مثل «الخزامى» أو «التوليب» أو «دوار الشمس»)، وتظهر النتائج وأنت تكتبين. اضغطي × لإخفائه وإظهار كل النباتات من جديد. ولم يحتل مساحة كبيرة من الصفحة لأنه لا يظهر إلا عند الحاجة.</p>'],
     ['شراء الشتلات', '<p>في المتجر أكثر من ١٠٠ نبتة في فئات ندرة من عادي إلى خرافي، وخمس نبتات فاخرة بأسعار عالية في المستويات الخرافية العليا (ومنها شجرتان تُزرعان بجانب البيت الزجاجي وتنموان سنة كاملة عبر ١٥ طورًا). اضغطي على أي نبتة لتري تفاصيلها. كلما ندرت زاد سعرها وزادت مكافأة الحصول عليها. وتأتيك مكافأة أخرى عند اكتمال نموها.</p>'],
     ['تطوير النبتة', '<p>بعد اكتمال النبتة تستطيعين <b>ترقيتها</b> لمستوى أعلى فيتغير أصيصها وتتألق بتأثيرات جميلة. تبدأ الترقية بـ٥٠ ⃁ وتزيد مع كل مستوى حتى ٧٠٠٠ ⃁ للمستوى الأعلى. الترقية فقط للأعلى، لا تنزل.</p>'],
     ['النباتات الخاصة بالأوسمة', '<p>تسع نباتات مميزة جدًا، <b>لا تُباع في المتجر أبدًا</b>، وتحصلين عليها فقط من الأوسمة الصعبة: ثلاث بمستوى «خرافي مهيمن»، وثلاث بمستوى «خرافي متسامٍ»، وثلاث بمستوى «خرافي مطلق». مستوى النبتة هو نفسه ندرة الوسام الذي يمنحها. تُدار كبقية النباتات.</p>'],
@@ -2561,7 +2581,7 @@ const GMETA = {
   coins: { c: '#D9A21B', hook: 'عملاتك تشتري الجمال لا العقاب', facts: ['لا خصم أبدًا', 'سلفة بلا فوائد'], quick: ['تكسبين من كل إنجاز', 'تنفقينها في السوق', 'لا تُخصم منك أبدًا'], art: () => '<div class="gbig">' + ico('store') + '</div>', tour: 'market' },
   person: { c: '#8B5CF6', hook: 'شخصية صغيرة تكبر معك', facts: ['٣ سمات', 'مستويات'], quick: ['كل مهمة تمنح نقاط تطوير', 'السمات ترفع مستواك', 'المستوى يغيّر لقبك'], art: () => charSVG(), tour: 'person' },
   outfits: { c: '#E0529C', hook: '١٥ زيًّا تنتظرك', facts: ['١٥ زيًّا', 'أزياء نادرة'], quick: ['تشترين الأزياء بالعملات', 'تلبسينها بضغطة', 'الأندر تُفتح بالإنجازات'], art: () => charSVG('n3'), tour: 'person' },
-  plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١٠٧ نباتات', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
+  plants: { c: '#3FA34D', hook: 'حديقة تنمو بإنجازك', facts: ['١١٠ نباتات', '١٥ بيتًا زجاجيًا'], quick: ['اشتري شتلة', 'تنمو بأيام نجاحك', 'لا تموت أبدًا'], art: () => PlantArt.plantSVG('p001', { stage: 4, level: 2, leaves: 10, fallen: 0 }), tour: 'plants' },
   achv: { c: '#D9822B', hook: N(E.ACHIEVEMENTS.length) + ' وسامًا بانتظارك', facts: [N(E.ACHIEVEMENTS.length) + ' وسامًا', '٤ تبويبات'], quick: ['كل وسام له شرط واضح', 'يمنحك عملات', 'الأندر يعطيك نباتات خرافية'], art: () => { const a = (R && R.ach && R.ach[0]) || { rar: 3, g: 'star', mod: 'plain', t: 1 }; return AchArt.icon(a, { noNum: true }); }, tour: 'achv' },
   diary: { c: '#5B7CFA', hook: 'مساحتك الخاصة جدًّا', facts: ['خاصة', 'بمشاعر', 'بنسخة احتياطية'], quick: ['اكتبي بحرية', 'اختاري وجهًا لمزاجك', 'لا يراها أحد'], art: () => moodSVG('hap', 96), tour: 'diary' },
   quotes: { c: '#B8862B', hook: 'كلمات تُلهمك كل يوم', facts: ['أحاديث محققة', 'عباراتك أنتِ'], quick: ['عبارة كل يوم', 'ثبّتي مفضلتك', 'أضيفي عباراتك'], art: () => '<div class="gbig sky">' + ico('quote') + '</div>' },
@@ -2643,7 +2663,7 @@ function announce(before, after, o) {
   if (o.burst) burst(o.burst.x, o.burst.y, 26);
   const today = TODAY();
   if (after.todayStatus === 'success' && before.todayStatus !== 'success' && !ST.ack.includes('cele:' + today)) { ST.ack.push('cele:' + today); persist(); setTimeout(() => celebrate('success'), 350); }
-  if (after.todayStatus === 'restored' && before.todayStatus !== 'restored' && !ST.ack.includes('rest:' + today)) { ST.ack.push('rest:' + today); persist(); setTimeout(() => celebrate('restored'), 350); }
+  if (((after.todayStatus === 'restored' && before.todayStatus !== 'restored') || (after.rescuedToday && !before.rescuedToday)) && !ST.ack.includes('rest:' + today)) { ST.ack.push('rest:' + today); persist(); setTimeout(() => celebrate('restored'), 350); }
 }
 
 
@@ -2766,7 +2786,7 @@ function tickFx() {
 const MSGS = ['أحسنتِ! شعلتك متوهجة اليوم.', 'يومٌ كامل بلا نقص. استمري على هذا الإيقاع.', 'أنجزتِ كل ما يحمي الاستمرارية اليوم. ما شاء الله.', 'خطوة بعد خطوة، والشعلة تكبر.'];
 function celebrate(kind) {
   const restored = kind === 'restored'; logAct(restored ? 'تمت استعادة الاستمرارية' : 'اكتمل يومك بنجاح');
-  const m = modal('<div class="cele"><div class="flamebox">' + flameSVG(restored ? 'small' : 'blaze') + '</div><h2>' + (restored ? 'رجعتي الاستمرارية حقك!' : 'اكتمل يومك!') + '</h2><p class="muted">' + (restored ? 'عادت الشعلة صغيرة، وعادت الاستمرارية التي كنتِ وصلتِ إليها (' + N(R.streak) + ' يومًا). كبّريها بإنجاز مهامك.' : MSGS[(Math.random() * MSGS.length) | 0] + ' الاستمرارية الآن ' + N(R.streak) + ' يومًا.') + '</p><button class="btn" data-close>تمام</button></div>', { sticky: false });
+  const m = modal('<div class="cele"><div class="flamebox">' + flameSVG(restored ? 'small' : 'blaze') + '</div><h2>' + (restored ? 'رجعتي الاستمرارية حقك!' : 'اكتمل يومك!') + '</h2><p class="muted">' + (restored ? 'عادت الشعلة صغيرة، وعادت الاستمرارية التي كنتِ وصلتِ إليها (' + N(R.streak) + ' يومًا). كبّريها بإنجاز مهامك. ويوم العودة لا يعفيك من مهامه، فأكملي مهام اليوم الرئيسية.' : MSGS[(Math.random() * MSGS.length) | 0] + ' الاستمرارية الآن ' + N(R.streak) + ' يومًا.') + '</p><button class="btn" data-close>تمام</button></div>', { sticky: false });
   burst(innerWidth / 2, innerHeight / 3, 120); burst(0, 0, 90, true);
 }
 
@@ -2785,7 +2805,7 @@ const PALS = [['green', 'أخضر (الأصلي)', '#2C6A49', '#6F8E3A', '#C7993
 function applyTheme() { { const p = (ST && ST.settings && ST.settings.palette) || 'green'; if (p === 'green') document.documentElement.removeAttribute('data-pal'); else document.documentElement.setAttribute('data-pal', p); }  const t = (ST && ST.settings && ST.settings.theme) || 'auto'; const r = document.documentElement; if (t === 'auto') r.removeAttribute('data-theme'); else r.setAttribute('data-theme', t); syncBar(); }
 function syncBar() { try { let m = document.querySelector('meta[name=theme-color]'); if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); } const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(); if (bg) m.setAttribute('content', bg); } catch (e) {} }
 try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => syncBar()); } catch (e) {}
-const SPANSEL = '.fbar,.achgrid,.wardrobe,.pgrid,.pfilters,.hgrid,.tabs,.pghead,.tipcard,.daynav,.note,.pbox,.balance,.summary,.flamenote,.supcard,.goalcard,.hopeintro,.bkcard,.compalert,.compstrip,.jhero,.gchips,.gsec2,.hcard,.jline,.full';
+const SPANSEL = '#pgridwrap,.psbox,.fbar,.achgrid,.wardrobe,.pgrid,.pfilters,.hgrid,.tabs,.pghead,.tipcard,.daynav,.note,.pbox,.balance,.summary,.flamenote,.supcard,.goalcard,.hopeintro,.bkcard,.compalert,.compstrip,.jhero,.gchips,.gsec2,.hcard,.jline,.full';
 /* الشاشات العريضة (الآيباد): نوزّع البطاقات على عمودين بالتوازن بدل صفوف تترك فراغًا تحت البطاقة الأقصر */
 function colify(parent, items) {
   items = items.filter((el) => el.offsetHeight > 0);
@@ -3211,6 +3231,28 @@ const QUOTES = [
   { id: 'w8', k: 'wisdom', t: 'ليست الأشياء هي ما يُقلق الناس، بل الأفكار التي يكوّنونها عنها', s: 'إبكتيتوس، «المختصر» ٥ (ترجمة بتصرف)' },
   { id: 'w9', k: 'wisdom', t: 'الأعمال العظيمة لا تُنجَز بالقوة، بل بالمثابرة', s: 'صامويل جونسون، «راسيلاس» (ترجمة بتصرف)' },
   { id: 'w6', k: 'wisdom', t: 'العقلُ يحوّل كل عائقٍ يعترض عمله إلى عونٍ له، وما يقف في الطريق يصير عونًا على السير', s: 'ماركوس أوريليوس، «التأملات» ٥:٢٠ (ترجمة بتصرف عن ترجمة جورج لونغ)' },
+  { id: 'w10', k: 'wisdom', t: 'الحياة التي لا تُفحَص لا تستحق أن تُعاش', s: 'سقراط، كما نقله أفلاطون في «الدفاع» ٣٨أ' },
+  { id: 'w11', k: 'wisdom', t: 'لديك سلطة على عقلك، وليس على الأحداث الخارجية. أدرك ذلك، وستجد القوة', s: 'تُنسب إلى ماركوس أوريليوس (فكرة رواقية، ولم أجدها بلفظها في «التأملات»)' },
+  { id: 'w12', k: 'wisdom', t: 'لا يهم مدى بطء سيرك، ما دمت لا تتوقف', s: 'تُنسب إلى كونفوشيوس' },
+  { id: 'w13', k: 'wisdom', t: 'كما أن اليوم الذي يُحسن قضاؤه يجلب نومًا هانئًا، فإن الحياة التي تُحسن قضاؤها تجلب موتًا هانئًا', s: 'ليوناردو دافنشي، من دفاتره (ترجمة بتصرف)' },
+  { id: 'w14', k: 'wisdom', t: 'إما أن تكتب شيئًا يستحق القراءة، أو تفعل شيئًا يستحق الكتابة عنه', s: 'بنجامين فرانكلين، «تقويم ريتشارد الفقير» ١٧٣٨ (ترجمة بتصرف)' },
+  { id: 'w15', k: 'wisdom', t: 'يبدو الأمر مستحيلًا دائمًا حتى يتم إنجازه', s: 'تُنسب إلى نيلسون مانديلا' },
+  { id: 'w16', k: 'wisdom', t: 'آمن أنك تستطيع، وستكون قد قطعت نصف الطريق', s: 'تُنسب إلى ثيودور روزفلت' },
+  { id: 'w17', k: 'wisdom', t: 'نحن ما نفعله باستمرار؛ فالتميّز إذن ليس فعلًا، بل عادة', s: 'تُنسب إلى أرسطو (وهي من تلخيص ويل ديورانت لفكره)' },
+  { id: 'w18', k: 'wisdom', t: 'لا شيء أقوى من فكرة حان وقتها', s: 'تُنسب إلى فيكتور هوغو (ترجمة بتصرف)' },
+  { id: 'w19', k: 'wisdom', t: 'الحياة ليست أن تجد نفسك، بل أن تصنع نفسك', s: 'تُنسب إلى جورج برنارد شو' },
+  { id: 'd1', k: 'hadith', tp: 'عن صلاح القلب والإخلاص', t: 'إن الله لا ينظر إلى صوركم وأموالكم، ولكن ينظر إلى قلوبكم وأعمالكم', s: 'قال رسول الله ﷺ، صحيح مسلم (٢٥٦٤)، وهو في صحيح الترغيب', l: DORAR + 'h/nva12onJ' },
+  { id: 'd2', k: 'hadith', tp: 'عن الكبر والتواضع', t: 'لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر', s: 'قال رسول الله ﷺ، صحيح مسلم (٩١)', l: DORAR + 'h/AT9RQqKI' },
+  { id: 'd3', k: 'hadith', tp: 'عن محاسبة النفس والوقت', t: 'لا تزول قدما عبد يوم القيامة حتى يُسأل عن عمره فيما أفناه، وعن علمه فيم فعل، وعن ماله من أين اكتسبه وفيم أنفقه، وعن جسمه فيم أبلاه', s: 'قال رسول الله ﷺ، رواه الترمذي (٢٤١٧)، وصححه الألباني، وهو في صحيح الترمذي', l: DORAR + 'h/kO9nQbeC' },
+  { id: 'd4', k: 'hadith', tp: 'عن عدم الاستهانة بالذنوب', t: 'إياكم ومُحقَّرات الذنوب، فإنما مَثَلُ مُحقَّرات الذنوب كقوم نزلوا بطن وادٍ، فجاء ذا بعود، وجاء ذا بعود، حتى حملوا ما أنضجوا به خبزهم، وإن مُحقَّرات الذنوب متى يُؤخذ بها صاحبها تُهلكه', s: 'قال رسول الله ﷺ، رواه أحمد، وله شواهد، وحسنه أهل العلم', l: DORAR + 'h/bJowGID9' },
+  { id: 'd5', k: 'hadith', tp: 'عن الانشغال بإصلاح النفس', t: 'من حسن إسلام المرء تركه ما لا يعنيه', s: 'قال رسول الله ﷺ، صحيح الترمذي (٢٣١٧)', l: DORAR + 'h/h7K2Bn20' },
+  { id: 'd6', k: 'hadith', tp: 'عن الرحمة بالآخرين', t: 'الراحمون يرحمهم الرحمن، ارحموا من في الأرض يرحمكم من في السماء', s: 'قال رسول الله ﷺ، رواه أبو داود والترمذي، وصححه الترمذي', l: DORAR + 'h/QX8ewgvk' },
+  { id: 'd7', k: 'hadith', tp: 'عن الإحسان في كل شيء', t: 'إن الله كتب الإحسان على كل شيء', s: 'قال رسول الله ﷺ، صحيح مسلم (١٩٥٥)', l: DORAR + 'h/zJB1WCUU' },
+  { id: 'd8', k: 'hadith', tp: 'عن ضبط الغضب', t: 'ليس الشديد بالصُّرَعة، إنما الشديد الذي يملك نفسه عند الغضب', s: 'قال رسول الله ﷺ، صحيح البخاري (٦١١٤)، وصحيح مسلم (٢٦٠٩)', l: DORAR + 'h/FKzk4Uek' },
+  { id: 'd9', k: 'hadith', tp: 'عن الرفق في التعامل', t: 'إن الرفق لا يكون في شيء إلا زانه، ولا يُنزع من شيء إلا شانه', s: 'قال رسول الله ﷺ، صحيح مسلم (٢٥٩٤)', l: DORAR + 'h/W80TDdnk' },
+  { id: 'd10', k: 'hadith', tp: 'عن عظمة ستر الله ورحمته', t: 'كل أمتي معافى إلا المجاهرين', s: 'قال رسول الله ﷺ، صحيح البخاري (٦٠٦٩)، وصحيح مسلم (٢٩٩٠)', l: DORAR + 'hadith/search?q=%D9%83%D9%84%20%D8%A3%D9%85%D8%AA%D9%8A%20%D9%85%D8%B9%D8%A7%D9%81%D9%89%20%D8%A5%D9%84%D8%A7%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%87%D8%B1%D9%8A%D9%86' },
+  { id: 'd11', k: 'hadith', tp: 'عن عدم احتقار المعروف', t: 'لا تحقرن من المعروف شيئًا، ولو أن تلقى أخاك بوجه طلق', s: 'قال رسول الله ﷺ، صحيح مسلم (٢٦٢٦)', l: DORAR + 'hadith/search?q=%D9%84%D8%A7%20%D8%AA%D8%AD%D9%82%D8%B1%D9%86%20%D9%85%D9%86%20%D8%A7%D9%84%D9%85%D8%B9%D8%B1%D9%88%D9%81%20%D8%B4%D9%8A%D8%A6%D8%A7%20%D9%88%D9%84%D9%88%20%D8%A3%D9%86%20%D8%AA%D9%84%D9%82%D9%89%20%D8%A3%D8%AE%D8%A7%D9%83%20%D8%A8%D9%88%D8%AC%D9%87%20%D8%B7%D9%84%D9%82' },
+  { id: 'd12', k: 'hadith', tp: 'عن التوبة والرجوع إلى الله', t: 'لَلَّهُ أشد فرحًا بتوبة عبده حين يتوب إليه، من أحدكم كان على راحلته بأرض فلاة…', s: 'قال رسول الله ﷺ، صحيح البخاري (٦٣٠٩)، وصحيح مسلم (٢٧٤٧)', l: DORAR + 'hadith/sharh/6619' },
 ];
 const QTABS = [['all', 'الكل'], ['rel', 'أحاديث وآيات'], ['wisdom', 'حكم وأقوال'], ['mine', 'عباراتي']];
 let QTAB = 'all';
@@ -3222,8 +3264,9 @@ function quoteOfDay() {
 }
 function quoteHTML(q, short) {
   const body = q.k === 'ayah' ? '<p class="qt qa">﴿ ' + esc(q.t) + ' ﴾</p>' : q.k === 'hadith' ? '<p class="qt">«' + esc(q.t) + '»</p>' : '<p class="qt">' + esc(q.t) + '</p>';
+  const tpl = q.tp && !short ? '<div class="qtp">' + esc(q.tp) + '</div>' : '';
   const src = (q.s ? esc(q.s) : '') + (q.l && !short ? ' · <a href="' + q.l + '" target="_blank" rel="noopener">التحقق في الدرر السنية</a>' : '');
-  return body + (src ? '<div class="qs">' + src + '</div>' : '');
+  return tpl + body + (src ? '<div class="qs">' + src + '</div>' : '');
 }
 function quoteDayCard() {
   const Q = quotesEnsure(); if (Q.hide === TODAY()) return '';
@@ -3581,7 +3624,7 @@ function viewStreak() {
   const quietList = ST.quiet.filter((d) => d >= today).slice(0, 6);
   const al = E.allowance(ST, today, 0);
   const kind = R.flameKind;
-  return (() => { const FLd = FL[flameLevel(R.streak)]; return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '">' + (kind === 'out' || kind === 'frozen' ? '' : '<span class="flbd" style="color:' + FLd.b + ';border-color:' + FLd.b + '">' + FLd.t + '</span>') + '<div class="big">' + flameSVG(kind === 'frozen' ? 'iced' : kind) + '</div>' + (kind === 'out' || kind === 'frozen' ? '' : '<div class="flname">' + FLd.n + '</div><div class="small muted">' + FLd.c + '</div>') + '<div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
+  return (() => { const FLd = FL[flameLevel(R.streak)]; return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '">' + (kind === 'out' || kind === 'frozen' ? '' : '<button class="flbd" data-act="flLevels" aria-label="كل مستويات الشعلة" style="color:' + FLd.b + ';border-color:' + FLd.b + '">' + FLd.t + '</button>') + '<div class="big">' + flameSVG(kind === 'frozen' ? 'iced' : kind) + '</div>' + (kind === 'out' || kind === 'frozen' ? '' : '<div class="flname">' + FLd.n + '</div><div class="small muted">' + FLd.c + '</div><button class="flmore" data-act="flLevels">كل مستويات الشعلة ‹</button>') + '<div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
     '<div class="row small muted" style="gap:14px;flex-wrap:wrap;justify-content:center"><span>أفضل استمرارية: <b class="num">' + N(R.bestStreak) + '</b></span><span>التجميدات: <b class="num">' + N(R.freezes) + '</b></span><span>تجميدة جديدة عند: <b class="num">' + N(R.nextFreezeAt) + '</b> أيام</span></div></div>'; })() +
     viewCal() + weekReviewCard() + '<div class="card stack"><h3>هذا الأسبوع</h3><div class="week">' + weekHtml + '</div><div class="small muted">الأيام المثالية: ما اكتملت فيها كل المهام الرئيسية والإضافية.</div></div>' +
     '<div class="card charts stack"><h3>الأسبوع الحالي مقابل الماضي</h3>' + barChart(wg, ['var(--green)', 'var(--leaf)']) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الأسبوع (' + N(weekTicks) + ')</span><span><i style="background:var(--leaf)"></i>الأسبوع الماضي (' + N(prevTicks) + ')</span></div></div>' +
@@ -3708,16 +3751,30 @@ function shopDetail(s) {
 function viewPlantShop() {
   const owned = new Set(R.plants.map((p) => p.sp));
   let h = '<div class="note">كل نبتة تُشترى مرة واحدة وتنمو من أيام النجاح (٣٠ يومًا لمعظمها، وأكثر للنبتات الأغلى)، وتحتاج مكانًا في أحد بيوتك الزجاجية (متاح الآن: ' + N(R.houseFree) + '). اضغطي على أي نبتة لرؤية تفاصيلها.</div>';
-  h += '<div class="fbar"><button class="fbtn" data-act="popen" aria-expanded="' + POPEN + '"><span class="small muted">تصفية بالمستوى</span><b>' + (PFILTER < 0 ? 'الكل' : E.TIERS[PFILTER]) + '</b></button></div>';
+  h += '<div class="fbar"><button class="fbtn" data-act="popen" aria-expanded="' + POPEN + '"><span class="small muted">تصفية بالمستوى</span><b>' + (PFILTER < 0 ? 'الكل' : E.TIERS[PFILTER]) + '</b></button><button class="fsrch" data-act="psrch" aria-label="بحث عن نبتة" aria-expanded="' + PSEARCH + '">' + ico('search') + '</button></div>';
+  if (PSEARCH) h += '<div class="psbox"><input id="pq" type="search" placeholder="اكتبي اسم النبتة" value="' + esc(PQ) + '" autocomplete="off" enterkeyhint="search"><button class="edit" data-act="psrch" aria-label="إزالة البحث">' + ico('x') + '</button></div>';
   if (POPEN) h += '<div class="pfilters fpanel">' + [[-1, 'الكل']].concat(E.TIERS.map((n, i) => [i, n])).map((f) => '<button data-act="pfilter" data-r="' + f[0] + '" aria-pressed="' + (PFILTER === f[0]) + '">' + f[1] + '</button>').join('') + '</div>';
-  const list = shopItems().filter((s) => PFILTER < 0 || s.rar === PFILTER);
-  h += '<div class="pgrid">' + list.map((s) => {
+  h += '<div id="pgridwrap">' + plantGridHTML() + '</div>';
+  return h;
+}
+const arNorm = (t) => String(t || '').replace(/[\u064B-\u065F\u0670\u0640]/g, '').replace(/[أإآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/ـ/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+function plantGridHTML() {
+  const owned = new Set(R.plants.map((p) => p.sp));
+  const list = shopItems().filter((s) => (PFILTER < 0 || s.rar === PFILTER) && (!PQ || arNorm(s.name).includes(arNorm(PQ))));
+  if (!list.length) return '<div class="note" style="text-align:center">لا توجد نبتة بهذا الاسم.</div>';
+  return '<div class="pgrid">' + list.map((s) => {
     const has = s.gift ? R.plants.some((p) => p.gift && p.sp === s.art) : owned.has(s.id); const can = !s.gift && R.balance >= s.price && shopFit(s);
     return '<div class="ptile" style="cursor:default"><div data-act="shopInfo" data-sp="' + s.id + '" style="cursor:pointer" role="button" tabindex="0"><div class="art">' + PlantArt.plantSVG(s.art || s.id, { stage: 4, level: s.rar, leaves: 8 + s.rar * 2, fallen: 0, g: 1 }) + '</div><h4>' + esc(s.name) + '</h4></div><span class="pill rarbtn ' + RAR_PILL[s.rar] + '" data-act="rarInfo" data-k="plant" data-r="' + s.rar + '" role="button" tabindex="0">' + E.TIERS[s.rar] + '</span>' +
       (s.gift ? '<div class="small muted" style="margin:6px 0">يمكن الحصول عليهم عن طريق الإنجازات/الأوسمة فقط</div>' + (has ? '<span class="pill ok">حصلتِ عليها</span>' : '') :
         '<div style="margin:6px 0">' + money(s.price) + '</div>' + (has ? '<span class="pill ok">في غرفتك</span>' : '<button class="btn" data-act="buyPlant" data-sp="' + s.id + '" ' + (can ? '' : 'disabled') + '>شراء</button>' + (R.balance < s.price ? '<div class="small muted">ينقصك ' + N(s.price - R.balance) + '</div>' : !shopFit(s) ? '<div class="small muted">' + (s.tree ? 'لا بيت متاح لشجرة جديدة' : 'لا مكان: بيوتك ممتلئة') + '</div>' : ''))) + '</div>';
   }).join('') + '</div>';
-  return h;
+}
+document.addEventListener('input', (e) => { if (e.target && e.target.id === 'pq') { PQ = e.target.value; const w = document.getElementById('pgridwrap'); if (w) w.innerHTML = plantGridHTML(); } });
+function flameLevelsModal() {
+  const cur = flameLevel(R.streak);
+  const rows = FL.map((L, i) => { const d = FL_DAYS[i]; const st = i === cur ? '<span class="pill ok">مستواك الآن</span>' : R.streak >= d ? '<span class="pill">وصلتِ إليه</span>' : '<span class="small muted">بعد ' + N(d - R.streak) + ' يومًا</span>';
+    return '<div class="flrow' + (i === cur ? ' cur' : '') + '"><div class="fa0">' + flameSVG('lit3', i) + '</div><div class="stack" style="gap:2px;min-width:0;flex:1"><b>' + L.n + '</b><span class="small muted">' + L.c + '</span><span class="small"><span class="flbd" style="position:static;display:inline-block;color:' + L.b + ';border-color:' + L.b + '">' + L.t + '</span> · ' + (d ? 'من اليوم ' + N(d) : 'من أول يوم') + '</span></div><div>' + st + '</div></div>'; }).join('');
+  modal('<h2 style="margin:0 0 4px">مستويات الشعلة</h2><p class="muted small" style="margin:0 0 8px">تتغير شعلتك ولونها مع طول استمراريتك: ٣ أشهر للأولى، ثم ٤ ثم ٥ وهكذا. استمراريتك الآن ' + N(R.streak) + ' يومًا.</p><div class="still fllist">' + rows + '</div><div class="actions"><button class="btn" data-close>تمام</button></div>', {});
 }
 function closeModals() { document.querySelectorAll('.scrim').forEach((x) => x.remove()); }
 function checkPlantDone() {
@@ -4313,6 +4370,7 @@ const PlantArt = (function () {
     rot = rot || 0; let s = '';
     const f = c.f, f2 = c.g || shade(c.f, .8), k = c.k || '#F2C84B';
     switch (kind) {
+      case 'sun': { const n = c.n || 16; for (let i = 0; i < n; i++) s += g(`rotate(${i * 360 / n})`, sh(petalD(r, r * .2), i % 2 ? (c.g || f) : f, 1.3)); s += circ(0, 0, r * .52, k, 1.8); for (let i = 0; i < 9; i++) s += circ((Math.cos(i * 2.4) * r * .26).toFixed(1), (Math.sin(i * 2.4) * r * .26).toFixed(1), r * .05, '#8A5A2A', 0); break; }
       case 'daisy': { const n = c.n || 12; for (let i = 0; i < n; i++) s += g(`rotate(${i * 360 / n})`, sh(petalD(r, r * .22), f, 1.4)); s += circ(0, 0, r * .3, k, 1.6); break; }
       case 'pom': { for (let ring = 0; ring < 3; ring++) { const n = 9 - ring, rr = r * (1 - ring * .27); for (let i = 0; i < n; i++) s += g(`rotate(${i * 360 / n + ring * 20})`, sh(petalD(rr, rr * .36), ring % 2 ? f2 : f, 1.3)); } s += circ(0, 0, r * .16, k, 1.2); break; }
       case 'five': { const n = c.n || 5; for (let i = 0; i < n; i++) s += g(`rotate(${i * 360 / n})`, sh(petalD(r, r * .5), f, 1.5)); s += circ(0, 0, r * .26, k, 1.4); if (c.eye) s += circ(0, 0, r * .12, c.eye, 0); break; }
@@ -4589,6 +4647,19 @@ const PlantArt = (function () {
     pts.forEach((pt) => { s += leaf(pt[0], pt[1], p.size || 15, pt[2], c.a, { shape: p.shape || 'oval', v: c.v, sw: 1.6 }); });
     const nb = fl >= 2 ? N(q.n / 2 + 3, 3, 10) : 0;
     for (let i = 0; i < nb; i++) { const pt = pts[(i * 7 + 2) % pts.length]; if (p.kind === 'cluster') { for (let k = 0; k < 7; k++) s += bloom('dot', pt[0] + Math.cos(k * 1.1) * 6, pt[1] - 4 + Math.sin(k * 1.1) * 5, 3, { f: k % 2 ? c.f : c.g || c.f }); } else if (p.kind === 'bract') { for (let k = 0; k < 3; k++) s += g(`translate(${pt[0] + (k - 1) * 7} ${pt[1] - 4 + (k % 2) * 3}) rotate(${(k - 1) * 22})`, sh('M0 0C-8 -4 -8 -14 0 -16C8 -14 8 -4 0 0Z', c.f, 1.3)); } else s += bloom(p.kind || 'hibiscus', pt[0], pt[1] - 4, p.r || 8, c, i * 20); }
+    return s;
+  };
+  A.lavender = (q) => {
+    const { c, fl } = q; let s = ''; const rn = rng(q.n + 5);
+    const nl = N(q.n / 2 + 5, 5, 12);
+    for (let i = 0; i < nl; i++) { const a = ((i / (nl - 1 || 1)) * 2 - 1) * 58; s += leaf(Math.sin(a * Math.PI / 180) * 3, 0, 26, a, c.a, { shape: 'long', sw: 1.5 }); }
+    const cnt = N(q.n / 2 + 2, 2, 7);
+    for (let i = 0; i < cnt; i++) {
+      const x = (i - (cnt - 1) / 2) * 15 + (rn() - .5) * 4; const h = 58 + (i % 2) * 10 + rn() * 8 + q.n * .6;
+      s += stem(`M${x * .2} -4C${x * .3} ${-h * .4} ${x + 3} ${-h * .7} ${x} ${-h}`, c.t || '#6E9A55', 2.2);
+      if (fl >= 2) { for (let k = 0; k < 9; k++) s += ell(x + (k % 2 ? -2.5 : 2.5), -h + k * 5, 3.5 - k * .08, 4.6, k % 3 ? c.f : c.g, 0, 1.2); s += ell(x, -h - 4, 2.6, 4, c.f, 0, 1.2); }
+      else if (fl === 1) { for (let k = 0; k < 4; k++) s += circ(x + (k % 2 ? -1.5 : 1.5), -h + k * 5, 2.4, shade(c.a, 1.15), 1.1); }
+    }
     return s;
   };
   A.mat = (q) => {
@@ -5057,6 +5128,11 @@ const PlantArt = (function () {
   add('bush', { a: '#2F8A4A', f: '#FFFFFF', k: '#FFD34E' }, { kind: 'star', r: 12, size: 16, seed: 31 }, 'sparkle');                  // نجمة النور المطلقة
   add('orchid', { a: '#3F8F5F', f: '#FFF6D8', g: '#F6D870', k: '#E8A82A' }, { kind: 'phal', r: 15 }, 'dragon');                        // أوركيد الأبد المتألقة
 
+  // أزهار جديدة (م ١١٧ إلى ١١٩): الخزامى، دوار الشمس، التوليب
+  add('lavender', { a: '#6F9A68', f: '#8A5FD0', g: '#B79AE8', t: '#6E9A55' }, {});                                                      // زهرة الخزامى
+  add('stems', { a: '#4F9A45', f: '#F6C21A', g: '#E8A410', k: '#5A3418', n: 16, t: '#4F8A3A' }, { kind: 'sun', r: 17, leafShape: 'oval', leafSize: 22 });   // زهرة دوار الشمس
+  add('stems', { a: '#4F9A4A', f: '#E8404E', g: '#B01E34', t: '#5E9A45' }, { kind: 'tulip', r: 13, leafShape: 'long', leafSize: 30 });     // زهرة التوليب
+
   /* ---------- المؤثرات الفخمة (للنباتات الخيالية وللمستويات العالية) ---------- */
   const sparkles = (pts, col) => pts.map((p, i) => `<path class="twk" style="animation-delay:${(i * .37).toFixed(2)}s" d="M${p[0]} ${p[1] - p[2]}L${p[0] + p[2] * .3} ${p[1] - p[2] * .3}L${p[0] + p[2]} ${p[1]}L${p[0] + p[2] * .3} ${p[1] + p[2] * .3}L${p[0]} ${p[1] + p[2]}L${p[0] - p[2] * .3} ${p[1] + p[2] * .3}L${p[0] - p[2]} ${p[1]}L${p[0] - p[2] * .3} ${p[1] - p[2] * .3}Z" fill="${col}"/>`).join('');
   const SPK = [[40, 70, 6], [160, 56, 7], [24, 130, 5], [176, 124, 6], [100, 30, 5], [60, 40, 4], [140, 88, 4]];
@@ -5472,7 +5548,7 @@ async function cloudAuth(mode, email, pw) {
 }
 function applyCloudState(d) {
   safetyCopy();
-  ST = E.migrate(d); if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY(); E.settleBalance(ST, TODAY());
+  ST = E.migrate(d); if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.rescueFrom === undefined) ST.settings.rescueFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY(); E.settleBalance(ST, TODAY());
   applyTheme(); recompute(); Store.save(ST); CS.lastHash = stHash(); cloudSave(); VIEWDAY = null; render();
 }
 function safetyCopy() { try { localStorage.setItem('istimrar-prebak', JSON.stringify({ at: new Date().toISOString(), st: ST })); } catch (x) { /* اختياري */ } }
@@ -5797,7 +5873,9 @@ document.addEventListener('click', async (e) => {
     case 'movePlant': { const pid = a.dataset.pid; const probe = E.clone(ST); const rr = E.movePlant(probe, pid, a.dataset.h, today); if (!rr.ok) { err(rr.error); return; } closeModals(); act((x) => { E.movePlant(x, pid, a.dataset.h, today); }, { noPts: true }); toast({ text: 'نُقلت النبتة.', amount: 0 }); return; }
     case 'atab': ATAB = +a.dataset.t; AOPEN = ''; if (ARAR >= 0 && !R.ach.some((x) => (ATAB < 0 || x.tab === ATAB) && x.rar === ARAR)) ARAR = -1; return render();
     case 'aopen': AOPEN = AOPEN === a.dataset.w ? '' : a.dataset.w; return render();
+    case 'flLevels': return flameLevelsModal();
     case 'popen': POPEN = !POPEN; return render();
+    case 'psrch': PSEARCH = !PSEARCH; if (!PSEARCH) PQ = ''; render(); if (PSEARCH) { const q = document.getElementById('pq'); if (q) q.focus(); } return;
     case 'afilt': AFILT = a.dataset.f; return render();
     case 'arar': ARAR = +a.dataset.r; AOPEN = ''; return render();
     case 'shopInfo': { const s = shopItems().find((x) => x.id === a.dataset.sp); if (s) modal(shopDetail(s), { noFocus: true }); return; }
@@ -6017,7 +6095,7 @@ async function importText(txt) {
   if (!E.validate(obj)) return err('الملف لا يبدو نسخة احتياطية من «استمرّ»');
   const ok = await confirmDlg({ title: 'استبدال البيانات الحالية؟', body: '<p>ستحل هذه النسخة محل كل بياناتك الحالية (' + N(obj.tasks.length) + ' مهمة، ' + N(obj.completions.length) + ' إنجازًا).</p>', ok: 'استيراد', danger: true });
   if (!ok) return;
-  ST = E.migrate(obj); if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY(); recompute(); await Store.save(ST); VIEW = 'tasks'; VIEWDAY = null; render(); toast({ text: 'تم الاستيراد بنجاح', amount: 0 }); return true;
+  ST = E.migrate(obj); if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.rescueFrom === undefined) ST.settings.rescueFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY(); recompute(); await Store.save(ST); VIEW = 'tasks'; VIEWDAY = null; render(); toast({ text: 'تم الاستيراد بنجاح', amount: 0 }); return true;
 }
 
 /* ---------- إشعارات بدء اليوم ---------- */
@@ -6079,7 +6157,7 @@ async function boot() {
   let st = null; try { st = await Store.load(); } catch (x) { st = null; }
   document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
   ST = st && E.validate(st) ? E.migrate(st) : E.newState(TODAY()); try { if (E.settleBalance(ST, TODAY())) Store.save(ST); } catch (x) {}
-  if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY();
+  if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.rescueFrom === undefined) ST.settings.rescueFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY();
   applyTheme(); try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (x) { /* اختياري */ }
   detectSar(); setTimeout(detectSar, 800); setTimeout(detectSar, 2500); if (document.fonts && document.fonts.ready) document.fonts.ready.then(detectSar);
   if (TODAY() < ST.startDate) ST.startDate = TODAY();
