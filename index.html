@@ -781,6 +781,13 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
 #tour .tcancel{flex-basis:100%}
 @media(prefers-reduced-motion:reduce){#tour .tring,#tour .thand{animation:none}}
 .cloudcard .inp{background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;width:100%;font:inherit;color:var(--ink)}
+
+#welcome{position:fixed;inset:0;z-index:2000;background:var(--bg);color:var(--ink);overflow:auto;display:flex;flex-direction:column;padding:max(24px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom))}
+.wl-in{margin:auto;width:100%;max-width:440px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.wl-logo{font-size:46px;font-weight:700;color:var(--green);line-height:1.2}.wl-sub{color:var(--ink2)}
+.wl-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wl-card{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:10px 8px 14px;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;align-items:center;gap:6px}
+.wl-card svg{height:170px;width:auto;max-width:100%}.wl-card b{font-size:18px}.wl-prev{height:220px;display:flex;justify-content:center}.wl-prev svg{height:100%;width:auto}
+.wl-msg{color:var(--ink2);font-size:14px;min-height:20px}
 </style>
 
 <div id="frost"></div><div id="dim"></div>
@@ -805,7 +812,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   'use strict';
 
   const C = {
-    START_COINS: 20,
+    START_COINS: 100,
     WEEK_GOAL: 5, WEEK_GOAL_REWARD: 5, SURPRISE_MIN: 1, SURPRISE_SPAN: 5, SURPRISE_ONE_IN: 4, LOAN_RATE: 0.6, LOAN_MIN: 10, LOAN_MAX: 100, LOAN_EXEMPT: 1, ECON_FROM: '2026-10-18',
     REWARD_MIN: 0.5, REWARD_MAX: 1,
     GOAL_REWARD: { xs: 2, s: 5, m: 15, l: 40, xl: 100 },
@@ -1045,12 +1052,13 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       v: 1, startDate: today, nextId: 1,
       tasks: [], goals: [], completions: [], quiet: [], purchases: [], leastUses: [], loans: [],
       compDone: [], editLog: [], ack: [], ops: [], alloc: [], equip: 'starter',
-      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, rescueFrom: today, traitsFrom: today, econVer: 2, econFrom: today },
+      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, rescueFrom: today, traitsFrom: today, econVer: 2, econFrom: today, onboarded: false },
       place: {},
     };
   }
   // ترقية الحالات القديمة (المرحلة الأولى) دون فقدان شيء
   function migrate(st) {
+    if (st.settings && st.settings.onboarded === undefined) st.settings.onboarded = true; // من عنده بيانات سابقة لا يرى صفحة البداية
     if (!Array.isArray(st.alloc)) st.alloc = [];
     if (!Array.isArray(st.ops)) st.ops = [];
     if (!Array.isArray(st.placeLog)) st.placeLog = [];
@@ -2518,7 +2526,7 @@ const GUIDE = [
     ['هل للاستعادة حد؟', '<p>نعم، ٣ استعادات في الشهر افتراضيًا، ويمكنك تغيير الحد من الإعدادات.</p>'],
   ] },
   { id: 'coins', ic: 'store', t: 'العملات والسوق', intro: 'العملات ⃁ مكافأتك على جهدك. تنفقينها فيما يسعدك ويحفزك.', items: [
-    ['من أين تأتي العملات؟', '<ul><li>إنجاز المهام (انظري قسم المهام).</li><li>رفع المستوى الكلي لشخصيتك: ٠٫٥ ⃁ لكل مستوى في النطاق العادي، و١ في النادر، ثم تزيد ١ ⃁ مع كل نطاق أعلى (ملحمي ٢ ثم أسطوري ٣ ثم خرافي ٤ ثم مهيمن ٥ ثم متسامٍ ٦ ثم مطلق ٧).</li><li>فتح الإنجازات.</li><li>الحصول على نبتة وإكمال نموها.</li><li><b>هدايا مفاجئة:</b> في بعض الأيام التي تكملين فيها مهامك الرئيسية تأتيك هدية من ١ إلى ٥ ⃁ دون إنذار.</li><li>الهدف الأسبوعي (٥ ⃁).</li></ul><p><b>المستوى يرفع مكافآت المهام:</b> كل مستوى لشخصيتك يزيدها ١٠٪ (حتى +١٠٠٪ عند المستوى ١١، ثم تتباطأ الزيادة حتى +٢٠٠٪).</p><p><b>البيوت الزجاجية:</b> كل نبتة يكتمل نموها داخل بيت تزيد مكافأتها ١٠ ⃁ في البيوت العادية، وتزيد أكثر كلما ندر البيت (١٥ ثم ٢٥ ثم ٤٠ ثم ٦٠). وإذا وضعتِ داخل البيت نبتة عالية المستوى (ملحمي فأعلى) تتباركين بنسبة إضافية على مكافأة أي نبتة تكتمل فيه: ملحمي ١٠٪ ثم ٢٠٪ ثم ٤٠٪ ثم ٧٠٪ ثم ١٠٠٪ ثم ١٥٠٪. البركة تعمل ما دامت النبتة العالية داخل البيت، فإن نقلتِها تذهب.</p><p>تبدئين برصيد ٢٠ ⃁ هدية ترحيب.</p>'],
+    ['من أين تأتي العملات؟', '<ul><li>إنجاز المهام (انظري قسم المهام).</li><li>رفع المستوى الكلي لشخصيتك: ٠٫٥ ⃁ لكل مستوى في النطاق العادي، و١ في النادر، ثم تزيد ١ ⃁ مع كل نطاق أعلى (ملحمي ٢ ثم أسطوري ٣ ثم خرافي ٤ ثم مهيمن ٥ ثم متسامٍ ٦ ثم مطلق ٧).</li><li>فتح الإنجازات.</li><li>الحصول على نبتة وإكمال نموها.</li><li><b>هدايا مفاجئة:</b> في بعض الأيام التي تكملين فيها مهامك الرئيسية تأتيك هدية من ١ إلى ٥ ⃁ دون إنذار.</li><li>الهدف الأسبوعي (٥ ⃁).</li></ul><p><b>المستوى يرفع مكافآت المهام:</b> كل مستوى لشخصيتك يزيدها ١٠٪ (حتى +١٠٠٪ عند المستوى ١١، ثم تتباطأ الزيادة حتى +٢٠٠٪).</p><p><b>البيوت الزجاجية:</b> كل نبتة يكتمل نموها داخل بيت تزيد مكافأتها ١٠ ⃁ في البيوت العادية، وتزيد أكثر كلما ندر البيت (١٥ ثم ٢٥ ثم ٤٠ ثم ٦٠). وإذا وضعتِ داخل البيت نبتة عالية المستوى (ملحمي فأعلى) تتباركين بنسبة إضافية على مكافأة أي نبتة تكتمل فيه: ملحمي ١٠٪ ثم ٢٠٪ ثم ٤٠٪ ثم ٧٠٪ ثم ١٠٠٪ ثم ١٥٠٪. البركة تعمل ما دامت النبتة العالية داخل البيت، فإن نقلتِها تذهب.</p><p>تبدئين برصيد ١٠٠ ⃁ هدية ترحيب.</p>'],
     ['ماذا أجد في السوق؟', '<p>ثلاثة أقسام: <b>العناصر</b> (تجميدة الشعلة، بطاقة زيادة المكافأة، بطاقة أقل ما يمكن، السلفة)، و<b>الملابس</b> لشخصيتك، و<b>النباتات والبيوت</b> (من صفحة البيت الزجاجي).</p>'],
     ['بطاقة زيادة المكافأة', '<p>بـ٢٠ ⃁ تُفعَّل لليوم نفسه: كل مهمة تنفذينها فيه تزيد مكافأتها نصف ⃁.</p>'],
     ['بطاقة أقل ما يمكن', '<p>بـ٢٠ ⃁، تتيح لك في يوم متعب أن تنفذي <b>الجزء الأقل فقط</b> من مهامك (حتى ٤٠٪ من القائمة) ويُحسب اليوم ناجحًا. تُحفظ في صفحة الاستمرارية ولا تُستعمل إلا عندما تختارين.</p>'],
@@ -2534,7 +2542,7 @@ const GUIDE = [
   ] },
   { id: 'outfits', ic: 'person', t: 'الأزياء', intro: 'ألبسي شخصيتك ما يعجبك.', items: [
     ['كيف أشتري زيًّا؟', '<p>من <b>متجر الملابس</b> (زر في صفحة الشخصية). لكل زي سعر، وبعد الشراء يدخل <b>خزانة الملابس</b> وتبدّلين بينها بضغطة «ارتداء». الزي الأساسي مجاني.</p>'],
-    ['مظهري: بنت أو ولد', '<p>من صفحة الشخصية اضغطي <b>«مظهري»</b> واختاري: الجنس (بنت أو ولد)، والشعر (للبنت: الطويل المموّج أو القصير المنفوش، وللولد: المتموّج بغرة أو الممشّط للخلف)، ولون البشرة من أربعة ألوان. وللولد لحية (بدون، خفيفة، طويلة) وشنب (بدون، خفيف، متوسط). تظهر المعاينة فورًا ولا يُحفظ شيء إلا بزر «حفظ». يطبَّق المظهر على الشخصية في كل مكان: الواجهة والخزانة والمتجر والاحتفالات.</p>'],
+    ['مظهري: بنت أو ولد', '<p>من صفحة الشخصية اضغطي <b>«مظهري»</b> واختاري: الجنس (بنت أو ولد)، والشعر (للبنت: الطويل المموّج أو القصير المنفوش، وللولد: المتموّج بغرة أو الممشّط للخلف)، ولون البشرة من أربعة ألوان. وللولد لحية (بدون، خفيفة، طويلة) وشنب (بدون، خفيف، متوسط). تظهر المعاينة فورًا ولا يُحفظ شيء إلا بزر «حفظ». يطبَّق المظهر على الشخصية في كل مكان: الواجهة والخزانة والمتجر والاحتفالات. وعند اختيار «ولد» يتحول خطاب التطبيق كله إلى صيغة المذكر (الأوامر والأسئلة والإنجازات والتذكيرات)، وعند الرجوع إلى «بنت» يعود كما كان.</p>'],
     ['أزياء الولد', '<p>عند اختيار «ولد» تتحول الأزياء إلى نظيراتها الرجالية بالسعر والفئة نفسها: ثوب وطاقية، ثوب رمادي، ثوب وشماغ أحمر، ثوب وسديري ذهبي، ثوب كحلي مزخرف، المحارب العربي القديم، وزيّ الحصان الأصيل، وغيرها. ما اشتريتِه يبقى لك مهما بدّلتِ المظهر، وتستطيعين الرجوع في أي وقت.</p>'],
     ['الأزياء الخرافية', '<p>هناك ثلاثة أزياء من الفئات العليا: «زيّ المحاربة المهيمنة»، و«زيّ القطة الخفيّة»، و«زيّ الفجر الأبدي». لها <b>حركات تفاعلية</b>: اضغطي على الشخصية أو انتظري قليلًا لتؤدي حركة وتقول جملة.</p>'],
   ] },
@@ -3861,7 +3869,7 @@ function viewSettings() {
   const log = R.ledger.slice(-40).reverse().map((e) => '<li class="small"><b class="num">' + (e.amount >= 0 ? '+' : '') + N(e.amount) + '</b> · ' + esc(e.reason) + ' <span class="muted">(' + dshort(e.date) + ')</span></li>').join('');
   const buys = ST.purchases.slice(-15).reverse().map((p) => '<li class="small">شراء ' + (p.kind === 'outfit' ? 'زي «' + ((E.OUTFITS.find((x) => x.id === p.item) || {}).name || '') + '»' : { freeze: 'تجميدة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن' }[p.kind]) + ' بـ ' + N(p.price) + ' · <span class="muted">' + dshort(p.date) + '</span></li>').join('');
   const edits = ST.editLog.slice(-15).reverse().map((e) => '<li class="small">تعديل ' + dshort(e.date) + ': ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
-  return '<div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><span class="sw"><i style="background:' + p[2] + '"></i><i style="background:' + p[3] + '"></i><i style="background:' + p[4] + '"></i></span>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
+  return '<div class="small muted" style="text-align:center">الإصدار ' + APP_VER + '</div><div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><span class="sw"><i style="background:' + p[2] + '"></i><i style="background:' + p[3] + '"></i><i style="background:' + p[4] + '"></i></span>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
 '<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
     (() => { const p = pushStatus(); return '<div class="card stack"><h3>الإشعارات خارج التطبيق</h3><p class="muted small">تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية.</p><div class="note" id="pushState">' + esc(p.t) + '</div><div class="actions">' + (p.k === 'on' ? '<button class="btn soft" data-act="pushSync">تحديث التذكيرات</button><button class="btn soft" data-act="pushTest">إشعار تجريبي</button><button class="btn ghost" data-act="pushOff">إيقاف</button>' : '<button class="btn" data-act="pushOn">تفعيل الإشعارات</button>') + '</div></div>'; })() +
     '<div class="card stack"><h3>الأسبوع</h3><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
@@ -4214,21 +4222,25 @@ const CharArt = (function () {
   W.gladius = (p) => shp('M-7 -128L0 -142L7 -128V-22H-7Z', '#F4F0E4', 3) + '<path d="M0 -132V-26" stroke="#E9C46A" stroke-width="2.4"/>' + shp('M-21 -22H21V-12H-21Z', '#E9C46A', 3) + shp('M-4.5 -12H4.5V30H-4.5Z', '#C0455A', 3) + '<circle cx="0" cy="34" r="6.5" fill="#E9C46A" stroke="' + OUT + '" stroke-width="2.6"/>';
   W.claw = (p) => shp('M-10 0C-14 -26 -8 -52 4 -66C4 -44 8 -22 10 0Z', '#F1F4F8', 2.6) + shp('M-2 0C-4 -30 4 -58 16 -74C14 -48 14 -24 14 0Z', '#F1F4F8', 2.6) + shp('M4 0C6 -26 16 -48 28 -58C22 -38 20 -18 20 0Z', '#F1F4F8', 2.6);
   W.aurora = (p) => shp('M-3.5 -90H3.5V74H-3.5Z', '#F6EAF4', 3) + '<path d="M-3.5 -30C-18 -40 -22 -58 -12 -70M3.5 -10C20 -22 24 -42 14 -54" stroke="#F5B5C8" stroke-width="3" fill="none"/>' + shp('M0 -148L9 -118L40 -116L16 -98L24 -68L0 -86L-24 -68L-16 -98L-40 -116L-9 -118Z', '#FFE9F6', 3) + '<circle cx="0" cy="-106" r="9" fill="#C9F2E2" stroke="' + OUT + '" stroke-width="2.4"/>' + star(30, -140, 6, '#FFE9F6', 'twk', .2) + star(-34, -132, 5, '#D8F5E8', 'twk', .5);
+  W.rifle = (p) => shp('M-3.5 -176H3.5V-24H-3.5Z', '#8A929C', 2.6) + shp('M-2 -184H2V-176H-2Z', '#C8D2DC', 2) + shp('M-6.5 -96H6.5V-20H-6.5Z', '#7A4B2B', 3) + [-150, -124, -70, -44].map((y) => shp(`M-5 ${y}H5V${y + 7}H-5Z`, '#C8D2DC', 2)).join('') + shp('M-8 -24H8V8H-8Z', '#9AA4B0', 3) + shp('M-6 8H6C8 30 12 50 18 68L-10 68C-4 48 -6 28 -6 8Z', '#6B3E24', 3) + shp('M-10 66H18V74H-10Z', GOLD, 2.4) + '<path d="M-6 8C-14 14 -12 26 -4 28" stroke="#8A929C" stroke-width="3" fill="none"/><path d="M-5 -60H5M-5 -90H5" stroke="#5A3A22" stroke-width="2"/>';
   const WEAPON = {b1:['none',0],b2:['lamp',-6],b5:['bow',-4],b3:['none',0],b4:['none',0],b6:['none',0],b7:['twin',-10], starter: ['dagger', -16], c1: ['staff', -5], c2: ['bow', -4], r1: ['axe', -12], r2: ['scimitar', -14], r3: ['katana', -14], e1: ['sword', -16], e2: ['orb', -6], l1: ['spear', -8], l2: ['sceptre', -5], m1: ['moon', -6], m2: ['dragon', -14], n1: ['gladius', -8], n2: ['claw', -6], n3: ['aurora', -6] };
   const STYLE = {b1:'robe',b2:'casual',b5:'armor',b3:'casual',b4:'casual',b6:'casual',b7:'casual', starter: 'casual', c1: 'casual', c2: 'casual', r1: 'casual', r2: 'casual', r3: 'casual', e1: 'armor', e2: 'robe', l1: 'armor', l2: 'robe', m1: 'robe', m2: 'armor', n1: 'armor', n2: 'armor', n3: 'robe' };
   const GX = 72, GY = 268;
 
   /* ---------- أزياء الولد ---------- */
+  const COVER = ['ghutra', 'shemagh', 'turban', 'litham', 'keffiyeh', 'helm'];
   const MALE = {
-    c2: { n: 'ثوب أبيض وطاقية', thobe: '#F8F6EE', head: 'cap', pal: { top: '#F8F6EE', vest: '#F8F6EE', pants: '#EAE6D8', boots: '#8A6A4A', belt: '#EAE6D8', trim: GOLD }, w: ['mizraq', -6] },
-    r2: { n: 'ثوب رمادي', thobe: '#A9ADB5', head: 'none', pal: { top: '#A9ADB5', vest: '#A9ADB5', pants: '#8E929A', boots: '#6B4A2E', belt: '#8E929A', trim: GOLD }, w: ['jambiya', -14] },
-    e2: { n: 'ثوب أبيض وشماغ أحمر', thobe: '#FBFAF4', head: 'shemagh', pal: { top: '#FBFAF4', vest: '#FBFAF4', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#EAE6D8', trim: GOLD }, w: ['saif', -14] },
-    l2: { n: 'ثوب وسديري بحواف ذهبية', thobe: '#FBFAF4', sidiri: '#D8C09C', head: 'ghutra', pal: { top: '#FBFAF4', vest: '#D8C09C', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#D8C09C', trim: GOLD }, w: ['mace', -10] },
-    m1: { n: 'ثوب كحلي مزخرف', thobe: '#26396E', emb: true, head: 'ghutra', pal: { top: '#26396E', vest: '#26396E', pants: '#1B2850', boots: '#5A4030', belt: '#26396E', trim: GOLD }, w: ['rumh', -6] },
-    n1: { n: 'المحارب العربي القديم', style: 'warrior', head: 'litham', shield: true, ex: ['pauldron'], pal: { top: '#EADBBB', vest: '#8A5A32', pants: '#4A3A2A', boots: '#5A4030', belt: '#6B4A2E', trim: GOLD }, w: ['saif', -14] },
-    n3: { n: 'ثوب فاخر وحصان', thobe: '#FFFEF8', sidiri: '#E9D9AE', head: 'ghutra', agal: GOLD, horse: true, pal: { top: '#FFFEF8', vest: '#E9D9AE', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#E9D9AE', trim: GOLD }, w: ['jambiya', -14] },
-    b1: { n: 'محقق الظل', thobe: '#2A2A30', head: 'keffiyeh', pal: { top: '#2A2A30', vest: '#2A2A30', pants: '#1C1C22', boots: '#5A4030', belt: '#2A2A30', trim: '#8A8A94' }, w: ['dagger', -16] },
-    n2: { n: 'بشت ذهبي وصقر', thobe: '#F8F6EE', bisht: '#2B2622', head: 'ghutra', falcon: true, pal: { top: '#F8F6EE', vest: '#2B2622', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#2B2622', trim: GOLD }, w: ['saif', -14] }
+    c2: { n: 'ثوب وسديري بني', thobe: '#F8F6EE', sidiri: '#6B4A2E', head: 'cap', dag: true, pal: { top: '#F8F6EE', vest: '#6B4A2E', pants: '#EAE6D8', boots: '#5A4030', belt: '#6B4A2E', trim: GOLD }, w: ['mizraq', -6] },
+    r2: { n: 'بشت الفرو الرمادي', thobe: '#A9ADB5', bisht: '#6E5A48', fur: '#F1E8D6', dag: true, head: 'ghutra', hcol: '#D8CDB4', pal: { top: '#A9ADB5', vest: '#6E5A48', pants: '#8E929A', boots: '#5A4030', belt: '#4A3A2E', trim: GOLD }, w: ['jambiya', -14] },
+    e2: { n: 'بشت بني وشماغ أحمر', thobe: '#FBFAF4', bisht: '#4E3426', band: true, head: 'shemagh', pal: { top: '#FBFAF4', vest: '#4E3426', pants: '#EAE6D8', boots: '#4E3426', belt: '#4E3426', trim: GOLD }, w: ['saif', -14] },
+    l2: { n: 'بشت رملي بحواف ذهبية', thobe: '#FBFAF4', bisht: '#C9A66B', dag: true, head: 'ghutra', pal: { top: '#FBFAF4', vest: '#C9A66B', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#8A6A3A', trim: GOLD }, w: ['mace', -10] },
+    m1: { n: 'بشت كحلي بفرو أسود', thobe: '#26396E', bisht: '#1B2850', fur: '#2B2622', emb: true, band: true, dag: true, head: 'ghutra', pal: { top: '#26396E', vest: '#1B2850', pants: '#1B2850', boots: '#5A4030', belt: '#3A2A1E', trim: GOLD }, w: ['rumh', -6] },
+    n1: { n: 'البدوي الملثم', thobe: '#D8C9A6', bisht: '#5A4030', band: true, dag: true, head: 'litham', pal: { top: '#D8C9A6', vest: '#5A4030', pants: '#BFAF8A', boots: '#4A3426', belt: '#3A2A1E', trim: GOLD }, w: ['rifle', -10] },
+    n3: { n: 'المحارب العربي والحصان', style: 'warrior', head: 'ghutra', hcol: '#E3D2A8', agal: '#6B4A2E', horse: true, shield: true, ex: ['pauldron'], pal: { top: '#EADBBB', vest: '#8A5A32', pants: '#4A3A2A', boots: '#5A4030', belt: '#6B4A2E', trim: GOLD }, w: ['saif', -14] },
+    n2: { n: 'بشت ذهبي وصقر', thobe: '#F8F6EE', bisht: '#2B2622', head: 'ghutra', falcon: true, dag: true, pal: { top: '#F8F6EE', vest: '#2B2622', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#2B2622', trim: GOLD }, w: ['saif', -14] },
+    e1: { n: 'الفارس الفضي', style: 'knight', head: 'helm', helm: { c: '#C3CCDA', crest: 'plume', cc: '#2F5FA8', gem: '#4FA3E8' }, motif: 'plain', ex: ['pauldron'], pal: { top: '#AEB8C8', vest: '#AEB8C8', pants: '#5C6A82', boots: '#5C6A82', belt: '#3E4A63', trim: '#E6ECF7' }, w: ['sword', -16] },
+    l1: { n: 'فارس اللهب الذهبي', style: 'knight', head: 'helm', helm: { c: '#E0752B', crest: 'flame', cc: '#FF9A3C', gem: '#FFE08A' }, motif: 'flame', ex: ['cape', 'pauldron'], pal: { top: '#E0752B', vest: '#E0752B', pants: '#6B2E14', boots: '#6B2E14', belt: '#4A2412', trim: '#FFD35E' }, w: ['spear', -8] },
+    m2: { n: 'فارس التنين الذهبي', style: 'knight', head: 'helm', helm: { c: '#E2B83C', crest: 'dragon', cc: '#FFF0A8', gem: '#E8453C' }, motif: 'dragon', ex: ['cape', 'pauldron'], pal: { top: '#E2B83C', vest: '#E2B83C', pants: '#7A4A12', boots: '#7A4A12', belt: '#6B3A10', trim: '#FFF0A8' }, w: ['dragon', -14] }
   };
   function bodyThobe(p, M) {
     const th = M.thobe, dk = shade(th, .86), lt = shade(th, 1.18); let s = '';
@@ -4247,6 +4259,30 @@ const CharArt = (function () {
     } else if (!M.bisht) {
       s += `<path d="M150 194V250" stroke="${dk}" stroke-width="3" stroke-linecap="round"/>` + [204, 218, 232].map((y) => `<circle cx="150" cy="${y}" r="2.6" fill="${lt}" stroke="${OUT}" stroke-width="1.6"/>`).join('');
     }
+    if (M.band) s += shp('M120 194L130 190L196 252L188 262Z', '#6B4A2E', 2.6) + [0, 1, 2, 3, 4, 5].map((k) => `<rect x="${134 + k * 10}" y="${204 + k * 9}" width="5" height="9" rx="1.5" fill="${GOLD}" stroke="${OUT}" stroke-width="1.2" transform="rotate(-42 ${136 + k * 10} ${208 + k * 9})"/>`).join('');
+    if (M.dag) s += shp('M104 250H196V264H104Z', '#5A3A22', 2.8) + shp('M141 248H159V266H141Z', GOLD, 2.6) + shp('M118 262C112 276 114 292 124 300L134 292C128 282 128 272 130 262Z', '#7A4B2B', 2.6) + shp('M116 296C118 304 128 306 134 296L124 300Z', GOLD, 2) + `<path d="M120 270L128 288" stroke="${GOLD}" stroke-width="2.4"/>`;
+    if (M.fur) {
+      const fc = M.fur, dkc = parseInt(fc.slice(1, 3), 16) < 90, sc = dkc ? '#6A5C52' : '#B9A98A';
+      const R = (i) => { const v = Math.sin(i * 12.9898 + 1.7) * 43758.5453; return v - Math.floor(v); };
+      const line = (x0, y0, x1, y1, n) => { const o = []; for (let i = 0; i <= n; i++) o.push([x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n]); return o; };
+      const arc = (n) => { const o = []; for (let i = 0; i <= n; i++) { const t = i / n, x = 112 + 76 * t; o.push([x, 199 + 9 * Math.sin(Math.PI * t)]); } return o; };
+      const strip = (pts, w, out, seed) => {
+        const nrm = (i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)]; let tx = b[0] - a[0], ty = b[1] - a[1]; const l = Math.hypot(tx, ty) || 1; tx /= l; ty /= l; let nx = -ty, ny = tx; if (nx * out[0] + ny * out[1] < 0) { nx = -nx; ny = -ny; } return [nx, ny, tx, ty]; };
+        const base = pts.map((q, i) => { const n = nrm(i); return [q[0] + n[0] * w * .1, q[1] + n[1] * w * .1]; });
+        const inn = pts.map((q, i) => { const n = nrm(i); return [q[0] - n[0] * w * .95, q[1] - n[1] * w * .95]; });
+        let d = 'M' + base[0][0].toFixed(1) + ' ' + base[0][1].toFixed(1), st = '';
+        for (let i = 0; i < pts.length - 1; i++) {
+          const n = nrm(i), m = [(pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2];
+          const ln = w * (.8 + R(i * 3 + seed) * 1.1), sh = (R(i * 7 + seed) - .5) * w * 1.6;
+          const px = m[0] + n[0] * ln + n[2] * sh, py = m[1] + n[1] * ln + n[3] * sh;
+          d += `Q${px.toFixed(1)} ${py.toFixed(1)} ${base[i + 1][0].toFixed(1)} ${base[i + 1][1].toFixed(1)}`;
+          st += `M${m[0].toFixed(1)} ${m[1].toFixed(1)}L${(m[0] + (px - m[0]) * .5).toFixed(1)} ${(m[1] + (py - m[1]) * .5).toFixed(1)}`;
+        }
+        d += inn.slice().reverse().map((q) => 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join('') + 'Z';
+        return `<path d="${d}" fill="${fc}" stroke="${OUT}" stroke-width="2.4" stroke-linejoin="round"/><path d="${st}" stroke="${sc}" stroke-width="1.8" stroke-linecap="round" fill="none"/>`;
+      };
+      s += strip(line(114, 204, 98, 322, 14), 15, [-1, 0], 1) + strip(line(186, 204, 202, 322, 14), 15, [1, 0], 5) + strip(line(96, 324, 136, 324, 7), 11, [0, 1], 9) + strip(line(164, 324, 204, 324, 7), 11, [0, 1], 13) + strip(arc(12).map((q) => [q[0], q[1] + 6]), 16, [0, -1], 21);
+    }
     s += shp('M130 191C138 204 162 204 170 191L166 188C160 197 140 197 134 188Z', M.bisht ? '#F8F6EE' : th, 2.6);
     if (M.emb) s += `<path d="M150 200V300M118 328H182M106 320C120 328 134 328 150 320C166 328 180 328 194 320" stroke="${GOLD}" stroke-width="3.2" fill="none" stroke-linecap="round"/>`;
     return s;
@@ -4260,6 +4296,29 @@ const CharArt = (function () {
     s += `<path d="M126 192C134 206 166 206 174 192M150 204V250" stroke="${GOLD}" stroke-width="3.6" fill="none" stroke-linecap="round"/>` + shp('M104 250H196V266H104Z', '#5A3A22', 3) + shp('M140 248H160V268H140Z', GOLD, 3) + `<circle cx="150" cy="258" r="4" fill="${lt}" stroke="${OUT}" stroke-width="1.6"/>`;
     return s;
   }
+
+  function bodyKnight(p, M) {
+    const tr = p.trim, dk = shade(p.vest, .7);
+    let s = legsArmor(p);
+    s += shp('M110 196C110 190 128 188 150 188C172 188 190 190 190 196L196 258C196 266 190 270 182 270H118C110 270 104 266 104 258Z', p.vest);
+    if (M.motif === 'dragon') { for (let r = 0; r < 5; r++) for (let c = 0; c < (r % 2 ? 5 : 6); c++) { const x = (r % 2 ? 121 : 114) + c * 14, y = 206 + r * 10; s += `<path d="M${x} ${y}q7 9 14 0" stroke="${dk}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`; } }
+    else if (M.motif === 'flame') s += shp('M150 208C138 224 132 236 140 248C144 240 148 238 150 230C152 238 156 242 160 248C168 236 162 222 150 208Z', '#FFE08A', 2.4) + `<path d="M120 216C124 232 128 242 134 250M180 216C176 232 172 242 166 250" stroke="${dk}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+    else s += `<path d="M150 198V250M122 222C134 230 142 230 148 224M178 222C166 230 158 230 152 224" stroke="${dk}" stroke-width="2.6" fill="none" stroke-linecap="round"/>` + [[118, 238], [182, 238], [150, 240]].map((c) => `<circle cx="${c[0]}" cy="${c[1]}" r="2.8" fill="${tr}" stroke="${OUT}" stroke-width="1.4"/>`).join('');
+    s += `<path d="M126 192C134 206 166 206 174 192" stroke="${tr}" stroke-width="3.6" fill="none" stroke-linecap="round"/>`;
+    s += shp('M104 250H196V266H104Z', p.belt, 3) + shp('M140 248H160V268H140Z', tr, 3) + `<circle cx="150" cy="258" r="4" fill="${M.helm.gem}" stroke="${OUT}" stroke-width="1.6"/>`;
+    return s;
+  }
+  function helmM(M) {
+    const H = M.helm, c = H.c, tr = M.pal.trim, dk = shade(c, .78); let t = '';
+    if (H.crest === 'dragon') t += shp('M84 58C64 46 52 28 52 6C74 16 92 30 102 46Z', tr, 3) + shp('M216 58C236 46 248 28 248 6C226 16 208 30 198 46Z', tr, 3) + shp('M136 28C136 12 150 6 150 6C150 6 164 12 164 28Z', tr, 3);
+    if (H.crest === 'flame') t += shp('M150 26C130 24 124 10 134 -0C138 8 144 10 146 4C148 -2 150 -4 150 -4C150 2 154 8 158 6C164 4 168 -0 168 -0C176 10 170 24 150 26Z', H.cc, 2.8).replace('-4', '0') + shp('M116 38C102 36 98 24 106 16C110 24 114 24 116 20C120 28 124 32 116 38Z', H.cc, 2.4) + shp('M184 38C198 36 202 24 194 16C190 24 186 24 184 20C180 28 176 32 184 38Z', H.cc, 2.4);
+    if (H.crest === 'plume') t += shp('M100 40C124 8 176 8 200 40C176 24 124 24 100 40Z', H.cc, 3) + shp('M196 36C220 40 236 60 232 84C220 70 208 58 196 50Z', H.cc, 2.6);
+    t += shp('M70 100C62 18 238 18 230 100C214 90 86 90 70 100Z', c, 3.2);
+    t += `<path d="M96 54C118 38 182 38 204 54" stroke="${shade(c, 1.25)}" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/><path d="M74 96C110 84 190 84 226 96" stroke="${tr}" stroke-width="5.5" fill="none" stroke-linecap="round"/>`;
+    t += shp('M72 98C64 132 70 164 88 182L102 170C94 150 92 124 96 102Z', c, 3) + shp('M228 98C236 132 230 164 212 182L198 170C206 150 208 124 204 102Z', c, 3);
+    t += `<path d="M76 118C78 138 84 156 92 168M224 118C222 138 216 156 208 168" stroke="${dk}" stroke-width="2" fill="none" opacity=".7"/>` + `<circle cx="150" cy="90" r="5.5" fill="${H.gem}" stroke="${OUT}" stroke-width="2.2"/>`;
+    return t;
+  }
   function collarM(M) {
     const th = M.bisht ? '#F8F6EE' : M.thobe;
     return shp('M127 198C135 193 165 193 173 198L176 206C164 212 136 212 124 206Z', th, 3) + `<path d="M150 200V211" stroke="${shade(th, .8)}" stroke-width="2.2"/><circle cx="150" cy="208" r="2.6" fill="${M.emb ? GOLD : shade(th, 1.15)}" stroke="${OUT}" stroke-width="1.5"/>` + (M.emb ? `<path d="M127 205C139 211 161 211 173 205" stroke="${GOLD}" stroke-width="2.4" fill="none" stroke-linecap="round"/>` : '');
@@ -4268,7 +4327,7 @@ const CharArt = (function () {
   function headBackM(M, u) {
     const h = M.head; if (!['ghutra', 'shemagh', 'litham', 'keffiyeh'].includes(h)) return '';
     const pat = h !== 'ghutra'; const kf = h === 'keffiyeh';
-    const col = pat ? `url(#${u}sh)` : '#FBFBFB';
+    const col = pat ? `url(#${u}sh)` : (M.hcol || '#FBFBFB');
     let t = pat ? (kf ? `<defs><pattern id="${u}sh" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#FFFFFF"/><path d="M0 0H4.5V4.5H0ZM4.5 4.5H9V9H4.5Z" fill="#1A1A1A"/><path d="M0 4.5H9" stroke="#1A1A1A" stroke-width=".8"/></pattern></defs>` : `<defs><pattern id="${u}sh" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#FFFFFF"/><path d="M0 0H9V3H0ZM0 0V9H3V0Z" fill="#C8283A"/><path d="M4.5 0V9M0 4.5H9" stroke="#8A1B28" stroke-width=".7"/></pattern></defs>`) : '';
     t += shp('M72 120C54 160 58 204 70 238L112 230C100 200 94 160 96 126Z', col, 3) + shp('M228 120C246 160 242 204 230 238L188 230C200 200 206 160 204 126Z', col, 3);
     t += `<path d="M72 170C70 196 74 218 82 232M228 170C230 196 226 218 218 232" stroke="${pat ? (kf ? '#555' : '#8A1B28') : '#DDDDD0'}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>`;
@@ -4280,6 +4339,7 @@ const CharArt = (function () {
   function headgearM(M, u) {
     const h = M.head;
     if (h === 'none') return '';
+    if (h === 'helm') return helmM(M);
     if (h === 'turban') {
       let t = shp('M62 112C52 24 248 24 238 112C220 94 80 94 62 112Z', '#8A1F2B', 3.2) + '<path d="M70 96C110 70 190 58 232 70M66 82C108 54 190 42 226 54M74 108C116 84 190 76 230 88" stroke="#C45862" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85"/><path d="M80 60C120 36 180 34 220 52" stroke="#5E1019" stroke-width="2.4" fill="none" opacity=".7"/>';
       t += shp('M140 82L150 70L160 82L150 94Z', '#D9A93C', 2.4) + shp('M62 100C48 130 50 168 62 196L84 188C74 164 72 134 78 108Z', '#8A1F2B', 3) + '<path d="M64 120C58 144 60 168 66 186" stroke="#5E1019" stroke-width="2.2" fill="none" opacity=".7"/>';
@@ -4287,7 +4347,7 @@ const CharArt = (function () {
     }
     if (h === 'cap') return shp('M70 100C62 18 238 18 230 100C212 88 88 88 70 100Z', '#FFFFFF', 3.2) + '<path d="M80 92C110 82 190 82 220 92" stroke="#C9D3E6" stroke-width="2.6" fill="none"/>' + [[96, 76], [108, 58], [124, 46], [150, 40], [176, 46], [192, 58], [204, 76], [118, 74], [150, 64], [182, 74], [132, 56], [168, 56], [100, 90], [200, 90], [150, 84]].map((c) => `<circle cx="${c[0]}" cy="${c[1]}" r="2.5" fill="#B7C4DE"/>`).join('') + '<path d="M90 70C108 44 192 44 210 70" stroke="#D5DDEC" stroke-width="2" fill="none"/>';
     const pat = h !== 'ghutra'; const kf = h === 'keffiyeh';
-    const col = pat ? `url(#${u}sh)` : '#FBFBFB';
+    const col = pat ? `url(#${u}sh)` : (M.hcol || '#FBFBFB');
     let t = '';
     t += shp('M62 134C52 56 100 22 150 22C200 22 248 56 238 134C236 116 228 102 214 96C190 86 110 86 86 96C72 102 64 116 62 134Z', col, 3.2);
     const ln2 = pat ? (kf ? '#555' : '#8A1B28') : '#DDDDD0';
@@ -4444,8 +4504,8 @@ function sym(s,d){
     const u = 'q' + (uid++);
     const o = (window.__OUTFITS || []).find((x) => x.id === id) || (window.__OUTFITS || [])[0];
     const M = MALEMODE && MALE[o.id];
-    const p = M ? M.pal : o.pal, ex = M ? (M.ex || []) : o.ex, st = M ? (M.style || 'thobe') : (STYLE[o.id] || 'casual');
-    const sleeve = st === 'armor' ? p.vest : p.top;
+    const p = M ? M.pal : o.pal, ex = M ? (M.ex || []) : o.ex, st = M ? (M.style || 'thobe') : ((MALEMODE && STYLE[o.id] === 'robe') ? 'casual' : (STYLE[o.id] || 'casual'));
+    const sleeve = (st === 'armor' || st === 'knight') ? p.vest : p.top;
     const [wk, wa] = M ? M.w : (WEAPON[o.id] || ['dagger', -16]);
     let s = `<svg class="char" data-o="${o.id}" viewBox="${o.id === 'n3' ? (M ? '-100 -10 520 360' : '-60 0 400 350') : '-50 0 350 350'}" role="img" aria-label="الشخصية" xmlns="http://www.w3.org/2000/svg">${defs(u, p.trim)}`;
     if (ex.includes('glow')) s += `<circle class="aura" cx="125" cy="200" r="150" fill="url(#${u}g)"/>`;
@@ -4457,8 +4517,8 @@ function sym(s,d){
     s += '<g class="breath">';
     if (ex.includes('cape') && o.id !== 'n3') s += `<g class="cape">${shp('M104 196C76 240 64 300 60 336L240 336C236 300 224 240 196 196Z', (o.id === 'n3' ? '#E8D6F3' : shade(p.vest, .72)), 3)}<path d="M62 330H238" stroke="${p.trim}" stroke-width="4"/></g>`;
     if (o.id === 'n2' && !M) s += `<g class="tail">${limb('M186 296C236 296 262 262 244 222C240 214 232 214 232 220', 14, p.vest)}<circle cx="232" cy="218" r="7" fill="${p.trim}" stroke="${OUT}" stroke-width="2.4"/></g>`;
-    { const hb = (M && ['ghutra', 'shemagh', 'turban', 'litham', 'keffiyeh'].includes(M.head)) ? '' : hairBack(u); s += hb; if (o.id === 'n3' && !M) s += `<g clip-path="url(#${u}hc)" opacity=".88">${hb.split('url(#' + u + 'h)').join('url(#' + u + 'hr)')}</g>`; }
-    s += M ? (M.style === 'warrior' ? bodyWarrior(p) : bodyThobe(p, M)) : o.id === 'n3' ? gownN3(p) : st === 'robe' ? bodyRobe(p, o.id) : (st === 'armor' ? legsArmor(p) + torsoArmor(p, o.id) : legsCasual(p, o.id) + torsoCasual(p, o.id));
+    { const hb = (M && COVER.includes(M.head)) ? '' : hairBack(u); s += hb; if (o.id === 'n3' && !M) s += `<g clip-path="url(#${u}hc)" opacity=".88">${hb.split('url(#' + u + 'h)').join('url(#' + u + 'hr)')}</g>`; }
+    s += M ? (M.style === 'warrior' ? bodyWarrior(p) : M.style === 'knight' ? bodyKnight(p, M) : bodyThobe(p, M)) : o.id === 'n3' ? gownN3(p) : st === 'robe' ? bodyRobe(p, o.id) : (st === 'armor' ? legsArmor(p) + torsoArmor(p, o.id) : legsCasual(p, o.id) + torsoCasual(p, o.id));
     s += limb(`M113 208C98 230 90 252 ${GX} ${GY - 8}`, 19, sleeve);
     if (st === 'armor') s += `<path d="M84 244L100 252" stroke="${p.trim}" stroke-width="4"/>`;
     if (st === 'robe') s += `<path d="M90 252L104 238" stroke="${p.trim}" stroke-width="4"/>`;
@@ -4475,12 +4535,12 @@ function sym(s,d){
     if (o.id === 'n1' && !M) s += `<g class="lasso" transform="translate(104 298)"><g fill="none" stroke-linecap="round"><path d="M-14 0C-14 -10 14 -10 14 0C14 10 -14 10 -14 0ZM-12 6C-12 -4 16 -4 16 6C16 16 -12 16 -12 6Z" stroke="${OUT}" stroke-width="7"/><path d="M-14 0C-14 -10 14 -10 14 0C14 10 -14 10 -14 0ZM-12 6C-12 -4 16 -4 16 6C16 16 -12 16 -12 6Z" stroke="#E9C46A" stroke-width="3.6"/><path d="M-6 14C-12 30 -2 38 -8 50" stroke="${OUT}" stroke-width="7"/><path d="M-6 14C-12 30 -2 38 -8 50" stroke="#E9C46A" stroke-width="3.6"/></g></g><ellipse class="lring" cx="150" cy="240" rx="108" ry="36" fill="none" stroke="#FFE08A" stroke-width="3.4" stroke-dasharray="14 10"/>`;
     // الرقبة ثم الإضافات فوق الجسم
     s += `<rect x="136" y="184" width="28" height="22" rx="8" fill="${SKS}" stroke="${OUT}" stroke-width="3"/>`;
-    if (M && M.style !== 'warrior') s += collarM(M);
+    if (M && M.style !== 'warrior' && M.style !== 'knight') s += collarM(M);
     if (ex.includes('sash')) s += shp('M114 198L126 192L192 250L180 262Z', p.trim, 2.8);
     if (ex.includes('pauldron') || st === 'armor') s += shp('M108 204C98 192 118 184 128 194C134 202 126 214 114 214Z', p.vest, 3) + `<path d="M108 200C112 194 120 194 124 198" stroke="${p.trim}" stroke-width="3" fill="none"/>` + shp('M192 204C202 192 182 184 172 194C166 202 174 214 186 214Z', p.vest, 3) + `<path d="M192 200C188 194 180 194 176 198" stroke="${p.trim}" stroke-width="3" fill="none"/>`;
     if (ex.includes('scarf')) s += shp('M110 198C128 218 172 218 190 198L192 210C172 230 128 230 108 210Z', p.trim, 3) + shp('M170 214C186 232 182 252 192 272L178 276C170 258 166 238 158 224Z', p.trim, 2.8);
     if (M) s += headBackM(M, u) + (M.falcon ? falconM() : '');
-    s += face(u) + facial(u) + eye(u) + (M && ['ghutra', 'shemagh', 'turban', 'litham', 'keffiyeh'].includes(M.head) ? '' : hairFront(u)) + (M ? headgearM(M, u) : headgear(o.id, p));
+    s += face(u) + facial(u) + eye(u) + (M && COVER.includes(M.head) ? '' : hairFront(u)) + (M ? headgearM(M, u) : (MALEMODE && o.id === 'r1' ? '' : headgear(o.id, p)));
     s += `<g class="wpnw"><g transform="translate(${GX} ${GY}) rotate(${wa})">${W[wk](p)}${fist()}</g></g>`;
     if (o.id === 'n1' && !M) s += `<path d="M84 238C78 244 78 254 84 260M216 238C222 244 222 254 216 260" stroke="#E9C46A" stroke-width="7" stroke-linecap="round" fill="none"/>`;
     if (o.id === 'n2' && !M) s += `<g transform="translate(226 84) scale(1.7)"><path class="heart" d="M0 6C-12 -4 -10 -14 0 -8C10 -14 12 -4 0 6Z" fill="#F5A3B8" stroke="${OUT}" stroke-width="1.6" stroke-linejoin="round"/></g><path class="slash" d="M222 178C250 188 266 214 262 244M234 172C264 184 282 214 278 250M210 188C236 200 248 224 246 248" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
@@ -4508,7 +4568,7 @@ function sym(s,d){
     const fr = d.front;
     return s.replace(/<\/g><\/svg>$/, fr + '</g></svg>');
   }
-  const MN = { e1: 'زيّ الفارس الفضي', c2: 'ثوب أبيض وطاقية', r2: 'ثوب رمادي', e2: 'ثوب أبيض وشماغ أحمر', l2: 'ثوب وسديري بحواف ذهبية', m1: 'ثوب كحلي مزخرف', n1: 'زيّ المحارب العربي القديم', n2: 'بشت أسود وصقر', n3: 'ثوب فاخر وحصان', b1: 'محقق الظل', b2: 'حامل الضوء', b3: 'العدّاء الخاطف', b4: 'سيّد البأس', b5: 'رامي الريح', b6: 'الرفيق الصغير', b7: 'حارس الفجر' };
+  const MN = { e1: 'الفارس الفضي', l1: 'فارس اللهب الذهبي', m2: 'فارس التنين الذهبي', c2: 'ثوب وسديري بني', r2: 'بشت الفرو الرمادي', e2: 'بشت بني وشماغ أحمر', l2: 'بشت رملي بحواف ذهبية', m1: 'بشت كحلي بفرو أسود', n1: 'البدوي الملثم', n2: 'بشت ذهبي وصقر', n3: 'المحارب العربي والحصان', b1: 'محقق الظل', b2: 'حامل الضوء', b3: 'العدّاء الخاطف', b4: 'سيّد البأس', b5: 'رامي الريح', b6: 'الرفيق الصغير', b7: 'حارس الفجر' };
   return { maleName: (id) => MN[id] || null, charSVG, setHair: (v) => { HS = v; }, setLook: (o) => { if (o.male != null) MALEMODE = !!o.male; if (o.hair != null) HS = o.hair; if (o.skin != null) { const k = SKINS[o.skin] || SKINS[1]; SK = k[0]; SKS = k[1]; } if (o.beard != null) BEARD = o.beard; if (o.stache != null) STACHE = o.stache; } };
 })();
 
@@ -5665,16 +5725,171 @@ const AchArt = (function () {
   return { icon, GL, MODS };
 })();
 
+/* صيغة المذكر: تحويل نصوص الخطاب المؤنث إلى المذكر عند اختيار «ولد» */
+const GENDER = (() => {
+  const DI = /[ً-ْ]/g;
+  const strip = (w) => w.replace(DI, '');
+  const kv = (s) => { const m = {}; s.trim().split(/\s*;\s*/).forEach((p) => { const a = p.trim().split(/\s+/); if (a.length === 2) m[a[0]] = a[1]; }); return m; };
+  const WORDS = kv(`
+ابحثي ابحث; ابدئي ابدأ; ابقي ابقَ; اجتازي اجتز; اجعلي اجعل; اجمعي اجمع; احتفظي احتفظ; احذفي احذف; احفظي احفظ; اختاري اختر;
+اذهبي اذهب; ارجعي ارجع; ارفعي ارفع; استخدمي استخدم; استعملي استعمل; استلمي استلم; استمري استمر; اسقي اسقِ; اشتري اشتر;
+اضغطي اضغط; اطلبي اطلب; افتحي افتح; افخري افخر; اكتبي اكتب; اكتشفي اكتشف; اكسبي اكسب; امتلكي امتلك; املئي املأ; انتظري انتظر;
+انسخي انسخ; انظري انظر; انقلي انقل; الصقي الصق; واصلي واصل; أضيفي أضف; أطفئي أطفئ; أعيدي أعد; أكملي أكمل; ألبسي ألبس;
+ألقي ألقِ; أنجزي أنجز; أنشئي أنشئ; تأكدي تأكد; تأملي تأمل; تبدئي تبدأ; تتعثري تتعثر; تحددي تحدد; تخيلي تخيل; تذكري تذكر;
+تشربي تشرب; تعرفي تعرف; تعلمي تعلم; تعودي تعود; تغيري تغير; تفتحي تفتح; تقلقي تقلق; تكوني تكون; تمسحي تمسح; تنجزي تنجز;
+تنسي تنسَ; تنفذي تنفذ; تضغطي تضغط; تصلي تصل; ثبتي ثبت; جربي جرب; حافظي حافظ; حاولي حاول; حققي حقق; خذي خذ; دعي دع;
+سجلي سجل; شاهدي شاهد; عدلي عدل; فعلي فعل; وزعي وزع; ذكريني ذكرني; رجعتي رجعتَ; حددي حدد;
+تأخذين تأخذ; تبدأين تبدأ; تبدئين تبدأ; تتباركين تتبارك; تتخيلين تتخيل; تجدين تجد; تحبين تحب; تحتاجين تحتاج; تحددين تحدد;
+تحصلين تحصل; تحققين تحقق; تختارين تختار; ترفعين ترفع; تريدين تريد; تزرعين تزرع; تستطيعين تستطيع; تستمرين تستمر; تسجلين تسجل;
+تشائين تشاء; تشترين تشتري; تصلين تصل; تصمدين تصمد; تصنعين تصنع; تضعين تضع; تضغطين تضغط; تضيفين تضيف; تظنين تظن;
+تعتمدين تعتمد; تعرضين تعرض; تعودين تعود; تفتحين تفتح; تقلعين تقلع; تكتبين تكتب; تكسبين تكسب; تكملين تكمل; تملكين تملك;
+تنالين تنال; تنتصرين تنتصر; تنتقلين تنتقل; تنجزين تنجز; توصلين توصل; ستختارين ستختار; ستفعلين ستفعل;
+تتعلمي تتعلم; تزرعي تزرع; تطمئني تطمئن; تكتبي تكتب; تنتقلي تنتقل; تبتعدي تبتعد; تري تر; أرسلي أرسل; تبلغين تبلغ; تبنين تبني; تجعلي تجعل; تجمعين تجمع; تحرسين تحرس; تدخرين تدخر; تستعملي تستعمل; تفعلين تفعل; تلبسين تلبس; تنشئين تنشئ; تنفذين تنفذ; تنفقين تنفق; اربطي اربط; استعيدي استعد; تبدلين تبدل; تبدّلين تبدل;
+بكِ بكَ; أريكِ أريكَ; ويكفيكِ ويكفيكَ; أنتِ أنتَ; وأنتِ وأنتَ;
+متأكدة متأكد; مرتاحة مرتاح; مرتدية مرتدٍ; مريضة مريض; مسافرة مسافر; متعبة متعب; وحيدة وحيد; محظوظة محظوظ; فخورة فخور;
+مسجلة مسجل; متصلة متصل; بعيدة بعيد; عزيزتي عزيزي; حبيبتي حبيبي; صديقتي صديقي; بصديقتي بصديقي
+`);
+  const PHR = [
+    ['أنا جاهزة', 'أنا جاهز'], ['أنت جاهزة', 'أنت جاهز'], ['حارسة اللهب', 'حارس اللهب'], ['سيدة الجليد', 'سيد الجليد'], ['سيّدة الأهداف', 'سيّد الأهداف'], ['سيدة الأهداف', 'سيد الأهداف'],
+    ['جامعة العملات', 'جامع العملات'], ['جامعة الأزياء', 'جامع الأزياء'], ['جامعة نادرة', 'جامع نادرة'], ['جامعة الأرقام', 'جامع الأرقام'], ['جامعة الكنوز', 'جامع الكنوز'],
+    ['محاربة متمرسة', 'محارب متمرس'], ['متكاملة السمات', 'متكامل السمات'], ['موزِّعة ماهرة', 'موزِّع ماهر'], ['بستانية ماهرة', 'بستاني ماهر'], ['خبيرة الترقية', 'خبير الترقية'],
+    ['صاحبة أهداف', 'صاحب أهداف'], ['منظّمة الوقت', 'منظّم الوقت'], ['تحقّقين ما تضعينه', 'تحقّق ما تضعه'], ['تكوني مثالية', 'تكون مثاليًا']
+  ];
+  const tol = (k) => new RegExp(k.split('').map((c) => (c === ' ' ? '\\s+' : c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\u064B-\\u0652]*')).join(''), 'g');
+  const PHRX = PHR.map((p) => [tol(strip(p[0])), p[1]]);
+  const SUF = /^(.{3,}?)(ها|هما|هم|هن|ه|نا|ني|كم)$/;
+  const PRE = ['', 'و', 'ف', 'ل', 'س', 'ول', 'فل', 'وس', 'فس', 'ب', 'ك'];
+  const fixWord = (w) => {
+    const b = strip(w);
+    if (WORDS[b]) return WORDS[b];
+    if (/[ت]ِ$/.test(w) && !/ا[ت]ِ$/.test(w)) return w.slice(0, -1) + 'َ';
+    for (const p of PRE) { if (b.startsWith(p)) { const r = b.slice(p.length); if (p && WORDS[r]) return p + WORDS[r]; const m = r.match(SUF); if (m && WORDS[m[1]]) return p + WORDS[m[1]] + m[2]; } }
+    return w;
+  };
+  const mt = (s) => {
+    if (!s) return s;
+    let o = s;
+    for (const [rx, to] of PHRX) o = o.replace(rx, to);
+    return o.replace(/[ء-يً-ْ]+/g, fixWord);
+  };
+  return { mt, strip, W: WORDS };
+})();
+if (typeof module === 'object' && module.exports) module.exports = GENDER;
+
 window.__CharArt = CharArt;
+const APP_VER = 'v79';
+const lsLook = () => { try { return JSON.parse(localStorage.getItem('istimrar-look') || 'null'); } catch (x) { return null; } };
+const saveLookLS = (l) => { try { localStorage.setItem('istimrar-look', JSON.stringify(l)); } catch (x) { /* اختياري */ } };
 const LOOK_DEF = { g: 'f', hair: 'long', skin: 1, beard: 0, stache: 0 };
 const HAIRS = { f: [['long', 'الطويل المموّج'], ['girl', 'القصير المنفوش']], m: [['boy', 'المتموّج بغرة متفرقة'], ['boyup', 'الممشّط للخلف']] };
 const SKIN_N = ['فاتح', 'اللون الحالي', 'حنطي', 'أسمر'];
 const SKIN_C = ['#F2C8A0', '#E6AE7B', '#D09062', '#A8714A'];
-const lookNow = () => Object.assign({}, LOOK_DEF, (typeof ST !== 'undefined' && ST && ST.settings && ST.settings.look) || {});
+const lookNow = () => Object.assign({}, LOOK_DEF, (typeof ST !== 'undefined' && ST && ST.settings && ST.settings.look) || lsLook() || {});
 function applyLook(l) { CharArt.setLook({ male: l.g === 'm', hair: l.hair, skin: l.skin, beard: l.g === 'm' ? l.beard : 0, stache: l.g === 'm' ? l.stache : 0 }); }
 const charSVG = (id) => { applyLook(lookNow()); return CharArt.charSVG(id); };
 const OUT_NAMES0 = {};
 function syncOutNames() { const m = lookNow().g === 'm'; E.OUTFITS.forEach((o) => { if (!(o.id in OUT_NAMES0)) OUT_NAMES0[o.id] = o.name; o.name = (m && CharArt.maleName(o.id)) || OUT_NAMES0[o.id]; }); }
+const MT = (t) => (lookNow().g === 'm' ? GENDER.mt(t) : t);
+const GOR = new WeakMap(), GATTR = ['placeholder', 'aria-label', 'title'], GSKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, NOSCRIPT: 1 };
+function gText(n, male) {
+  const rec = GOR.get(n), cur = n.nodeValue;
+  if (!male) { if (rec && cur === rec.c) n.nodeValue = rec.o; GOR.delete(n); return; }
+  const o = rec && cur === rec.c ? rec.o : cur, c = GENDER.mt(o);
+  if (c !== cur) n.nodeValue = c;
+  if (c !== o) GOR.set(n, { o, c }); else GOR.delete(n);
+}
+function gAttr(el, male) {
+  let rec = GOR.get(el); if (!rec) { if (!male) return; rec = {}; GOR.set(el, rec); }
+  GATTR.forEach((a) => {
+    const cur = el.getAttribute(a), r = rec[a]; if (cur == null) { delete rec[a]; return; }
+    if (!male) { if (r && cur === r.c) el.setAttribute(a, r.o); delete rec[a]; return; }
+    const o = r && cur === r.c ? r.o : cur, c = GENDER.mt(o);
+    if (c !== cur) el.setAttribute(a, c);
+    if (c !== o) rec[a] = { o, c }; else delete rec[a];
+  });
+}
+function gFix(root, male) {
+  if (!root) return;
+  if (root.nodeType === 3) { if (!(root.parentNode && GSKIP[root.parentNode.nodeName])) gText(root, male); return; }
+  if (root.nodeType !== 1) return;
+  if (GSKIP[root.nodeName]) { gAttr(root, male); return; }
+  const w = document.createTreeWalker(root, 5, { acceptNode: (n) => { if (n.nodeType === 1 && GSKIP[n.nodeName]) { gAttr(n, male); return 2; } return 1; } });
+  gAttr(root, male);
+  let n; while ((n = w.nextNode())) { if (n.nodeType === 3) gText(n, male); else gAttr(n, male); }
+}
+let gObs = null;
+function gStart() {
+  if (gObs || typeof MutationObserver === 'undefined') return;
+  gObs = new MutationObserver((ms) => {
+    if (lookNow().g !== 'm') return;
+    ms.forEach((m) => {
+      if (m.type === 'childList') m.addedNodes.forEach((x) => gFix(x, true));
+      else if (m.type === 'characterData') gFix(m.target, true);
+      else if (m.type === 'attributes') gAttr(m.target, true);
+    });
+  });
+  gObs.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: GATTR });
+  if (lookNow().g === 'm') gFix(document.body, true);
+}
+function showWelcome() {
+  if (document.getElementById('welcome')) return;
+  const el = document.createElement('div'); el.id = 'welcome'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); document.body.appendChild(el);
+  let step = 'home', msg = '', busy = false; const WL = Object.assign({}, LOOK_DEF, { g: 'f' });
+  const prev = (l) => { applyLook(l); const s = CharArt.charSVG('starter'); applyLook(lookNow()); return s; };
+  const wb = (act, v, label, on) => '<button class="btn ' + (on ? '' : 'soft') + '" data-w="' + act + '" data-v="' + v + '" aria-pressed="' + on + '">' + label + '</button>';
+  const view = () => {
+    let h = '<div class="wl-in">';
+    if (step === 'home') {
+      h += '<div class="wl-logo">استمرّ</div><div class="wl-sub">مهامك وعاداتك بهدوء واستمرارية</div>';
+      if (cloudOn()) h += '<button class="btn" data-w="login">تسجيل الدخول</button>';
+      h += '<button class="btn ' + (cloudOn() ? 'soft' : '') + '" data-w="guest">المتابعة بدون حساب</button><div class="small muted">يمكنك التسجيل لاحقًا من صفحة النسخ الاحتياطي.</div>';
+    } else if (step === 'login') {
+      h += '<h2 style="margin:0">تسجيل الدخول</h2><div class="wl-sub small">بياناتك تبقى محفوظة ومتاحة على كل أجهزتك. أول مرة اختر «حساب جديد».</div>' +
+        '<input class="inp" id="wEmail" type="email" inputmode="email" autocomplete="username" placeholder="البريد الإلكتروني" dir="ltr" value="' + esc(CS.email || '') + '"><input class="inp" id="wPass" type="password" autocomplete="current-password" placeholder="كلمة السر (٨ أحرف على الأقل)" dir="ltr">' +
+        '<div class="wl-msg" role="status">' + esc(msg) + '</div><button class="btn" data-w="in"' + (busy ? ' disabled' : '') + '>دخول</button><button class="btn soft" data-w="up"' + (busy ? ' disabled' : '') + '>حساب جديد</button><button class="btn ghost" data-w="home">رجوع</button>';
+    } else if (step === 'pick') {
+      h += '<h2 style="margin:0">اختيار الشخصية</h2><div class="wl-sub small">بنت أو ولد؟ يحدد هذا شكل الشخصية وصيغة الكلام في التطبيق كله.</div><div class="wl-cards">' +
+        ['f', 'm'].map((g) => '<button class="wl-card" data-w="g" data-v="' + g + '">' + prev(Object.assign({}, LOOK_DEF, { g, hair: g === 'm' ? 'boy' : 'long' })) + '<b>' + (g === 'f' ? 'بنت' : 'ولد') + '</b></button>').join('') + '</div>' +
+        (cloudOn() ? '' : '') + '<button class="btn ghost" data-w="home">رجوع</button>';
+    } else {
+      const male = WL.g === 'm';
+      h += '<h2 style="margin:0">تخصيص الشخصية</h2><div class="wl-prev">' + prev(WL) + '</div>';
+      h += '<div class="small muted">الشعر</div><div class="lkgrid" style="justify-content:center">' + HAIRS[WL.g].map((x) => wb('h', x[0], x[1], WL.hair === x[0])).join('') + '</div>';
+      h += '<div class="small muted">لون البشرة: <b>' + SKIN_N[WL.skin] + '</b></div><div class="lkgrid" style="justify-content:center">' + SKIN_C.map((c, i) => '<button class="skn' + (WL.skin === i ? ' on' : '') + '" style="background:' + c + '" data-w="s" data-v="' + i + '" aria-label="' + SKIN_N[i] + '" aria-pressed="' + (WL.skin === i) + '"></button>').join('') + '</div>';
+      if (male) {
+        h += '<div class="small muted">اللحية</div><div class="lkgrid" style="justify-content:center">' + [['بدون', 0], ['خفيفة', 1], ['طويلة', 2]].map((x) => wb('b', x[1], x[0], WL.beard === x[1])).join('') + '</div>';
+        h += '<div class="small muted">الشنب</div><div class="lkgrid" style="justify-content:center">' + [['بدون', 0], ['خفيف', 1], ['متوسط', 2]].map((x) => wb('m', x[1], x[0], WL.stache === x[1])).join('') + '</div>';
+      }
+      h += '<button class="btn" data-w="done">ابدأ الآن</button><button class="btn ghost" data-w="pick">رجوع</button>';
+    }
+    el.innerHTML = h + '</div>'; const f = el.querySelector('button,input'); if (f && step === 'login') { /* لا تركيز تلقائي حتى لا تقفز لوحة المفاتيح */ }
+  };
+  const close = () => { el.remove(); render(); gStart(); gFix(document.body, lookNow().g === 'm'); };
+  el.addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-w]'); if (!b || busy) return; const a = b.dataset.w, v = b.dataset.v;
+    if (a === 'home' || a === 'login') { step = a; msg = ''; return view(); }
+    if (a === 'guest' || a === 'pick') { step = 'pick'; return view(); }
+    if (a === 'g') { WL.g = v; WL.hair = HAIRS[v][0][0]; WL.beard = 0; WL.stache = 0; step = 'look'; return view(); }
+    if (a === 'h') { WL.hair = v; return view(); }
+    if (a === 's') { WL.skin = +v; return view(); }
+    if (a === 'b') { WL.beard = +v; return view(); }
+    if (a === 'm') { WL.stache = +v; return view(); }
+    if (a === 'in' || a === 'up') {
+      const em = ((el.querySelector('#wEmail') || {}).value || '').trim().toLowerCase(), pw = (el.querySelector('#wPass') || {}).value || '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg = 'اكتب بريدًا صحيحًا.'; return view(); }
+      CS.email = em; cloudSave(); if (pw.length < 8) { msg = 'كلمة السر ٨ أحرف على الأقل.'; return view(); }
+      busy = true; msg = 'جارٍ التحقق…'; view();
+      try {
+        await cloudAuth(a === 'up' ? 'up' : 'in', em, pw);
+        const row = await cGet('state');
+        if (row && E.validate(row.data)) { applyCloudState(row.data); CS.last = row.updated_at; CS.lastHash = stHash(); cloudSave(); try { await cloudSyncDiary(); } catch (x2) { /* لاحقًا */ } busy = false; if (ST.settings.onboarded) return close(); }
+        busy = false; step = 'pick'; msg = ''; return view();
+      } catch (x) { busy = false; msg = cErrText(x); return view(); }
+    }
+    if (a === 'done') { ST.settings.look = Object.assign({}, WL); saveLookLS(ST.settings.look); ST.settings.onboarded = true; persist(); syncOutNames(); close(); }
+  });
+  view();
+}
 let LK = null;
 function lookModal() {
   if (!LK) LK = lookNow();
@@ -5878,6 +6093,7 @@ async function cloudAuth(mode, email, pw) {
 function applyCloudState(d) {
   safetyCopy();
   ST = E.migrate(d); if (ST.settings.extrasFrom === undefined) ST.settings.extrasFrom = TODAY(); if (ST.settings.rescueFrom === undefined) ST.settings.rescueFrom = TODAY(); if (ST.settings.exemptFrom === undefined) ST.settings.exemptFrom = TODAY(); if (ST.settings.traitsFrom === undefined) ST.settings.traitsFrom = TODAY(); E.settleBalance(ST, TODAY());
+  if (!ST.settings.look) { const l0 = lsLook(); if (l0) ST.settings.look = l0; } else saveLookLS(ST.settings.look);
   applyTheme(); recompute(); Store.save(ST); CS.lastHash = stHash(); cloudSave(); VIEWDAY = null; render();
 }
 function safetyCopy() { try { localStorage.setItem('istimrar-prebak', JSON.stringify({ at: new Date().toISOString(), st: ST })); } catch (x) { /* اختياري */ } }
@@ -6209,7 +6425,7 @@ document.addEventListener('click', async (e) => {
     case 'lkS': LK.skin = +a.dataset.v; return lookModal();
     case 'lkB': LK.beard = +a.dataset.v; return lookModal();
     case 'lkM': LK.stache = +a.dataset.v; return lookModal();
-    case 'lkSave': ST.settings.look = Object.assign({}, LK); LK = null; persist(); syncOutNames(); closeModals(); render(); return;
+    case 'lkSave': ST.settings.look = Object.assign({}, LK); saveLookLS(ST.settings.look); LK = null; persist(); syncOutNames(); closeModals(); render(); gStart(); gFix(document.body, lookNow().g === 'm'); return;
     case 'popen': POPEN = !POPEN; return render();
     case 'psrch': PSEARCH = !PSEARCH; if (!PSEARCH) PQ = ''; render(); if (PSEARCH) { const q = document.getElementById('pq'); if (q) q.focus(); } return;
     case 'afilt': AFILT = a.dataset.f; return render();
@@ -6294,7 +6510,7 @@ document.addEventListener('click', async (e) => {
     case 'doImport': return importText($('#imp').value);
     case 'reset': {
       const ok = await confirmDlg({ title: 'إعادة ضبط كل البيانات؟', body: '<p>سيُحذف كل شيء: المهام والإنجازات والعملات والتجميدات والإعدادات. لا يمكن التراجع. صدّري نسخة احتياطية أولًا إن أردتِ.</p>', ok: 'احذفي كل شيء', danger: true });
-      if (ok) { ST = E.newState(TODAY()); VIEW = 'tasks'; VIEWDAY = null; recompute(); await Store.save(ST); render(); toast({ text: 'أُعيد الضبط. بدأتِ من جديد برصيد ' + N(E.C.START_COINS), amount: 0 }); }
+      if (ok) { const keepLook = ST.settings.look; ST = E.newState(TODAY()); ST.settings.onboarded = true; if (keepLook) ST.settings.look = keepLook; VIEW = 'tasks'; VIEWDAY = null; recompute(); await Store.save(ST); render(); toast({ text: 'أُعيد الضبط. بدأتِ من جديد برصيد ' + N(E.C.START_COINS), amount: 0 }); }
       return;
     }
   }
@@ -6387,7 +6603,7 @@ async function pushRemSync() {
 }
 function pushRemSchedule() { try { if (!PUSHSUB) return; clearTimeout(pushRemTimer); pushRemTimer = setTimeout(pushRemSync, 4000); } catch (x) {} }
 async function pushTest() {
-  try { const reg = await navigator.serviceWorker.ready; await reg.showNotification('استمرّ', { body: 'هكذا سيصلك التذكير بإذن الله.', tag: 'test', icon: 'icon-192.png', dir: 'rtl', lang: 'ar' }); } catch (x) { err('تعذّر عرض الإشعار التجريبي.'); }
+  try { const reg = await navigator.serviceWorker.ready; await reg.showNotification('استمرّ', { body: MT('هكذا سيصلك التذكير بإذن الله.'), tag: 'test', icon: 'icon-192.png', dir: 'rtl', lang: 'ar' }); } catch (x) { err('تعذّر عرض الإشعار التجريبي.'); }
 }
 async function pushOff() {
   try { const reg = await navigator.serviceWorker.ready; const s = await reg.pushManager.getSubscription(); if (s) { if (cloudOn() && CS.refresh) { try { const tk = await cToken(); await cReq('/rest/v1/istimrar_push?user_id=eq.' + CS.uid + '&endpoint=eq.' + encodeURIComponent(s.endpoint), { method: 'DELETE' }, tk); } catch (x) {} } await s.unsubscribe(); } } catch (x) {}
@@ -6423,7 +6639,7 @@ function showRemind(it, st) {
     remSave(s2); d.remove();
     if (k === 'done') { VIEWDAY = null; await setTaskCount(t.id, 1, null); }
   });
-  try { if (document.hidden && 'Notification' in window && Notification.permission === 'granted') { const o = { body: t.why || 'خطوة صغيرة الآن تكفي.', tag: 'rem-' + t.id, icon: 'icon-192.png', dir: 'rtl', lang: 'ar' }; if (navigator.serviceWorker && navigator.serviceWorker.ready) navigator.serviceWorker.ready.then((r) => r.showNotification('حان وقت «' + name + '»', o)).catch(() => new Notification('حان وقت «' + name + '»', o)); else new Notification('حان وقت «' + name + '»', o); } } catch (x) {}
+  try { if (document.hidden && 'Notification' in window && Notification.permission === 'granted') { const o = { body: MT(t.why || 'خطوة صغيرة الآن تكفي.'), tag: 'rem-' + t.id, icon: 'icon-192.png', dir: 'rtl', lang: 'ar' }; if (navigator.serviceWorker && navigator.serviceWorker.ready) navigator.serviceWorker.ready.then((r) => r.showNotification('حان وقت «' + name + '»', o)).catch(() => new Notification('حان وقت «' + name + '»', o)); else new Notification('حان وقت «' + name + '»', o); } } catch (x) {}
 }
 
 async function importText(txt) {
@@ -6498,13 +6714,14 @@ async function boot() {
   detectSar(); setTimeout(detectSar, 800); setTimeout(detectSar, 2500); if (document.fonts && document.fonts.ready) document.fonts.ready.then(detectSar);
   if (TODAY() < ST.startDate) ST.startDate = TODAY();
   loadDiary().then(() => { if (VIEW === 'diary') render(); });
-  recompute(); render(); persist(); showNotices(); checkExemptExpiry(); checkPlantDone(); checkAchSeen(); checkMilestones(R); compWarnModal();
+  if (!ST.settings.look && lsLook()) ST.settings.look = lsLook();
+  gStart(); recompute(); render(); if (!ST.settings.onboarded) showWelcome(); persist(); showNotices(); checkExemptExpiry(); checkPlantDone(); checkAchSeen(); checkMilestones(R); compWarnModal();
   if (cloudOn() && CS.refresh) setTimeout(() => cloudSyncState(false).then((s) => { if (s === 'pulled') render(); }).catch(() => {}), 3000);
   setTimeout(pushRemSchedule, 6000);
   setInterval(checkReminders, 20000); setTimeout(checkReminders, 2500);
   setInterval(() => { if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } }, 30000);
   document.addEventListener('visibilitychange', () => { if (document.hidden) Store.save(ST); else if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } });
-  window.__app = { pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, flameSVG, FL, flameLevel, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
+  window.__app = { skipWelcome: () => { ST.settings.onboarded = true; const w = document.getElementById('welcome'); if (w) w.remove(); persist(); }, go: (v) => { VIEW = v; render(); }, pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, flameSVG, FL, flameLevel, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
 }
 startMoves();
 boot();
