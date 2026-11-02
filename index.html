@@ -189,6 +189,7 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .hstats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .hstats div{background:rgba(255,255,255,.1);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:2px}
 .hstats b{font-size:26px;line-height:1.1}.hstats span{font-size:12px;color:#AEBBDD}
+.menubtn[hidden]{display:none}
 .menubtn{background:var(--surface);border:1px solid var(--line);border-radius:12px;width:40px;height:40px;display:grid;place-items:center;color:var(--ink)}
 .menubtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .drawer-scrim{position:fixed;inset:0;z-index:70;background:rgba(10,20,14,.5);animation:fade .2s}
@@ -247,7 +248,8 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .circ[disabled]{opacity:.35;cursor:not-allowed}
 .edit{background:none;border:0;color:var(--ink2);width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
 .edit svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.fab{position:fixed;inset-inline-start:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:25;height:54px;padding-inline:20px;border-radius:999px;box-shadow:var(--shadow);font-size:16px}
+.fab{position:fixed;inset-inline-start:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:25;width:48px;height:48px;padding:0;border-radius:50%;box-shadow:var(--shadow);display:grid;place-items:center;opacity:.92}.fab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.stcmp .seg{margin-bottom:6px}.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tools button{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}.tools button svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.tools button .bd{font-size:11px;color:var(--ink2)}
 
 /* الشعلة */
 .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-block:20px}
@@ -788,13 +790,15 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
 .wl-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wl-card{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:10px 8px 14px;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;align-items:center;gap:6px}
 .wl-card svg{height:170px;width:auto;max-width:100%}.wl-card b{font-size:18px}.wl-prev{height:220px;display:flex;justify-content:center}.wl-prev svg{height:100%;width:auto}
 .wl-msg{color:var(--ink2);font-size:14px;min-height:20px}
+.nav button.lk{opacity:.55}.drawer button.di.lk{opacity:.6}.lockcard{text-align:center;align-items:center;padding:28px 18px}.lockic svg{width:54px;height:54px;fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+details.acc{padding:0}details.acc>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center}details.acc>summary::-webkit-details-marker{display:none}details.acc>summary::after{content:'';width:9px;height:9px;border-inline-end:2px solid var(--ink2);border-bottom:2px solid var(--ink2);transform:rotate(45deg);transition:transform .2s;margin-inline-start:8px}details.acc[open]>summary::after{transform:rotate(-135deg)}details.acc>.accb{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
 </style>
 
 <div id="frost"></div><div id="dim"></div>
 <canvas id="fx"></canvas>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 <div class="wrap">
-  <header class="top"><button class="menubtn" data-act="drawer" aria-label="القائمة"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><div class="brand">استمرّ</div><div id="topchip"></div></header>
+  <header class="top"><button class="menubtn" data-act="drawer" aria-label="القائمة"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><button class="menubtn" id="backbtn" data-act="back" aria-label="رجوع" hidden></button><div class="brand">استمرّ</div><div id="topchip"></div></header>
   <div id="warn"></div>
   <main id="app" class="stack"></main>
 </div>
@@ -1047,12 +1051,14 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   const roundHalfDown = (x) => Math.ceil(x - 0.5 - 1e-9);
 
   /* ---------- الحالة ---------- */
+  // الوضع السهل: أقل عدد مهام لتأكيد اليوم (٤٠٪ وبحد أدنى ٣، ولا يزيد عن عدد المهام)
+  function easyNeed(n) { return Math.min(n, Math.max(3, Math.ceil(n * 0.4))); }
   function newState(today) {
     return {
       v: 1, startDate: today, nextId: 1,
       tasks: [], goals: [], completions: [], quiet: [], purchases: [], leastUses: [], loans: [],
-      compDone: [], editLog: [], ack: [], ops: [], alloc: [], equip: 'starter',
-      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, rescueFrom: today, traitsFrom: today, econVer: 2, econFrom: today, onboarded: false },
+      compDone: [], easyOk: [], editLog: [], ack: [], ops: [], alloc: [], equip: 'starter',
+      settings: { weekStart: 6, restoreLimit: 3, initialFreezes: 3, compMode: 'single', compSteps: [], autoAlloc: false, extrasFrom: today, rescueFrom: today, traitsFrom: today, econVer: 2, econFrom: today, onboarded: false, progressive: true, easy: false, easyFrom: '' },
       place: {},
     };
   }
@@ -1060,6 +1066,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   function migrate(st) {
     if (st.settings && st.settings.onboarded === undefined) st.settings.onboarded = true; // من عنده بيانات سابقة لا يرى صفحة البداية
     if (!Array.isArray(st.alloc)) st.alloc = [];
+    if (!Array.isArray(st.easyOk)) st.easyOk = [];
+    if (st.settings && st.settings.progressive === undefined) st.settings.progressive = false; // القدامى: كل شيء مفتوح
     if (!Array.isArray(st.ops)) st.ops = [];
     if (!Array.isArray(st.placeLog)) st.placeLog = [];
     if (!st.equip) st.equip = 'starter';
@@ -2004,7 +2012,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
     const ledger = [{ key: 'start', amount: C.START_COINS, reason: 'رصيد البداية', date: st.startDate }];
     const pts = [];
     const days = {}; const events = [];
-    let flame = 'lit', streak = 0, saved = 0, best = 0, earnedFreezes = 0, usedFreezes = 0;
+    let easyIdle = 0; let flame = 'lit', streak = 0, saved = 0, best = 0, earnedFreezes = 0, usedFreezes = 0;
     const restores = {}; const frozenDays = []; const weekSucc = {};
     const boughtUpTo = (D) => st.purchases.filter((p) => p.kind === 'freeze' && p.date <= D).length;
     let todayModel = null, todayStatus = null;
@@ -2028,6 +2036,8 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
       const dps = dayPoints(st, m); for (const r of dps) pts.push(r);
       { const sp = traitPctAt(st, D, 'str'); if (sp) { strCarry += dps.reduce((a, e) => a + e.amount, 0) * sp / 100; const ex = Math.floor(strCarry + 1e-9); if (ex > 0) { strCarry -= ex; pts.push({ key: 'dp:str:' + D, amount: ex, reason: 'مكافأة القوة (+' + sp + '٪ نقاط)', date: D }); } } }
       let status;
+      const easyDay = !!(st.settings.easy && st.settings.easyFrom && D >= st.settings.easyFrom);
+      const easyOkDay = easyDay && (st.easyOk || []).includes(D) && m.reqStreak.length > 0 && m.reqStreak.filter((i) => i.complete).length >= easyNeed(m.reqStreak.length);
       const mo = monthOf(D);
       // يوم الإنقاذ لا يُعفي من مهام اليوم: بعد إنجاز التعويضية تعود الشعلة صغيرة لكن يُحسب اليوم كأي يوم (نجاح، أو تجميدة، أو انطفاء)
       const strictRescue = !!(st.settings.rescueFrom && D >= st.settings.rescueFrom); let rescued = false;
@@ -2046,11 +2056,20 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
         else { status = 'frozenDay'; frozenDays.push(D); events.push({ D, type: 'frozenDay' }); }
       } else if (m.quiet) status = 'quiet';
       else if (!m.hasStreak) status = 'idle';
-      else if (m.streakDone) {
+      else if (m.streakDone || easyOkDay) {
+        easyIdle = 0;
         streak++; status = 'success'; if (flame === 'small') flame = 'lit';
         if (streak >= C.FREEZE_FIRST_AT && (streak - C.FREEZE_FIRST_AT) % C.FREEZE_EVERY === 0) { earnedFreezes++; events.push({ D, type: 'freezeEarned', streak }); }
       } else if (provisional) status = 'pending';
-      else {
+      else if (easyDay) {
+        // الوضع السهل: اليوم الفائت لا يطفئ الشعلة؛ الغياب التام فقط: ٣ أيام تخفت و٥ تنطفئ
+        if (m.reqStreak.some((i) => i.complete)) { easyIdle = 0; status = 'easyPass'; }
+        else {
+          easyIdle++;
+          if (easyIdle >= 5) { saved = streak; streak = 0; flame = 'out'; status = 'out'; easyIdle = 0; events.push({ D, type: 'out', saved }); }
+          else { if (easyIdle >= 3) flame = 'small'; status = 'easyIdle'; }
+        }
+      } else {
         const avail = st.settings.initialFreezes + earnedFreezes + boughtUpTo(D) - usedFreezes;
         if (avail > 0) { usedFreezes++; status = 'frozenSave'; events.push({ D, type: 'frozenSave' }); }
         else { saved = streak; streak = 0; flame = 'out'; status = 'out'; events.push({ D, type: 'out', saved }); }
@@ -2318,7 +2337,7 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
   }
 
   return { C, pd, fd, addDays, diff, dow, monthOf, weekStart, daysLeftInWeek, localToday, roundHalfDown,
-    newState, clone, ver, streakOf, exemptLeft, exemptStart, lastExemptEnd, isActive, isMainLike, allowance, addTask, updateTask, deleteTask, schedText, everyLabel, schedOk, hijriDay, addGoal, addGoalAmount, removeGoalAmount, updateGoal, completeGoal, reopenGoal, toggleStep, deleteGoal, computeGoals, onceStatus, normalizeAllowance,
+    newState, easyNeed, clone, ver, streakOf, exemptLeft, exemptStart, lastExemptEnd, isActive, isMainLike, allowance, addTask, updateTask, deleteTask, schedText, everyLabel, schedOk, hijriDay, addGoal, addGoalAmount, removeGoalAmount, updateGoal, completeGoal, reopenGoal, toggleStep, deleteGoal, computeGoals, onceStatus, normalizeAllowance,
     setCount, countOf, buildIndex, dayModel, dayRewards, mainBonus, sideBonus, freezePrice, itemPrice, replay,
     ledgerDiff, previewEdit, quietInMonth, addQuiet, removeQuiet, buy, leastAllowed, useLeast, setCompStep, compSteps, compNeeded, compComplete,
     taskHistory, weekReview, weekGoal, hashStr, logEdit, validate, migrate, PLANTS, HOUSES, HOUSE_FLAT, BLESS_PCT, LEVEL_REWARD, PLANT_GET_RANGE, plantGet, levelBonusPct, ACHIEVEMENTS, ACH_TABS, buyHouse, settleBalance, takeLoan, movePlant, PLANT_LEVELS, TIERS, LEVEL_BANDS, levelTier, upgradeCost, GIFT_PLANTS, ACH_GIFT, PLANT_GET, plantDoneReward, GROW_DAYS, UPGRADE_COST, STAGE_NAMES, plantStage, treePhase, TREE_SCHEDULE, TREE_PHASES, plantLeafTotal, buyPlant, upgradePlant, waterPending, markWatered, TRAITS, OUTFITS, RARITY, levelReward, levelClass, overallOf, nextGoal, dayPoints, ptsDiff,
@@ -2346,6 +2365,7 @@ const TODAY = () => E.localToday();
 /* ---------- أيقونات ---------- */
 const IC = {
   tasks: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/>',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
   flame: '<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4.5.3 1.2 1 2 2 2.3C10.8 8.5 11 5.5 12 3z"/>',
   store: '<path d="M4 9h16l-1-5H5z"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/>',
   book: '<path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11"/>',
@@ -2490,6 +2510,34 @@ const PLACEHOLDER = {
   plants: ['غرفة النباتات', 'plant', 'المرحلة الثالثة', 'غرفة افتراضية لنباتاتك مع متجر شتلات من ١٠٢ نبتة بمستويات ندرة، ونمو تلقائي من إنجاز المهام، وأداة سقي مرئية، وتطوير النبتة بعد اكتمالها، وصحة وأوراق تتأثر بفقدان الاستمرارية.'],
   achv: ['الإنجازات', 'trophy', 'المرحلة الرابعة', 'ثلاثة تبويبات مستقلة للأوسمة (الاستمرارية، تطوير الشخصية، النباتات) بشروط فتح ومكافآت عملات لكل وسام، مع الإحصاءات الكاملة والمقارنات.'],
 };
+/* فتح الميزات تدريجيًا: للمستخدم الجديد فقط (من عنده بيانات سابقة كل شيء مفتوح له) */
+const UNL = { market: { d: 1 }, plants: { c: 3 }, person: { c: 3 }, achv: { s: 1 }, journey: { s: 1 } };
+const plantBought = () => ST.purchases.some((p) => p.kind === 'plant'); const plantPlaced = () => plantBought() && Object.keys(ST.place || {}).length > 0; const traitDone = () => ST.alloc.length > 0;
+const UNL_N = { achv: 'الإنجازات ورحلتي', market: 'السوق', plants: 'البيت الزجاجي', person: 'الشخصية' };
+function lockOf(v) {
+  if (!ST || !ST.settings.progressive || TOUR) return null; const u = UNL[v]; if (!u) return null;
+  if (u.s) { const need = []; if (!plantPlaced()) need.push('تشتري أول نبتة وتضعيها في البيت الزجاجي'); if (!traitDone()) need.push('تطوّري أول سمة لشخصيتك'); return need.length ? 'يُفتح بعد أن ' + need.join(' وأن ') + '.' : null; }
+  if (u.d != null) { const dd = E.diff(ST.startDate, TODAY()); if (dd >= u.d) return null; const l = u.d - dd; return 'يُفتح بعد ' + (l === 1 ? 'يوم واحد' : l === 2 ? 'يومين' : N(l) + ' أيام') + ' من استخدامك للتطبيق.'; }
+  const c = ST.completions.length; if (c >= u.c) return null; const l = u.c - c; return 'يُفتح بعد إنجاز ' + (l === 1 ? 'مهمة واحدة أخرى' : l === 2 ? 'مهمتين أخريين' : N(l) + ' مهام') + '. وكل نقاطك وتطويرك تُحسب وتنتظرك بالداخل.';
+}
+function nextStep() {
+  if (!ST.settings.progressive) return null;
+  const c = ST.completions.length;
+  if (c < 3) return { t: 'أنجزي ' + (3 - c === 1 ? 'مهمة واحدة أخرى' : N(3 - c) + ' مهام') + ' لتفتح الشخصية والبيت الزجاجي.' };
+  if (!plantBought()) return lockOf('market') ? { t: 'غدًا يفتح السوق، لتشتري أول نبتة.' } : { t: 'اشتري أول نبتة من السوق (قسم الشتلات).', go: 'market', b: 'افتحي السوق' };
+  if (!plantPlaced()) return { t: 'ضعي نبتتك الأولى في البيت الزجاجي.', go: 'plants', b: 'افتحي البيت الزجاجي' };
+  if (!traitDone()) return R.ptsAvail > 0 ? { t: 'طوّري أول سمة لشخصيتك من نقاط التطوير.', go: 'person', b: 'افتحي الشخصية' } : { t: 'اجمعي نقاط التطوير بإنجاز مهامك، ثم طوّري أول سمة لشخصيتك.' };
+  return null;
+}
+function stepCard() { const n = nextStep(); if (!n || !(lockOf('achv'))) return ''; return '<div class="card stack easycard"><b>الخطوة التالية</b><p class="small muted" style="margin:0">' + n.t + '</p>' + (n.go ? '<div class="actions"><button class="btn soft" data-nav="' + n.go + '">' + n.b + '</button></div>' : '') + '</div>'; }
+function lockCard(v) { return '<div class="card stack lockcard"><div class="lockic" aria-hidden="true">' + ico('lock') + '</div><h2 style="margin:0">' + (UNL_N[v] || '') + ' مقفلة الآن</h2><p class="muted" style="margin:0">' + lockOf(v) + '</p><p class="small muted" style="margin:0">أنجزي مهامك اليوم وسيفتح لك كل شيء تباعًا.</p>' + (stepCard() ? '' : '') + '</div>' + stepCard(); }
+function checkUnlocks() {
+  if (!ST || !ST.settings.progressive || TOUR) return; const seen = ST.settings.unlSeen || (ST.settings.unlSeen = []); const nw = [];
+  Object.keys(UNL_N).forEach((v) => { if (!lockOf(v) && !seen.includes(v)) { seen.push(v); nw.push(UNL_N[v]); } });
+  if (!nw.length) return; persist();
+  if (ST.completions.length === 0 && E.diff(ST.startDate, TODAY()) === 0) return;
+  setTimeout(() => { if (document.querySelector('.scrim')) return; modal('<h2>انفتح لك جديد</h2><p>' + nw.join(' و') + '. جرّبيه الآن.</p><div class="actions"><button class="btn" data-close>رائع</button></div>'); }, 400);
+}
 const NAV = [['tasks', 'المهام', 'tasks'], ['streak', 'الاستمرارية', 'flame'], ['plants', 'البيت الزجاجي', 'plant'], ['person', 'الشخصية', 'person'], ['diary', 'اليوميات', 'book'], ['hope', 'أفق الأمل', 'star']];
 /* --- دليل التطبيق: شرح مبسّط مقسّم إلى أقسام --- */
 const GUIDE = [
@@ -2639,7 +2687,7 @@ function viewGuide() {
   return h;
 }
 
-const SIDE = [['market', 'السوق', 'store'], ['achv', 'الإنجازات', 'trophy'], ['journey', 'رحلتي', 'route'], ['goals', 'أهدافي', 'flag'], ['quotes', 'عباراتي', 'quote'], ['guide', 'دليل التطبيق', 'book'], ['backup', 'النسخ الاحتياطي', 'save'], ['settings', 'الإعدادات', 'gear']];
+const SIDE = [['market', 'السوق', 'store'], ['achv', 'الإنجازات ورحلتي', 'trophy'], ['goals', 'أهدافي', 'flag'], ['quotes', 'عباراتي', 'quote'], ['settings', 'الإعدادات', 'gear']];
 
 let saveTimer = null;
 function persist() { clearTimeout(saveTimer); saveTimer = setTimeout(() => Store.save(ST), 60); if (typeof cloudSchedule === 'function') cloudSchedule(); try { pushRemSchedule(); } catch (x) {} }
@@ -2821,7 +2869,7 @@ function renderTop() {
   drawBell();
 }
 function renderNav() {
-  $('#nav').innerHTML = NAV.map((n) => '<button data-nav="' + n[0] + '" class="' + (n[3] ? 'soon' : '') + '" ' + (VIEW === n[0] ? 'aria-current="page"' : '') + '>' + ico(n[2]) + '<span>' + n[1] + '</span></button>').join('');
+  $('#nav').innerHTML = NAV.map((n) => '<button data-nav="' + n[0] + '" class="' + (n[3] ? 'soon' : '') + (lockOf(n[0]) ? ' lk' : '') + '" ' + (VIEW === n[0] ? 'aria-current="page"' : '') + '>' + ico(n[2]) + '<span>' + n[1] + '</span></button>').join('');
 }
 const PGHEAD = { streak: ['الاستمرارية', 'شعلتك وأيامك ونجاحك'], plants: ['البيت الزجاجي', 'نباتاتك تنمو معك بلا استعجال'], person: ['الشخصية', 'ملامحك وسماتك وأزياؤك'], market: ['المتجر', 'اختاري ما يستحق عملاتك'], achv: ['الإنجازات', 'رحلتك بأرقامها'], settings: ['الإعدادات', 'كل شيء على ذوقك'], goals: ['أهدافي', 'أهداف تكتبينها ومكافأة عند اكتمالها'], journey: ['رحلتي', 'كل لحظة جميلة مررتِ بها، في مكان واحد'], backup: ['النسخ الاحتياطي', 'طوق نجاة بياناتك'], guide: ['دليل التطبيق', 'كل شيء مشروح بأسلوب بسيط، قسمًا قسمًا'], diary: ['اليوميات', 'مساحتك لتكتبي بلا حكم ولا استعجال'], hope: ['أفق الأمل', 'كل يوم نظيف نجمة في سمائك'] };
 const PALS = [['green', 'أخضر (الأصلي)', '#2C6A49', '#6F8E3A', '#C7993A'], ['rose', 'وردي', '#B04A6A', '#C2704F', '#8A6CB0'], ['ocean', 'أزرق', '#1F6F9A', '#1E9C98', '#6677D6'], ['lav', 'بنفسجي', '#6B4FA8', '#B0549A', '#4A7FC4'], ['sand', 'رملي', '#7A5A3A', '#54806D', '#B5793F'], ['amber', 'عنبري', '#B5651D', '#A8452F', '#6F8F3A']];
@@ -2879,8 +2927,17 @@ try { new MutationObserver(() => { clearTimeout(iceT); iceT = setTimeout(iceAll,
 addEventListener('resize', () => { clearTimeout(iceT); iceT = setTimeout(iceAll, 150); });
 let WIDE0 = window.innerWidth >= 720;
 addEventListener('resize', () => { const w = window.innerWidth >= 720; if (w !== WIDE0) { WIDE0 = w; render(); } });
+let HIST = [], LASTV = null, BACKING = false;
+const MAINV = ['tasks', 'streak', 'plants', 'person', 'diary', 'hope'];
+function backTrack() {
+  if (LASTV !== null && VIEW !== LASTV) { if (!BACKING) { if (HIST[HIST.length - 1] !== LASTV) HIST.push(LASTV); if (HIST.length > 25) HIST.shift(); } }
+  LASTV = VIEW; BACKING = false;
+  const bb = document.getElementById('backbtn'); if (!bb) return;
+  const show = !MAINV.includes(VIEW) && HIST.length > 0; bb.hidden = !show; if (show && !bb.innerHTML) bb.innerHTML = ico('right');
+}
+function goBack() { let p = null; while (HIST.length && (p = HIST.pop()) === VIEW) p = null; if (!p) p = 'tasks'; BACKING = true; VIEW = p; VIEWDAY = null; closeDrawer(); render(); window.scrollTo(0, 0); }
 function render() {
-  syncOutNames();
+  syncOutNames(); backTrack();
   const y = window.scrollY;
   setBodyState(); renderTop(); renderNav(); iceAll();
   const app = $('#app');
@@ -2900,17 +2957,20 @@ function render() {
   else if (VIEW === 'goals') html = viewGoals();
   else if (VIEW === 'backup') html = viewBackup();
   else html = viewSoon(VIEW);
+  if (lockOf(VIEW)) html = lockCard(VIEW);
+  else if (VIEW === 'achv' || VIEW === 'journey') html = '<div class="seg" role="tablist" style="margin-bottom:12px"><button data-nav="achv" aria-pressed="' + (VIEW === 'achv') + '">الأوسمة</button><button data-nav="journey" aria-pressed="' + (VIEW === 'journey') + '">رحلتي</button></div>' + html;
   if (TIPV !== VIEW) { TIPV = VIEW; TIPT = pickTip(VIEW); }
   const tipHTML = (TIPT && TIPS[VIEW]) ? '<div class="tipcard" role="note"><span>' + esc(TIPT) + '</span><button data-act="tipX" aria-label="إخفاء">×</button></div>' : '';
-  if (PGHEAD[VIEW]) html = '<div class="pghead"><h1>' + PGHEAD[VIEW][0] + '</h1><p>' + PGHEAD[VIEW][1] + '</p></div>' + html;
+  if (PGHEAD[VIEW] && !lockOf(VIEW)) html = '<div class="pghead"><h1>' + PGHEAD[VIEW][0] + '</h1><p>' + PGHEAD[VIEW][1] + '</p></div>' + html;
   if (R.hidden && VIEW !== 'tasks') html = compStrip() + html;
   app.innerHTML = html; app.dataset.view = VIEW;
   if (tipHTML) { const first = [...app.children].find((el) => !el.matches('.pghead,.compstrip,.compalert')); if (first) first.insertAdjacentHTML('afterend', tipHTML); else app.insertAdjacentHTML('beforeend', tipHTML); }
   fillCols(app);
   hopeBgSync();
   $('.fab') && $('.fab').remove();
-  if (VIEW === 'tasks' && (VIEWDAY || TODAY()) >= TODAY() && !(R.hidden && !VIEWDAY)) { const f = document.createElement('button'); f.className = 'btn fab'; f.dataset.act = 'addTask'; f.innerHTML = '+ مهمة جديدة'; document.body.appendChild(f); }
+  if (VIEW === 'tasks' && (VIEWDAY || TODAY()) >= TODAY() && !(R.hidden && !VIEWDAY)) { const f = document.createElement('button'); f.className = 'btn fab'; f.dataset.act = 'addTask'; f.setAttribute('aria-label', 'مهمة جديدة'); f.innerHTML = ico('plus'); document.body.appendChild(f); }
   window.scrollTo(0, y);
+  checkUnlocks();
   if (typeof checkPlantDone === 'function') checkPlantDone();
   if (typeof checkHope === 'function') checkHope();
 }
@@ -2919,7 +2979,7 @@ function openDrawer() {
   closeDrawer();
   const sc = document.createElement('div'); sc.className = 'drawer-scrim';
   const d = document.createElement('aside'); d.className = 'drawer'; d.setAttribute('aria-label', 'القائمة الجانبية');
-  d.innerHTML = '<h2 style="margin:0 0 8px">المزيد</h2>' + SIDE.map((n) => '<button class="di" data-nav="' + n[0] + '">' + ico(n[2]) + '<span>' + n[1] + '</span></button>').join('');
+  d.innerHTML = '<h2 style="margin:0 0 8px">المزيد</h2>' + SIDE.map((n) => '<button class="di' + (lockOf(n[0]) ? ' lk' : '') + '" data-nav="' + n[0] + '">' + ico(lockOf(n[0]) ? 'lock' : n[2]) + '<span>' + n[1] + '</span></button>').join('');
   document.body.appendChild(sc); document.body.appendChild(d);
 }
 function closeDrawer() { document.querySelectorAll('.drawer,.drawer-scrim').forEach((x) => x.remove()); }
@@ -3483,6 +3543,12 @@ function viewTasks() {
   if (TASKTAB === 'temp') return tabs + tempView();
   let out = tabs + '<div class="daynav"><button class="iconbtn" data-act="prevDay" aria-label="اليوم السابق">' + ico('right') + '</button><h2>' + (isToday ? 'اليوم' : dlabel(D)) + '<div class="small muted" style="font-family:var(--font-body);font-weight:400">' + dlabel(D) + '</div></h2>' + (isToday ? '' : '<button class="btn soft" data-act="goToday">اليوم</button>') + '<button class="iconbtn" data-act="nextDay" aria-label="اليوم التالي">' + ico('left') + '</button></div>';
 
+  if (isToday && ST.settings.easy && ST.settings.easyFrom && today >= ST.settings.easyFrom && m.reqStreak.length && R.todayStatus !== 'success') {
+    const need = E.easyNeed(m.reqStreak.length), dn = m.reqStreak.filter((i) => i.complete).length;
+    if (!ST.easyOk.includes(today) && dn >= need) out += '<div class="card stack easycard"><b>هل تعتقدين أنكِ أنجزتِ بما فيه الكفاية لهذا اليوم؟</b><p class="small muted" style="margin:0">أنجزت ' + N(dn) + ' من ' + N(m.reqStreak.length) + ' مهام. إن كان يومك كافيًا فاحسبيه يوم نجاح.</p><div class="actions"><button class="btn" data-act="easyYes">نعم، يومي كافٍ</button></div></div>';
+    else if (!ST.easyOk.includes(today) && dn > 0) out += '<div class="note">الوضع السهل: أنجزي ' + N(need) + ' مهام على الأقل ليظهر لكِ زر تأكيد اليوم. تبقّى ' + N(need - dn) + '.</div>';
+  }
+  if (isToday && !R.hidden) out += stepCard();
   if (isToday && !R.hidden) out += quoteDayCard();
   if (isToday && R.hidden) return out + hiddenCard() + supportCard(R.flameKind === 'out' ? 'out' : 'frozen', today);
   if (past) out += '<div class="note warn">تعرضين يومًا سابقًا. أي تعديل هنا يمرّ بتأكيد، ويُعاد حساب الاستمرارية والعملات بالقواعد نفسها، ويُسجَّل في سجل التعديلات.</div>';
@@ -3525,7 +3591,7 @@ function viewTasks() {
   if (ds && past) out += '<div class="small muted">حالة اليوم: ' + statusText(ds.status) + '</div>';
   return out;
 }
-const statusText = (s) => ({ success: 'يوم مكتمل للاستمرارية', frozenSave: 'استُهلكت تجميدة لحماية الشعلة', out: 'انطفأت الشعلة', quiet: 'يوم هادئ محمي', idle: 'لا مهام مسؤولة عن الاستمرارية', restored: 'استُعيدت الشعلة', freezeStart: 'بدأ التجمد الكامل', frozenDay: 'يوم تجمد كامل', pending: 'لم يكتمل بعد', outToday: 'الشعلة منطفئة', frozenToday: 'الواجهة متجمدة' }[s] || s);
+const statusText = (s) => ({ success: 'يوم مكتمل للاستمرارية', frozenSave: 'استُهلكت تجميدة لحماية الشعلة', out: 'انطفأت الشعلة', quiet: 'يوم هادئ محمي', idle: 'لا مهام مسؤولة عن الاستمرارية', restored: 'استُعيدت الشعلة', freezeStart: 'بدأ التجمد الكامل', frozenDay: 'يوم تجمد كامل', pending: 'لم يكتمل بعد', easyPass: 'يوم هادئ: بقيت الشعلة كما هي', easyIdle: 'يوم بلا نشاط: الشعلة تنتظرك', outToday: 'الشعلة منطفئة', frozenToday: 'الواجهة متجمدة' }[s] || s);
 
 function compLoss() {
   return R.level > 1 ? 'سينخفض مستوى شخصيتك من <b class="num">' + N(R.level) + '</b> إلى <b class="num">' + N(R.level - 1) + '</b>' : 'ستذبل نباتاتك ويتجمد كل شيء';
@@ -3657,13 +3723,17 @@ function viewStreak() {
   return (() => { const FLd = FL[flameLevel(R.streak)]; return '<div class="card hero s-' + (kind === 'frozen' ? 'frozen' : kind === 'out' ? 'out' : 'on') + '">' + (kind === 'out' || kind === 'frozen' ? '' : '<button class="flbd" data-act="flLevels" aria-label="كل مستويات الشعلة" style="color:' + FLd.b + ';border-color:' + FLd.b + '">' + FLd.t + '</button>') + '<div class="big">' + flameSVG(kind === 'frozen' ? 'iced' : kind) + '</div>' + (kind === 'out' || kind === 'frozen' ? '' : '<div class="flname">' + FLd.n + '</div><div class="small muted">' + FLd.c + '</div><button class="flmore" data-act="flLevels">كل مستويات الشعلة ‹</button>') + '<div class="streaknum num">' + N(R.streak) + '</div><div><b>' + (R.streak === 1 ? 'يوم' : 'أيام') + ' متتالية</b> · ' + flameLabel[kind] + '</div>' +
     '<div class="row small muted" style="gap:14px;flex-wrap:wrap;justify-content:center"><span>أفضل استمرارية: <b class="num">' + N(R.bestStreak) + '</b></span><span>التجميدات: <b class="num">' + N(R.freezes) + '</b></span><span>تجميدة جديدة عند: <b class="num">' + N(R.nextFreezeAt) + '</b> أيام</span></div></div>'; })() +
     viewCal() + weekReviewCard() + '<div class="card stack"><h3>هذا الأسبوع</h3><div class="week">' + weekHtml + '</div><div class="small muted">الأيام المثالية: ما اكتملت فيها كل المهام الرئيسية والإضافية.</div></div>' +
-    '<div class="card charts stack"><h3>الأسبوع الحالي مقابل الماضي</h3>' + barChart(wg, ['var(--green)', 'var(--leaf)']) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الأسبوع (' + N(weekTicks) + ')</span><span><i style="background:var(--leaf)"></i>الأسبوع الماضي (' + N(prevTicks) + ')</span></div></div>' +
-    '<div class="card charts stack"><h3>الشهر الحالي مقابل الماضي</h3>' + barChart(mg, ['var(--green)', 'var(--leaf)'], 140) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الشهر</span><span><i style="background:var(--leaf)"></i>الشهر الماضي</span></div></div>' +
-    '<div class="card stack"><h3>بطاقة «أقل ما يمكن»</h3><p class="muted small">يُمكّنك هذا العنصر من اختيار وتنفيذ الجزء الأقل من مهامك اليومية (حتى 40% من القائمة).</p><div class="row"><span class="pill ' + (R.leastOwned > 0 ? 'ok' : '') + '">تملكين: <span class="num">' + N(R.leastOwned) + '</span></span><button class="btn" data-act="useLeast" ' + (R.leastOwned > 0 && !R.hidden ? '' : 'disabled') + '>استعمال اليوم</button></div>' + (R.leastOwned <= 0 ? '<div class="small muted">تُشترى من السوق ثم تُحفظ هنا حتى تستعمليها.</div>' : '') + '</div>' +
-    '<div class="card stack"><h3>الأيام الهادئة</h3><p class="muted small">يوم محمي: لا يُطلب إنجاز، ولا تنقطع الاستمرارية، ولا تُستهلك تجميدة. المتبقي هذا الشهر: <b class="num">' + N(Math.max(0, qLeft)) + '</b> من ' + N(E.C.QUIET_PER_MONTH) + '. لا يمكن اختيار يوم مضى.</p>' +
-    '<div class="row" style="flex-wrap:wrap"><input type="date" id="quietDate" min="' + today + '" value="' + today + '" style="flex:1;min-width:150px"><button class="btn" data-act="addQuiet" ' + (qLeft > 0 ? '' : 'disabled') + '>تفعيل</button></div>' +
-    (quietList.length ? '<div class="row" style="flex-wrap:wrap;gap:6px">' + quietList.map((d) => '<span class="pill warn">' + dshort(d) + ' <button class="edit" style="width:22px;height:22px;display:inline-grid" data-act="rmQuiet" data-d="' + d + '" aria-label="إلغاء">' + ico('x') + '</button></span>').join('') + '</div>' : '') + '</div>' +
-    '<div class="card stack"><h3>الاستثناء من الاستمرارية</h3><p class="muted small">يسمح لك باستثناء نسبة ضئيلة تصل إلى 30% فقط من مهامك لكي لا تؤثر على الاستمرارية في أوقات انشغالك. يدوم الاستثناء ٥ أيام ثم تعود المهمة تلقائيًا.</p><div class="small">مهامك الرئيسية: <b class="num">' + N(al.total) + '</b> · يمكنك استثناء: <b class="num">' + N(al.max) + '</b> · مستثنى الآن: <b class="num">' + N(al.used) + '</b></div></div>';
+    '<div class="card charts stack stcmp"><h3>المقارنة</h3><div class="seg"><button data-act="cmpMode" data-v="w" aria-pressed="' + (STCMP === 'w') + '">الأسبوع</button><button data-act="cmpMode" data-v="m" aria-pressed="' + (STCMP === 'm') + '">الشهر</button></div>' + (STCMP === 'w' ? barChart(wg, ['var(--green)', 'var(--leaf)']) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الأسبوع (' + N(weekTicks) + ')</span><span><i style="background:var(--leaf)"></i>الأسبوع الماضي (' + N(prevTicks) + ')</span></div>' : barChart(mg, ['var(--green)', 'var(--leaf)'], 140) + '<div class="legend"><span><i style="background:var(--green)"></i>هذا الشهر</span><span><i style="background:var(--leaf)"></i>الشهر الماضي</span></div>') + '</div>' +
+    '<div class="card stack"><h3>أدواتي</h3><div class="tools"><button data-act="tool" data-k="least">' + ico('card') + 'أقل ما يمكن<span class="bd">' + N(R.leastOwned) + ' لديك</span></button><button data-act="tool" data-k="quiet">' + ico('moon') + 'الأيام الهادئة<span class="bd">' + N(Math.max(0, qLeft)) + ' متبقية</span></button></div></div>' +
+    '<div class="card stack"><h3>الاستثناء من الاستمرارية</h3><p class="muted small" style="margin:0">يسمح لك باستثناء نسبة ضئيلة تصل إلى 30% فقط من مهامك لكي لا تؤثر على الاستمرارية في أوقات انشغالك. يدوم الاستثناء ٥ أيام ثم تعود المهمة تلقائيًا. تفعّلينه من تعديل المهمة نفسها.</p><div class="small">مهامك الرئيسية: <b class="num">' + N(al.total) + '</b> · يمكنك استثناء: <b class="num">' + N(al.max) + '</b> · مستثنى الآن: <b class="num">' + N(al.used) + '</b></div></div>';
+}
+function toolModal(k) {
+  const today = TODAY(); const mo = E.monthOf(today); const qLeft = E.C.QUIET_PER_MONTH - E.quietInMonth(ST, mo); const quietList = ST.quiet.filter((d) => d >= today).slice(0, 6); const al = E.allowance(ST, today, 0);
+  let h;
+  if (k === 'least') h = '<h2>بطاقة «أقل ما يمكن»</h2><p class="muted small">يُمكّنك هذا العنصر من اختيار وتنفيذ الجزء الأقل من مهامك اليومية (حتى 40% من القائمة).</p><div class="row"><span class="pill ' + (R.leastOwned > 0 ? 'ok' : '') + '">تملك: <span class="num">' + N(R.leastOwned) + '</span></span><button class="btn" data-act="useLeast" ' + (R.leastOwned > 0 && !R.hidden ? '' : 'disabled') + '>استعمال اليوم</button></div>' + (R.leastOwned <= 0 ? '<div class="small muted">تُشترى من السوق ثم تُحفظ هنا حتى تستعمليها.</div>' : '');
+  else if (k === 'quiet') h = '<h2>الأيام الهادئة</h2><p class="muted small">يوم محمي: لا يُطلب إنجاز، ولا تنقطع الاستمرارية، ولا تُستهلك تجميدة. المتبقي هذا الشهر: <b class="num">' + N(Math.max(0, qLeft)) + '</b> من ' + N(E.C.QUIET_PER_MONTH) + '. لا يمكن اختيار يوم مضى.</p><div class="row" style="flex-wrap:wrap"><input type="date" id="quietDate" min="' + today + '" value="' + today + '" style="flex:1;min-width:150px"><button class="btn" data-act="addQuiet" ' + (qLeft > 0 ? '' : 'disabled') + '>تفعيل</button></div>' + (quietList.length ? '<div class="row" style="flex-wrap:wrap;gap:6px">' + quietList.map((d) => '<span class="pill warn">' + dshort(d) + ' <button class="edit" style="width:22px;height:22px;display:inline-grid" data-act="rmQuiet" data-d="' + d + '" aria-label="إلغاء">' + ico('x') + '</button></span>').join('') + '</div>' : '');
+  else h = '<h2>الاستثناء من الاستمرارية</h2><p class="muted small">يسمح لك باستثناء نسبة ضئيلة تصل إلى 30% فقط من مهامك لكي لا تؤثر على الاستمرارية في أوقات انشغالك. يدوم الاستثناء ٥ أيام ثم تعود المهمة تلقائيًا. تفعّلينه من تعديل المهمة نفسها.</p><div class="small">مهامك الرئيسية: <b class="num">' + N(al.total) + '</b> · يمكنك استثناء: <b class="num">' + N(al.max) + '</b> · مستثنى الآن: <b class="num">' + N(al.used) + '</b></div>';
+  modal(h + '<div class="actions"><button class="btn ghost" data-close>إغلاق</button></div>');
 }
 
 /* --- السوق --- */
@@ -3862,28 +3932,42 @@ function logDayHTML(D) {
   return (log ? '<div class="small muted">المكافآت</div><ul class="eff">' + log + '</ul>' : '') + (buys ? '<div class="small muted">المشتريات</div><ul class="eff">' + buys + '</ul>' : '') + (edits ? '<div class="small muted">تعديلات</div><ul class="eff">' + edits + '</ul>' : '');
 }
 document.addEventListener('change', (e) => { if (e.target && e.target.id === 'logDay' && e.target.value) { const o = $('#logOut'); if (o) o.innerHTML = logDayHTML(e.target.value); } });
-function viewSettings() {
+function viewSettings() { return accordionize(viewSettings0()); }
+let SOPEN = new Set(); let STCMP = 'w';
+document.addEventListener('toggle', (e) => { const d = e.target; if (d && d.classList && d.classList.contains('acc') && d.dataset.k) { if (d.open) SOPEN.add(d.dataset.k); else SOPEN.delete(d.dataset.k); } }, true);
+function accordionize(html) {
+  const t = document.createElement('div'); t.innerHTML = html; const out = document.createElement('div'); const adv = document.createElement('div'); adv.className = 'accb';
+  const ADV = []; const KEEP = ['البيانات والمساعدة', 'نمط الاستمرارية', 'الأسبوع', 'استعادة الاستمرارية', 'إعادة الضبط'];
+  const mk = (title, kids) => { const d = document.createElement('details'); d.className = 'card acc'; d.dataset.k = title; if (SOPEN.has(title)) d.open = true; const sm = document.createElement('summary'); sm.textContent = title; d.appendChild(sm); const b = document.createElement('div'); b.className = 'accb'; kids.forEach((k) => b.appendChild(k)); d.appendChild(b); return d; };
+  [...t.children].forEach((el) => {
+    const h = el.matches('.card.stack') && el.querySelector(':scope > h3');
+    if (h && KEEP.includes(h.textContent.trim())) out.appendChild(el);
+    else if (h) { const title = h.textContent.trim(); h.remove(); const kids = [...el.children]; if (ADV.includes(title)) { adv.appendChild(mk(title, kids)); } else out.appendChild(mk(title, kids)); }
+    else if (el.matches('details.bkdet')) { out.appendChild(el); }
+    else out.appendChild(el);
+  });
+  return out.innerHTML;
+}
+function viewSettings0() {
   const s = ST.settings; 
   const wsOpts = [6, 0, 1].map((d) => '<option value="' + d + '" ' + (s.weekStart === d ? 'selected' : '') + '>' + DAYS[d] + '</option>').join('');
   const steps = s.compSteps.length ? s.compSteps : [''];
   const log = R.ledger.slice(-40).reverse().map((e) => '<li class="small"><b class="num">' + (e.amount >= 0 ? '+' : '') + N(e.amount) + '</b> · ' + esc(e.reason) + ' <span class="muted">(' + dshort(e.date) + ')</span></li>').join('');
   const buys = ST.purchases.slice(-15).reverse().map((p) => '<li class="small">شراء ' + (p.kind === 'outfit' ? 'زي «' + ((E.OUTFITS.find((x) => x.id === p.item) || {}).name || '') + '»' : { freeze: 'تجميدة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن' }[p.kind]) + ' بـ ' + N(p.price) + ' · <span class="muted">' + dshort(p.date) + '</span></li>').join('');
   const edits = ST.editLog.slice(-15).reverse().map((e) => '<li class="small">تعديل ' + dshort(e.date) + ': ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
-  return '<div class="small muted" style="text-align:center">الإصدار ' + APP_VER + '</div><div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><span class="sw"><i style="background:' + p[2] + '"></i><i style="background:' + p[3] + '"></i><i style="background:' + p[4] + '"></i></span>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
+  return '<div class="card stack"><h3>البيانات والمساعدة</h3><div class="actions"><button class="btn soft" data-nav="backup">النسخ الاحتياطي</button><button class="btn soft" data-nav="guide">دليل التطبيق</button></div></div>' +
+    '<div class="card stack"><h3>نمط الاستمرارية</h3><div class="seg"><button data-act="easyMode" data-v="0" aria-pressed="' + (!s.easy) + '">صعب</button><button data-act="easyMode" data-v="1" aria-pressed="' + (!!s.easy) + '">سهل</button></div><p class="muted small" style="margin:0">' + (s.easy ? 'السهل: لا تنطفئ الشعلة بسبب يوم ناقص. إذا غبتِ ٣ أيام تخفت، وفي اليوم الخامس تنطفئ. وبعد إنجاز جزء من مهامك يظهر زر تؤكدين به أن يومك كان كافيًا.' : 'الصعب: يجب إنجاز مهام الاستمرارية كلها في اليوم وإلا استُهلكت تجميدة أو انطفأت الشعلة.') + '</p></div>' +
+    '<div class="card stack"><h3>ظهور الميزات</h3><div class="seg"><button data-act="progMode" data-v="1" aria-pressed="' + (!!s.progressive) + '">تدريجيًا</button><button data-act="progMode" data-v="0" aria-pressed="' + (!s.progressive) + '">الكل الآن</button></div><p class="muted small" style="margin:0">التدريجي يفتح لكِ الميزات واحدة بعد أخرى مع الأيام ومع إنجاز المهام، حتى لا يزدحم التطبيق في البداية.</p></div>' +
+    '<div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><span class="sw"><i style="background:' + p[2] + '"></i><i style="background:' + p[3] + '"></i><i style="background:' + p[4] + '"></i></span>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
 '<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
     (() => { const p = pushStatus(); return '<div class="card stack"><h3>الإشعارات خارج التطبيق</h3><p class="muted small">تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية.</p><div class="note" id="pushState">' + esc(p.t) + '</div><div class="actions">' + (p.k === 'on' ? '<button class="btn soft" data-act="pushSync">تحديث التذكيرات</button><button class="btn soft" data-act="pushTest">إشعار تجريبي</button><button class="btn ghost" data-act="pushOff">إيقاف</button>' : '<button class="btn" data-act="pushOn">تفعيل الإشعارات</button>') + '</div></div>'; })() +
-    '<div class="card stack"><h3>الأسبوع</h3><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
-    '<div class="card stack"><h3>استعادة الاستمرارية</h3><div class="field"><label>أقصى عدد استعادات في الشهر</label><div class="stepper"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
+    '<div class="card stack"><h3>الأسبوع</h3><p class="muted small" style="margin:0">اختاري اليوم الذي يبدأ منه أسبوعك. عليه تُحسب أيام النجاح الأسبوعية والهدف الأسبوعي ومقارنة الأسبوع.</p><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
+    '<div class="card stack"><h3>استعادة الاستمرارية</h3><p class="muted small" style="margin:0">إذا انطفأت شعلتك أو تجمّدت واجهتك، تنجزين «مهمة تعويضية» تكتبينها هنا فتعود شعلتك. حدّدي كم مرة يمكنك الاستعادة في الشهر، ثم اكتبي مهمتك التعويضية.</p><div class="field"><label>أقصى عدد استعادات في الشهر</label><div class="stepper"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
     '<div class="field"><div class="lbl">نوع المهمة التعويضية</div><div class="seg"><button data-act="compMode" data-m="single" aria-pressed="' + (s.compMode === 'single') + '">مهمة واحدة</button><button data-act="compMode" data-m="sequence" aria-pressed="' + (s.compMode === 'sequence') + '">مهام متتابعة</button></div></div>' +
     '<div class="field"><div class="lbl">نص المهمة التعويضية' + (s.compMode === 'sequence' ? ' (كل خطوة)' : '') + '</div>' + steps.map((t, i) => '<div class="row"><input type="text" data-comp="' + i + '" value="' + esc(t) + '" placeholder="مثال: اكتبي ثلاث أسباب تمنعك وأعيدي ترتيب يومك"' + (s.compMode === 'single' && i > 0 ? ' disabled' : '') + '>' + (s.compMode === 'sequence' && steps.length > 1 ? '<button class="edit" data-act="rmStep" data-i="' + i + '" aria-label="حذف">' + ico('x') + '</button>' : '') + '</div>').join('') + (s.compMode === 'sequence' ? '<button class="btn soft" data-act="addStep">+ خطوة</button>' : '') + '</div></div>' +
-    '<details class="card bkdet"><summary><b>النسخة الاحتياطية والاستيراد</b></summary><div class="stack" style="margin-top:10px"><p class="muted small">بياناتك محفوظة على هذا المتصفح فقط ولا تتزامن تلقائيًا بين الأجهزة. للنقل إلى جهاز آخر، انسخي النسخة هنا والصقيها هناك.</p>' +
-    '<div class="field"><div class="actions"><button class="btn" data-nav="backup">افتحي صفحة النسخ الاحتياطي</button></div></div>' +
-    '<div class="field"><div class="actions"><button class="btn" data-act="copyExp">نسخ النسخة الاحتياطية</button></div><div id="expBox"></div></div>' +
-    '<div class="field"><label for="imp">استيراد</label><textarea id="imp" class="code" placeholder="الصقي النسخة الاحتياطية هنا"></textarea><div class="actions"><button class="btn ghost" data-act="doImport">استيراد النص</button><label class="btn soft" style="display:inline-grid;place-items:center;cursor:pointer">اختيار ملف<input type="file" id="impFile" accept=".txt,text/plain" hidden></label></div></div>' +
-    '<div class="field"><div class="lbl">نسخة اليوميات (مع الصور والملفات)</div><p class="muted small" style="margin:0 0 8px">اليوميات تُحفظ بمعزل عن النسخة أعلاه لأنها قد تكون كبيرة. احفظي ملفًا منها من وقت لآخر.</p><div class="actions"><button class="btn" data-act="dBackup">حفظ ملف اليوميات</button><label class="btn soft" style="display:inline-grid;place-items:center;cursor:pointer">استعادة من ملف<input type="file" id="dImpFile" accept=".json,application/json" hidden></label></div></div>' +
-    '<div class="field"><button class="btn danger" data-act="reset">إعادة ضبط كل البيانات</button></div></div></details>' +
+    '<div class="card stack"><h3>إعادة الضبط</h3><p class="muted small" style="margin:0">تمسح كل بياناتك من هذا الجهاز وتبدأ من جديد. خذي نسخة احتياطية قبلها.</p><button class="btn danger" data-act="reset">إعادة ضبط كل البيانات</button></div>' +
     '<details class="card bkdet"><summary><b>سجل العمليات</b></summary><div class="stack" style="margin-top:10px"><div class="row" style="gap:10px"><label for="logDay" class="muted">اختاري اليوم</label><input type="date" id="logDay" value="' + TODAY() + '" max="' + TODAY() + '" style="max-width:190px"></div><div id="logOut">' + logDayHTML(TODAY()) + '</div></div></details>' +
-    '<div class="note">التخزين: ' + ({ idb: 'قاعدة بيانات المتصفح (دائمة على هذا المتصفح)', ls: 'التخزين المحلي', mem: 'مؤقت، سيضيع عند الإغلاق' }[Store.mode]) + '</div>';
+    '<div class="small muted" style="text-align:center">الإصدار ' + APP_VER + '</div><div class="note">التخزين: ' + ({ idb: 'قاعدة بيانات المتصفح (دائمة على هذا المتصفح)', ls: 'التخزين المحلي', mem: 'مؤقت، سيضيع عند الإغلاق' }[Store.mode]) + '</div>';
 }
 
 /* ---------- نموذج المهمة ---------- */
@@ -5747,7 +5831,7 @@ const GENDER = (() => {
 تتعلمي تتعلم; تزرعي تزرع; تطمئني تطمئن; تكتبي تكتب; تنتقلي تنتقل; تبتعدي تبتعد; تري تر; أرسلي أرسل; تبلغين تبلغ; تبنين تبني; تجعلي تجعل; تجمعين تجمع; تحرسين تحرس; تدخرين تدخر; تستعملي تستعمل; تفعلين تفعل; تلبسين تلبس; تنشئين تنشئ; تنفذين تنفذ; تنفقين تنفق; اربطي اربط; استعيدي استعد; تبدلين تبدل; تبدّلين تبدل;
 بكِ بكَ; أريكِ أريكَ; ويكفيكِ ويكفيكَ; أنتِ أنتَ; وأنتِ وأنتَ;
 متأكدة متأكد; مرتاحة مرتاح; مرتدية مرتدٍ; مريضة مريض; مسافرة مسافر; متعبة متعب; وحيدة وحيد; محظوظة محظوظ; فخورة فخور;
-مسجلة مسجل; متصلة متصل; بعيدة بعيد; عزيزتي عزيزي; حبيبتي حبيبي; صديقتي صديقي; بصديقتي بصديقي
+مسجلة مسجل; متصلة متصل; بعيدة بعيد; ترين ترى; طوري طور; نفذي نفذ; تأخذي تأخذ; اعتني اعتنِ; تلغين تلغي; تأتين تأتي; تبقين تبقى; تنهين تنهي; تنسين تنسى; تقرئين تقرأ; تبنين تبني; تجرين تجري; ستكونين ستكون; عزيزتي عزيزي; حبيبتي حبيبي; صديقتي صديقي; بصديقتي بصديقي
 `);
   const PHR = [
     ['أنا جاهزة', 'أنا جاهز'], ['أنت جاهزة', 'أنت جاهز'], ['حارسة اللهب', 'حارس اللهب'], ['سيدة الجليد', 'سيد الجليد'], ['سيّدة الأهداف', 'سيّد الأهداف'], ['سيدة الأهداف', 'سيد الأهداف'],
@@ -5757,6 +5841,7 @@ const GENDER = (() => {
   ];
   const tol = (k) => new RegExp(k.split('').map((c) => (c === ' ' ? '\\s+' : c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\u064B-\\u0652]*')).join(''), 'g');
   const PHRX = PHR.map((p) => [tol(strip(p[0])), p[1]]);
+  const NOUN_YN = new Set(['تخزين', 'تزيين', 'تمرين', 'تحسين', 'تلوين', 'تكوين', 'تدوين', 'تعيين', 'تلقين', 'تأمين', 'تسمين', 'تبين', 'تمكين', 'تدشين', 'تشفين', 'تنين', 'ياسمين']);
   const SUF = /^(.{3,}?)(ها|هما|هم|هن|ه|نا|ني|كم)$/;
   const PRE = ['', 'و', 'ف', 'ل', 'س', 'ول', 'فل', 'وس', 'فس', 'ب', 'ك'];
   const fixWord = (w) => {
@@ -5764,6 +5849,8 @@ const GENDER = (() => {
     if (WORDS[b]) return WORDS[b];
     if (/[ت]ِ$/.test(w) && !/ا[ت]ِ$/.test(w)) return w.slice(0, -1) + 'َ';
     for (const p of PRE) { if (b.startsWith(p)) { const r = b.slice(p.length); if (p && WORDS[r]) return p + WORDS[r]; const m = r.match(SUF); if (m && WORDS[m[1]]) return p + WORDS[m[1]] + m[2]; } }
+    // قاعدة عامة: مضارع المخاطبة (تفعلين / ستفعلين) ← تفعل، مع استثناء المصادر والأسماء
+    { const m = b.match(/^(و|ف|ل|س|وس|فس)?(ت[^ي]{2,}[^يا])ين$/); if (m && !NOUN_YN.has(m[2] + 'ين')) return w.replace(/ي[\u064B-\u0652]*ن[\u064B-\u0652]*$/, ''); }
     return w;
   };
   const mt = (s) => {
@@ -5777,7 +5864,7 @@ const GENDER = (() => {
 if (typeof module === 'object' && module.exports) module.exports = GENDER;
 
 window.__CharArt = CharArt;
-const APP_VER = 'v79';
+const APP_VER = 'v82';
 const lsLook = () => { try { return JSON.parse(localStorage.getItem('istimrar-look') || 'null'); } catch (x) { return null; } };
 const saveLookLS = (l) => { try { localStorage.setItem('istimrar-look', JSON.stringify(l)); } catch (x) { /* اختياري */ } };
 const LOOK_DEF = { g: 'f', hair: 'long', skin: 1, beard: 0, stache: 0 };
@@ -5876,7 +5963,7 @@ function showWelcome() {
     if (a === 'm') { WL.stache = +v; return view(); }
     if (a === 'in' || a === 'up') {
       const em = ((el.querySelector('#wEmail') || {}).value || '').trim().toLowerCase(), pw = (el.querySelector('#wPass') || {}).value || '';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg = 'اكتب بريدًا صحيحًا.'; return view(); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { msg = 'اكتبي بريدًا صحيحًا.'; return view(); }
       CS.email = em; cloudSave(); if (pw.length < 8) { msg = 'كلمة السر ٨ أحرف على الأقل.'; return view(); }
       busy = true; msg = 'جارٍ التحقق…'; view();
       try {
@@ -6030,15 +6117,15 @@ async function restoreAny(file) {
 }
 function viewBackup() {
   const lb = ST.settings.lastBackup; const dd = lb ? E.diff(lb, TODAY()) : null;
-  const st = !lb ? ['أخذ نسخة الآن', 'لم تأخذي نسخة احتياطية بعد', 'warn'] : dd === 0 ? ['بياناتك محمية', 'أخذتِ نسخة اليوم', 'ok'] : dd < 7 ? ['بياناتك محمية', 'آخر نسخة قبل ' + N(dd) + ' أيام', 'ok'] : ['حان وقت نسخة جديدة', 'آخر نسخة قبل ' + N(dd) + ' يومًا', 'warn'];
+  const st = !lb ? ['لا توجد نسخة بعد', 'خذي نسخة الآن لتحمي بياناتك', 'warn'] : dd === 0 ? ['بياناتك محمية', 'أخذتِ نسخة اليوم', 'ok'] : dd < 7 ? ['بياناتك محمية', 'آخر نسخة قبل ' + N(dd) + ' أيام', 'ok'] : ['حان وقت نسخة جديدة', 'آخر نسخة قبل ' + N(dd) + ' يومًا', 'warn'];
   let h = '<div class="card stack bkhero ' + st[2] + '"><div class="row" style="gap:14px;align-items:center"><div class="bkico">' + ico('save') + '</div><div><h2 style="margin:0">' + st[0] + '</h2><div class="small muted">' + st[1] + '</div></div></div>' +
-    '<p class="muted" style="margin:0">بياناتك محفوظة على هذا الجهاز وحده. النسخة الاحتياطية هي طوق النجاة لو تغيّر الجهاز أو مُسح المتصفح.</p>' +
-    '<button class="btn bkbig" data-act="fullBackup">' + ico('save') + '<span>حفظ نسخة كاملة (ملف واحد)</span></button>' +
-    '<div class="small muted">ملف واحد فيه كل شيء: المهام والعملات والشخصية والنباتات والإنجازات وأفق الأمل <b>واليوميات بصورها وملفاتها</b>. احفظيه في تطبيق «الملفات» أو iCloud.</div></div>';
+    '<button class="btn bkbig" data-act="fullBackup">' + ico('save') + '<span>حفظ نسخة كاملة</span></button>' +
+    '<div class="small muted">ملف واحد فيه كل شيء حتى اليوميات. خذي نسخة مرة في الأسبوع واحفظيها خارج التطبيق.</div></div>';
   h += cloudCard();
-  h += '<div class="card stack"><h3>استعادة من نسخة</h3><p class="muted small" style="margin:0">اختاري ملف النسخة الكاملة، أو ملف اليوميات، أو ملفًا نصيًا قديمًا. قبل أي استبدال أطلب منك التأكيد.</p><label class="btn" style="display:inline-grid;place-items:center;cursor:pointer">اختيار ملف<input type="file" id="restFile" accept=".json,.txt,application/json,text/plain" hidden></label></div>';
-  h += '<div class="card stack"><h3>طرق أخرى</h3><div class="actions"><button class="btn soft" data-act="copyExp">نسخ النسخة كنص</button><button class="btn soft" data-act="dBackup">ملف اليوميات فقط</button></div><div id="expBox"></div><div class="field"><label for="imp">الصقي نصًا للاستيراد</label><textarea id="imp" class="code" placeholder="الصقي النسخة النصية هنا"></textarea><div class="actions"><button class="btn ghost" data-act="doImport">استيراد النص</button></div></div></div>';
-  h += '<div class="card stack"><h3>نصائح لحماية بياناتك</h3><ul class="gl"><li>خذي نسخة كاملة <b>مرة في الأسبوع</b> على الأقل، وبعد أي إنجاز كبير.</li><li>احفظي الملف خارج التطبيق: «الملفات» أو iCloud أو أرسليه لنفسك.</li><li>لا تغيّري رابط الموقع ولا تمسحي «بيانات المواقع» من إعدادات Safari.</li><li>جرّبي الاستعادة مرة واحدة وأنتِ مرتاحة، لتطمئني أن النسخة سليمة.</li></ul></div>';
+  h += '<details class="card acc" data-k="bk-more"' + (SOPEN.has('bk-more') ? ' open' : '') + '><summary>استعادة وطرق أخرى</summary><div class="accb">' +
+    '<div class="field"><div class="lbl">استعادة من ملف</div><label class="btn" style="display:inline-grid;place-items:center;cursor:pointer">اختيار ملف<input type="file" id="restFile" accept=".json,.txt,application/json,text/plain" hidden></label></div>' +
+    '<div class="actions"><button class="btn soft" data-act="copyExp">نسخ كنص</button><button class="btn soft" data-act="dBackup">ملف اليوميات فقط</button></div><div id="expBox"></div>' +
+    '<div class="field"><label for="imp">استيراد من نص</label><textarea id="imp" class="code" placeholder="الصقي النسخة النصية هنا"></textarea><div class="actions"><button class="btn ghost" data-act="doImport">استيراد النص</button></div></div></div></details>';
   return h;
 }
 
@@ -6246,7 +6333,7 @@ const TSTEPS = [
   { g: 'all', view: 'diary', sel: '.nav [data-nav=hope]', tap: 1, t: 'اضغطي هنا', x: 'اضغطي «أفق الأمل».' },
   { g: 'hope', view: 'hope', sel: '[data-act=hAdd]', t: 'أفق الأمل', x: 'أضيفي عادة تريدين تركها، وكل يوم تنتصرين فيه تضيء نجمة في كوكبتك.' },
   { g: 'all', view: 'hope', sel: '.menubtn', tap: 1, t: 'القائمة', x: 'اضغطي زر القائمة لتري بقية الصفحات.' },
-  { g: 'all', view: 'hope', drawer: 1, sel: '.drawer', t: 'المزيد', x: 'هنا السوق والإنجازات ورحلتي والنسخ الاحتياطي والدليل والإعدادات.' },
+  { g: 'all', view: 'hope', drawer: 1, sel: '.drawer', t: 'المزيد', x: 'هنا السوق والإنجازات ورحلتي وأهدافي وعباراتي والإعدادات (وفيها النسخ الاحتياطي والدليل).' },
   { g: 'all', view: 'hope', drawer: 1, sel: '.drawer .di[data-nav=market]', tap: 1, t: 'السوق', x: 'اضغطي «السوق».' },
   { g: 'market', view: 'market', sel: '.tabs', t: 'السوق', x: 'تبويبات للعناصر والأزياء والشتلات والبيوت. تشترين بعملاتك.' },
   { g: 'market', view: 'market', sel: '.loancard', t: 'السلفة', x: 'إن احتجتِ عملات يمكنك الاقتراض بلا فوائد، وتُسدَّد تلقائيًا من مكافآتك.' },
@@ -6374,6 +6461,7 @@ document.addEventListener('click', async (e) => {
   if (e.target.closest('#dedit') || e.target.closest('[data-act^=d]')) { const da = e.target.closest('[data-act]'); if (da && await diaryAct(da)) return; }
   const a = e.target.closest('[data-act]'); if (!a || a.disabled) return;
   const id = a.dataset.id; const today = TODAY();
+  if (['useLeast', 'addQuiet', 'rmQuiet'].includes(a.dataset.act) && a.closest('.scrim')) setTimeout(closeModals, 60);
   switch (a.dataset.act) {
     case 'inc': return setTaskCount(id, 1, a);
     case 'dec': return setTaskCount(id, -1, a);
@@ -6425,6 +6513,12 @@ document.addEventListener('click', async (e) => {
     case 'lkS': LK.skin = +a.dataset.v; return lookModal();
     case 'lkB': LK.beard = +a.dataset.v; return lookModal();
     case 'lkM': LK.stache = +a.dataset.v; return lookModal();
+    case 'easyMode': { const on = a.dataset.v === '1'; if (on && !ST.settings.easy) { ST.settings.easy = true; ST.settings.easyFrom = TODAY(); } else if (!on) ST.settings.easy = false; persist(); recompute(); render(); break; }
+    case 'back': goBack(); break;
+    case 'cmpMode': STCMP = a.dataset.v; render(); break;
+    case 'tool': toolModal(a.dataset.k); break;
+    case 'progMode': ST.settings.progressive = a.dataset.v === '1'; persist(); render(); break;
+    case 'easyYes': { const t0 = TODAY(); if (!ST.easyOk.includes(t0)) ST.easyOk.push(t0); persist(); recompute(); render(); break; }
     case 'lkSave': ST.settings.look = Object.assign({}, LK); saveLookLS(ST.settings.look); LK = null; persist(); syncOutNames(); closeModals(); render(); gStart(); gFix(document.body, lookNow().g === 'm'); return;
     case 'popen': POPEN = !POPEN; return render();
     case 'psrch': PSEARCH = !PSEARCH; if (!PSEARCH) PQ = ''; render(); if (PSEARCH) { const q = document.getElementById('pq'); if (q) q.focus(); } return;
@@ -6721,7 +6815,7 @@ async function boot() {
   setInterval(checkReminders, 20000); setTimeout(checkReminders, 2500);
   setInterval(() => { if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } }, 30000);
   document.addEventListener('visibilitychange', () => { if (document.hidden) Store.save(ST); else if (TODAY() !== lastToday) { lastToday = TODAY(); VIEWDAY = null; recompute(); render(); showNotices(); } });
-  window.__app = { skipWelcome: () => { ST.settings.onboarded = true; const w = document.getElementById('welcome'); if (w) w.remove(); persist(); }, go: (v) => { VIEW = v; render(); }, pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, flameSVG, FL, flameLevel, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
+  window.__app = { skipWelcome: (keepProg) => { ST.settings.onboarded = true; if (!keepProg) ST.settings.progressive = false; const w = document.getElementById('welcome'); if (w) w.remove(); persist(); }, go: (v) => { VIEW = v; render(); }, pushRemSync, pushRemRows, checkReminders, compWarnModal, checkMilestones, charSVG, flameSVG, FL, flameLevel, shapePts, skySVG, DB, get DIARY() { return DIARY; }, pack: packBackup, get ST() { return ST; }, get R() { return R; }, E, recompute, render, act, Store, cloudSyncState, get CS() { return CS; } };
 }
 startMoves();
 boot();
