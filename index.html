@@ -249,7 +249,8 @@ body.hopeview .card h2,body.hopeview .card .muted{color:#EAF0FF}
 .edit{background:none;border:0;color:var(--ink2);width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
 .edit svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .fab{position:fixed;inset-inline-start:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:25;width:48px;height:48px;padding:0;border-radius:50%;box-shadow:var(--shadow);display:grid;place-items:center;opacity:.92}.fab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
-.stcmp .seg{margin-bottom:6px}.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tools button{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}.tools button svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.tools button .bd{font-size:11px;color:var(--ink2)}
+.infoh{all:unset;display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;cursor:pointer;color:var(--ink)}.infoh i{font-style:normal;font-size:13px;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink2)}.infoh:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.lowopts{display:flex;flex-direction:column;gap:10px;margin-top:6px}.wkrow{align-items:center;justify-content:space-between;padding:10px 14px}.wkrow select{width:auto;min-width:110px}.resetrow{display:flex;justify-content:center}.stcmp .seg{margin-bottom:6px}.tools{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.tools button{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}.tools button svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.tools button .bd{font-size:11px;color:var(--ink2)}
 
 /* الشعلة */
 .hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-block:20px}
@@ -476,6 +477,7 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 @keyframes wingf{0%,100%{transform:scale(1,1)}50%{transform:scale(1.03,.97)}}
 .char .wpnw,.char .arm-r{transform-box:fill-box}
 .char .wpnw{transform-origin:50% 92%}
+.char[data-g=m].mv1 .wpnw{animation:thrust 2.2s ease-in-out}.char[data-g=m].mv1 .cape{animation:capeb 2.2s ease-in-out}.char[data-g=m].mv2 .arm-r{transform-origin:20% 12%;animation:blockn 2.2s ease-in-out}.char[data-g=m].mv3 .breath{animation:breath 3.4s ease-in-out infinite,spinj 2.6s ease-in-out}
 .char.mv1[data-o=n1] .wpnw{animation:thrust 2.2s ease-in-out}
 @keyframes thrust{0%{transform:rotate(0)}25%{transform:rotate(-34deg) translateY(-4px)}45%{transform:rotate(14deg) translateY(-14px)}65%{transform:rotate(14deg) translateY(-14px)}100%{transform:rotate(0)}}
 .char.mv1[data-o=n1] .cape{animation:capeb 2.2s ease-in-out}
@@ -584,7 +586,7 @@ html[dir=rtl] .bucketfly{animation-name:flybr}
 .wardrobe{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .cloth{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:10px}
 .cloth.on{border-color:var(--green)}
-.cloth .thumb{width:100%;aspect-ratio:3/3.2;background:var(--surface2);border-radius:12px;overflow:hidden;display:grid;place-items:center}
+.cloth .thumb{cursor:pointer;width:100%;aspect-ratio:3/3.2;background:var(--surface2);border-radius:12px;overflow:hidden;display:grid;place-items:center}
 .cloth .thumb svg{height:100%;width:auto}
 .cloth .btn{width:100%}
 .cloth.rar1 .rpill{background:var(--ice-bg);color:var(--ice)}.cloth.rar2 .rpill{background:#E8D8F7;color:#7A4FB5}.cloth.rar3 .rpill{background:#FBE3B8;color:#9A6A10}.cloth.rar4 .rpill{background:#FAD0D0;color:#B0362E}.cloth.rar5 .rpill{background:#F6D5E8;color:#A0307A}.cloth.rar6 .rpill{background:#D6ECF7;color:#2A6F9A}.cloth.rar7 .rpill{background:#FFE9B0;color:#8A5A00}
@@ -792,6 +794,13 @@ ul.gl{margin:0;padding-inline-start:20px;line-height:1.9}
 .wl-msg{color:var(--ink2);font-size:14px;min-height:20px}
 .nav button.lk{opacity:.55}.drawer button.di.lk{opacity:.6}.lockcard{text-align:center;align-items:center;padding:28px 18px}.lockic svg{width:54px;height:54px;fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 details.acc{padding:0}details.acc>summary{list-style:none;cursor:pointer;padding:14px 16px;font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center}details.acc>summary::-webkit-details-marker{display:none}details.acc>summary::after{content:'';width:9px;height:9px;border-inline-end:2px solid var(--ink2);border-bottom:2px solid var(--ink2);transform:rotate(45deg);transition:transform .2s;margin-inline-start:8px}details.acc[open]>summary::after{transform:rotate(-135deg)}details.acc>.accb{padding:0 16px 16px;display:flex;flex-direction:column;gap:12px}
+.setlist{padding:4px 14px}.srow{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}.setlist .srow:last-child{border-bottom:0}.sic{width:38px;height:38px;border-radius:50%;background:color-mix(in srgb,var(--ink) 8%,transparent);display:grid;place-items:center;flex:none}.sic svg{width:20px;height:20px;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.slab{flex:1;font-size:16px;text-align:start}.sctl{display:flex;align-items:center;margin-inline-start:auto}.sdesc{margin:0;padding:8px 0 10px 0;border-bottom:1px solid var(--line)}
+.setlist .infoh{all:unset;flex:1;font-size:16px;cursor:pointer;color:var(--ink)}.setlist .infoh:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.mseg{display:inline-flex;background:color-mix(in srgb,var(--ink) 8%,transparent);border-radius:999px;padding:3px;gap:2px}.mseg button{all:unset;cursor:pointer;padding:6px 12px;border-radius:999px;font-size:14px;color:var(--ink)}.mseg button[aria-pressed=true]{background:var(--ink2,#555);color:var(--bg);font-weight:600}.mseg button:focus-visible{outline:3px solid var(--green)}
+.pdots{display:inline-flex;gap:7px}.pdot{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}.pdot[aria-pressed=true]{outline:3px solid var(--ink);outline-offset:2px}
+.setlist select{font-size:15px;padding:6px 10px;border-radius:999px;width:auto}.setlist .btn.small{padding:6px 14px;font-size:14px;min-height:0}.stepper.mini{display:inline-flex;align-items:center;gap:8px}
+.resetbtn{background:var(--surface);color:#C0392B;border:1px solid var(--line);font-weight:600}
 </style>
 
 <div id="frost"></div><div id="dim"></div>
@@ -829,6 +838,7 @@ details.acc{padding:0}details.acc>summary{list-style:none;cursor:pointer;padding
     LEAST_RATIO: 0.4,
     PRICE_BONUS: 20,
     PRICE_LEAST: 20,
+    PRICE_LEVEL: 60,
     FREEZE_PRICE_START: 20,
     FREEZE_PRICE_STEP: 5,
     FREEZE_PRICE_MAX: 60,
@@ -1493,7 +1503,7 @@ details.acc{padding:0}details.acc>summary{list-style:none;cursor:pointer;padding
     const ef = econFrom(st); const k = st.purchases.filter((p) => p.kind === 'freeze' && p.date >= ef).length;
     return Math.min(C.FREEZE_PRICE_MAX, C.FREEZE_PRICE_START + C.FREEZE_PRICE_STEP * k);
   }
-  const itemPrice = (st, kind) => (kind === 'freeze' ? freezePrice(st) : kind === 'bonus' ? C.PRICE_BONUS : kind === 'least' ? C.PRICE_LEAST : null);
+  const itemPrice = (st, kind) => (kind === 'freeze' ? freezePrice(st) : kind === 'bonus' ? C.PRICE_BONUS : kind === 'least' ? C.PRICE_LEAST : kind === 'level' ? C.PRICE_LEVEL : null);
 
   /* ---------- إعادة التشغيل الكاملة ---------- */
   /* ---------- النباتات: النمو والصحة والأوراق (مشتقة من الأيام) ---------- */
@@ -2106,7 +2116,7 @@ details.acc{padding:0}details.acc>summary{list-style:none;cursor:pointer;padding
     const ac = computeAchievements(st, days, events, ledger, pl.plants, levelHist, traitHist, pts, today, { fullHouses: hb.fullAt }); ac.rewards.forEach((r) => ledger.push(r)); trim(); (st.compensation || []).forEach((c) => ledger.push({ key: 'comp:' + c.id, amount: c.amount, reason: c.reason, date: c.date }));
     const successDays = Object.keys(days).filter((d) => days[d].status === 'success');
     const ptsEarned = pts.reduce((a, e) => a + e.amount, 0); const ptsSpent = st.alloc.length;
-    const penalty = frozenDays.length; const level = Math.max(1, derived - penalty);
+    const penalty = Math.max(0, frozenDays.length - st.purchases.filter((p) => p.kind === 'level').length); const level = Math.max(1, derived - penalty);
     const earned = r2(ledger.reduce((a, e) => a + e.amount, 0));
     const spent = r2(st.purchases.reduce((a, p) => a + (p.date < efrom ? 0 : p.price), 0));
     const ln = computeLoans(st, ledger);
@@ -2190,6 +2200,7 @@ details.acc{padding:0}details.acc>summary{list-style:none;cursor:pointer;padding
     const price = itemPrice(st, kind);
     if (price == null) return { ok: false, error: 'عنصر غير معروف' };
     const r = replay(st, today);
+    if (kind === 'level' && !(r.penalty > 0)) return { ok: false, error: 'لا توجد نقاط مستوى مخصومة لتستردّها' };
     if (kind === 'bonus' && r.bonusActiveToday) return { ok: false, error: 'بطاقة زيادة المكافأة مفعّلة لهذا اليوم بالفعل' };
     if (r.balance < price) return { ok: false, error: 'رصيدك لا يكفي (تحتاجين ' + price + ' وعندك ' + r.balance + ')' };
     st.purchases.push({ id: nid(st, 'p'), kind, date: today, ts: Date.now(), price });
@@ -3480,9 +3491,10 @@ function pickTip(v) {
 
 /* حركات الأزياء الخرافية: حركة بطولية كل بضع ثوانٍ أو عند الضغط على الشخصية */
 const MOVES = { n1: ['mv1', 'mv2', 'mv3'], n2: ['mv1', 'mv2', 'mv3'], n3: ['mv1', 'mv2', 'mv3'] }; const SAY = { n1: ['للأمام!', 'لن أتراجع!', 'بقوة وشجاعة!'], n2: ['مياو~', 'هيّا نلعب!', 'أنا جاهزة!'], n3: ['ليكن الفجر!', 'نطير معًا!', 'النور معي!'] }; let moveIdx = 0, moveTimer = null;
-function playMove(ch) { if (!ch) return; const ms = MOVES[ch.getAttribute('data-o')]; if (!ms || reduce) return; ch.classList.remove('mv1', 'mv2', 'mv3'); void ch.getBoundingClientRect(); const m = ms[moveIdx++ % ms.length]; ch.classList.add(m); setTimeout(() => ch.classList.remove(m), 2600); }
+const MOVES_M = ['mv1', 'mv2', 'mv3']; const SAY_M = ['بإذن الله!', 'لا تراجع!', 'هيّا بنا!', 'ثابتون!'];
+function playMove(ch) { if (!ch) return; const ms = ch.getAttribute('data-g') === 'm' && ch.getAttribute('data-o') !== 'starter' ? MOVES_M : MOVES[ch.getAttribute('data-o')]; if (!ms || reduce) return; ch.classList.remove('mv1', 'mv2', 'mv3'); void ch.getBoundingClientRect(); const m = ms[moveIdx++ % ms.length]; ch.classList.add(m); setTimeout(() => ch.classList.remove(m), 2600); }
 function startMoves() { clearInterval(moveTimer); moveTimer = setInterval(() => { document.querySelectorAll('.stage .char').forEach(playMove); }, 7500); }
-document.addEventListener('click', (e) => { const st = e.target.closest('.stage'); if (st && !e.target.closest('[data-act]')) { const ch = st.querySelector('.char'); playMove(ch); const ph = ch && SAY[ch.getAttribute('data-o')]; if (ph) { const o = st.querySelector('.say'); if (o) o.remove(); const d = document.createElement('div'); d.className = 'say'; d.textContent = ph[Math.floor(Math.random() * ph.length)]; st.appendChild(d); setTimeout(() => d.remove(), 2300); } } });
+document.addEventListener('click', (e) => { const st = e.target.closest('.stage'); if (st && !e.target.closest('[data-act]')) { const ch = st.querySelector('.char'); playMove(ch); const ph = ch && (ch.getAttribute('data-g') === 'm' && ch.getAttribute('data-o') !== 'starter' ? SAY_M : SAY[ch.getAttribute('data-o')]); if (ph) { const o = st.querySelector('.say'); if (o) o.remove(); const d = document.createElement('div'); d.className = 'say'; d.textContent = ph[Math.floor(Math.random() * ph.length)]; st.appendChild(d); setTimeout(() => d.remove(), 2300); } } });
 function viewSoon(k) {
   const p = PLACEHOLDER[k];
   return '<div class="card stack"><div class="row"><div class="item"><div class="ico">' + ico(p[1]) + '</div></div><div><h2>' + p[0] + '</h2><span class="pill warn">' + p[2] + '</span></div></div><p>' + p[3] + '</p><div class="note">لم أبنِ هذا القسم بعد. بنيتُ أولًا النواة التي يعتمد عليها كل شيء: المهام، العملات، الاستمرارية، التجميدات، الأيام الهادئة، والسوق (العناصر). سأضيف هذا القسم في المرحلة التالية دون المساس بما يعمل.</div></div>';
@@ -3932,42 +3944,57 @@ function logDayHTML(D) {
   return (log ? '<div class="small muted">المكافآت</div><ul class="eff">' + log + '</ul>' : '') + (buys ? '<div class="small muted">المشتريات</div><ul class="eff">' + buys + '</ul>' : '') + (edits ? '<div class="small muted">تعديلات</div><ul class="eff">' + edits + '</ul>' : '');
 }
 document.addEventListener('change', (e) => { if (e.target && e.target.id === 'logDay' && e.target.value) { const o = $('#logOut'); if (o) o.innerHTML = logDayHTML(e.target.value); } });
-function viewSettings() { return accordionize(viewSettings0()); }
+function viewSettings() { return viewSettings0(); }
 let SOPEN = new Set(); let STCMP = 'w';
 document.addEventListener('toggle', (e) => { const d = e.target; if (d && d.classList && d.classList.contains('acc') && d.dataset.k) { if (d.open) SOPEN.add(d.dataset.k); else SOPEN.delete(d.dataset.k); } }, true);
+let INFO = new Set();
 function accordionize(html) {
-  const t = document.createElement('div'); t.innerHTML = html; const out = document.createElement('div'); const adv = document.createElement('div'); adv.className = 'accb';
-  const ADV = []; const KEEP = ['البيانات والمساعدة', 'نمط الاستمرارية', 'الأسبوع', 'استعادة الاستمرارية', 'إعادة الضبط'];
+  const t = document.createElement('div'); t.innerHTML = html; const top = [], acc = [], low = [];
   const mk = (title, kids) => { const d = document.createElement('details'); d.className = 'card acc'; d.dataset.k = title; if (SOPEN.has(title)) d.open = true; const sm = document.createElement('summary'); sm.textContent = title; d.appendChild(sm); const b = document.createElement('div'); b.className = 'accb'; kids.forEach((k) => b.appendChild(k)); d.appendChild(b); return d; };
+  const KEEP = ['البيانات والمساعدة', 'نمط الاستمرارية', 'استعادة الاستمرارية'];
   [...t.children].forEach((el) => {
     const h = el.matches('.card.stack') && el.querySelector(':scope > h3');
-    if (h && KEEP.includes(h.textContent.trim())) out.appendChild(el);
-    else if (h) { const title = h.textContent.trim(); h.remove(); const kids = [...el.children]; if (ADV.includes(title)) { adv.appendChild(mk(title, kids)); } else out.appendChild(mk(title, kids)); }
-    else if (el.matches('details.bkdet')) { out.appendChild(el); }
-    else out.appendChild(el);
+    if (h && KEEP.includes(h.textContent.trim())) {
+      const title = h.textContent.trim(); const p = el.querySelector(':scope > p.muted');
+      if (p) { const b = document.createElement('button'); b.className = 'infoh'; b.dataset.act = 'infoT'; b.dataset.k = title; b.setAttribute('aria-expanded', INFO.has(title)); b.innerHTML = '<span>' + title + '</span><i aria-hidden="true">؟</i>'; h.replaceWith(b); if (!INFO.has(title)) p.hidden = true; }
+      top.push(el);
+    } else if (h) acc.push(mk(h.textContent.trim(), (h.remove(), [...el.children])));
+    else if (el.matches('.wkrow,.resetrow,details.bkdet,.small.muted,.note')) low.push(el);
+    else acc.push(el);
   });
+  const out = document.createElement('div'); [...top, ...acc].forEach((x) => out.appendChild(x)); const lw = document.createElement('div'); lw.className = 'lowopts'; low.forEach((x) => lw.appendChild(x)); out.appendChild(lw);
   return out.innerHTML;
 }
 function viewSettings0() {
   const s = ST.settings; 
-  const wsOpts = [6, 0, 1].map((d) => '<option value="' + d + '" ' + (s.weekStart === d ? 'selected' : '') + '>' + DAYS[d] + '</option>').join('');
+  const wsOpts = [6, 0, 1, 2, 3, 4, 5].map((d) => '<option value="' + d + '" ' + (s.weekStart === d ? 'selected' : '') + '>' + DAYS[d] + '</option>').join('');
   const steps = s.compSteps.length ? s.compSteps : [''];
   const log = R.ledger.slice(-40).reverse().map((e) => '<li class="small"><b class="num">' + (e.amount >= 0 ? '+' : '') + N(e.amount) + '</b> · ' + esc(e.reason) + ' <span class="muted">(' + dshort(e.date) + ')</span></li>').join('');
   const buys = ST.purchases.slice(-15).reverse().map((p) => '<li class="small">شراء ' + (p.kind === 'outfit' ? 'زي «' + ((E.OUTFITS.find((x) => x.id === p.item) || {}).name || '') + '»' : { freeze: 'تجميدة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن' }[p.kind]) + ' بـ ' + N(p.price) + ' · <span class="muted">' + dshort(p.date) + '</span></li>').join('');
   const edits = ST.editLog.slice(-15).reverse().map((e) => '<li class="small">تعديل ' + dshort(e.date) + ': ' + esc(e.taskName || '') + ' ← ' + N(e.to) + ' مرة (عملات ' + (e.balanceDelta >= 0 ? '+' : '') + N(e.balanceDelta) + ')</li>').join('');
-  return '<div class="card stack"><h3>البيانات والمساعدة</h3><div class="actions"><button class="btn soft" data-nav="backup">النسخ الاحتياطي</button><button class="btn soft" data-nav="guide">دليل التطبيق</button></div></div>' +
-    '<div class="card stack"><h3>نمط الاستمرارية</h3><div class="seg"><button data-act="easyMode" data-v="0" aria-pressed="' + (!s.easy) + '">صعب</button><button data-act="easyMode" data-v="1" aria-pressed="' + (!!s.easy) + '">سهل</button></div><p class="muted small" style="margin:0">' + (s.easy ? 'السهل: لا تنطفئ الشعلة بسبب يوم ناقص. إذا غبتِ ٣ أيام تخفت، وفي اليوم الخامس تنطفئ. وبعد إنجاز جزء من مهامك يظهر زر تؤكدين به أن يومك كان كافيًا.' : 'الصعب: يجب إنجاز مهام الاستمرارية كلها في اليوم وإلا استُهلكت تجميدة أو انطفأت الشعلة.') + '</p></div>' +
-    '<div class="card stack"><h3>ظهور الميزات</h3><div class="seg"><button data-act="progMode" data-v="1" aria-pressed="' + (!!s.progressive) + '">تدريجيًا</button><button data-act="progMode" data-v="0" aria-pressed="' + (!s.progressive) + '">الكل الآن</button></div><p class="muted small" style="margin:0">التدريجي يفتح لكِ الميزات واحدة بعد أخرى مع الأيام ومع إنجاز المهام، حتى لا يزدحم التطبيق في البداية.</p></div>' +
-    '<div class="card stack"><h3>لون الواجهة</h3><div class="pals">' + PALS.map((p) => '<button data-act="pal" data-v="' + p[0] + '" aria-pressed="' + ((s.palette || 'green') === p[0]) + '"><span class="sw"><i style="background:' + p[2] + '"></i><i style="background:' + p[3] + '"></i><i style="background:' + p[4] + '"></i></span>' + p[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">كل لون له نسخة فاتحة ونسخة داكنة، تتبدّل حسب اختيارك في «المظهر» أدناه.</p></div>' +
-'<div class="card stack"><h3>المظهر</h3><div class="seg">' + [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']].map((t) => '<button data-act="theme" data-v="' + t[0] + '" aria-pressed="' + ((s.theme || 'auto') === t[0]) + '">' + t[1] + '</button>').join('') + '</div><p class="muted small" style="margin:0">«تلقائي» يتبع إعداد جهازك.</p></div>' +
-    (() => { const p = pushStatus(); return '<div class="card stack"><h3>الإشعارات خارج التطبيق</h3><p class="muted small">تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية.</p><div class="note" id="pushState">' + esc(p.t) + '</div><div class="actions">' + (p.k === 'on' ? '<button class="btn soft" data-act="pushSync">تحديث التذكيرات</button><button class="btn soft" data-act="pushTest">إشعار تجريبي</button><button class="btn ghost" data-act="pushOff">إيقاف</button>' : '<button class="btn" data-act="pushOn">تفعيل الإشعارات</button>') + '</div></div>'; })() +
-    '<div class="card stack"><h3>الأسبوع</h3><p class="muted small" style="margin:0">اختاري اليوم الذي يبدأ منه أسبوعك. عليه تُحسب أيام النجاح الأسبوعية والهدف الأسبوعي ومقارنة الأسبوع.</p><div class="field"><label for="setWs">يبدأ الأسبوع يوم</label><select id="setWs" data-set="weekStart">' + wsOpts + '</select></div></div>' +
-    '<div class="card stack"><h3>استعادة الاستمرارية</h3><p class="muted small" style="margin:0">إذا انطفأت شعلتك أو تجمّدت واجهتك، تنجزين «مهمة تعويضية» تكتبينها هنا فتعود شعلتك. حدّدي كم مرة يمكنك الاستعادة في الشهر، ثم اكتبي مهمتك التعويضية.</p><div class="field"><label>أقصى عدد استعادات في الشهر</label><div class="stepper"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' +
-    '<div class="field"><div class="lbl">نوع المهمة التعويضية</div><div class="seg"><button data-act="compMode" data-m="single" aria-pressed="' + (s.compMode === 'single') + '">مهمة واحدة</button><button data-act="compMode" data-m="sequence" aria-pressed="' + (s.compMode === 'sequence') + '">مهام متتابعة</button></div></div>' +
-    '<div class="field"><div class="lbl">نص المهمة التعويضية' + (s.compMode === 'sequence' ? ' (كل خطوة)' : '') + '</div>' + steps.map((t, i) => '<div class="row"><input type="text" data-comp="' + i + '" value="' + esc(t) + '" placeholder="مثال: اكتبي ثلاث أسباب تمنعك وأعيدي ترتيب يومك"' + (s.compMode === 'single' && i > 0 ? ' disabled' : '') + '>' + (s.compMode === 'sequence' && steps.length > 1 ? '<button class="edit" data-act="rmStep" data-i="' + i + '" aria-label="حذف">' + ico('x') + '</button>' : '') + '</div>').join('') + (s.compMode === 'sequence' ? '<button class="btn soft" data-act="addStep">+ خطوة</button>' : '') + '</div></div>' +
-    '<div class="card stack"><h3>إعادة الضبط</h3><p class="muted small" style="margin:0">تمسح كل بياناتك من هذا الجهاز وتبدأ من جديد. خذي نسخة احتياطية قبلها.</p><button class="btn danger" data-act="reset">إعادة ضبط كل البيانات</button></div>' +
+  const BELL = '<svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>';
+  const row = (ic, key, label, ctl, desc) => '<div class="srow"><span class="sic" aria-hidden="true">' + (ic.charAt(0) === '<' ? ic : ico(ic)) + '</span>' + (desc ? '<button class="slab infoh" data-act="infoT" data-k="' + key + '" aria-expanded="' + INFO.has(key) + '">' + label + '</button>' : '<span class="slab">' + label + '</span>') + '<span class="sctl">' + ctl + '</span></div>' + (desc && INFO.has(key) ? '<p class="sdesc muted small">' + desc + '</p>' : '');
+  const pill = (act, list, cur, extra) => '<span class="mseg">' + list.map((t) => '<button data-act="' + act + '" data-v="' + t[0] + '"' + (extra || '') + ' aria-pressed="' + (String(cur) === String(t[0])) + '">' + t[1] + '</button>').join('') + '</span>';
+  const p = pushStatus();
+  const dots = '<span class="pdots">' + PALS.map((q) => '<button class="pdot" data-act="pal" data-v="' + q[0] + '" aria-pressed="' + ((s.palette || 'green') === q[0]) + '" aria-label="' + q[1] + '" title="' + q[1] + '" style="background:conic-gradient(' + q[2] + ' 0 33%,' + q[3] + ' 0 66%,' + q[4] + ' 0)"></button>').join('') + '</span>';
+  const compOpen = INFO.has('compfields');
+  let h = '<div class="card setlist">' +
+    row('moon', 'theme', 'المظهر', pill('theme', [['auto', 'تلقائي'], ['light', 'فاتح'], ['dark', 'داكن']], s.theme || 'auto'), '«تلقائي» يتبع إعداد جهازك. لكل لون واجهة نسخة فاتحة وداكنة.') +
+    row('sun', 'pal', 'لون الواجهة', dots, 'اختر اللون الذي يريحك. كل لون له نسخة فاتحة وداكنة، تتبدّل حسب «المظهر».') +
+    row('tasks', 'wk', 'بداية الأسبوع', '<select id="setWs" data-set="weekStart" aria-label="بداية الأسبوع">' + wsOpts + '</select>', 'عليه تُحسب أيام النجاح الأسبوعية والهدف الأسبوعي ومقارنة الأسبوع. اختر أي يوم يناسبك.') +
+    row('flame', 'easy', 'نمط الاستمرارية', pill('easyMode', [['1', 'سهل'], ['0', 'صعب']], s.easy ? '1' : '0'), s.easy ? 'السهل: لا تنطفئ الشعلة بسبب يوم ناقص. إذا غبتِ ٣ أيام تخفت، وفي اليوم الخامس تنطفئ. وبعد إنجاز جزء من مهامك يظهر زر تؤكدين به أن يومك كان كافيًا.' : 'الصعب: يجب إنجاز مهام الاستمرارية كلها في اليوم وإلا استُهلكت تجميدة أو انطفأت الشعلة.') +
+    row('trophy', 'prog', 'ظهور الميزات', pill('progMode', [['1', 'تدريجيًا'], ['0', 'الكل']], s.progressive ? '1' : '0'), 'التدريجي يفتح لكِ الميزات واحدة بعد أخرى مع الأيام ومع إنجاز المهام، حتى لا يزدحم التطبيق في البداية.') +
+    row('bolt', 'rest', 'استعادة الاستمرارية', '<span class="stepper mini"><button class="circ mini" data-act="restLim" data-d="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(s.restoreLimit) + '</output><button class="circ mini" data-act="restLim" data-d="1" aria-label="أكثر">' + ico('plus') + '</button></span>', 'إذا انطفأت شعلتك أو تجمّدت واجهتك، تنجزين «مهمة تعويضية» فتعود شعلتك. هنا تحدّدين كم مرة يمكنك الاستعادة في الشهر.') +
+    row('flag', 'compfields', 'المهمة التعويضية', '<button class="btn soft small" data-act="infoT" data-k="compfields">' + (compOpen ? 'إخفاء' : 'تعديل') + '</button>') +
+    (compOpen ? '<div class="sdesc stack"><div class="seg"><button data-act="compMode" data-m="single" aria-pressed="' + (s.compMode === 'single') + '">مهمة واحدة</button><button data-act="compMode" data-m="sequence" aria-pressed="' + (s.compMode === 'sequence') + '">مهام متتابعة</button></div>' + steps.map((t, i) => '<div class="row"><input type="text" data-comp="' + i + '" value="' + esc(t) + '" aria-label="نص المهمة التعويضية" placeholder="مثال: اكتبي ثلاث أسباب تمنعك وأعيدي ترتيب يومك"' + (s.compMode === 'single' && i > 0 ? ' disabled' : '') + '>' + (s.compMode === 'sequence' && steps.length > 1 ? '<button class="edit" data-act="rmStep" data-i="' + i + '" aria-label="حذف">' + ico('x') + '</button>' : '') + '</div>').join('') + (s.compMode === 'sequence' ? '<button class="btn soft" data-act="addStep">+ خطوة</button>' : '') + '</div>' : '') +
+    row(BELL, 'push', 'الإشعارات', p.k === 'on' ? '<button class="btn ghost small" data-act="pushOff">إيقاف</button>' : '<button class="btn small" data-act="pushOn">تفعيل</button>', 'تصلك تذكيرات المهام حتى والتطبيق مغلق. تعمل فقط حين يكون التطبيق مثبّتًا على الشاشة الرئيسية. ' + esc(p.t) + (p.k === 'on' ? ' <button class="btn soft small" data-act="pushSync">تحديث التذكيرات</button> <button class="btn soft small" data-act="pushTest">إشعار تجريبي</button>' : '')) +
+    row('save', 'bk', 'النسخ الاحتياطي', '<button class="btn soft small" data-nav="backup">فتح</button>') +
+    row('book', 'gd', 'دليل التطبيق', '<button class="btn soft small" data-nav="guide">فتح</button>') +
+    '</div>' +
     '<details class="card bkdet"><summary><b>سجل العمليات</b></summary><div class="stack" style="margin-top:10px"><div class="row" style="gap:10px"><label for="logDay" class="muted">اختاري اليوم</label><input type="date" id="logDay" value="' + TODAY() + '" max="' + TODAY() + '" style="max-width:190px"></div><div id="logOut">' + logDayHTML(TODAY()) + '</div></div></details>' +
-    '<div class="small muted" style="text-align:center">الإصدار ' + APP_VER + '</div><div class="note">التخزين: ' + ({ idb: 'قاعدة بيانات المتصفح (دائمة على هذا المتصفح)', ls: 'التخزين المحلي', mem: 'مؤقت، سيضيع عند الإغلاق' }[Store.mode]) + '</div>';
+    '<div class="resetrow"><button class="btn resetbtn" data-act="reset">إعادة ضبط كل البيانات</button></div>' +
+    '<div class="small muted" style="text-align:center">الإصدار ' + APP_VER + ' · التخزين: ' + ({ idb: 'قاعدة بيانات المتصفح', ls: 'التخزين المحلي', mem: 'مؤقت، سيضيع عند الإغلاق' }[Store.mode]) + '</div>';
+  return h;
 }
 
 /* ---------- نموذج المهمة ---------- */
@@ -4149,13 +4176,13 @@ async function setTaskCount(id, delta, btn) {
 
 async function doBuy(k) {
   const price = E.itemPrice(ST, k);
-  const names = { freeze: 'تجميدة الشعلة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن' };
+  const names = { freeze: 'تجميدة الشعلة', bonus: 'بطاقة زيادة المكافأة', least: 'بطاقة أقل ما يمكن', level: 'استرداد نقطة مستوى' };
   const ok = await confirmDlg({ title: 'شراء ' + names[k], body: '<p>السعر: ' + money(price) + '</p><p class="muted small">رصيدك بعد الشراء: ' + N(R.balance - price) + '</p>', ok: 'شراء' });
   if (!ok) return;
   const opId = 'buy-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
   const probe = E.clone(ST); const r = E.buy(probe, k, TODAY(), opId); if (!r.ok) { err(r.error); return; }
   act((s) => { E.buy(s, k, TODAY(), opId); });
-  toast({ text: 'تم شراء ' + names[k] + ' بـ ' + N(price) + (k === 'bonus' ? '. فعّلتُها لك اليوم.' : k === 'least' ? '. حُفظت في قسم الاستمرارية.' : '.'), amount: 0 });
+  toast({ text: 'تم شراء ' + names[k] + ' بـ ' + N(price) + (k === 'bonus' ? '. فعّلتُها لك اليوم.' : k === 'least' ? '. حُفظت في قسم الاستمرارية.' : k === 'level' ? '. عادت إليك نقطة مستوى.' : '.'), amount: 0 });
 }
 
 function openLeast() {
@@ -4315,10 +4342,10 @@ const CharArt = (function () {
   const COVER = ['ghutra', 'shemagh', 'turban', 'litham', 'keffiyeh', 'helm'];
   const MALE = {
     c2: { n: 'ثوب وسديري بني', thobe: '#F8F6EE', sidiri: '#6B4A2E', head: 'cap', dag: true, pal: { top: '#F8F6EE', vest: '#6B4A2E', pants: '#EAE6D8', boots: '#5A4030', belt: '#6B4A2E', trim: GOLD }, w: ['mizraq', -6] },
-    r2: { n: 'بشت الفرو الرمادي', thobe: '#A9ADB5', bisht: '#6E5A48', fur: '#F1E8D6', dag: true, head: 'ghutra', hcol: '#D8CDB4', pal: { top: '#A9ADB5', vest: '#6E5A48', pants: '#8E929A', boots: '#5A4030', belt: '#4A3A2E', trim: GOLD }, w: ['jambiya', -14] },
+    r2: { n: 'بشت رملي بحواف ذهبية', thobe: '#FBFAF4', bisht: '#C9A66B', dag: true, head: 'ghutra', pal: { top: '#FBFAF4', vest: '#C9A66B', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#8A6A3A', trim: GOLD }, w: ['jambiya', -14] },
     e2: { n: 'بشت بني وشماغ أحمر', thobe: '#FBFAF4', bisht: '#4E3426', band: true, head: 'shemagh', pal: { top: '#FBFAF4', vest: '#4E3426', pants: '#EAE6D8', boots: '#4E3426', belt: '#4E3426', trim: GOLD }, w: ['saif', -14] },
-    l2: { n: 'بشت رملي بحواف ذهبية', thobe: '#FBFAF4', bisht: '#C9A66B', dag: true, head: 'ghutra', pal: { top: '#FBFAF4', vest: '#C9A66B', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#8A6A3A', trim: GOLD }, w: ['mace', -10] },
-    m1: { n: 'بشت كحلي بفرو أسود', thobe: '#26396E', bisht: '#1B2850', fur: '#2B2622', emb: true, band: true, dag: true, head: 'ghutra', pal: { top: '#26396E', vest: '#1B2850', pants: '#1B2850', boots: '#5A4030', belt: '#3A2A1E', trim: GOLD }, w: ['rumh', -6] },
+    l2: { n: 'بشت الفرو الرمادي', thobe: '#A9ADB5', bisht: '#6E5A48', fur: '#F1E8D6', dag: true, head: 'ghutra', hcol: '#D8CDB4', pal: { top: '#A9ADB5', vest: '#6E5A48', pants: '#8E929A', boots: '#5A4030', belt: '#4A3A2E', trim: GOLD }, w: ['mace', -10] },
+    m1: { n: 'بشت كحلي بفرو أسود', thobe: '#26396E', bisht: '#1B2850', fur: '#2B2622', emb: true, band: true, dag: true, head: 'shemagh', shc: 'black', pal: { top: '#26396E', vest: '#1B2850', pants: '#1B2850', boots: '#5A4030', belt: '#3A2A1E', trim: GOLD }, w: ['rumh', -6] },
     n1: { n: 'البدوي الملثم', thobe: '#D8C9A6', bisht: '#5A4030', band: true, dag: true, head: 'litham', pal: { top: '#D8C9A6', vest: '#5A4030', pants: '#BFAF8A', boots: '#4A3426', belt: '#3A2A1E', trim: GOLD }, w: ['rifle', -10] },
     n3: { n: 'المحارب العربي والحصان', style: 'warrior', head: 'ghutra', hcol: '#E3D2A8', agal: '#6B4A2E', horse: true, shield: true, ex: ['pauldron'], pal: { top: '#EADBBB', vest: '#8A5A32', pants: '#4A3A2A', boots: '#5A4030', belt: '#6B4A2E', trim: GOLD }, w: ['saif', -14] },
     n2: { n: 'بشت ذهبي وصقر', thobe: '#F8F6EE', bisht: '#2B2622', head: 'ghutra', falcon: true, dag: true, pal: { top: '#F8F6EE', vest: '#2B2622', pants: '#EAE6D8', boots: '#6B4A2E', belt: '#2B2622', trim: GOLD }, w: ['saif', -14] },
@@ -4412,9 +4439,9 @@ const CharArt = (function () {
     const h = M.head; if (!['ghutra', 'shemagh', 'litham', 'keffiyeh'].includes(h)) return '';
     const pat = h !== 'ghutra'; const kf = h === 'keffiyeh';
     const col = pat ? `url(#${u}sh)` : (M.hcol || '#FBFBFB');
-    let t = pat ? (kf ? `<defs><pattern id="${u}sh" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#FFFFFF"/><path d="M0 0H4.5V4.5H0ZM4.5 4.5H9V9H4.5Z" fill="#1A1A1A"/><path d="M0 4.5H9" stroke="#1A1A1A" stroke-width=".8"/></pattern></defs>` : `<defs><pattern id="${u}sh" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#FFFFFF"/><path d="M0 0H9V3H0ZM0 0V9H3V0Z" fill="#C8283A"/><path d="M4.5 0V9M0 4.5H9" stroke="#8A1B28" stroke-width=".7"/></pattern></defs>`) : '';
+    let t = pat ? (kf ? `<defs><pattern id="${u}sh" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#FFFFFF"/><path d="M0 0H4.5V4.5H0ZM4.5 4.5H9V9H4.5Z" fill="#1A1A1A"/><path d="M0 4.5H9" stroke="#1A1A1A" stroke-width=".8"/></pattern></defs>` : `<defs><pattern id="${u}sh" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="${M.shc==='black'?'#2A2A2A':'#FFFFFF'}"/><path d="M0 0H9V3H0ZM0 0V9H3V0Z" fill="${M.shc==='black'?'#0C0C0C':'#C8283A'}"/><path d="M4.5 0V9M0 4.5H9" stroke="${M.shc==='black'?'#666':'#8A1B28'}" stroke-width=".7"/></pattern></defs>`) : '';
     t += shp('M72 120C54 160 58 204 70 238L112 230C100 200 94 160 96 126Z', col, 3) + shp('M228 120C246 160 242 204 230 238L188 230C200 200 206 160 204 126Z', col, 3);
-    t += `<path d="M72 170C70 196 74 218 82 232M228 170C230 196 226 218 218 232" stroke="${pat ? (kf ? '#555' : '#8A1B28') : '#DDDDD0'}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>`;
+    t += `<path d="M72 170C70 196 74 218 82 232M228 170C230 196 226 218 218 232" stroke="${pat ? (kf ? '#555' : (M.shc === 'black' ? '#777' : '#8A1B28')) : '#DDDDD0'}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>`;
     return t;
   }
   function falconM() {
@@ -4434,7 +4461,7 @@ const CharArt = (function () {
     const col = pat ? `url(#${u}sh)` : (M.hcol || '#FBFBFB');
     let t = '';
     t += shp('M62 134C52 56 100 22 150 22C200 22 248 56 238 134C236 116 228 102 214 96C190 86 110 86 86 96C72 102 64 116 62 134Z', col, 3.2);
-    const ln2 = pat ? (kf ? '#555' : '#8A1B28') : '#DDDDD0';
+    const ln2 = pat ? (kf ? '#555' : (M.shc === 'black' ? '#777' : '#8A1B28')) : '#DDDDD0';
     t += `<path d="M76 158C74 184 80 208 88 224M224 158C226 184 220 208 212 224M110 40C136 30 164 30 190 40M84 70C100 52 120 44 140 42" stroke="${ln2}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>`;
     const ag = M.agal || '#1A1A1A';
     t += `<path d="M70 62C98 82 202 82 230 62" stroke="${ag}" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M68 76C96 96 204 96 232 76" stroke="${ag}" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M74 62C100 80 200 80 226 62M72 76C98 94 202 94 228 76" stroke="#666" stroke-width="2" fill="none" opacity=".55"/>`;
@@ -4513,7 +4540,7 @@ const CharArt = (function () {
   }
   function unicorn(plain) {
     const B = plain ? '#A24E2C' : '#FBF6FF', BS = plain ? '#7A3A20' : '#E4D8F2', MN = plain ? '#2E170F' : '#F5B5E0', TL = plain ? '#2E170F' : '#B79CF2';
-    return `<g class="uni" transform="${plain ? 'translate(0 14) scale(3.2)' : 'translate(189 203) scale(1.3)'}"><g class="unib">` +
+    return `<g class="uni" transform="${plain ? 'translate(0 14) scale(3.2)' : 'translate(86 114) scale(1.95)'}"><g class="unib">` +
       `<path d="M10 74L8 100M24 76L24 102M60 76L62 102M74 74L76 100" stroke="${OUT}" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M10 74L8 100M24 76L24 102M60 76L62 102M74 74L76 100" stroke="${B}" stroke-width="5.4" stroke-linecap="round" fill="none"/>` +
       `<path d="M8 100h5M24 102h5M60 102h5M76 100h5" stroke="#C9A24A" stroke-width="5" stroke-linecap="round"/>` +
       shp('M70 44C86 36 94 18 92 4L106 10C108 28 98 46 84 58Z', B, 3) +
@@ -4588,10 +4615,10 @@ function sym(s,d){
     const u = 'q' + (uid++);
     const o = (window.__OUTFITS || []).find((x) => x.id === id) || (window.__OUTFITS || [])[0];
     const M = MALEMODE && MALE[o.id];
-    const p = M ? M.pal : o.pal, ex = M ? (M.ex || []) : o.ex, st = M ? (M.style || 'thobe') : ((MALEMODE && STYLE[o.id] === 'robe') ? 'casual' : (STYLE[o.id] || 'casual'));
+    const p = M ? M.pal : o.pal, ex = M ? (M.ex || []) : o.ex, st = M ? (M.style || 'thobe') : ((MALEMODE && (STYLE[o.id] === 'robe' || STYLE[o.id] === 'armor')) ? 'casual' : (STYLE[o.id] || 'casual'));
     const sleeve = (st === 'armor' || st === 'knight') ? p.vest : p.top;
     const [wk, wa] = M ? M.w : (WEAPON[o.id] || ['dagger', -16]);
-    let s = `<svg class="char" data-o="${o.id}" viewBox="${o.id === 'n3' ? (M ? '-100 -10 520 360' : '-60 0 400 350') : '-50 0 350 350'}" role="img" aria-label="الشخصية" xmlns="http://www.w3.org/2000/svg">${defs(u, p.trim)}`;
+    let s = `<svg class="char" data-o="${o.id}" data-g="${MALEMODE ? 'm' : 'f'}" viewBox="${o.id === 'n3' ? (M ? '-100 -10 520 360' : '-60 0 400 350') : '-50 0 350 350'}" role="img" aria-label="الشخصية" xmlns="http://www.w3.org/2000/svg">${defs(u, p.trim)}`;
     if (ex.includes('glow')) s += `<circle class="aura" cx="125" cy="200" r="150" fill="url(#${u}g)"/>`;
     if (!M && (o.id === 'm1' || o.id === 'm2')) { const wc = o.id === 'm1' ? '#BFD0FF' : '#FFE27A'; s += `<g class="wing" opacity=".9">${shp('M112 210C60 190 20 150 6 100C40 112 70 124 92 150C74 150 62 160 56 174C80 172 98 180 112 196Z', wc, 3)}${shp('M188 210C240 190 280 150 294 100C260 112 230 124 208 150C226 150 238 160 244 174C220 172 202 180 188 196Z', wc, 3)}</g>`; }
     if (o.id === 'n3' && !M) s += `<g class="wing" opacity=".92">${shp('M112 210C56 186 14 146 2 92C38 106 70 120 92 148C74 148 62 158 56 172C80 170 98 178 112 194Z', '#FFDDEB', 3)}${shp('M188 210C244 186 286 146 298 92C262 106 230 120 208 148C226 148 238 158 244 172C220 170 202 178 188 194Z', '#DDF3EA', 3)}<path d="M96 156C70 130 40 112 12 100M204 156C230 130 260 112 288 100" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/></g>`;
@@ -4652,7 +4679,7 @@ function sym(s,d){
     const fr = d.front;
     return s.replace(/<\/g><\/svg>$/, fr + '</g></svg>');
   }
-  const MN = { e1: 'الفارس الفضي', l1: 'فارس اللهب الذهبي', m2: 'فارس التنين الذهبي', c2: 'ثوب وسديري بني', r2: 'بشت الفرو الرمادي', e2: 'بشت بني وشماغ أحمر', l2: 'بشت رملي بحواف ذهبية', m1: 'بشت كحلي بفرو أسود', n1: 'البدوي الملثم', n2: 'بشت ذهبي وصقر', n3: 'المحارب العربي والحصان', b1: 'محقق الظل', b2: 'حامل الضوء', b3: 'العدّاء الخاطف', b4: 'سيّد البأس', b5: 'رامي الريح', b6: 'الرفيق الصغير', b7: 'حارس الفجر' };
+  const MN = { e1: 'الفارس الفضي', l1: 'فارس اللهب الذهبي', m2: 'فارس التنين الذهبي', c2: 'ثوب وسديري بني', r2: 'بشت رملي بحواف ذهبية', e2: 'بشت بني وشماغ أحمر', l2: 'بشت الفرو الرمادي', m1: 'بشت كحلي بفرو أسود', n1: 'البدوي الملثم', n2: 'بشت ذهبي وصقر', n3: 'المحارب العربي والحصان', b1: 'محقق الظل', b2: 'حامل الضوء', b3: 'العدّاء الخاطف', b4: 'سيّد البأس', b5: 'رامي الريح', b6: 'الرفيق الصغير', b7: 'حارس الفجر' };
   return { maleName: (id) => MN[id] || null, charSVG, setHair: (v) => { HS = v; }, setLook: (o) => { if (o.male != null) MALEMODE = !!o.male; if (o.hair != null) HS = o.hair; if (o.skin != null) { const k = SKINS[o.skin] || SKINS[1]; SK = k[0]; SKS = k[1]; } if (o.beard != null) BEARD = o.beard; if (o.stache != null) STACHE = o.stache; } };
 })();
 
@@ -5864,7 +5891,7 @@ const GENDER = (() => {
 if (typeof module === 'object' && module.exports) module.exports = GENDER;
 
 window.__CharArt = CharArt;
-const APP_VER = 'v82';
+const APP_VER = 'v84';
 const lsLook = () => { try { return JSON.parse(localStorage.getItem('istimrar-look') || 'null'); } catch (x) { return null; } };
 const saveLookLS = (l) => { try { localStorage.setItem('istimrar-look', JSON.stringify(l)); } catch (x) { /* اختياري */ } };
 const LOOK_DEF = { g: 'f', hair: 'long', skin: 1, beard: 0, stache: 0 };
@@ -6012,7 +6039,7 @@ function viewPerson() {
   const rarIdx = Math.min(4, E.levelTier(r.level));
   let h = '<div class="pbox"><div class="card stack pstage rar' + rarIdx + '"><button class="lvbadge" data-act="lvInfo" aria-label="معنى المستوى"><span class="lvb-n num">' + N(r.level) + '</span><span class="lvb-t">المستوى · ' + r.levelName + '</span></button>' + stageHTML(r.equipped) +
     '<div class="stack" style="gap:6px"><div class="small">الهدف التالي: ' + goalTxt + ' <b class="num">(' + N(g.have) + ' من ' + N(g.need) + ')</b></div><div class="bar"><i style="width:' + Math.round(prog * 100) + '%"></i></div></div>' +
-    (r.levelBonus > 0 ? '<div class="small muted">مكافآت مهامك الآن <b class="num">+' + N(r.levelBonus) + '٪</b> بفضل مستواك</div>' : '') + (r.penalty > 0 ? '<div class="note warn">خُصمت ' + N(r.penalty) + ' من المستوى الكلي بسبب أيام التجمد الكامل. المستوى المحسوب من سماتك: ' + N(r.derivedLevel) + '.</div>' : '') + '</div>';
+    (r.levelBonus > 0 ? '<div class="small muted">مكافآت مهامك الآن <b class="num">+' + N(r.levelBonus) + '٪</b> بفضل مستواك</div>' : '') + (r.penalty > 0 ? '<div class="note warn">خُصمت ' + N(r.penalty) + ' من المستوى الكلي بسبب أيام التجمد الكامل. المستوى المحسوب من سماتك: ' + N(r.derivedLevel) + '.<div class="actions" style="margin-top:8px"><button class="btn soft" data-act="buy" data-k="level">استرداد نقطة بـ ' + N(E.C.PRICE_LEVEL) + ' ' + sar + '</button></div><div class="small muted">اختياري ومتى شئت، لا يُحسب عليك شيء إن لم تفعل.</div></div>' : '') + '</div>';
   h += '<div class="card stack pside"><div class="row ptsrow" style="justify-content:space-between"><div><div class="small muted">نقاط التطوير المتاحة</div><div class="pts num">' + N(r.ptsAvail) + '</div></div><div class="small muted ptsnote" style="text-align:end;max-width:190px">تتجمع تلقائيًا من إنجازاتك حتى لو لم تفتحي هذه الصفحة. وزعيها كما تريدين.</div></div>';
   h += '<div class="stack" style="gap:8px"><h3 class="sec-title">السمات</h3>' + E.TRAITS.map((t) => {
     const L = r.traitLevels[t.id]; const tg = tgtOf(L);
@@ -6042,7 +6069,15 @@ function clothCard(o, r, wardrobe) {
   else if (owned) btn = '<button class="btn" data-act="equip" data-o="' + o.id + '">ارتداء</button>';
   else if (o.badge) btn = '<span class="pill">بوسام سري فقط</span>';
   else btn = '<button class="btn" data-act="buyOutfit" data-o="' + o.id + '" ' + (r.balance < o.price ? 'disabled' : '') + '>شراء</button>';
-  return '<div class="cloth rar' + o.rar + ' ' + (worn ? 'on' : '') + '"><div class="thumb">' + charSVG(o.id) + '</div><b class="small">' + o.name + '</b><span class="pill rpill">' + E.TIERS[o.rar] + '</span>' + (o.badge ? (owned ? '<span class="small muted">نلتِه بوسام</span>' : '<span class="small muted">لا يُشترى</span>') : o.price ? (owned ? '<span class="small muted">مملوكة</span>' : '<span>' + money(o.price) + '</span>') : '<span class="small muted">الزي الأساسي</span>') + btn + '</div>';
+  return '<div class="cloth rar' + o.rar + ' ' + (worn ? 'on' : '') + '"><div class="thumb" data-act="outfitOpen" data-o="' + o.id + '" role="button" tabindex="0" aria-label="معاينة ' + o.name + '">' + charSVG(o.id) + '</div><b class="small">' + o.name + '</b><span class="pill rpill">' + E.TIERS[o.rar] + '</span>' + (o.badge ? (owned ? '<span class="small muted">نلتِه بوسام</span>' : '<span class="small muted">لا يُشترى</span>') : o.price ? (owned ? '<span class="small muted">مملوكة</span>' : '<span>' + money(o.price) + '</span>') : '<span class="small muted">الزي الأساسي</span>') + btn + '</div>';
+}
+const LKM = () => lookNow().g === 'm';
+function outfitPreview(id) {
+  const o = E.OUTFITS.find((x) => x.id === id); if (!o) return;
+  const owned = R.owned.includes(o.id), worn = R.equipped === o.id; let btn;
+  if (worn) btn = '<span class="pill ok">مرتدية الآن</span>'; else if (owned) btn = '<button class="btn" data-act="equip" data-o="' + o.id + '">ارتداء</button>'; else if (o.badge) btn = '<span class="pill">بوسام سري فقط</span>'; else btn = '<button class="btn" data-act="buyOutfit" data-o="' + o.id + '" ' + (R.balance < o.price ? 'disabled' : '') + '>شراء بـ ' + N(o.price) + ' ' + sar + '</button>';
+  const m = modal('<div class="stage prevstage">' + roomSVG() + charSVG(o.id) + '<div class="fxlayer"></div></div><h2 style="text-align:center;margin:6px 0">' + o.name + '</h2><div style="text-align:center"><span class="pill rpill">' + E.TIERS[o.rar] + '</span></div><p class="muted small" style="text-align:center;margin:6px 0">اضغط على الشخصية لترى حركتها.</p><div class="actions" style="justify-content:center">' + btn + '' + (((LKM() && o.id !== 'starter') || MOVES[o.id]) ? '<button class="btn soft" data-act="outfitMove">شاهد حركة</button>' : '') + '<button class="btn ghost" data-close>إغلاق</button></div>', { noFocus: true });
+  setTimeout(() => { const ch = document.querySelector('.prevstage .char'); playMove(ch); }, 500);
 }
 function viewClothes() {
   return '<div class="note">الشخصية تبدأ بزي واحد. اشتري قطعًا أجمل بعملاتك وسترين أثرها على الشخصية فورًا. وفي آخر القائمة أزياء لا تُشترى، تنالينها بأوسمة سرّية عند تقدّمك في مهاراتك.</div><div class="wardrobe">' + E.OUTFITS.filter((o) => o.price > 0 || o.badge).map((o) => clothCard(o, R, false)).join('') + '</div>';
@@ -6461,7 +6496,8 @@ document.addEventListener('click', async (e) => {
   if (e.target.closest('#dedit') || e.target.closest('[data-act^=d]')) { const da = e.target.closest('[data-act]'); if (da && await diaryAct(da)) return; }
   const a = e.target.closest('[data-act]'); if (!a || a.disabled) return;
   const id = a.dataset.id; const today = TODAY();
-  if (['useLeast', 'addQuiet', 'rmQuiet'].includes(a.dataset.act) && a.closest('.scrim')) setTimeout(closeModals, 60);
+  const toolScrim = a.closest('.scrim');
+  if (toolScrim && ['equip', 'buyOutfit'].includes(a.dataset.act)) toolScrim.remove();
   switch (a.dataset.act) {
     case 'inc': return setTaskCount(id, 1, a);
     case 'dec': return setTaskCount(id, -1, a);
@@ -6482,14 +6518,14 @@ document.addEventListener('click', async (e) => {
     case 'nextDay': VIEWDAY = E.addDays(VIEWDAY || today, 1); if (VIEWDAY > E.addDays(today, 7)) VIEWDAY = E.addDays(today, 7); if (VIEWDAY === today) VIEWDAY = null; return render();
     case 'goToday': VIEWDAY = null; return render();
     case 'comp': { const i = +a.dataset.i; const done = R.ix.comp(today).has(i); return act((s) => E.setCompStep(s, i, !done, today)); }
-    case 'useLeast': return openLeast();
+    case 'useLeast': if (toolScrim) toolScrim.remove(); return openLeast();
     case 'addQuiet': {
-      const D = $('#quietDate').value; if (!D) return err('اختاري تاريخًا');
+      const D = ((toolScrim || document).querySelector('#quietDate') || {}).value; if (!D) return err('اختاري تاريخًا');
       const probe = E.clone(ST); const r = E.addQuiet(probe, D, today); if (!r.ok) return err(r.error);
       const ok = await confirmDlg({ title: 'تفعيل يوم هادئ', body: '<p>' + dlabel(D) + '</p><p class="muted small">لا يُطلب فيه إنجاز، ولا تنقطع الاستمرارية، ولا تُستهلك تجميدة. بعد انتهائه لا يمكن تغييره. المتبقي هذا الشهر بعد التفعيل: ' + N(E.C.QUIET_PER_MONTH - E.quietInMonth(probe, E.monthOf(D))) + '.</p>', ok: 'تفعيل' });
-      if (ok) act((s) => E.addQuiet(s, D, today)); return;
+      if (ok) { if (toolScrim) toolScrim.remove(); act((s) => E.addQuiet(s, D, today)); } return;
     }
-    case 'rmQuiet': return act((s) => E.removeQuiet(s, a.dataset.d, today));
+    case 'rmQuiet': if (toolScrim) toolScrim.remove(); return act((s) => E.removeQuiet(s, a.dataset.d, today));
     case 'mtab': MARKET = a.dataset.t; return render();
     case 'buy': return doBuy(a.dataset.k);
     case 'loanOpen': return openLoan();
@@ -6515,6 +6551,9 @@ document.addEventListener('click', async (e) => {
     case 'lkM': LK.stache = +a.dataset.v; return lookModal();
     case 'easyMode': { const on = a.dataset.v === '1'; if (on && !ST.settings.easy) { ST.settings.easy = true; ST.settings.easyFrom = TODAY(); } else if (!on) ST.settings.easy = false; persist(); recompute(); render(); break; }
     case 'back': goBack(); break;
+    case 'outfitOpen': outfitPreview(a.dataset.o); break;
+    case 'outfitMove': { const ch = document.querySelector('.prevstage .char'); playMove(ch); break; }
+    case 'infoT': { const k = a.dataset.k; if (INFO.has(k)) INFO.delete(k); else INFO.add(k); render(); break; }
     case 'cmpMode': STCMP = a.dataset.v; render(); break;
     case 'tool': toolModal(a.dataset.k); break;
     case 'progMode': ST.settings.progressive = a.dataset.v === '1'; persist(); render(); break;
