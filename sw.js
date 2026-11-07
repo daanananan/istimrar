@@ -1,4 +1,4 @@
-const V='istimrar-v84', FONTS='istimrar-fonts';
+const V='istimrar-v93', FONTS='istimrar-fonts', SOUNDS='istimrar-sounds';
 const MUST=['./','./index.html'];
 const EXTRA=['./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png','./apple-touch-icon-152.png','./apple-touch-icon-167.png','./apple-touch-icon-180.png'];
 // ردّ نظيف: بدون علامة إعادة التوجيه التي تمنع استخدام الرد المحفوظ لتصفّح الصفحة
@@ -10,9 +10,13 @@ self.addEventListener('install',e=>{e.waitUntil((async()=>{
   await Promise.all(EXTRA.map(u=>fetch(u,{cache:'reload'}).then(r=>r.ok?c.put(u,r):null).catch(()=>null)));
   await self.skipWaiting();
 })());});
-self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!==FONTS).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!==FONTS&&k!==SOUNDS).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{
   const r=e.request; if(r.method!=='GET')return; const u=new URL(r.url);
+  if(u.origin===location.origin&&/\/sounds\/[^/]+$/.test(u.pathname)){
+    e.respondWith(caches.open(SOUNDS).then(c=>c.match(r).then(m=>m||fetch(r).then(res=>{ if(res&&res.ok) c.put(r,res.clone()); return res; }))));
+    return;
+  }
   if(u.origin===location.origin){
     const nav=r.mode==='navigate';
     const fromCache=async()=>{ const c=await caches.open(V); let m=await c.match(r,{ignoreSearch:true}); if(!m&&nav) m=await c.match('./index.html'); if(!m) m=await c.match('./index.html'); return m||Response.error(); };
