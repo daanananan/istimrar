@@ -1,4 +1,4 @@
-const V='istimrar-v95', FONTS='istimrar-fonts', SOUNDS='istimrar-sounds';
+const V='istimrar-v102', FONTS='istimrar-fonts', SOUNDS='istimrar-sounds';
 const MUST=['./','./index.html'];
 const EXTRA=['./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png','./apple-touch-icon-152.png','./apple-touch-icon-167.png','./apple-touch-icon-180.png'];
 // ردّ نظيف: بدون علامة إعادة التوجيه التي تمنع استخدام الرد المحفوظ لتصفّح الصفحة
