@@ -69,7 +69,7 @@ h1,h2,h3{font-family:var(--font-display);margin:0;font-weight:700;text-wrap:bala
 .dbody{display:flex;flex-direction:column;gap:4px;min-width:0}.dmeta{font-size:12px;color:var(--ink2)}
 .dtxt{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
 .dback{position:fixed;inset:0;z-index:64;background:var(--bg)}
-html.dlock,html.dlock body{overflow:hidden!important;overscroll-behavior:none}
+html.dlock,html.dlock body{overflow:hidden!important;overscroll-behavior:none}html.dlock,html.dlock body,html.dlock #app{background:var(--paper)!important}
 :root{--paper:#FFFCF2;--pline:#CFE0EC;--pmargin:#F2B7B7;--pink:#33414F;--pedge:#CDBF9E}
 :root{--hpaper:#FFF8E6;--hpline:#B8C8D6;--hpedge:#CDBF9E}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--hpaper:#6A6258;--hpline:#8A8276;--hpedge:#4E483F}}:root[data-theme="dark"]{--hpaper:#6A6258;--hpline:#8A8276;--hpedge:#4E483F}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#24221E;--pline:#3A4652;--pmargin:#6A3E44;--pink:#E9E2D6;--pedge:#4A443A}}
@@ -114,6 +114,19 @@ html.dlock,html.dlock body{overflow:hidden!important;overscroll-behavior:none}
 body[data-sky=dark] .dtop .dtt{color:#FFF6E6;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .dico{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);color:var(--ink);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow)}
 #app[data-view=diary] .dbook{padding:8px 0 0}#app[data-view=diary] .dbook .dpages,#app[data-view=diary] .dpage{min-height:0;height:340px}#app[data-view=diary] .dpage .dpt{max-height:calc(30px * 5);line-height:30px;font-size:16px}#app[data-view=diary] .dpage .dpol{width:min(30%,96px)}#app[data-view=diary] .dpage .dphotos{max-height:120px;overflow:hidden}
+/* دفتر مفتوح: صفحة يمنى وصفحة يسرى بينهما كعب الدفتر */
+#app[data-view=diary] .dbook .dpages.dspread{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:7px;border-radius:16px;background:#7A4E2E;box-shadow:0 8px 22px rgba(0,0,0,.22),inset 0 0 0 2px rgba(0,0,0,.15);height:auto;min-height:0}
+#app[data-view=diary] .dspread::before{display:none}
+#app[data-view=diary] .dspread::after{content:"";position:absolute;top:7px;bottom:7px;left:50%;width:18px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(0,0,0,.22) 45%,rgba(0,0,0,.28) 50%,rgba(0,0,0,.22) 55%,transparent);pointer-events:none;z-index:2}
+#app[data-view=diary] .dbook .dspread>.dpage{height:300px;padding:12px 10px 26px;border-radius:0 10px 10px 0;box-shadow:none;background-image:repeating-linear-gradient(transparent 0 27px,var(--pline) 27px 28px);background-position:0 64px}
+#app[data-view=diary] .dspread>.dpage:nth-child(1){border-radius:0 10px 10px 0;background-image:linear-gradient(90deg,rgba(0,0,0,.12),transparent 16px),repeating-linear-gradient(transparent 0 27px,var(--pline) 27px 28px);background-position:0 0,0 64px}
+#app[data-view=diary] .dspread>.dpage:nth-child(2){border-radius:10px 0 0 10px;background-image:linear-gradient(270deg,rgba(0,0,0,.12),transparent 16px),repeating-linear-gradient(transparent 0 27px,var(--pline) 27px 28px);background-position:0 0,0 64px}
+#app[data-view=diary] .dspread .dpage::after{width:26px;height:26px}#app[data-view=diary] .dspread>.dpage:nth-child(1)::after{left:auto;right:0;background:linear-gradient(-45deg,var(--pedge) 0 49%,transparent 51%)}
+#app[data-view=diary] .dspread .dph{min-height:52px;gap:4px}#app[data-view=diary] .dspread .dphd b{font-size:14.5px;line-height:1.3}#app[data-view=diary] .dspread .dphd span{font-size:11px}#app[data-view=diary] .dspread .dpm svg{width:30px;height:30px}
+#app[data-view=diary] .dspread .dpt{font-size:14.5px;line-height:28px}#app[data-view=diary] .dspread .dpol{width:min(46%,80px);padding:4px 4px 12px}#app[data-view=diary] .dspread .dpn{display:none}
+#app[data-view=diary] .dspread .dpage.blank{cursor:default}
+#app[data-view=diary] .dspread .dflip{inset:7px 50% 7px 7px;width:auto}#app[data-view=diary] .dspread .dflip.to-old{inset:7px 50% 7px 7px;transform-origin:right center;animation-name:dflipL}#app[data-view=diary] .dspread .dflip.to-new{inset:7px 7px 7px 50%;transform-origin:left center;animation-name:dflipR}
+@keyframes dflipL{0%{transform:rotateY(0)}100%{transform:rotateY(170deg);opacity:.3}}@keyframes dflipR{0%{transform:rotateY(0)}100%{transform:rotateY(-170deg);opacity:.3}}
 .dsearch mark{background:#FFE07A;color:inherit;border-radius:4px;padding:0 2px}.dsearch .dico{flex:none}
 #app[data-view=diary] .dpage{display:flex;flex-direction:column}#app[data-view=diary] .dpage .dpt{flex:1;max-height:none;min-height:0;height:0}
 .dbnav{position:absolute;left:10px;right:40px;bottom:6px;margin:0!important;pointer-events:none;z-index:4}.dbnav .small{display:none}.dbnav .btn{pointer-events:auto;min-height:32px!important;padding:2px 10px!important;font-size:13px;background:transparent;border:0;color:var(--pink);opacity:.85}.dbnav .btn:disabled{opacity:.25}
@@ -217,7 +230,10 @@ body.hopeview .sheet{background:#121B3A;color:#EAF0FF;--ink:#EAF0FF;--ink2:#AEBB
 #hopebg.dim .hcl{display:block}
 #hopebg .hst{position:absolute;border-radius:50%;background:#CFE0FF}
 .hopesky{background:transparent;color:#EAF0FF;padding:6px 0 18px;position:relative;text-align:center}
-.hopesky .hname{display:flex;justify-content:center;gap:10px;align-items:center}.hopesky .hname b{background:rgba(255,255,255,.14);padding:5px 16px;border-radius:20px;font-size:17px}
+.hopesky #app[data-view=hope] .hfit{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0}.hfit .hskyw{width:min(240px,34vh,100%)}.hfit .hcount{display:flex;align-items:baseline;gap:8px;justify-content:center}.hfit .hbig{display:inline;font-size:52px;margin:0}.hfit .hmsg{margin:0;max-width:340px}
+@media (max-height:720px){.hfit .hskyw{width:min(190px,24vh)}.hfit .hbig{font-size:40px}.hfit{gap:5px!important}}.hfit .hacts{margin-top:4px}.hbadges{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}.hmorebtn{cursor:pointer;font:inherit;border:0}.hacts{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:420px}.hacts .btn{min-height:46px;padding:6px 8px;font-size:14.5px}
+.hico{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:inherit;font:inherit;font-size:16px;cursor:pointer;padding:0}
+.hname{display:flex;justify-content:center;gap:10px;align-items:center}.hopesky .hname b{background:rgba(255,255,255,.14);padding:5px 16px;border-radius:20px;font-size:17px}
 .hopesky .hbig{display:block;font-size:64px;line-height:1;color:#FFE9B5;font-weight:800;margin-top:6px}
 .hopesky .hmsg{margin:8px 6px;color:#E4EAFB;line-height:1.7}
 .hopesky .hplan{background:rgba(255,255,255,.1);border-radius:14px;padding:10px 12px;text-align:start}
@@ -635,6 +651,27 @@ body.sceneview[data-sky=dark]:not(.scrolled)[data-scene=streak] .brand,body.scen
 .tminis>.tmini{padding:8px 10px!important}.tminis>.tmini p,.tminis>.tmini .small,.tminis>.tmini span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .note,.easycard p{line-height:1.5}
 .ascap{margin:0 auto;text-align:center;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 12px;width:fit-content;max-width:100%;font-weight:600;position:relative;z-index:1}.tform .field{margin-bottom:9px;gap:4px}.tform .seg button{min-height:38px;padding:5px 6px;min-width:64px;font-size:14px}.tform .seg{margin-bottom:0}.tform .field>.small.muted{font-size:12px;line-height:1.5}.tform .stepper .circ.mini{width:34px;height:34px}.tform .stepper{gap:8px}.tform input[type=text]{min-height:40px;padding:6px 12px}.tform .daychips{gap:4px;flex-wrap:nowrap}.tform .daychips button{flex:1;width:auto;height:40px;border-radius:12px;padding:0;font-size:12px}
+.tform .tfhead{padding-inline-end:40px;margin-bottom:8px}.tform .tfkind{width:auto;margin:0}.tform .tfkind button{min-width:0;min-height:32px;padding:3px 12px;font-size:13.5px}
+.tform .tfnrow{display:flex;gap:8px;align-items:center}.tform .tfnrow input[type=text]{flex:1;min-width:0;min-height:44px}.tform .tflook{width:44px;height:44px;flex:none;font-size:22px}.tform .tfdate{width:128px;flex:none;min-height:44px;padding:4px 6px;font-size:13px}
+.tfscrim{align-items:center;padding:10px}.tfscrim .sheet.tform{border-radius:22px;max-height:calc(100% - 20px);padding:14px 14px 12px;max-width:440px}
+.tform .tfline{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:40px;padding:3px 0;border-bottom:1px solid var(--line)}.tform .tfline .tfrl{font-weight:700;font-size:14px;white-space:nowrap}
+.tform .tfch{display:flex;gap:4px;flex-wrap:nowrap}.tform .tfch button{min-height:32px;padding:3px 9px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font:inherit;font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;cursor:pointer}.tform .tfch button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}
+.tform .tfline.rw{flex-wrap:wrap;padding:6px 0}.tform .rw .tfch{width:100%}.tform .rw .tfch button{flex:1;padding:3px 2px}.tform .tfrep{padding:4px 0 6px;border-bottom:1px solid var(--line)}.tform .tfrep>.small{display:none}.tform .tfrep .daychips{margin:0}.tform .tfrep .stepper{margin-top:2px!important}.tform .tfrep .mdays{display:grid;grid-template-columns:repeat(11,1fr);gap:3px}.tform .tfrep .mdays button{min-width:0;min-height:26px;padding:0;font-size:11px}
+.tform .tf2>div{flex:1;display:flex;align-items:center;justify-content:space-between;gap:4px}.tform .tf2>div+div{border-inline-start:1px solid var(--line);padding-inline-start:8px}.tform .tf2 .tfrl{font-size:12.5px;white-space:normal;line-height:1.2}
+.tform .tfnotes{gap:6px;border-bottom:0}.tform .tfnotes input{flex:1;min-width:0;min-height:36px;padding:4px 10px;font-size:13.5px}.tform .tfsub{margin:-2px 0 4px}
+.tform .tfhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;padding:0}.tform .tfhead h2{font-size:19px}
+.tform .tfline{border-bottom:0;min-height:38px}.tform .tfline .tfrl{font-weight:600;color:var(--muted);font-size:13.5px}.tform .tfrep{border-bottom:0;padding:0 0 4px}
+.tform .tfsec{background:color-mix(in srgb,var(--ink) 4%,transparent);border-radius:14px;padding:4px 10px;margin-top:8px}
+.tform .tsw{width:42px;height:26px}.tform .tsw i{width:20px;height:20px}.tform .tsw[aria-checked=true] i{left:19px}
+.tform .tfch button{background:transparent}.tform .tfrep .daychips button{height:34px;border-radius:50%;max-width:40px;background:transparent}
+.tform .todi button{background:transparent;width:34px;height:30px}
+.tfgrp{margin-top:10px;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
+.tfr,.tfl,.tfl2{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:6px 14px;border-bottom:1px solid var(--line);width:100%;background:none;border-top:0;border-inline:0;font:inherit;color:inherit;text-align:start;cursor:pointer}
+.tfgrp>:last-child{border-bottom:0}.tfl,.tfl2{cursor:default}.tfrl{font-weight:600;font-size:15px;white-space:nowrap}.tfrv{flex:1;text-align:end;color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tfr b{color:var(--muted);font-weight:400;width:12px;text-align:center}
+.tfl2>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}.tfl2 .tfrl{font-size:14px}.tfl2>div+div{border-inline-start:1px solid var(--line);padding-inline-start:10px}
+.tfst{display:flex;align-items:center;gap:6px}.tfst .circ.mini{width:30px;height:30px}.tfst output{min-width:20px;text-align:center;font-weight:700}
+.tfctl{display:flex;align-items:center;gap:6px}.tfsub{padding:0 14px 8px;margin-top:-4px;border-bottom:1px solid var(--line)}.tfx{padding:8px 14px 12px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--green) 5%,transparent)}
+.tfgrp .tftime{max-width:92px;min-height:32px;padding:2px 6px;font-size:13px}.tfgrp .todi button{width:36px;height:32px;border-radius:10px}.tsw:disabled{opacity:.5}
 .tfpair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tfpair .stepper{justify-content:flex-start}.tfrow{display:flex;align-items:center;justify-content:space-between;gap:10px}.tfrow .lbl{margin:0}
 .todi{display:flex;gap:6px}.todi button{width:40px;height:36px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);display:grid;place-items:center;cursor:pointer;padding:0}.todi button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#fff}
 .tsw{width:50px;height:30px;border-radius:16px;border:0;background:color-mix(in srgb,var(--ink) 18%,transparent);position:relative;cursor:pointer;flex:none;transition:background .2s}.tsw i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}.tsw[aria-checked=true]{background:var(--green)}.tsw[aria-checked=true] i{left:23px}
@@ -2994,6 +3031,10 @@ const FL_CAL = 'M52 36C56 66 62 96 60 118C59 130 55 137 50 138C45 137 41 130 40 
 const flDia = (x, y, s, c, i) => '<path class="fsp" style="animation-delay:' + (-(i * 0.7)).toFixed(1) + 's" d="M' + x + ' ' + (y - s) + 'L' + (x + s * .55) + ' ' + y + 'L' + x + ' ' + (y + s) + 'L' + (x - s * .55) + ' ' + y + 'Z" fill="' + c + '"/>';
 /* شعلة بسيطة مريحة للعين: جسم واحد بقاعدة مستديرة، طبقات داخلية مندمجة بتمويه، وحافة خارجية ناعمة غير محددة */
 const FL_BODY = 'M256 96C276 150 330 186 340 262C348 328 306 388 256 388C206 388 164 328 172 262C178 224 200 202 214 176C222 204 238 214 250 214C244 176 246 132 256 96Z';
+const FL_CORE = 'M256 206C270 240 304 262 308 306C311 342 286 372 256 372C226 372 201 342 204 306C207 276 226 262 238 238C244 254 250 258 256 258C254 238 252 222 256 206Z';
+/* الشعلة الصغيرة: شكل مختلف (منخفضة بثلاثة ألسنة قصيرة) بنفس الأسلوب، لا نسخة مصغّرة */
+const FL_SMALL = 'M256 388C202 388 168 356 174 318C178 294 194 282 202 262C208 280 216 288 228 290C226 264 238 238 258 216C261 246 276 264 292 280C298 270 302 258 302 244C326 268 340 298 336 330C332 364 302 388 256 388Z';
+const FL_SMALL_CORE = 'M256 378C230 378 213 362 215 341C217 325 229 317 237 302C243 314 249 319 258 319C258 306 262 296 270 288C281 305 297 322 295 344C293 365 277 378 256 378Z';
 const FL_CALM = 'M256 180C268 240 292 290 290 340C289 366 275 384 256 388C237 384 223 366 222 340C220 290 244 240 256 180Z';
 const FL_SPK = [[190, 150, 4], [340, 120, 4.5], [268, 60, 4], [150, 260, 3.4], [370, 250, 3.4], [230, 40, 3.2], [300, 30, 3], [120, 170, 3]];
 function flMix(a, b, t) { const h = (x) => [1, 3, 5].map((i) => parseInt(x.slice(i, i + 2), 16)); const A = h(a), B = h(b); return '#' + A.map((v, i) => Math.round(v * (1 - t) + B[i] * t).toString(16).padStart(2, '0')).join(''); }
@@ -3021,15 +3062,15 @@ function flameIcon(u, L, sc, o) {
   // نسخة حرفية من شعلة الرئيسية (نفس الحطب والشكل والشرار والوهج)، والفرق الوحيد ألوان المستوى
   const lvl = FL.indexOf(L), FC = lvl > 0 ? { top: L.cols[2], bot: L.cols[1], glow: L.gl || L.cols[1], edge: flMix(L.cols[0], '#000000', .3), core: flMix(L.cols[3], L.cols[2], .25) } : { top: '#FFC24D', bot: '#F27A2B', glow: '#FFB347', edge: '#8A4A1C', core: '#FFF1C4' };
   const FCx = o.ice ? ICE : null; if (FCx) Object.assign(FC, FCx);
-  const X = 50, Y = 140, fs = .47 * sc, ffs = fs * fk;
-  const spk = [[-6, 0], [5, .7], [-1, 1.4], [8, 2.1], [-9, 2.8]].slice(0, 2 + Math.min(3, Math.round(lvl / 2))).map(([dx, dl]) => '<circle cx="' + (X + dx * 1.6) + '" cy="' + (Y - 2 - 300 * ffs) + '" r="' + ((1.6 + (dl * 10 % 3) * .3) * 1.4).toFixed(1) + '" fill="' + FC.core + '" style="animation-delay:-' + dl + 's"/>').join('');
+  const X = 50, Y = 140, fs = .47 * sc, ffs = o.small ? fs : fs * fk, sH = o.small ? 175 : 300;
+  const spk = [[-6, 0], [5, .7], [-1, 1.4], [8, 2.1], [-9, 2.8]].slice(0, 2 + Math.min(3, Math.round(lvl / 2))).map(([dx, dl]) => '<circle cx="' + (X + dx * 1.6) + '" cy="' + (Y - 2 - sH * ffs) + '" r="' + ((1.6 + (dl * 10 % 3) * .3) * 1.4).toFixed(1) + '" fill="' + FC.core + '" style="animation-delay:-' + dl + 's"/>').join('');
   return '<defs><linearGradient id="' + u + 'f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + FC.top + '"/><stop offset="1" stop-color="' + FC.bot + '"/></linearGradient><radialGradient id="' + u + 'g"><stop offset="0" stop-color="' + FC.glow + '" stop-opacity=".55"/><stop offset="1" stop-color="' + FC.glow + '" stop-opacity="0"/></radialGradient></defs>' +
     (fk ? '<ellipse cx="' + X + '" cy="' + (Y - 20 * fk) + '" rx="' + ((58 + lvl * 3) * (.5 + fk / 2)).toFixed(1) + '" ry="' + ((44 + lvl * 2) * (.5 + fk / 2)).toFixed(1) + '" fill="url(#' + u + 'g)"/>' : '') +
     /* الأسطورية وما فوقها: أشعة ضوء تدور ببطء، وهالة تنبض، ولمعات متلألئة (تزيد مع المستوى) */
     (lvl >= 3 ? '<g class="flrays" style="transform-origin:' + X + 'px ' + (Y - 42) + 'px;filter:blur(.6px);opacity:' + (.32 + (lvl - 3) * .08).toFixed(2) + '">' + Array.from({ length: 6 + (lvl - 3) * 2 }, (_, i) => { const a = i * 360 / (6 + (lvl - 3) * 2); return '<path d="M' + X + ' ' + (Y - 42) + 'L' + (X - 2.4) + ' ' + (Y - 94) + 'L' + (X + 2.4) + ' ' + (Y - 94) + 'Z" fill="' + FC.glow + '" transform="rotate(' + a + ' ' + X + ' ' + (Y - 42) + ')"/>'; }).join('') + '</g>' +
       '<ellipse class="flpulse" cx="' + X + '" cy="' + (Y - 40) + '" rx="34" ry="40" fill="' + FC.core + '" style="transform-origin:' + X + 'px ' + (Y - 40) + 'px"/>' : '') +
     '<g transform="translate(' + X + ' ' + (Y - 4) + ') scale(' + (fs * .86).toFixed(3) + ') translate(-256 -440)"><g stroke="#3E2616" stroke-width="7" stroke-linejoin="round"><rect x="116" y="414" width="280" height="50" rx="25" fill="#8A5A33" transform="rotate(13 256 440)"/><rect x="116" y="414" width="280" height="50" rx="25" fill="#9C683B" transform="rotate(-13 256 440)"/></g><g fill="none" stroke="#5B3A22" stroke-width="3"><circle cx="150" cy="468" r="11"/><circle cx="362" cy="468" r="11"/></g></g>' +
-    (fk ? '<g transform="translate(' + X + ' ' + Y + ') scale(' + ffs.toFixed(3) + ') translate(-256 -388)"' + (lvl >= 3 ? ' class="flglow" style="--fg:' + FC.glow + '"' : '') + '><g class="hflame"><path d="' + FL_BODY + '" fill="url(#' + u + 'f)" stroke="' + FC.edge + '" stroke-width="10" stroke-linejoin="round"/><path d="M256 206C270 240 304 262 308 306C311 342 286 372 256 372C226 372 201 342 204 306C207 276 226 262 238 238C244 254 250 258 256 258C254 238 252 222 256 206Z" fill="' + FC.core + '"/></g></g>' : '') +
+    (fk ? '<g transform="translate(' + X + ' ' + Y + ') scale(' + ffs.toFixed(3) + ') translate(-256 -388)"' + (lvl >= 3 ? ' class="flglow" style="--fg:' + FC.glow + '"' : '') + '><g class="hflame"><path d="' + (o.small ? FL_SMALL : FL_BODY) + '" fill="url(#' + u + 'f)" stroke="' + FC.edge + '" stroke-width="10" stroke-linejoin="round"/><path d="' + (o.small ? FL_SMALL_CORE : FL_CORE) + '" fill="' + FC.core + '"/></g></g>' : '') +
     (fk ? '<g class="hspark">' + spk + '</g>' : '') + (lvl >= 3 ? '<g class="fltw">' + [[14, 70], [88, 60], [22, 26], [80, 18], [50, 2], [96, 104]].slice(0, 2 + lvl - 3 + 1).map(([x, y], i) => '<path style="animation-delay:-' + (i * .6).toFixed(1) + 's" d="M' + x + ' ' + (y - 5) + 'Q' + (x + .8) + ' ' + (y - .8) + ' ' + (x + 5) + ' ' + y + 'Q' + (x + .8) + ' ' + (y + .8) + ' ' + x + ' ' + (y + 5) + 'Q' + (x - .8) + ' ' + (y + .8) + ' ' + (x - 5) + ' ' + y + 'Q' + (x - .8) + ' ' + (y - .8) + ' ' + x + ' ' + (y - 5) + 'Z" fill="#FFFFFF"/>').join('') + '</g>' : '');
 }
 function flameSVG(kind, lvOverride) {
@@ -3042,8 +3083,13 @@ function flameSVG(kind, lvOverride) {
     /* الشعلة المطفأة: نفس الحطب، بلا لهب، مع دخان وجمرة خافتة */
     body = flameIcon(u, L, .93, { fk: 0 }) + '<ellipse cx="50" cy="128" rx="14" ry="4" fill="#E4572E" opacity=".35"/><circle cx="46" cy="128" r="1.6" fill="#FF8A3D"/><circle cx="54" cy="127" r="1.2" fill="#FF8A3D"/><g fill="#A8A8AE" opacity=".75"><circle class="smoke" cx="48" cy="116" r="7"/><circle class="smoke d2" cx="56" cy="102" r="6"/><circle class="smoke" cx="47" cy="88" r="5" style="animation-delay:-1s"/></g>';
   } else if (kind === 'iced' && typeof flameIcon === 'function') {
-    /* الشعلة المتجمدة: نفس الحطب ولهب صغير ساكن عليه جليد خفيف */
-    body = '<g class="still">' + flameIcon(u, L, .93, { fk: .62, ice: 1 }) + '</g><g fill="#F4FBFF" stroke="#7FB8DC" stroke-width="1" stroke-linejoin="round"><path d="M27 139l3 9 3-9z"/><path d="M40 141l2.5 7 2.5-7z"/><path d="M58 141l2.5 8 2.5-8z"/><path d="M70 139l3 10 3-10z"/></g><g fill="#FFFFFF" opacity=".9"><path d="M24 118l1.6 3.4 3.4 1.6-3.4 1.6-1.6 3.4-1.6-3.4-3.4-1.6 3.4-1.6z"/><path d="M80 104l1.2 2.6 2.6 1.2-2.6 1.2-1.2 2.6-1.2-2.6-2.6-1.2 2.6-1.2z"/></g>';
+    /* الشعلة المتجمدة: شعلة عادية كاملة محبوسة داخل كتلة جليد */
+    const blk = '6,30 20,4 50,-6 78,2 96,24 100,62 96,104 104,138 86,158 50,166 16,160 -4,140 0,104 -6,66';
+    body = '<defs><linearGradient id="' + u + 'ib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2FAFF" stop-opacity=".5"/><stop offset=".55" stop-color="#CBE6F6" stop-opacity=".28"/><stop offset="1" stop-color="#8FC3E3" stop-opacity=".55"/></linearGradient></defs>' +
+      '<ellipse cx="50" cy="164" rx="58" ry="6" fill="#000" opacity=".12"/><g class="still">' + flameIcon(u, L, .93) + '</g>' +
+      '<polygon points="' + blk + '" fill="url(#' + u + 'ib)" stroke="#86BADB" stroke-width="2" stroke-linejoin="round"/>' +
+      '<polygon points="20,4 50,-6 44,40 10,52" fill="#fff" opacity=".35"/><polygon points="78,2 96,24 84,60 66,34" fill="#fff" opacity=".22"/><polygon points="-4,140 16,160 50,166 40,140 10,124" fill="#7FB4D8" opacity=".35"/><polygon points="96,104 104,138 86,158 80,120" fill="#7FB4D8" opacity=".3"/>' +
+      '<path d="M12 40L26 14M8 60L14 48" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/><path d="M70 60L62 78L70 92L60 108" fill="none" stroke="#fff" stroke-width="1.4" opacity=".75" stroke-linecap="round" stroke-linejoin="round"/>';
   } else if (kind === 'out') {
     vb = '0 0 100 130';
     body = '<ellipse cx="50" cy="120" rx="30" ry="7" fill="var(--ink2)" opacity=".35"/><path d="M26 118c6-8 14-10 24-10s18 2 24 10z" fill="var(--ink2)" opacity=".6"/>' +
@@ -3066,7 +3112,7 @@ function flameSVG(kind, lvOverride) {
     body = '<g stroke="var(--ink2)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M38 22c0-10 24-10 24 0"/></g><rect x="30" y="22" width="40" height="8" rx="3" fill="var(--ink2)"/>' +
       '<rect x="26" y="30" width="48" height="84" rx="10" fill="#FFD27A" opacity=".28" stroke="var(--gold)" stroke-width="3"/><g transform="translate(50 112) scale(.44) translate(-50 -138)">' + flameFancy(u, L, true, 1, false) + '</g><rect x="24" y="112" width="52" height="10" rx="4" fill="var(--ink2)"/>';
   } else if (kind === 'small') {
-    body = flameIcon(u, L, .93, { fk: .55 });
+    body = flameIcon(u, L, .93, { fk: .6, small: 1 });
   } else {
     const sc = { lit1: .86, lit2: .93, lit3: 1, blaze: 1 }[kind] || .93;
     body = flameIcon(u, L, sc);
@@ -5468,26 +5514,36 @@ const wRot = (m) => ((m << 1) & 15) | (m >> 3); /* دوران مع عقارب ا
 let WG = null, WTICK = null;
 /* الإصدار ٢: كل الأشكال (مستقيم، زاوية، ثلاثي، رباعي)، مؤقّت، والماء لا يجري إلا عند انتهاء الوقت أو حين تطلقينه:
    يصل للنبتة = فوز، أو ينسكب من فتحة مفتوحة = خسارة. تبقى اللوحة بعد النتيجة لتري كيف حدث ذلك. */
-const WLV = { easy: { n: 4, dur: 120, gain: 3, name: 'سهل' }, mid: { n: 5, dur: 210, gain: 5, name: 'متوسط' }, hard: { n: 7, dur: 420, gain: 9, name: 'صعب' } };
-/* كل لمسة تغيّر القطعة عشوائيًا إلى شكل آخر (عدد أنابيب أو اتجاه مختلف) */
-const WTYPES = [[5, 10], [3, 6, 12, 9], [7, 14, 13, 11], [15]];
+const WLV = { easy: { n: 4, dur: 90, gain: 3, name: 'سهل', lock: .12 }, mid: { n: 5, dur: 140, gain: 5, name: 'متوسط', lock: .16 }, hard: { n: 7, dur: 220, gain: 9, name: 'صعب', lock: .2 } };
+/* أنواع القطع؛ اللمسة تدوّرها ربع دورة */
+const WTYPES = [[5, 10], [3, 6, 12, 9], [7, 14, 13, 11], [15], [1, 2, 4, 8]]; /* الأخير: أنبوب مغلق الطرف */
 const wTypeOf = (m) => WTYPES.findIndex((t) => t.includes(m));
 function wNextType(m) { const t = wTypeOf(m), nt = WTYPES[(t + 1) % WTYPES.length]; return nt[0]; }
-function wSave() { const w = wState(); if (!WG || WG.phase !== 'play') { w.cur = null; persist(); return; } w.cur = { lv: WG.lv, n: WG.n, g: WG.g, g0: WG.g0, sol: WG.sol, left: wLeft() }; persist(); }
+function wSave() { const w = wState(); if (!WG || WG.phase !== 'play') { w.cur = null; persist(); return; } w.cur = { lv: WG.lv, n: WG.n, g: WG.g, g0: WG.g0, sol: WG.sol, lk: WG.lk, left: wLeft() }; persist(); }
 function wLoad() { if (WG) return; const w = wState(); if (w.cur && w.cur.g && w.cur.lv) { const c = JSON.parse(JSON.stringify(w.cur)); WG = Object.assign(c, { phase: 'play', paused: true, end: 0, wet: [] }); } }
 function wState() { const s = sgSt(); if (!s.water || s.water.date !== TODAY()) s.water = { date: TODAY(), played: 0 }; return s.water; }
 function wAllDone() { const m = R.todayModel; return !!(m && m.items && m.items.length && m.items.every((i) => i.complete)) || R.todayStatus === 'success'; }
 const wLimit = () => (wAllDone() ? 6 : 2);
 const wLeft = () => (!WG ? 0 : WG.paused ? WG.left : Math.max(0, WG.end - Date.now()));
 const WDIRS = [[WD.N, -1, 0], [WD.E, 0, 1], [WD.S, 1, 0], [WD.W, 0, -1]];
+/* مثل ألعاب الأنابيب المعروفة: لمسة تدوّر القطعة ربع دورة، وبعض القطع مثبّتة لا تدور (بمسامير)،
+   ويكفي أن يصل أي طريق متصل من الدلو إلى الزهرة. يُصنع طريق عشوائي مضمون ثم تُخلط الاتجاهات. */
 function wNew(lv) {
-  const L = WLV[lv] || WLV.easy, n = L.n, ALL = [].concat(...WTYPES);
-  /* حل مضمون دائمًا: الشبكة الكاملة (كل خانة متصلة بجاراتها)، والدلو يدخل من يسار أول خانة والنبتة يمين آخر خانة */
-  const sol = Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, c) => (r > 0 ? WD.N : 0) | (r < n - 1 ? WD.S : 0) | (c > 0 ? WD.W : 0) | (c < n - 1 ? WD.E : 0)));
-  sol[0][0] |= WD.W; sol[n - 1][n - 1] |= WD.E;
-  for (let tries = 0; tries < 50; tries++) {
-    const g = sol.map((row) => row.map(() => ALL[Math.floor(Math.random() * ALL.length)]));
-    WG = { lv, n, g, g0: g.map((row) => row.slice()), sol, phase: 'play', paused: false, end: Date.now() + L.dur * 1000, left: L.dur * 1000, wet: [] };
+  const L = WLV[lv] || WLV.easy, n = L.n, rnd = (k) => Math.floor(Math.random() * k);
+  for (let tries = 0; tries < 80; tries++) {
+    const path = [[0, 0]], seen = new Set(['0,0']);
+    const walk = () => { const [r, c] = path[path.length - 1]; if (r === n - 1 && c === n - 1) return true;
+      const opts = WDIRS.map(([d, dr, dc]) => [r + dr, c + dc]).filter(([a, b]) => a >= 0 && b >= 0 && a < n && b < n && !seen.has(a + ',' + b)).sort(() => Math.random() - .5);
+      for (const [a, b] of opts) { seen.add(a + ',' + b); path.push([a, b]); if (path.length < n * n * .8 && walk()) return true; path.pop(); seen.delete(a + ',' + b); } return false; };
+    if (!walk() || path.length < n + 2) continue;
+    const ALL = [].concat(...WTYPES.slice(0, 4)), sol = Array.from({ length: n }, () => Array(n).fill(0));
+    path.forEach(([r, c], i) => { let m = 0; const nb = (q) => { if (!q) return; const d = WDIRS.find(([, dr, dc]) => r + dr === q[0] && c + dc === q[1]); if (d) m |= d[0]; };
+      nb(path[i - 1]); nb(path[i + 1]); if (i === 0) m |= WD.W; if (i === path.length - 1) m |= WD.E; sol[r][c] = m; });
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (!sol[r][c]) sol[r][c] = Math.random() < .14 ? WTYPES[4][rnd(4)] : ALL[rnd(ALL.length)];
+    const lk = Array.from({ length: n }, () => Array(n).fill(0)), onPath = new Set(path.map(([r, c]) => r + ',' + c));
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (!(r === 0 && c === 0) && !(r === n - 1 && c === n - 1) && Math.random() < L.lock * (onPath.has(r + ',' + c) ? .7 : 1)) lk[r][c] = 1;
+    const g = sol.map((row, r) => row.map((m, c) => { if (lk[r][c]) return m; let x = m; for (let k = rnd(4); k > 0; k--) x = wRot(x); return x; }));
+    WG = { lv, n, g, g0: g.map((row) => row.slice()), sol, lk, phase: 'play', paused: false, end: Date.now() + L.dur * 1000, left: L.dur * 1000, wet: [] };
     if (!wFlow().win) { wSave(); return; }
   }
 }
@@ -5502,13 +5558,14 @@ function wFlow() {
       if (a < 0 || b < 0 || a >= n || b >= n || !(g[a][b] & WOPP[d])) { leaks.push({ r, c, d }); return; }
       if (!seen.has(a + ',' + b)) { seen.add(a + ',' + b); q.push([a, b, dep + 1]); } }); }
   const all = order.length === n * n;
-  return { order, leaks, reached, all, win: reached && !leaks.length && all };
+  return { order, leaks, reached, all, win: reached };
 }
-function wTile(m, wet) {
+function wTile(m, wet, lk) {
   if (!m) return '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="14" fill="#D9CBB0"/><ellipse cx="36" cy="62" rx="14" ry="9" fill="#B8B0A0" stroke="#2B1612" stroke-width="3"/><ellipse cx="66" cy="38" rx="9" ry="6" fill="#C9C1B2" stroke="#2B1612" stroke-width="2.4"/></svg>';
   const col = wet ? '#3E9BE0' : '#B8B3AA', I = '#2B1612'; let p = '';
   [[WD.N, 'M50 50V0'], [WD.E, 'M50 50H100'], [WD.S, 'M50 50V100'], [WD.W, 'M50 50H0']].forEach(([d, path]) => { if (m & d) p += '<path d="' + path + '" stroke="' + I + '" stroke-width="30" stroke-linecap="butt"/><path d="' + path + '" stroke="' + col + '" stroke-width="22"/>' + (wet ? '<path d="' + path + '" stroke="#BFE4FA" stroke-width="5" opacity=".8"/>' : ''); });
-  return '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="14" fill="' + (wet ? '#E4F2FB' : '#F2E8D6') + '"/>' + p + '<circle cx="50" cy="50" r="15" fill="' + col + '" stroke="' + I + '" stroke-width="4"/></svg>';
+  const cap = WTYPES[4].includes(m) ? '<rect x="37" y="37" width="26" height="26" rx="5" fill="#8A8278" stroke="' + I + '" stroke-width="4"/>' : '<circle cx="50" cy="50" r="15" fill="' + col + '" stroke="' + I + '" stroke-width="4"/>';
+  return '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="14" fill="' + (wet ? '#E4F2FB' : lk ? '#D6CCBC' : '#F2E8D6') + '"' + (lk ? ' stroke="#8A7E6E" stroke-width="5"' : '') + '/>' + p + cap + (lk ? [[14, 14], [86, 14], [14, 86], [86, 86]].map(([x, y]) => '<circle cx="' + x + '" cy="' + y + '" r="5.5" fill="#9A9288" stroke="' + I + '" stroke-width="2"/><path d="M' + (x - 3) + ' ' + y + 'H' + (x + 3) + '" stroke="' + I + '" stroke-width="1.6"/>').join('') : '') + '</svg>';
 }
 // نبتة واضحة في أصيص فخاري بزهرة حمراء (لا تختفي في العشب)
 function wPlantSVG(st) {
@@ -5521,13 +5578,13 @@ function wTimeTxt(ms) { const t = Math.ceil(ms / 1000); return N(Math.floor(t / 
 function viewWater() {
   wLoad();
   const w = wState(), lim = wLimit(), left = Math.max(0, lim - w.played), s = sgSt();
-  let h = '<div class="wpage"><div class="sghead"><h1>قنوات الماء</h1><p>صِلي كل الأنابيب قبل انتهاء الوقت، ثم يجري الماء</p></div><div class="sgstage short" aria-hidden="true" style="height:40px"></div>';
+  let h = '<div class="wpage"><div class="sghead"><h1>قنوات الماء</h1><p>' + gm('دوّري الأنابيب لتصلي الدلو بالزهرة قبل انتهاء الوقت', 'دوّر الأنابيب لتصل الدلو بالزهرة قبل انتهاء الوقت') + '</p></div><div class="sgstage short" aria-hidden="true" style="height:40px"></div>';
   h += '<div class="card wstat"><div><b class="num">💧 ' + N(s.drops || 0) + '</b><span>قطراتك</span></div><div><b class="num">' + N(left) + '</b><span>جولات اليوم</span></div><div><b class="num">' + N(w.played) + '</b><span>لعبتِ اليوم</span></div></div>';
   if (WG) {
     const n = WG.n, done = WG.phase === 'done', wet = new Set((WG.wet || []).map((x) => x[0] + ',' + x[1]));
     if (!done) h += '<div class="wtimer' + (WG.phase === 'flow' ? ' flow' : '') + '"><span class="wtt num">' + (WG.phase === 'flow' ? 'الماء يجري…' : wTimeTxt(wLeft())) + '</span><i><i style="width:' + Math.round(wLeft() / (WLV[WG.lv].dur * 10)) + '%"></i></i><b>' + WLV[WG.lv].name + '</b></div>';
-    h += '<div class="wboard ' + WG.lv + ((WG.wet || []).length ? ' wet0' : '') + (WG.result === 'win' ? ' wetN' : '') + '" style="--n:' + n + '"><div class="wsrc">' + pailSVG(true) + '</div><div class="wgrid">' + WG.g.map((row, r) => row.map((m, c) => '<button class="wt' + (m ? '' : ' wblank') + '" data-act="wRot" data-r="' + r + '" data-c="' + c + '"' + (m && WG.phase === 'play' ? '' : ' disabled') + ' aria-label="قطعة ' + N(r + 1) + '،' + N(c + 1) + '">' + wTile(m, wet.has(r + ',' + c)) + '</button>').join('')).join('') + '</div><div class="wdst">' + wPlantSVG(done ? WG.result : '') + '</div>' + (done && WG.result === 'spill' ? (WG.leaks || []).slice(0, 3).map((L) => '<i class="wleak" style="--r:' + L.r + ';--c:' + L.c + ';--d:' + L.d + '"></i>').join('') : '') + '</div>';
-    if (WG.phase === 'play') h += '<div class="card wctl"><button class="sgbtn" data-act="wGo">💧 أطلقي الماء الآن</button><div class="row" style="gap:8px;justify-content:center"><button class="btn soft" data-act="wReset">إعادة الترتيب</button><button class="btn soft" data-act="wQuit">إيقاف مؤقت</button></div><p class="small muted" style="text-align:center;margin:0">كل لمسة تغيّر القطعة عشوائيًا. الماء يخرج من الدلو يسار أول صف، ويجب أن يصل للزهرة يمين آخر صف، وكل الأنابيب متصلة بلا فتحة مفتوحة.</p></div>';
+    h += '<div class="wboard ' + WG.lv + ((WG.wet || []).length ? ' wet0' : '') + (WG.result === 'win' ? ' wetN' : '') + '" style="--n:' + n + '"><div class="wsrc">' + pailSVG(true) + '</div><div class="wgrid">' + WG.g.map((row, r) => row.map((m, c) => '<button class="wt' + (m ? '' : ' wblank') + (WG.lk && WG.lk[r][c] ? ' wlk' : '') + '" data-act="wRot" data-r="' + r + '" data-c="' + c + '"' + (m && WG.phase === 'play' && !(WG.lk && WG.lk[r][c]) ? '' : ' disabled') + ' aria-label="قطعة ' + N(r + 1) + '،' + N(c + 1) + (WG.lk && WG.lk[r][c] ? ' مثبّتة' : '') + '">' + wTile(m, wet.has(r + ',' + c), WG.lk && WG.lk[r][c]) + '</button>').join('')).join('') + '</div><div class="wdst">' + wPlantSVG(done ? WG.result : '') + '</div>' + (done && WG.result === 'spill' ? (WG.leaks || []).slice(0, 3).map((L) => '<i class="wleak" style="--r:' + L.r + ';--c:' + L.c + ';--d:' + L.d + '"></i>').join('') : '') + '</div>';
+    if (WG.phase === 'play') h += '<div class="card wctl"><button class="sgbtn" data-act="wGo">💧 أطلقي الماء الآن</button><div class="row" style="gap:8px;justify-content:center"><button class="btn soft" data-act="wReset">إعادة الترتيب</button><button class="btn soft" data-act="wQuit">إيقاف مؤقت</button></div><p class="small muted" style="text-align:center;margin:0">المسي القطعة لتدويرها. القطع ذات المسامير مثبّتة لا تدور. يكفي أن يصل طريق واحد متصل من الدلو إلى الزهرة.</p></div>';
     else if (done) h += '<div class="card wres wctl ' + WG.result + '"><h2>' + (WG.result === 'win' ? '🌸 وصل الماء للنبتة!' : '💦 انسكب الماء') + '</h2><p>' + (WG.result === 'win' ? '+<b class="num">' + N(WG.gain) + '</b> قطرات' : WG.reason || 'بقيت فتحة مفتوحة في طريق الماء. شوفي أين انسكب على اللوحة.') + '</p><div class="row" style="gap:8px;justify-content:center">' + (left ? '<button class="sgbtn" data-act="wNext">جولة أخرى</button>' : '') + '<button class="btn soft" data-act="wQuit">رجوع</button></div></div>';
   } else if (left) {
     h += '<div class="card"><h3 style="margin:0 0 8px">اختاري المستوى</h3><div class="wlvs">' + Object.entries(WLV).map(([k, L]) => '<button class="wlv ' + k + '" data-act="wPlay" data-lv="' + k + '"><b>' + L.name + '</b><span>' + N(L.n) + '×' + N(L.n) + ' · ' + N(L.dur) + ' ثانية</span><small>💧 ' + N(L.gain) + '</small></button>').join('') + '</div></div>';
@@ -5544,7 +5601,7 @@ function wRun() {
   if (!WG || WG.phase !== 'play') return; const f = wFlow(); WG.phase = 'flow'; WG.wet = []; const w = wState(); w.cur = null; persist(); render();
   const steps = []; f.order.forEach((x) => { (steps[x[2]] = steps[x[2]] || []).push(x); }); let i = 0; SFX.play('water');
   const tick = () => { if (!WG) return; if (i < steps.length) { steps[i].forEach((x) => { WG.wet.push(x); const el = document.querySelector('.wt[data-r="' + x[0] + '"][data-c="' + x[1] + '"]'); if (el) { el.innerHTML = wTile(WG.g[x[0]][x[1]], true); el.classList.add('wfill'); } }); i++; setTimeout(tick, 170); return; }
-    const s = sgSt(); WG.phase = 'done'; WG.leaks = f.leaks; WG.result = f.win ? 'win' : 'spill'; WG.reason = !f.order.length || f.leaks.some((L) => L.src) ? 'الأنبوب الأول لا يتصل بالدلو، فانسكب الماء من البداية.' : f.reached && f.leaks.length ? 'وصل الماء للنبتة، لكنه انسكب أيضًا من فتحة مفتوحة.' : f.reached && !f.all ? 'وصل الماء للنبتة، لكن بعض الأنابيب ليست متصلة. يجب أن تتصل كلها.' : '';
+    const s = sgSt(); WG.phase = 'done'; WG.leaks = f.leaks; WG.result = f.win ? 'win' : 'spill'; WG.reason = !f.order.length || f.leaks.some((L) => L.src) ? 'الأنبوب الأول لا يتصل بالدلو، فانسكب الماء من البداية.' : f.reached ? '' : 'لم يصل الماء إلى الزهرة. انظري أين توقف الطريق على اللوحة.';
     w.played++; if (f.win) { WG.gain = WLV[WG.lv].gain; s.drops = (s.drops || 0) + WG.gain; SFX.play('win'); } else SFX.play('lose'); persist(); render(); };
   setTimeout(tick, 250);
 }
@@ -5554,8 +5611,8 @@ function wAct(k, a) {
   if (k === 'wGo') { wRun(); return true; }
   if (k === 'wQuit') { if (WG && WG.phase === 'play') { WG.left = wLeft(); WG.paused = true; wSave(); } else if (WG && WG.phase === 'done') WG = null; clearInterval(WTICK); VIEW = 'games'; render(); window.scrollTo(0, 0); return true; }
   if (k === 'wReset') { if (WG && WG.g0 && WG.phase === 'play') { WG.g = WG.g0.map((r) => r.slice()); wSave(); } render(); return true; }
-  if (k === 'wRot') { if (!WG || WG.phase !== 'play') return true; const coach = !!document.querySelector('.gco'); if (WG.paused && !coach) { WG.paused = false; WG.end = Date.now() + WG.left; } const r = +a.dataset.r, c = +a.dataset.c; { const ALL = [].concat(...WTYPES).filter((m) => m !== WG.g[r][c]); WG.g[r][c] = ALL[Math.floor(Math.random() * ALL.length)]; } SFX.play('tick');
-    const el = document.querySelector('.wt[data-r="' + r + '"][data-c="' + c + '"]'); if (el) { el.innerHTML = wTile(WG.g[r][c], false); wSave(); if (!coach) wTickStart(); } else { wSave(); render(); } return true; }
+  if (k === 'wRot') { if (!WG || WG.phase !== 'play') return true; const coach = !!document.querySelector('.gco'); if (WG.paused && !coach) { WG.paused = false; WG.end = Date.now() + WG.left; } const r = +a.dataset.r, c = +a.dataset.c; if (WG.lk && WG.lk[r][c]) return true; WG.g[r][c] = wRot(WG.g[r][c]); SFX.play('tick');
+    const el = document.querySelector('.wt[data-r="' + r + '"][data-c="' + c + '"]'); if (el) { el.innerHTML = wTile(WG.g[r][c], false); el.classList.remove('wspin'); void el.offsetWidth; el.classList.add('wspin'); wSave(); if (!coach) wTickStart(); } else { wSave(); render(); } return true; }
   if (k === 'wBuy') { const s = sgSt(); if ((s.drops || 0) < 8 || s.dropCh) return true; s.drops -= 8; s.dropCh = 1; s.bonusCh = (s.bonusCh || 0) + 1; persist(); SFX.play('sparkle'); render(); return true; }
   return false;
 }
@@ -5605,8 +5662,8 @@ function wCoach() {
   const seen = (ST.settings.gcoach = ST.settings.gcoach || {}); if (seen.water || (navigator.webdriver && !window.__gtTest)) return; seen.water = 1; persist();
   if (WG && WG.phase === 'play') { WG.left = wLeft(); WG.paused = true; clearInterval(WTICK); }
   gCoach([
-    { el: '.wt:not(.wblank):not([disabled])', t: 'المسي القطعة: كل لمسة تغيّرها عشوائيًا', tap: 1 },
-    { el: '.wgrid', t: 'للفوز يجب أن تتصل كل القطع ببعضها، بلا أي فتحة مفتوحة' },
+    { el: '.wt:not(.wblank):not([disabled])', t: 'المسي القطعة لتدويرها ربع دورة', tap: 1 },
+    { el: '.wgrid', t: 'يكفي طريق واحد متصل من الدلو إلى الزهرة، والقطع ذات المسامير لا تدور' },
     { el: '.wsrc', t: 'الماء يخرج من الدلو إلى أول قطعة في الصف الأول…' },
     { el: '.wdst', t: '…ويجب أن يصل من آخر قطعة في الصف الأخير إلى الزهرة' },
     { el: '.wtimer', t: 'رتّبي الأنابيب قبل أن ينتهي الوقت' },
@@ -5641,7 +5698,7 @@ function gTour(g, force) {
 @media (prefers-reduced-motion:reduce){.gtart *{animation:none!important}}
 .wstat{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}.wstat b{display:block;font-size:22px}.wstat span{font-size:12px;color:var(--muted)}
 .wboard{position:relative;margin:8px auto 6px;max-width:min(92vw,420px);padding:0 26px;direction:ltr}.wgrid{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:3px;background:#8A6440;border:3px solid #2B1612;border-radius:12px;padding:3px}
-.wt{border:0;padding:0;background:none;cursor:pointer;aspect-ratio:1;display:block;transition:transform .12s}.wt svg{width:100%;height:100%;display:block}.wt:active{transform:scale(.94)}.wt.wblank{cursor:default}.wt.wblank:active{transform:none}
+.wt{border:0;padding:0;background:none;cursor:pointer;aspect-ratio:1;display:block;transition:transform .12s}.wt svg{width:100%;height:100%;display:block}.wt:active{transform:scale(.94)}@keyframes wspin{from{transform:rotate(-90deg)}to{transform:none}}.wt.wspin svg{animation:wspin .16s ease-out}.wt.wblank{cursor:default}.wt.wblank:active{transform:none}
 .wboard{--pd:44px;--cell:calc((100% - 6px) / var(--n));padding:0 var(--pd)}.wboard.hard{--pd:34px;max-width:none;margin-inline:-12px}.wsrc,.wdst{position:absolute;width:var(--pd);display:flex;align-items:center;justify-content:center;pointer-events:none}.wsrc{left:0;top:3px;height:var(--cell)}.wdst{right:0;bottom:3px;height:var(--cell)}.wsrc svg{width:calc(var(--pd) - 8px);height:auto;margin-inline-end:6px}.wdst svg{width:calc(var(--pd) - 6px);height:auto;margin-inline-start:6px}.wsrc::after,.wdst::before{content:'';position:absolute;top:50%;width:12px;height:12px;margin-top:-6px;background:#B8B3AA;border:3px solid #2B1612;border-inline:0}.wsrc::after{right:-3px}.wdst::before{left:-3px}.wboard.wet0 .wsrc::after,.wboard.wetN .wdst::before{background:#3E9BE0}
 .wt{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;touch-action:manipulation}.wt.wtyp{animation:wtyp .3s ease-out}@keyframes wtyp{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:none}}.wt.wfill{animation:wfill .35s ease-out}@keyframes wfill{0%{transform:scale(.9);filter:brightness(1.3)}100%{transform:none}}
 .wleak{position:absolute;left:calc(var(--pd) + 6px + (100% - 2 * var(--pd) - 12px) * (var(--c) + .5) / var(--n));top:calc(6px + (100% - 12px) * (var(--r) + .5) / var(--n));width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#BFE4FA 30%,rgba(62,155,224,.6) 60%,transparent 70%);animation:wleak 1s ease-out infinite;pointer-events:none}@keyframes wleak{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.8);opacity:0}}
@@ -5681,7 +5738,7 @@ const SNPC = {
 const STV = [
   { id: 'v0', name: 'تلّ القناديل', x: 304, y: 742, free: 1 },
   { id: 'v1', name: 'قرية الرمل الرمادي', x: 210, y: 610 },
-  { id: 'v2', name: 'وادي الأجراس', x: 110, y: 392, soon: 1 },
+  { id: 'v2', name: 'وادي الأجراس', x: 110, y: 392, multi: 1 },
   { id: 'v3', name: 'برج الرياح', x: 262, y: 250, soon: 1 },
   { id: 'v4', name: 'قلعة الظل', x: 292, y: 100, soon: 1 }
 ];
@@ -5695,15 +5752,16 @@ const V1 = {
       { t: 'أعطيه بعض العملات', cost: 15, cid: 'v1jar', to: 'n2' },
       { t: 'أسأله: لماذا لا تشرب من البئر؟', to: 'n1b' },
       { t: 'أسقيه من قِربتي', flag: ['friendJar'], to: 'n1s' },
-      { t: 'أتجاهله وأمضي', st: -1, perm: 'jarGrudge', to: 'n1x' }] },
+      { t: 'أعتذر لضيق الوقت وأمضي', st: -1, perm: 'jarGrudge', to: 'n1x' }] },
     n1b: { who: 'jar', t: () => gm('البئر؟ أنا… لا أعرف شيئًا! (ينظر حوله بخوف) لا تسأليني عن البئر، أرجوك.', 'البئر؟ أنا… لا أعرف شيئًا! (ينظر حوله بخوف) لا تسألني عن البئر، أرجوك.'), ch: [
-      { t: 'ألحّ عليه حتى يتكلم', st: -1, to: 'n1d' },
-      { t: 'أهدده إن لم يتكلم', to: 'loseX1' },
+      { t: 'أسأله مرة أخرى', st: -1, to: 'n1d' },
+      { t: 'أضغط عليه بحزم ليتكلم', to: 'loseX1' },
       { t: 'أعطيه عملات تكفيه اليوم', cost: 15, cid: 'v1jar', to: 'n2' },
       { t: 'أتركه وشأنه', to: 'n3' }] },
     loseX1: { who: 'folk', lose: 1, t: () => 'صرخ الإبريق، فاجتمع الأهالي وظنّوك من أتباع الزعيم. طردوك من القرية!' },
     n1d: { who: 'nar', t: () => 'ارتجف الإبريق وهرب بين البيوت. يبدو أن أحدًا يراقب كل من يتكلم هنا.', ch: [{ t: 'أكمل الطريق', to: 'n3' }] },
-    n1s: { who: 'jar', t: () => 'شربتُ… شكرًا. (يهمس) لا تقولي لأحد: خلف التل بئر قديم. أتباع الزعيم يخفونه عن الناس.', ch: [
+    n1s: { who: 'jar', t: () => gm('شربتُ… شكرًا. أنتِ لطيفة جدًا. أنا «الإبريق المشروخ»، وأنتِ ما اسمك؟', 'شربتُ… شكرًا. أنت لطيف جدًا. أنا «الإبريق المشروخ»، وأنت ما اسمك؟'), ch: [{ nm: 1, t: () => 'أنا ' + stHero(), to: 'n1s2' }] },
+    n1s2: { who: 'jar', t: () => 'تشرّفت يا ' + stHero() + '. (يهمس) لا تقل لأحد: خلف التل بئر قديم. أتباع الزعيم يخفونه عن الناس.'.replace('لا تقل', gm('لا تقولي', 'لا تقل')), ch: [
       { t: 'أدلّ أهل القرية على البئر سرًّا', flag: ['well'], to: 'n1c' },
       { t: 'أحتفظ بالسرّ الآن', to: 'n3' }] },
     n1x: { who: 'nar', t: () => 'تمتم الإبريق بغضب: «سأتذكّر هذا.» ومضى… قد يعود يومًا.', ch: [{ t: 'أكمل الطريق', to: 'n3' }] },
@@ -5719,11 +5777,11 @@ const V1 = {
       { t: 'أشتريها', cost: 40, cid: 'v1lan', st: -1, flag: ['scammed'], to: 'n3b' },
       { t: 'أساومه على السعر', to: 'n3c' },
       { t: 'أسأله: من هم الأبطال الذين جرّبوها؟', to: 'n3d' },
-      { t: 'أفضحه أمام الناس: «هذا محتال!»', to: 'loseX2' }] },
+      { t: 'أحذّر الناس منه بصوت عالٍ', to: 'loseX2' }] },
     loseX2: { who: 'folk', lose: 1, t: () => 'لا أحد صدّقك… الفانوس العجوز محبوب هنا منذ سنين. اتهموك بالكذب وطردوك من القرية.' },
     n3c: { who: 'lantern', t: () => 'آه… لأنك ضيفٌ عزيز، ٢٠ عملة فقط! صفقة العمر!', ch: [
       { t: 'أشتريها بـ٢٠', cost: 20, cid: 'v1lan2', st: -1, flag: ['scammed'], to: 'n3b' },
-      { t: 'سعره نزل بسرعة… أرفض', to: 'n4' }] },
+      { t: 'أفكر قليلًا ثم أرفض', to: 'n4' }] },
     n3d: { who: 'lantern', t: () => 'الأبطال؟ إمم… كثيرون! لا أتذكر أسماءهم الآن… هل تريدينها أم لا؟', ch: [
       { t: 'لا أحتاجها، شكرًا', to: 'n4' },
       { t: 'حسنًا، سأشتريها', cost: 40, cid: 'v1lan', st: -1, flag: ['scammed'], to: 'n3b' }] },
@@ -5737,8 +5795,8 @@ const V1 = {
     n4e: { who: 'clock', t: () => 'أرجوك… الزعيم يحتجز حفيدتي «البوصلة الصغيرة» في مخزنه. إن هاجمتِه الآن فقد يؤذيها. ماذا ستفعلين؟', ch: [
       { t: 'أتسلل لإنقاذها أولًا', to: (F) => (F.has('friend') ? 'n4r' : 'n4f') },
       { t: 'أعرض على الزعيم ٥٠ عملة ليطلقها', cost: 50, cid: 'v1bribe', st: -1, to: 'n4m' },
-      { t: 'أهاجم مباشرة، لا وقت', st: -1, flag: ['distrust'], to: 'n4h' },
-      { t: 'أقتحم المخزن وحدي ليلًا', to: 'loseX3' }] },
+      { t: 'أهاجم الآن قبل أن يستعد', st: -1, flag: ['distrust'], to: 'n4h' },
+      { t: 'أدخل المخزن وحدي ليلًا بهدوء', to: 'loseX3' }] },
     loseX3: { who: 'nar', lose: 1, t: () => 'في الظلام سقطتِ في حفرة عميقة خلف المخزن، ولم يجدك أحد حتى الصباح. انتهت رحلتك هنا هذه المرة.' },
     n4r: { who: 'compass', t: () => 'تسللتِ مع ' + FRIEND() + ' من الخلف وفتحتما المخزن. «شكرًا! أعرف نقطة ضعف الميزان: كفّته اليسرى مشروخة!»', ch: [{ t: 'أكمل الطريق', flag: ['rescued'], to: 'n5' }] },
     n4f: { who: 'nar', t: () => 'حاولتِ وحدك… كاد الحرّاس يمسكونك! هربت البوصلة بصعوبة، لكن الزعيم عرف بقدومك.', ch: [{ t: 'أكمل الطريق', st: -1, to: 'n5' }] },
@@ -5763,8 +5821,8 @@ const V0 = {
     a1: { who: 'ring', spot: .24, t: () => 'هذه «بيوت الذكرى»… الرمل سدّ أبوابها منذ العاصفة، ولم يعد أحد يهتم.', ch: [
       { t: 'أحفر الرمل بنفسي', st: -1, to: 'a1a' },
       { t: 'أجمع أهل القرية ليحفروا معًا', flag: ['together'], to: 'a1b' },
-      { t: 'ليست مشكلتي، أمضي', st: -1, to: 'a1c' },
-      { t: 'أوبّخهم: «لماذا تركتموها هكذا؟!»', to: 'b0' }] },
+      { t: 'أكمل جولتي في القرية أولًا', st: -1, to: 'a1c' },
+      { t: 'أسألهم بحزم: لماذا تُركت هكذا؟', to: 'b0' }] },
     b0: { who: 'folk', lose: 1, spot: .3, t: () => 'غضب الأهالي: «من أنتِ لتحاسبينا؟» وأخرجوك من التل.' },
     a1a: { who: 'nar', spot: .24, t: () => 'حفرتِ وحدك حتى تعبتِ، وفتحتِ بابًا واحدًا بالكاد. الأهالي يراقبون من بعيد ولا يقتربون.', ch: [{ t: 'أكمل', to: 'a2' }] },
     a1b: { who: 'folk', spot: .3, t: () => 'ترددوا أولًا… ثم جاءت الجرار والأواني والمكانس. حفرتم معًا، وضحك أحدهم لأول مرة منذ زمن.', ch: [{ t: 'أكمل', to: 'a2' }] },
@@ -5781,16 +5839,206 @@ const V0 = {
       { t: 'أقول له: هذا شيء بسيط', st: -1, to: 'a3e' }] },
     a3b: { who: 'nar', spot: .52, t: () => 'قرعتِ الجرس… لكن صوته المشروخ لم يلفت أحدًا. ليته كان سليمًا.', ch: [{ t: 'أقرعه مرة أخرى بقوة', st: -1, to: 'a4' }] },
     a3e: { who: 'nar', spot: .72, t: () => 'مضى الكوب الصغير بجرّته صامتًا… ربما ما ينقص هذه القرية ليس المال ولا الكلام.', ch: [{ t: 'أقرع الجرس له', to: (F) => (F.has('anvil') ? 'a4' : 'a3b') }] },
-    a4: { who: 'folk', spot: .5, t: () => 'دوّى الجرس في التل! خرج الجميع ورأوا الكوب الصغير وجرّته. صفّقوا له… وتذكّروا كيف كانوا يحتفلون بكل جهد. وفُتحت بيوت الذكرى واحدًا تلو الآخر.', ch: [{ t: 'أكمل', to: 'a5' }] },
+    a4: { who: 'folk', spot: .5, t: () => 'دوّى الجرس في التل! خرج الجميع ورأوا الكوب الصغير وجرّته. صفّقوا له… وتذكّروا كيف كانوا يحتفلون بكل جهد. وفُتحت بيوت الذكرى واحدًا تلو الآخر.', ch: [{ t: 'أكمل', to: 'a4n' }] },
+    a4n: { who: 'ring', spot: .5, t: () => gm('أنتِ من أعاد الجرس… ولم نعرف اسمكِ بعد! أنا «حلقة المفاتيح»، وأنتِ ما اسمك؟', 'أنت من أعاد الجرس… ولم نعرف اسمك بعد! أنا «حلقة المفاتيح»، وأنت ما اسمك؟'), ch: [{ nm: 1, t: () => 'أنا ' + stHero(), to: 'a5' }] },
     a5: { who: 'ring', spot: .5, win: 1, keep: 1, t: () => gm('كنا نظن أن العاصفة أخذت كل شيء، لكنكِ أعدتِ لنا عادتنا القديمة: أن نرى جهود بعضنا. من اليوم، كل إنجاز تحققينه نقرع له الجرس ونعطيكِ وسامًا! ولديكِ قدرة نادرة على إحياء القرى المتعبة… قرى كثيرة تحتاجك.', 'كنا نظن أن العاصفة أخذت كل شيء، لكنك أعدت لنا عادتنا القديمة: أن نرى جهود بعضنا. من اليوم، كل إنجاز تحققه نقرع له الجرس ونعطيك وسامًا! ولديك قدرة نادرة على إحياء القرى المتعبة… قرى كثيرة تحتاجك.'), ch: [{ t: 'أكمل', to: 'a6' }] },
     a6: { who: 'me', spot: .5, t: () => 'قرى كثيرة تنتظر… هل أمضي في الرحلة؟', ch: [
       { t: 'سأنجز مهامي لأستعد للقرى الأخرى', end: 'tasks' },
-      { t: 'آه، أنا متعبة جدًا… دعيني أرتاح الآن', end: 'home' }] }
+      { t: 'دعيني أرتاح الآن، فالطريق كان طويلًا', end: 'home' }] }
   },
   houses: [['بيت الخطوة الأولى', 'بُني يوم زرع أول أهل التل شجرة في الرمل.'], ['بيت الشعلة', 'كانت ناره لا تنطفئ ما دام أحدهم يواصل.'], ['بيت البستان', 'يحفظ بذور كل نبتة زرعوها.'], ['بيت الصبر', 'بناه من انتظروا المطر سبع سنين.'], ['بيت النجوم', 'سقفه مفتوح ليروا نجومهم كل ليلة.']],
   lesson: 'عبرة: أصغر جهد يستحق أن يُرى، والقرية تحيا حين يفرح أهلها ببعضهم.'
 };
-const VD = () => (SR && SR.v === 'v0' ? V0 : V1);
+/* ---------- وادي الأجراس: قرية كبيرة بثلاث مراحل مترابطة (كل مرحلة بتذكرة، وما يحدث في مرحلة يظهر في التالية) ---------- */
+Object.assign(SNPC, {
+  pot: ['الإناء النحاسي', '<path d="M18 22H46L44 28C52 32 54 42 50 50C46 56 40 58 32 58C24 58 18 56 14 50C10 42 12 32 20 28Z" fill="#C98A4A" stroke="#2B1612" stroke-width="2.4" stroke-linejoin="round"/><rect x="16" y="18" width="32" height="6" rx="3" fill="#A86A34" stroke="#2B1612" stroke-width="2"/><path d="M12 34C6 34 6 44 13 44M52 34C58 34 58 44 51 44" fill="none" stroke="#2B1612" stroke-width="2.4"/><path d="M22 36C24 32 28 30 32 30" stroke="#FFE0B0" stroke-width="2.4" stroke-linecap="round"/>'],
+  ladle: ['المِغرفة', '<path d="M30 8L34 8L36 38H28Z" fill="#B8A88A" stroke="#2B1612" stroke-width="2.2" stroke-linejoin="round"/><ellipse cx="32" cy="46" rx="16" ry="11" fill="#9A9488" stroke="#2B1612" stroke-width="2.4"/><ellipse cx="32" cy="43" rx="11" ry="5" fill="#6E6A62"/><path d="M22 48C26 52 34 53 40 50" stroke="#D8D4CC" stroke-width="2" stroke-linecap="round" fill="none"/>'],
+  tinybell: ['الجُليجِل', '<path d="M32 20V24" stroke="#2B1612" stroke-width="2.4"/><path d="M22 46C23 42 24 38 24 33C24 28 27 24 32 24C37 24 40 28 40 33C40 38 41 42 42 46Z" fill="#E8C060" stroke="#2B1612" stroke-width="2.2" stroke-linejoin="round"/><rect x="20" y="45" width="24" height="5" rx="2.5" fill="#C89A38" stroke="#2B1612" stroke-width="1.8"/><path d="M32 50L34 55" stroke="#2B1612" stroke-width="2.4" stroke-linecap="round"/><circle cx="34.5" cy="56" r="2.4" fill="#8A6020" stroke="#2B1612" stroke-width="1.4"/>'],
+  whistle: ['الصفّارة', '<path d="M10 30H38A12 12 0 1 1 38 48H22L10 40Z" fill="#E2524F" stroke="#2B1612" stroke-width="2.4" stroke-linejoin="round"/><rect x="24" y="30" width="8" height="5" fill="#2B1612"/><circle cx="40" cy="39" r="5" fill="#B83A34"/><path d="M48 22l4 -4M52 28l6 -2M44 18l1 -6" stroke="#2B1612" stroke-width="2" stroke-linecap="round"/>'],
+  drum: ['الطبل الأجوف', '<ellipse cx="32" cy="22" rx="22" ry="7" fill="#F2E2C0" stroke="#2B1612" stroke-width="2.4"/><path d="M10 22V46C10 51 20 55 32 55C44 55 54 51 54 46V22" fill="#B8463A" stroke="#2B1612" stroke-width="2.4"/><path d="M10 28L20 50M22 28L32 54M34 28L44 52M46 28L54 44" stroke="#F2C84B" stroke-width="2"/><path d="M50 12L60 2" stroke="#7A4E2A" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="2" r="3.4" fill="#E8D8B8" stroke="#2B1612" stroke-width="1.6"/>'],
+  elder: ['الناقوس الحكيم', '<path d="M32 6V12" stroke="#2B1612" stroke-width="3"/><path d="M12 48C14 40 16 32 16 24C16 16 23 12 32 12C41 12 48 16 48 24C48 32 50 40 52 48Z" fill="#8A9AA8" stroke="#2B1612" stroke-width="2.4" stroke-linejoin="round"/><rect x="9" y="47" width="46" height="6" rx="3" fill="#6E7E8C" stroke="#2B1612" stroke-width="2"/><path d="M20 22C22 18 26 16 30 16" stroke="#E8F0F6" stroke-width="2.4" stroke-linecap="round"/><path d="M24 34H40M26 40H38" stroke="#5A6A78" stroke-width="2" stroke-linecap="round"/>'],
+  smith: ['المطرقة الحدّادة', '<rect x="29" y="22" width="6" height="36" rx="2" fill="#8A5A34" stroke="#2B1612" stroke-width="2.2"/><path d="M12 10H50V24H12Z" fill="#6E7078" stroke="#2B1612" stroke-width="2.4" stroke-linejoin="round"/><path d="M12 10L8 14V20L12 24" fill="#5A5C64" stroke="#2B1612" stroke-width="2"/><path d="M16 14H44" stroke="#A8AAB2" stroke-width="2.4" stroke-linecap="round"/>']
+});
+const stMem = (v, f) => { const m = (stSt().mem || {})[v]; return !!(m && m.indexOf(f) >= 0); };
+const V2A = {
+  name: 'وادي الأجراس', stage: 'المرحلة ٢: الزيارة', winTitle: '✦ انتهت الزيارة!',
+  intro: () => gm('في بيت خالكِ «الإناء النحاسي» (أخي أمك) في وادي الأجراس. كان الوادي يرنّ بالأجراس كل صباح، لكنه صار صامتًا على غير عادته.', 'في بيت خالك «الإناء النحاسي» (أخي أمك) في وادي الأجراس. كان الوادي يرنّ بالأجراس كل صباح، لكنه صار صامتًا على غير عادته.'),
+  start: () => 'b1',
+  nodes: {
+    b1: { who: 'pot', t: () => 'أهلًا يا ' + stHero() + '! ' + gm('كبرتِ ما شاء الله! (يتنهّد) لكنكِ جئتِ في وقت صعب… جاري «المغرفة» يقول إن قناة الماء التي بين بيتينا له وحده، وأنا أقول إنها لي.', 'كبرت ما شاء الله! (يتنهّد) لكنك جئت في وقت صعب… جاري «المغرفة» يقول إن قناة الماء التي بين بيتينا له وحده، وأنا أقول إنها لي.'), ch: [
+      { t: 'أسأله: منذ متى بدأ الخلاف؟', to: 'b1a' },
+      { t: 'أطمئنه: «أنا في صفّك»', st: -1, flag: ['sided'], to: 'b2s' },
+      { t: 'أذهب لأسمع من المغرفة أيضًا', flag: ['fair'], to: 'b2f' },
+      { t: 'أنصحهما بصراحة أن ينهيا الخصام اليوم', to: 'loseA1' }] },
+    loseA1: { who: 'pot', lose: 1, t: () => gm('احمرّ الإناء غضبًا وخجلًا: «جئتِ ضيفة لا قاضية!» وطلب منكِ أن تعودي إلى مخيمك.', 'احمرّ الإناء غضبًا وخجلًا: «جئت ضيفًا لا قاضيًا!» وطلب منك أن تعود إلى مخيمك.') },
+    b1a: { who: 'pot', t: () => 'جدّي حفر هذه القناة قبل خمسين سنة، وكان يسقي منها الجيران بلا مقابل. والآن يغلقها المغرفة عن حديقتي ثلاثة أيام في الأسبوع!', ch: [
+      { t: 'أذهب لأسمع من المغرفة', flag: ['fair'], to: 'b2f' },
+      { t: 'أقترح أن تغلقها عنه الأيام نفسها ليشعر بما تشعر', to: 'loseA2' },
+      { t: 'أدفع للمغرفة ليصنع قناة خاصة به', cost: 30, cid: 'v2canal', st: -1, flag: ['paidCanal'], to: 'b2m' }] },
+    loseA2: { who: 'folk', lose: 1, t: () => gm('غضب المغرفة وجاء بأهل حيّه، وصار الخصام عراكًا. قرر حكماء الوادي إخراجك لأنكِ أشعلتِ الفتنة.', 'غضب المغرفة وجاء بأهل حيّه، وصار الخصام عراكًا. قرر حكماء الوادي إخراجك لأنك أشعلت الفتنة.') },
+    b2s: { who: 'nar', t: () => gm('سمع المغرفة كلامكِ من خلف السور، فأغلق بابه في وجهك. صار يراكِ خصمًا قبل أن يعرفك.', 'سمع المغرفة كلامك من خلف السور، فأغلق بابه في وجهك. صار يراك خصمًا قبل أن يعرفك.'), ch: [
+      { t: 'أطرق بابه', flag: ['fair'], to: 'b2f' },
+      { t: 'أتركه حتى يهدأ وأعود إلى البيت', perm: 'ladleGrudge', to: 'b3' }] },
+    b2f: { who: 'ladle', t: () => gm('أنتِ قريبة الإناء؟ جئتِ لتلوميني أنتِ أيضًا؟ … (يتنهّد) القناة تمرّ في أرضي، وحديقتي تذبل لأن الإناء يسقي أشجاره كل يوم ولا يبقى لي شيء.', 'أنت قريب الإناء؟ جئت لتلومني أنت أيضًا؟ … (يتنهّد) القناة تمرّ في أرضي، وحديقتي تذبل لأن الإناء يسقي أشجاره كل يوم ولا يبقى لي شيء.'), ch: [
+      { t: 'أقترح جدولًا: يوم لك ويوم له', flag: ['deal'], to: 'b2d' },
+      { t: 'أقترح أن تحفرا القناة أعمق معًا لتكفيكما', flag: ['deal', 'dig'], to: 'b2g' },
+      { t: 'أشرح له أن جدّنا هو من حفر القناة', st: -1, to: 'b2s2' }] },
+    b2d: { who: 'nar', t: () => 'وافق الجاران على الجدول على مضض. ليس حلًا مثاليًا، لكنه أوقف الخصام.', ch: [{ t: 'أكمل', to: 'b3' }] },
+    b2g: { who: 'folk', t: () => 'حفر الإناء والمغرفة معًا يومًا كاملًا، وجاء الجيران بالمعاول. في المساء جرى الماء في القناة أكثر من أي وقت مضى، وضحك الجاران لأول مرة منذ سنين.', ch: [{ t: 'أكمل', to: 'b3' }] },
+    b2s2: { who: 'ladle', t: () => 'كنت أعرف! كلكم واحد. (يدير ظهره)', ch: [{ t: 'أكمل', to: 'b3' }] },
+    b2m: { who: 'nar', t: () => gm('أخذ المغرفة العملات وصنع قناة صغيرة… لكن الإناء غضب: «تدفعين لخصمي؟!» صار الخصام صامتًا بدل أن ينتهي.', 'أخذ المغرفة العملات وصنع قناة صغيرة… لكن الإناء غضب: «تدفع لخصمي؟!» صار الخصام صامتًا بدل أن ينتهي.'), ch: [{ t: 'أكمل', to: 'b3' }] },
+    b3: { who: 'pot', t: () => 'بعد العشاء… هذا ابني «الجُليجِل»، ابن خالك. لا يتكلم كثيرًا ولا يرنّ أبدًا، والصغار في الوادي يضحكون عليه.', ch: [
+      { t: 'أجلس بقربه وأكمل عشائي', flag: ['patient'], to: 'b3p' },
+      { t: 'أشجّعه أن يتكلم ويتغلب على خجله', st: -1, to: 'b3x' },
+      { t: 'أهديه شيئًا من حقيبتي', cost: 10, cid: 'v2gift', flag: ['gift'], to: 'b3g' }] },
+    b3p: { who: 'tinybell', t: () => gm('… (بعد صمت طويل يهمس) هل رأيتِ الجرس الكبير في البرج؟ كان يرنّ كل صباح قبل أن… (يسكت)', '… (بعد صمت طويل يهمس) هل رأيت الجرس الكبير في البرج؟ كان يرنّ كل صباح قبل أن… (يسكت)'), ch: [
+      { t: 'أنتظر', flag: ['trust'], to: 'b3t' },
+      { t: 'أسأله: قبل ماذا؟', to: 'b3q' }] },
+    b3t: { who: 'tinybell', t: () => '… قبل أن يأتي «الطبل الأجوف» إلى الوادي. منذ جاء صار الكل يتخاصم. (يصمت، لكنه لم يعد يبتعد عنك)', ch: [{ t: 'أكمل', to: 'b4' }] },
+    b3q: { who: 'nar', t: () => 'انكمش الجليجل وقال: «لا شيء.» ثم ذهب لينام.', ch: [{ t: 'أكمل', to: 'b4' }] },
+    b3x: { who: 'nar', t: () => 'انكمش الجليجل أكثر وخرج من الغرفة. الصبر مع الخجول أنفع من الإلحاح.', ch: [{ t: 'أكمل', to: 'b4' }] },
+    b3g: { who: 'tinybell', t: () => 'لي أنا؟ … شكرًا. (يبتسم قليلًا ويضمّ الهدية)', ch: [{ t: 'أكمل', to: 'b4' }] },
+    b4: { who: 'folk', win: 1, t: (F) => 'انتهى يومك الأول في الوادي. ' + (F.has('dig') ? 'صار الجاران صديقين، والقناة تكفي الجميع.' : F.has('deal') ? 'اتفق الجاران على جدول، وهدأ الخصام.' : 'ما زال الخصام قائمًا بين الجارين…') + gm(' وفي الليل سمعتِ رنينًا خافتًا جدًا من غرفة الجليجل.', ' وفي الليل سمعت رنينًا خافتًا جدًا من غرفة الجليجل.') }
+  },
+  cry: (F, st) => st === 3 && F.has('dig') && F.has('trust'),
+  lesson: 'عبرة: الاستماع إلى الطرفين قبل الحكم عدل، فلكل حكاية وجهان.'
+};
+const V2B = {
+  name: 'وادي الأجراس', stage: 'المرحلة ٣: الصفّارات', winTitle: '✦ انتهت المرحلة!',
+  intro: () => 'في سوق الوادي تتجمع «الصفّارات الثلاث»، صغار مشاغبون يصفّرون في وجه كل من يمرّ. واليوم جاء الجليجل معك ليشتري خبزًا…',
+  start: () => 'c1',
+  nodes: {
+    c1: { who: 'whistle', t: () => 'انظروا! الجرس الأخرس! رِنّ لنا يا جليجل… آه نسيت، لا تستطيع! (يصفّرون ويضحكون)', ch: [
+      { t: 'أوبّخهم أمام الناس ليتوقفوا', st: -1, to: 'c1s' },
+      { t: 'أمسك يد الجليجل وأمضي، ثم أكلّمهم وحدهم', flag: ['calm'], to: 'c2' },
+      { t: 'أتحداهم: «مسابقة! من يصمد أمام صاحبه؟»', to: 'battle' },
+      { t: 'لا أردّ عليهم حتى لا يكبر الأمر', st: -1, to: 'c1i' }] },
+    c1s: { who: 'nar', t: () => 'ضحك الصغار أكثر وقلّدوا صوتك، واحمرّ الجليجل خجلًا وركض إلى البيت.', ch: [{ t: 'أكمل', to: 'c3' }] },
+    c1i: { who: 'tinybell', t: () => gm('(بصوت خافت) حتى أنتِ… لم تقولي شيئًا.', '(بصوت خافت) حتى أنت… لم تقل شيئًا.'), ch: [{ t: 'أكمل', to: 'c3' }] },
+    c2: { who: 'whistle', t: () => gm('ماذا تريدين؟ … نحن نمزح فقط!', 'ماذا تريد؟ … نحن نمزح فقط!'), ch: [
+      { t: 'أسأله: لماذا الجليجل تحديدًا؟', flag: ['talked'], to: 'c2a' },
+      { t: 'أخبر «الناقوس الحكيم» بما رأيت', flag: ['elder'], to: 'c2e' },
+      { t: 'أحذّره أن أهله سيعرفون بما فعل', st: -1, to: 'c2t' }] },
+    c2a: { who: 'whistle', t: () => (stMem('v2a', 'dig') ? 'أبي «المغرفة» صار صديقًا للإناء بعد أن حفرا القناة معًا… لكني اعتدت أن أصفّر على ابنه. (يخجل) أظنني سأتوقف.' : 'أبي «المغرفة» يقول إن عائلة الإناء ظلمتنا. ظننت أني أدافع عن أبي.'), ch: [
+      { t: 'أقول له: أبوك يستطيع أن يدافع عن نفسه', flag: ['stopped'], to: 'c3' },
+      { t: 'أخبره أن أباه لم يكن على حق', st: -1, to: 'c2b' }] },
+    c2b: { who: 'nar', t: () => 'غضب الصفّار من أجل أبيه وانصرف. الكلام الجارح لا يقنع أحدًا ولو كان فيه شيء من الحق.', ch: [{ t: 'أكمل', to: 'c3' }] },
+    c2e: { who: 'elder', t: () => gm('شكرًا لأنكِ أخبرتِني بهدوء ولم تفضحيهم أمام الناس. سأكلّم أهلهم، ولن يتكرر هذا.', 'شكرًا لأنك أخبرتني بهدوء ولم تفضحهم أمام الناس. سأكلّم أهلهم، ولن يتكرر هذا.'), ch: [{ t: 'أكمل', flag: ['stopped'], to: 'c3' }] },
+    c2t: { who: 'nar', t: () => 'هرب الصفّار، لكنه عاد بعد ساعة مع رفاقه وصفّروا أعلى. التهديد يُسكت قليلًا ثم يُشعل.', ch: [{ t: 'أكمل', to: 'c3' }] },
+    c2w: { who: 'folk', t: () => 'حين جاء دور الجليجل رنّ رنّة خافتة صافية، فسكت الصغار… ثم صفّق أحدهم. لم يفز الصوت العالي، بل فاز الصبر.', ch: [{ t: 'أكمل', flag: ['stopped', 'brave'], to: 'c3' }] },
+    loseB: { who: 'whistle', lose: 1, t: () => gm('غلبت الصفّارات بأصواتها العالية، وضحكوا أكثر. حزن الجليجل وقال: «ليتكِ لم تتحديهم.»', 'غلبت الصفّارات بأصواتها العالية، وضحكوا أكثر. حزن الجليجل وقال: «ليتك لم تتحدّهم.»') },
+    c3: { who: 'tinybell', t: () => 'في البيت قال الجليجل: «لساني المعدني معوجّ… لهذا لا أستطيع أن أرنّ بصوت عالٍ.»', ch: [
+      { t: 'نصلحه معًا بأدوات أبيك', flag: ['fixed'], to: 'c3a' },
+      { t: 'آخذك إلى «المطرقة» الحدّادة', cost: 20, cid: 'v2smith', flag: ['smith'], to: 'c3b' },
+      { t: 'أطلب منه أن يرنّ لي بصوته كما هو', flag: ['accept'], to: 'c3c' },
+      { t: 'أقترح أن نشتري جرسًا جديدًا يرنّ بدلًا منه في العيد', st: -1, to: 'c3d' }] },
+    c3a: { who: 'nar', t: () => 'طرقتما اللسان بلطف ساعة كاملة. لم يستقم تمامًا، لكن الجليجل رنّ أعلى من قبل وضحك.', ch: [{ t: 'أكمل', to: 'c4' }] },
+    c3b: { who: 'smith', t: () => 'لسان صغير معوجّ؟ هذا أسهل عمل اليوم! (طرقة، طرقتان) جرّب الآن يا صغير.', ch: [{ t: 'أكمل', to: 'c4' }] },
+    c3c: { who: 'tinybell', t: () => gm('(ينظر إليكِ طويلًا) لم يقل لي أحد هذا من قبل… (ثم رنّ رنّة صغيرة، فرحًا لا خوفًا)', '(ينظر إليك طويلًا) لم يقل لي أحد هذا من قبل… (ثم رنّ رنّة صغيرة، فرحًا لا خوفًا)'), ch: [{ t: 'أكمل', flag: ['trust'], to: 'c4' }] },
+    c3d: { who: 'tinybell', t: () => 'جرس جديد؟ … أنا لا أريد أن أكون جرسًا آخر. (يصمت حزينًا)', ch: [{ t: 'أكمل', to: 'c4' }] },
+    c4: { who: 'folk', win: 1, t: (F) => 'في المساء جلس الجليجل مع الصغار عند النبع، ' + (F.has('stopped') ? 'ولم يصفّر عليه أحد.' : 'وما زال بعضهم يهمس، لكنه لم يعد يهرب.') + gm(' ثم قال لكِ: «سأخبركِ غدًا بسرّ… عن الجرس الكبير.»', ' ثم قال لك: «سأخبرك غدًا بسرّ… عن الجرس الكبير.»') }
+  },
+  boss: 'whistle', loseB: 'loseB', afterB: 'c2w',
+  acts: [['def', '🛡️ أصبر'], ['atk', '🔔 نرنّ الآن'], ['eye', '🙉 لا نلتفت']],
+  lives: (F) => 2 + (stMem('v2a', 'trust') ? 1 : 0),
+  battle: [['الصفّارة الكبيرة تصفّر صفيرًا حادًّا يصمّ الآذان', 'def'], ['الصفّارات تتشاجر على من يبدأ', 'atk'], ['أحدهم يقلّد صوت الجليجل ليضحك الجميع', 'eye'], ['الصفّارة الصغيرة ينقطع نفَسها', 'atk'], ['يصفّرون كلهم معًا', 'def'], ['يصيحون: «الجرس الأخرس!»', 'eye']],
+  cry: (F, st) => st === 3 && F.has('stopped') && F.has('trust'),
+  lesson: 'عبرة: التنمّر يتوقف حين نقف مع المظلوم بحكمة لا بصراخ، والقلوب الخجولة تُفتح بالصبر.'
+};
+const V2C = {
+  name: 'وادي الأجراس', stage: 'المرحلة ٤: عيد الأجراس', winTitle: '🔔 عاد الوادي يرنّ!',
+  intro: () => 'غدًا «عيد الأجراس»، أكبر يوم في الوادي. لكن الجرس الكبير وُجد صباح اليوم مشروخًا، و«الطبل الأجوف» يصيح في الساحة: «عائلة المغرفة فعلتها حسدًا!»',
+  start: () => 'd1',
+  nodes: {
+    d1: { who: 'drum', t: () => 'يا أهل الوادي! رأيتهم بعيني! (بوم! بوم!) اطردوا عائلة المغرفة، واجعلوني أنا حارس البرج!', ch: [
+      { t: 'أطلب من الحكيم أن يتولى الأمر', flag: ['careful'], to: 'd2' },
+      { t: 'أقف مع الناس، فالطبل يبدو متأكدًا', st: -1, to: 'd1b' },
+      { t: 'أقول إن الطبل نفسه يبدو مريبًا', to: 'loseC1' }] },
+    loseC1: { who: 'drum', lose: 1, t: () => gm('ضحك الطبل: «وما دليلكِ؟» فلم تجدي جوابًا. انقلب الناس عليكِ وأخرجوكِ من الساحة قبل العيد.', 'ضحك الطبل: «وما دليلك؟» فلم تجد جوابًا. انقلب الناس عليك وأخرجوك من الساحة قبل العيد.') },
+    d1b: { who: 'nar', t: () => 'صاح الناس مع الطبل، وحُبست عائلة المغرفة في بيتها. لكن الجليجل شدّ طرفك وهمس: «ليسوا هم…»', ch: [{ t: 'أستمع للجليجل', to: 'd2' }] },
+    d2: { who: 'elder', t: () => gm('قال الحكيم: «لن نحكم على أحد إلا بدليل. ابحثي، ومعكِ حتى غروب الشمس.»', 'قال الحكيم: «لن نحكم على أحد إلا بدليل. ابحث، ومعك حتى غروب الشمس.»'), ch: [
+      { t: 'أفحص البرج', if: (F) => !F.has('vTower'), flag: ['vTower'], to: 'd3a' },
+      { t: 'أسأل الجليجل عن سرّه', if: (F) => !F.has('vBell'), flag: ['vBell'], to: (F) => (stMem('v2b', 'trust') || stMem('v2a', 'trust') ? 'd3b' : 'd3b0') },
+      { t: 'أسأل المطرقة الحدّادة', if: (F) => !F.has('vSmith'), flag: ['vSmith'], to: 'd3c' },
+      { t: 'أعرض ما وجدتُه على الحكيم', if: (F) => F.has('vTower') || F.has('vBell') || F.has('vSmith'), to: 'd4' }] },
+    d3a: { who: 'nar', t: () => gm('في أعلى البرج وجدتِ آثار ضربات عصا على الجرس… وقطعة جلد مشدود ممزقة عالقة في الدرج.', 'في أعلى البرج وجدت آثار ضربات عصا على الجرس… وقطعة جلد مشدود ممزقة عالقة في الدرج.'), ch: [{ t: 'أحتفظ بها', flag: ['clueSkin'], to: 'd2' }] },
+    d3b: { who: 'tinybell', t: () => 'سرّي… كنت أتدرّب على الرنين ليلًا قرب البرج حتى لا يسمعني أحد. فرأيت الطبل يصعد ومعه عصاه! خفت أن أقول… فمن سيصدّق جرسًا صغيرًا؟', ch: [{ t: 'أنا أصدّقك، وسأقف معك', flag: ['witness'], to: 'd2' }] },
+    d3b0: { who: 'tinybell', t: () => 'لا… لا أعرف شيئًا. (يبتعد) لم يثق بك الجليجل بعد.', ch: [{ t: 'أعود', to: 'd2' }] },
+    d3c: { who: 'smith', t: () => 'الطبل جاءني أمس يطلب أن أقوّي عصاه، وقال: «سأحتاجها لعمل مهم الليلة».' + (stSt().paid.v2smith ? gm(' ولأنكِ أحسنتِ إلى الجليجل، سأشهد أمام الحكيم.', ' ولأنك أحسنت إلى الجليجل، سأشهد أمام الحكيم.') : ''), ch: [{ t: 'شكرًا لك', flag: () => (stSt().paid.v2smith ? ['clueSmith', 'smithWit'] : ['clueSmith']), to: 'd2' }] },
+    d4: { who: 'elder', t: () => 'وقف الطبل والناس في الساحة. قال الحكيم: «ما دليلك؟»', ch: [
+      { t: 'شهادة الجليجل: رآه يصعد البرج بعصاه', if: (F) => F.has('witness'), flag: ['strong'], to: 'd5' },
+      { t: 'شهادة الحدّادة عن العصا', if: (F) => F.has('smithWit'), flag: ['strong'], to: 'd5' },
+      { t: 'قطعة الجلد الممزقة من البرج', if: (F) => F.has('clueSkin'), to: 'd4w' },
+      { t: 'ما قالته الحدّادة عن العصا', if: (F) => F.has('clueSmith') && !F.has('smithWit'), st: -1, to: 'd5' },
+      { t: 'أذكّرهم بأن الطبل معروف بالمبالغة', to: 'loseC2' }] },
+    loseC2: { who: 'elder', lose: 1, t: () => 'قال الحكيم: «كلام الناس ليس دليلًا.» ضحك الطبل وصدّقه الجميع، وطُردت عائلة المغرفة ظلمًا… وانتهى العيد حزينًا.' },
+    d4w: { who: 'drum', t: () => 'قطعة جلد؟ كل الطبول في الوادي من جلد! (لكن الناس رأوا ثقبًا جديدًا في جانبه…)', ch: [
+      { t: 'أطلب أن تُقارن القطعة بثقبه أمام الجميع', flag: ['strong'], to: 'd5' },
+      { t: 'أتراجع حتى أجد دليلًا أقوى', to: 'loseC2' }] },
+    d5: { who: 'drum', t: () => gm('كذب! كله كذب! (بوم!) إن كنتِ شجاعة فواجهيني!', 'كذب! كله كذب! (بوم!) إن كنت شجاعًا فواجهني!'), hint: (F) => [F.has('careful') ? 'الحكيم يقف خلفك ❤️ +١' : '', F.has('witness') ? 'الجليجل: «لست وحدك!» ❤️ +١' : '', stMem('v2a', 'dig') ? 'المغرفة والإناء جاءا معًا ❤️ +١' : ''].filter(Boolean).join('<br>'), ch: [{ t: 'إلى المواجهة ⚔️', to: 'battle' }] },
+    d6: { who: 'drum', t: () => '(سقطت عصا الطبل وانثقب جلده… ثم اعترف أمام الجميع) أردت أن أكون حارس البرج، فكسرت الجرس وألقيت التهمة على غيري.', ch: [
+      { t: 'أطلب من الحكيم أن يحكم فيه بالعدل', to: 'winJ' },
+      { t: 'أقترح أن يُصلح الجرس بنفسه ويعتذر للمغرفة', flag: ['mercy'], to: 'winR' },
+      { t: 'أطلب إبعاده عن الوادي ليأمن الناس', st: -1, to: 'winX' }] },
+    loseB: { who: 'drum', lose: 1, t: () => gm('علا صوت الطبل حتى ضاع صوتكِ، ووقف الناس معه. خسرتِ المواجهة هذه المرة.', 'علا صوت الطبل حتى ضاع صوتك، ووقف الناس معه. خسرت المواجهة هذه المرة.') },
+    winJ: { who: 'elder', win: 1, t: () => 'حكم الحكيم بحبس الطبل حتى يصلح ما أفسد، وخرجت عائلة المغرفة مرفوعة الرأس. وفي العيد رنّ الجرس الكبير بعد أن أصلحته الحدّادة، ورنّ معه الجليجل رنّة صافية سمعها الوادي كله.' },
+    winR: { who: 'folk', win: 1, t: () => 'صعد الطبل البرج كل يوم يطرق الجرس بلطف مع الحدّادة حتى التأم، واعتذر للمغرفة أمام الناس. وفي العيد رنّ الجرس الكبير، ورنّ معه الجليجل… والطبل يقرع لهم بهدوء لأول مرة. ربما يصير صديقًا يومًا ما.' },
+    winX: { who: 'folk', win: 1, t: () => 'طُرد الطبل من الوادي، وعاد الجرس يرنّ في العيد. لكن الحكيم قال لك بهدوء: «العدل يكفي، والقسوة الزائدة قد تصنع عدوًّا جديدًا.» ويقال إن الطبل ما زال يتجول قرب الحدود…' }
+  },
+  boss: 'drum', loseB: 'loseB', afterB: 'd6',
+  acts: [['def', '🛡️ أحتمي'], ['atk', '⚔️ أهاجم'], ['eye', '🙉 لا ألتفت لكلامه']],
+  lives: (F) => 1 + (F.has('careful') ? 1 : 0) + (F.has('witness') ? 1 : 0) + (stMem('v2a', 'dig') ? 1 : 0),
+  battle: [['الطبل يضرب نفسه ضربة تهزّ الساحة', 'def'], ['الطبل يلتفت إلى الناس ليتباهى', 'atk'], ['الطبل يصيح بكلام كثير ليشتّتك', 'eye'], ['الطبل يبحّ صوته من كثرة الصياح', 'atk'], ['الطبل يرمي عصاه نحوك', 'def'], ['الطبل يقول: «الكل معي!»', 'eye']],
+  cry: (F, st) => st === 3 && F.has('careful') && F.has('strong') && F.has('mercy'),
+  lesson: 'عبرة: لا تحكم بالصوت العالي بل بالدليل، والصدق ولو كان خافتًا يغلب الكذب ولو كان صاخبًا.'
+};
+const V2S = ['v2r', 'v2a', 'v2b', 'v2c'];
+const stHero = () => esc((stSt().hero || '').trim() || gm('مسافرة', 'مسافر'));
+
+/* المرحلة الأولى من وادي الأجراس: أحداث في الطريق قبل الوصول إلى بيت الخال */
+Object.assign(SNPC, {
+  cart: ['العربة الصغيرة', '<rect x="12" y="24" width="40" height="18" rx="3" fill="#B07848" stroke="#2B1612" stroke-width="2.4"/><path d="M12 30H52" stroke="#7A4E2A" stroke-width="2"/><circle cx="20" cy="46" r="8" fill="#8A5A34" stroke="#2B1612" stroke-width="2.4"/><circle cx="44" cy="46" r="8" fill="#8A5A34" stroke="#2B1612" stroke-width="2.4"/><path d="M20 38V54M12 46H28M44 38V54M36 46H52" stroke="#2B1612" stroke-width="1.4"/><path d="M52 28L60 22" stroke="#7A4E2A" stroke-width="3" stroke-linecap="round"/>'],
+  saw: ['المنشار', '<path d="M8 22H48V34L44 38L40 34L36 38L32 34L28 38L24 34L20 38L16 34L12 38L8 34Z" fill="#B8BCC4" stroke="#2B1612" stroke-width="2.2" stroke-linejoin="round"/><path d="M48 20H60V36H48Z" fill="#8A4A2A" stroke="#2B1612" stroke-width="2.4"/><path d="M52 24V32" stroke="#5A2E18" stroke-width="2"/><path d="M14 26H42" stroke="#E8ECF0" stroke-width="2" stroke-linecap="round"/>']
+});
+const V2R = {
+  name: 'وادي الأجراس', stage: 'المرحلة ١: الطريق', winTitle: () => gm('✦ وصلتِ إلى الوادي!', '✦ وصلت إلى الوادي!'),
+  intro: () => gm('وصلتكِ رسالة من خالكِ «الإناء النحاسي» (أخي أمك) يدعوكِ لزيارته في وادي الأجراس. الطريق إليه يمرّ بالغابة ثم جسر النهر.', 'وصلتك رسالة من خالك «الإناء النحاسي» (أخي أمك) يدعوك لزيارته في وادي الأجراس. الطريق إليه يمرّ بالغابة ثم جسر النهر.'),
+  start: () => 'r1',
+  nodes: {
+    r1: { who: 'cart', t: () => gm('يا أيتها المسافرة! عجلتي غرزت في الطين… أحمل الخبز إلى الوادي، وإن تأخرت فسد. هل تساعدينني؟', 'يا أيها المسافر! عجلتي غرزت في الطين… أحمل الخبز إلى الوادي، وإن تأخرت فسد. هل تساعدني؟'), ch: [
+      { t: 'أدفع العربة معك حتى تخرج', flag: ['helped'], to: 'r1a' },
+      { t: 'أعطيك عملات لتستأجر من يساعدك', cost: 10, cid: 'v2rcoin', to: 'r1c' },
+      { t: 'أعدك أن أرسل لك من يساعدك من الوادي', st: -1, to: 'r1n' }] },
+    r1a: { who: 'cart', t: () => gm('خرجت! أنتِ لطيفة جدًا. أنا «العربة الصغيرة»، وأنتِ ما اسمك؟', 'خرجت! أنت لطيف جدًا. أنا «العربة الصغيرة»، وأنت ما اسمك؟'), ch: [{ nm: 1, t: () => 'أنا ' + stHero(), to: 'r1h' }] },
+    r1h: { who: 'cart', t: () => 'تشرّفت يا ' + stHero() + gm('. خذي هذا الرغيف، وانتبهي للجسر… سمعت أن عليه من يأخذ المال من المسافرين.', '. خذ هذا الرغيف، وانتبه للجسر… سمعت أن عليه من يأخذ المال من المسافرين.'), ch: [{ t: 'أكمل الطريق', to: 'r2' }] },
+    r1c: { who: 'cart', t: () => 'شكرًا… سأنتظر أحدًا يمرّ. (تبقى العربة وحدها في الطين)', ch: [{ t: 'أكمل الطريق', to: 'r2' }] },
+    r1n: { who: 'nar', t: () => gm('مضيتِ في طريقك، والعربة تغوص أكثر في الطين.', 'مضيت في طريقك، والعربة تغوص أكثر في الطين.'), ch: [{ t: 'أكمل الطريق', to: 'r2' }] },
+    r2: { who: 'saw', t: () => gm('قفي! هذا جسرنا. من يعبر يدفع ٢٠ عملة… أو يرجع.', 'قف! هذا جسرنا. من يعبر يدفع ٢٠ عملة… أو يرجع.'), ch: [
+      { t: 'أدفع وأعبر بسلام', cost: 20, cid: 'v2rtoll', st: -1, to: 'r2p' },
+      { t: 'أسأله: من أعطاكم هذا الجسر؟', to: 'r2q' },
+      { t: 'أعود وأسلك طريق الغابة الطويل', to: 'r2l' },
+      { t: 'أتقدم وأعبر رغمًا عنه', to: 'battle' }] },
+    r2p: { who: 'nar', t: () => gm('عبرتِ، لكن المناشير ضحكت: «زبونة جديدة!» وما زالوا يأخذون المال من كل من يمرّ.', 'عبرت، لكن المناشير ضحكت: «زبون جديد!» وما زالوا يأخذون المال من كل من يمرّ.'), ch: [{ t: 'أكمل', to: 'r3' }] },
+    r2q: { who: 'saw', t: (F) => 'من أعطانا؟ (يتلعثم) نحن… نحن أخذناه!' + (F.has('helped') ? ' — وفجأة وصلت العربة الصغيرة ومعها حرّاس الوادي، فهرب المنشار ورفاقه.' : ''), ch: [
+      { t: 'أكمل', if: (F) => F.has('helped'), flag: ['guards'], to: 'r3' },
+      { t: 'أطلب منه أن يبتعد عن الطريق', if: (F) => !F.has('helped'), to: 'battle' }] },
+    r2l: { who: 'nar', t: () => gm('سلكتِ طريق الغابة الطويل، ووصلتِ عند الغروب متعبة… لكنكِ لم تدفعي شيئًا.', 'سلكت طريق الغابة الطويل، ووصلت عند الغروب متعبًا… لكنك لم تدفع شيئًا.'), ch: [{ t: 'أكمل', st: -1, to: 'r3' }] },
+    rB: { who: 'saw', t: () => 'تراجعت المناشير الثلاثة وهربت إلى الغابة. صار الجسر مفتوحًا للجميع.', ch: [{ t: 'أكمل', flag: ['freed'], to: 'r3' }] },
+    loseR: { who: 'saw', lose: 1, t: () => gm('غلبتكِ المناشير وأخذت حقيبتك، فرجعتِ إلى المخيم.', 'غلبتك المناشير وأخذت حقيبتك، فرجعت إلى المخيم.') },
+    r3: { who: 'pot', win: 1, t: (F) => 'عند بوابة الوادي كان خالك «الإناء النحاسي» ينتظر: «' + stHero() + gm('! بنت أختي وصلت أخيرًا!»', '! ابن أختي وصل أخيرًا!»') + (F.has('guards') || F.has('freed') ? gm(' وسمع الوادي كله بما فعلتِ عند الجسر.', ' وسمع الوادي كله بما فعلت عند الجسر.') : '') }
+  },
+  boss: 'saw', loseB: 'loseR', afterB: 'rB',
+  lives: (F) => 1 + (F.has('helped') ? 1 : 0) + (stMem('v1', 'friend') ? 1 : 0),
+  battle: [['المنشار الكبير يندفع نحوك بأسنانه', 'def'], ['المناشير تتجادل من يهاجم أولًا', 'atk'], ['أحدهم يلمع أسنانه ليخيفك', 'eye'], ['المنشار يعلق في خشب الجسر', 'atk'], ['يهاجمون معًا', 'def']],
+  cry: (F, st) => st === 3 && F.has('helped') && (F.has('guards') || F.has('freed')),
+  lesson: 'عبرة: المعروف الصغير في الطريق قد يعود إليك عونًا حين تحتاجه.'
+};
+V1.name = 'قرية الرمل الرمادي'; V1.boss = 'scale'; V1.loseB = 'lose2'; V1.afterB = 'win'; V1.cry = (F, st) => stCry(F, st); V0.name = 'تلّ القناديل';
+const VMAP = () => ({ v0: V0, v1: V1, v2r: V2R, v2a: V2A, v2b: V2B, v2c: V2C });
+const VD = () => (SR && VMAP()[SR.v]) || V1;
+/* كل قرية أو مرحلة: يسألك أحدهم عن اسمك أو تعرّف بنفسك */
+Object.values(VMAP()).forEach((D) => { if (D.hello) D.nodes.hello = { who: D.hello.who, t: D.hello.t, ch: [{ t: () => (D.hello.me ? D.hello.me() : 'أنا ' + stHero()), to: () => D.start() }] }; });
+window.__story = { VMAP, get SR() { return SR; } }; /* للاختبارات */
 const SBA = [['def', '🛡️ أحتمي'], ['atk', '⚔️ أهاجم'], ['eye', '👁️ أتجاهل البريق']];
 function stChecks() { if (window.__stChecks != null) return window.__stChecks; const s = stSt(); return Object.keys(R.days || {}).filter((d) => d >= s.start && R.days[d].status === 'success').length; }
 function stStars(n, crystal) { return '<span class="srst' + (crystal ? ' cry' : '') + '">' + [0, 1, 2].map((i) => '<i class="' + (i < n ? 'on' : '') + '">★</i>').join('') + '</span>'; }
@@ -5804,9 +6052,14 @@ function stWorld() {
   const pine = (x, y, k, c) => '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><path d="M0 8V2" stroke="#5A3A22" stroke-width="3"/><path d="M-9 4L0 -18L9 4Z" fill="' + (c || '#2E6A3E') + '" stroke="#1E3A22" stroke-width="1.6" stroke-linejoin="round"/></g>';
   const house = (x, y, k, lit, roof) => '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><rect x="-12" y="-10" width="24" height="18" fill="' + (lit ? '#E8C890' : '#8A847A') + '" stroke="#2B1612" stroke-width="1.6"/><path d="M-16 -10L0 -24L16 -10Z" fill="' + (lit ? (roof || '#C8503A') : '#5A5450') + '" stroke="#2B1612" stroke-width="1.6" stroke-linejoin="round"/><rect x="-4" y="0" width="8" height="8" fill="#5A3A22" stroke="#2B1612" stroke-width="1.2"/><rect x="5" y="-6" width="5" height="5" fill="' + (lit ? '#FFD36A' : '#3A3530') + '" stroke="#2B1612" stroke-width="1"/>' + (lit ? '' : '<path d="M-9 -6L-5 -2L-8 3" stroke="#2B1612" stroke-width="1" fill="none"/>') + '</g>';
   const fog = (x, y, w) => '<g class="srfog2"><ellipse cx="' + x + '" cy="' + y + '" rx="' + w + '" ry="' + (w * .45) + '" fill="#E8EEF4" opacity=".55"/><ellipse cx="' + (x + w * .35) + '" cy="' + (y - 8) + '" rx="' + (w * .6) + '" ry="' + (w * .3) + '" fill="#F4F8FC" opacity=".5"/></g>';
+  const best = (d) => (d ? '★'.repeat(d.stars) + (d.crystal ? '💎' : '') : '');
+  const sub = (x, y, t) => (t ? '<g transform="translate(' + x + ' ' + (y + 17) + ')"><rect x="-34" y="-8" width="68" height="15" rx="7.5" fill="rgba(30,26,46,.72)"/><text y="3.6" text-anchor="middle" font-size="9.5" fill="#FFE9A8">' + t + '</text></g>' : '');
   const tag = (x, y, t, on) => '<g transform="translate(' + x + ' ' + y + ')"><rect x="-46" y="-10" width="92" height="19" rx="9.5" fill="' + (on ? '#FFF3C4' : 'rgba(30,26,46,.78)') + '" stroke="#2B1612" stroke-width="1"/><text y="4" text-anchor="middle" font-size="10.5" font-weight="800" fill="' + (on ? '#5A3A12' : '#F4EEFF') + '">' + t + '</text></g>';
-  let g = '<svg viewBox="0 0 400 860" preserveAspectRatio="xMidYMid meet" class="srw" aria-hidden="true"><defs><linearGradient id="srgd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A3450"/><stop offset=".28" stop-color="#6A7A5A"/><stop offset=".55" stop-color="#8FB06A"/><stop offset="1" stop-color="#9CC774"/></linearGradient><radialGradient id="srgl"><stop offset="0" stop-color="#FFE9A0" stop-opacity=".85"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient><radialGradient id="srdk"><stop offset="0" stop-color="#2A2438" stop-opacity=".75"/><stop offset="1" stop-color="#2A2438" stop-opacity="0"/></radialGradient></defs>' +
-    '<rect width="400" height="860" fill="url(#srgd)"/>' +
+  let g = '<svg viewBox="0 0 400 860" preserveAspectRatio="xMidYMid meet" class="srw" aria-hidden="true"><defs><linearGradient id="srgd" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="860"><stop offset="0" stop-color="#3A3450"/><stop offset=".28" stop-color="#6A7A5A"/><stop offset=".55" stop-color="#8FB06A"/><stop offset="1" stop-color="#9CC774"/></linearGradient><radialGradient id="srgl"><stop offset="0" stop-color="#FFE9A0" stop-opacity=".85"/><stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient><radialGradient id="srdk"><stop offset="0" stop-color="#2A2438" stop-opacity=".75"/><stop offset="1" stop-color="#2A2438" stop-opacity="0"/></radialGradient></defs>' +
+    '<rect x="-900" y="-300" width="2200" height="1460" fill="url(#srgd)"/>' +
+    /* أطراف الخريطة تمتد خارج إطارها فتملأ أي شاشة بلا فراغ */
+    [[-120, 150, 70], [-260, 120, 90], [520, 150, 80], [650, 120, 95]].map(([x, y, w]) => '<path d="M' + (x - w) + ' ' + (y + 40) + 'L' + x + ' ' + (y - w * .7) + 'L' + (x + w) + ' ' + (y + 40) + 'Z" fill="#5A5470" stroke="#2B1612" stroke-width="2"/><path d="M' + (x - w * .3) + ' ' + (y - w * .49) + 'L' + x + ' ' + (y - w * .7) + 'L' + (x + w * .3) + ' ' + (y - w * .49) + 'Z" fill="#E8E4F0"/>').join('') +
+    [[-40, 300], [-110, 420], [-60, 560], [-150, 640], [-30, 760], [-120, 820], [-220, 500], [-200, 300], [440, 320], [500, 440], [450, 580], [540, 660], [430, 780], [520, 830], [610, 520], [600, 320]].map(([x, y], i) => tree(x, y, 1.2 + (i % 3) * .2, i % 4 === 0 ? '#2E6E3E' : null)).join('') +
     /* الطريق (تحت القرى والنهر) */
     '<path id="srpath" d="' + SR_PATH + '" fill="none" stroke="#F4E8C8" stroke-width="7" stroke-linecap="round" opacity=".85"/><path d="' + SR_PATH + '" fill="none" stroke="#B8955A" stroke-width="2.4" stroke-dasharray="2 9" stroke-linecap="round"/>' +
     /* الشمال المظلم: جبال وقلعة الظل */
@@ -5816,10 +6069,12 @@ function stWorld() {
     '<g transform="translate(262 250)"><path d="M-10 26L-7 -30H7L10 26Z" fill="#B8B0A2" stroke="#3A3530" stroke-width="2"/><path d="M-12 -30L0 -46L12 -30Z" fill="#6E8AA8" stroke="#3A3530" stroke-width="2"/><g class="srmill"><path d="M0 -38L0 -62M0 -38L22 -30M0 -38L-20 -26" stroke="#F4F4F0" stroke-width="3" stroke-linecap="round"/></g></g>' + fog(262, 250, 50) +
     [[200, 300, 1], [330, 300, .9], [350, 260, 1.1], [180, 250, .8]].map((q) => pine(q[0], q[1], q[2], '#3E5A3E')).join('') +
     /* النهر والجسر */
-    '<path d="M-10 470C60 440 120 500 190 488C260 476 320 430 410 450" fill="none" stroke="#5E9AC8" stroke-width="26"/><path d="M-10 470C60 440 120 500 190 488C260 476 320 430 410 450" fill="none" stroke="#9CCBEA" stroke-width="3" stroke-dasharray="10 14" class="srriver"/>' +
+    '<path d="M-900 500C-600 470 -300 520 -10 470C60 440 120 500 190 488C260 476 320 430 410 450C600 480 900 430 1300 470" fill="none" stroke="#5E9AC8" stroke-width="26"/><path d="M-900 500C-600 470 -300 520 -10 470C60 440 120 500 190 488C260 476 320 430 410 450C600 480 900 430 1300 470" fill="none" stroke="#9CCBEA" stroke-width="3" stroke-dasharray="10 14" class="srriver"/>' +
     '<g transform="translate(186 488) rotate(-8)"><rect x="-14" y="-18" width="28" height="36" fill="#A8743A" stroke="#2B1612" stroke-width="2"/><path d="M-14 -10H14M-14 -2H14M-14 6H14" stroke="#7A5030" stroke-width="1.6"/></g>' +
     /* وادي الأجراس */
-    house(86, 392, .9, true, '#6E8AA8') + house(132, 384, .8, true, '#6E8AA8') + '<g transform="translate(110 360)"><rect x="-5" y="-6" width="10" height="26" fill="#C8B890" stroke="#2B1612" stroke-width="1.6"/><path d="M-8 -6L0 -16L8 -6Z" fill="#6E8AA8" stroke="#2B1612" stroke-width="1.6"/><path d="M-3 0A3 3 0 0 1 3 0V4H-3Z" fill="#F2B84B" stroke="#2B1612" stroke-width="1"/></g>' + fog(110, 388, 54) +
+    (s.done.v2c ? '<circle cx="110" cy="388" r="70" fill="url(#srgl)" class="srglow"/>' : '') + '<ellipse cx="110" cy="404" rx="66" ry="22" fill="' + (s.done.v2c ? '#C8D89A' : '#B8C08E') + '" stroke="#5A6A40" stroke-width="1.6"/>' +
+    house(70, 404, .8, true, '#6E8AA8') + house(86, 392, .9, true, '#6E8AA8') + house(132, 384, .8, true, '#8A6EA8') + house(150, 408, .75, true, '#6E8AA8') + '<g transform="translate(110 360)"><rect x="-5" y="-6" width="10" height="26" fill="#C8B890" stroke="#2B1612" stroke-width="1.6"/><path d="M-8 -6L0 -16L8 -6Z" fill="#6E8AA8" stroke="#2B1612" stroke-width="1.6"/><g' + (s.done.v2c ? ' class="srring"' : '') + '><path d="M-3 0A3 3 0 0 1 3 0V4H-3Z" fill="#F2B84B" stroke="#2B1612" stroke-width="1"/></g></g>' + (s.done.v2r || (SR && SR.v.indexOf('v2') === 0) ? '' : fog(110, 388, 54)) +
+    (inV || !s.done.v2a ? '' : stWalker('tinybell', 96, 412, 16, 8, .26, 1) + stWalker('pot', 128, 402, -14, 10, .28, 3) + (s.done.v2b ? stWalker('whistle', 76, 418, 12, 7, .24, 2) : '')) +
     [[40, 420, 1], [60, 360, .9], [170, 420, .8], [340, 380, 1], [360, 420, .8], [300, 360, .9]].map((q) => tree(q[0], q[1], q[2], '#4E8A4E')).join('') +
     /* قرية الرمل الرمادي */
     '<g class="srv1' + (lit1 ? ' lit' : '') + '"><circle cx="210" cy="606" r="96" fill="url(#' + (lit1 ? 'srgl' : 'srdk') + ')"' + (lit1 ? ' class="srglow"' : '') + '/><ellipse cx="210" cy="618" rx="88" ry="40" fill="' + (lit1 ? '#C8D89A' : '#9A947E') + '" stroke="#5A5040" stroke-width="2"/>' +
@@ -5835,13 +6090,13 @@ function stWorld() {
     '<g transform="translate(96 800)"><ellipse cx="0" cy="10" rx="54" ry="16" fill="#8CB868" stroke="#5A7A3A" stroke-width="1.6"/><path d="M-30 6V-14L-14 -26L2 -14V6Z" fill="#A87448" stroke="#2B1612" stroke-width="1.8"/><path d="M-34 -14L-14 -30L6 -14" fill="none" stroke="#7A3E2C" stroke-width="5" stroke-linejoin="round"/><path d="M14 8L26 -14L38 8Z" fill="#E8D2A8" stroke="#2B1612" stroke-width="1.6"/><g transform="translate(22 14)"><path d="M-6 0L6 -2M-6 -2L6 0" stroke="#5A3A22" stroke-width="2.4"/><path d="M0 -3C3 -7 2 -10 0 -14C-2 -10 -3 -7 0 -3Z" fill="#FF9A2E" class="srfire"/></g></g>' + '<g aria-hidden="true">' + [[22, 760, .7], [58, 748, .9]].map(([x, y, k]) => '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><path d="M-30 0L0 -40L30 0Z" fill="#7A8A9A" stroke="#3A4048" stroke-width="2"/><path d="M-9 -28L0 -40L9 -28L4 -25L0 -30L-4 -25Z" fill="#F4F4F0"/></g>').join('') + [[150, 770, .9], [160, 800, 1], [44, 812, .8]].map((q) => pine(q[0], q[1], q[2])).join('') + '</g>' + (inV ? '' : tag(96, 838, 'مخيمك ⛺', true)) +
     [[30, 770, 1], [170, 790, .9], [190, 830, 1], [330, 780, 1.1], [360, 830, .9], [250, 760, .8]].map((q) => tree(q[0], q[1], q[2])).join('') +
     /* لافتات القرى (قابلة للمس) */
-    (inV ? '' : STV.map((v) => '<g class="srnode" data-act="srGo" data-v="' + v.id + '"><circle cx="' + v.x + '" cy="' + v.y + '" r="' + (v.id === 'v1' ? 70 : 46) + '" fill="transparent"/>' + tag(v.x, v.y + (v.id === 'v1' ? 66 : 40), (v.soon ? '🔒 ' : v.id === 'v1' && s.done.v1 ? '✦ ' : '') + v.name, v.id === 'v1' && !!s.done.v1) + '</g>').join(''));
+    (inV ? '' : STV.map((v) => '<g class="srnode" data-act="srGo" data-v="' + v.id + '"><circle cx="' + v.x + '" cy="' + v.y + '" r="' + (v.id === 'v1' ? 70 : 46) + '" fill="transparent"/>' + tag(v.x, v.y + (v.id === 'v1' ? 66 : 40), (v.soon ? '🔒 ' : (v.id === 'v1' && s.done.v1) || (v.id === 'v2' && s.done.v2c) ? '✦ ' : '') + v.name + (v.multi ? ' ' + N(V2S.filter((x) => s.done[x]).length) + '/' + N(V2S.length) : ''), (v.id === 'v1' && !!s.done.v1) || (v.id === 'v2' && !!s.done.v2c)) + sub(v.x, v.y + (v.id === 'v1' ? 66 : 40), v.multi ? V2S.map((x) => (s.done[x] ? N(s.done[x].stars) + (s.done[x].crystal ? '💎' : '★') : '·')).join(' ') : best(s.done[v.id])) + '</g>').join(''));
   /* اللاعب على الطريق: عند المخيم، أو في القرية */
-  const P = inV ? [184, 640] : s.done.v1 ? [200, 668] : s.done.v0 ? [280, 760] : [104, 770];
+  const in2 = inV && SR.v.indexOf('v2') === 0, P = in2 ? [92, 424] : inV ? [184, 640] : s.done.v2a ? [118, 432] : s.done.v1 ? [200, 668] : s.done.v0 ? [280, 760] : [104, 770];
   const ch = (typeof charSVG === 'function' ? charSVG(R.equipped) : '') || '<svg viewBox="0 0 40 40"><ellipse cx="20" cy="28" rx="14" ry="10" fill="#9A938A" stroke="#2B1612" stroke-width="2"/></svg>';
   g += '<g id="srpl" transform="translate(' + P[0] + ' ' + P[1] + ')"><ellipse cx="0" cy="0" rx="10" ry="3.4" fill="#000" opacity=".3"/><g class="srbreath">' + ch.replace('<svg ', '<svg x="-16" y="-40" width="32" height="42" ') + '</g></g>';
   /* المتحدث يظهر في القرية بجانبك */
-  if (inV) { const n = stNode(), who = SR.node === 'battle' ? 'scale' : n && n.who; if (who && SNPC[who] && SNPC[who][1] && who !== 'nar' && who !== 'folk') { const boss = who === 'scale', fx = SR.fxW; g += '<g transform="translate(236 ' + (boss ? 628 : 636) + ')"><g class="srspk' + (boss ? ' boss' : '') + (fx === 'hitE' ? ' hit' : '') + '"><circle r="' + (boss ? 30 : 22) + '" cy="-14" fill="' + (boss ? '#E2524F' : '#FFF3C4') + '" opacity=".22"/><g transform="scale(' + (boss ? .78 : .55) + ') translate(-32 -58)"><ellipse cx="32" cy="58" rx="18" ry="4" fill="#000" opacity=".25"/>' + SNPC[who][1] + '</g></g></g>'; } }
+  if (inV) { const n = stNode(), who = SR.node === 'battle' ? VD().boss || 'scale' : n && n.who; if (who && SNPC[who] && SNPC[who][1] && who !== 'nar' && who !== 'folk') { const boss = SR.node === 'battle' || who === 'scale', fx = SR.fxW; g += '<g transform="translate(' + (in2 ? 146 : 236) + ' ' + (in2 ? (boss ? 412 : 420) : boss ? 628 : 636) + ')"><g class="srspk' + (boss ? ' boss' : '') + (fx === 'hitE' ? ' hit' : '') + '"><circle r="' + (boss ? 30 : 22) + '" cy="-14" fill="' + (boss ? '#E2524F' : '#FFF3C4') + '" opacity=".22"/><g transform="scale(' + (boss ? .78 : .55) + ') translate(-32 -58)"><ellipse cx="32" cy="58" rx="18" ry="4" fill="#000" opacity=".25"/>' + SNPC[who][1] + '</g></g></g>'; } }
   return g + '</svg>';
 }
 /* مشهد تلّ القناديل بالحجم الكبير: بيوت الذكرى ضخمة والجمادات بحجم الإبريق، والكاميرا تتنقل بين الأماكن */
@@ -5877,32 +6132,90 @@ function stVillage0() {
   g += '<g transform="translate(' + (sx - 36) + ' ' + (sy + 4) + ')"><ellipse rx="18" ry="5" fill="#000" opacity=".25"/><g class="srbreath">' + ch.replace('<svg ', '<svg x="-28" y="-70" width="56" height="72" ') + '</g></g>';
   return g + '</svg>';
 }
+function stAskName(cb) {
+  const m = modal('<h2>' + gm('ما اسمكِ أيتها المسافرة؟', 'ما اسمك أيها المسافر؟') + '</h2><p class="small muted">' + gm('سيناديكِ به أهل القرى، وستُعرفين به حين يشتهر اسمك.', 'سيناديك به أهل القرى، وستُعرف به حين يشتهر اسمك.') + '</p><div class="field"><input type="text" id="srHero" maxlength="20" value="' + esc(stSt().hero || '') + '" aria-label="اسمك"></div><div class="actions"><button class="btn" data-ok>حفظ</button></div>', { noFocus: true });
+  const ok = () => { const v = m.el.querySelector('#srHero').value.trim(); if (!v) { m.el.querySelector('#srHero').focus(); return; } stSt().hero = v.slice(0, 20); persist(); m.close(); if (cb) cb(); };
+  m.el.querySelector('[data-ok]').addEventListener('click', ok); m.el.querySelector('#srHero').addEventListener('keydown', (e) => { if (e.key === 'Enter') ok(); });
+}
+
+/* مشهد كبير لكل قرية عند دخولها (مثل تلّ القناديل): بيوت ضخمة ومعلم القرية وأهلها، والمتحدث بجانبك */
+function stVillageBig() {
+  const v = SR.v, I = '#2B1612', n = stNode(), F = SR.flags, road = v === 'v2r', vale = v.indexOf('v2') === 0 && !road, win = n && n.win;
+  const lit = v === 'v1' ? win || !!stSt().done.v1 : true;
+  const P = road ? { sky: ['#9CCBEA', '#E8F2D8'], gr: '#8CB868', gr2: '#A8C77A', path: '#E8D8A8' } : vale ? { sky: ['#A8C8E8', '#F2E8D0'], gr: '#9CC07E', gr2: '#B8D48E', path: '#E8DCB8' } : lit ? { sky: ['#8FC8F0', '#FFE8C0'], gr: '#B8C890', gr2: '#C8D89A', path: '#E8D8A8' } : { sky: ['#8A8494', '#C8BCA8'], gr: '#A89E86', gr2: '#B8AE94', path: '#C8BCA0' };
+  const house = (x, y, k, roof) => { const w = 140 * k, h = 110 * k; return '<g transform="translate(' + x + ' ' + y + ')"><rect x="' + (-w / 2) + '" y="' + (-h) + '" width="' + w + '" height="' + h + '" fill="' + (lit ? '#E8C890' : '#A89A84') + '" stroke="' + I + '" stroke-width="3"/>' +
+    '<path d="M' + (-w / 2 - 14) + ' ' + (-h) + 'L0 ' + (-h - 62 * k) + 'L' + (w / 2 + 14) + ' ' + (-h) + 'Z" fill="' + (lit ? roof : '#6E6660') + '" stroke="' + I + '" stroke-width="3" stroke-linejoin="round"/><path d="M-20 0V-50A20 20 0 0 1 20 -50V0Z" fill="#5A3A22" stroke="' + I + '" stroke-width="2.6"/>' +
+    [-1, 1].map((sd) => '<rect x="' + (sd * w * .3 - 11) + '" y="' + (-h * .72) + '" width="22" height="22" fill="' + (lit ? '#FFD36A' : '#4A4038') + '" stroke="' + I + '" stroke-width="2.2"/><path d="M' + (sd * w * .3) + ' ' + (-h * .72) + 'v22M' + (sd * w * .3 - 11) + ' ' + (-h * .72 + 11) + 'h22" stroke="' + I + '" stroke-width="1.4"/>').join('') + '</g>'; };
+  const tree = (x, y, k) => '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><path d="M0 0V-30" stroke="#5A3A22" stroke-width="9" stroke-linecap="round"/><circle cy="-52" r="30" fill="#4E8A4E" stroke="#1E3A22" stroke-width="3"/><circle cx="-14" cy="-40" r="18" fill="#5E9A5A" stroke="#1E3A22" stroke-width="2.4"/><circle cx="10" cy="-62" r="10" fill="#7CC06A" opacity=".7"/></g>';
+  const pine = (x, y, k) => '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><path d="M0 0V-14" stroke="#5A3A22" stroke-width="7"/><path d="M-26 -10L0 -70L26 -10Z" fill="#2E6A3E" stroke="#1E3A22" stroke-width="3" stroke-linejoin="round"/><path d="M-20 -34L0 -84L20 -34Z" fill="#3A7A4A" stroke="#1E3A22" stroke-width="3" stroke-linejoin="round"/></g>';
+  let g = '<svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" class="srvsv" aria-hidden="true"><defs><linearGradient id="srbs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + P.sky[0] + '"/><stop offset="1" stop-color="' + P.sky[1] + '"/></linearGradient></defs><rect width="600" height="800" fill="url(#srbs)"/>' +
+    (lit ? '<circle cx="520" cy="60" r="28" fill="#FFE07A"/>' : '<g class="srwisp" fill="#6E6878" opacity=".55"><ellipse cx="180" cy="60" rx="130" ry="20"/><ellipse cx="450" cy="44" rx="110" ry="16"/></g>') +
+    '<path d="M0 170C150 140 300 160 420 146C500 138 560 150 600 142V800H0Z" fill="' + P.gr + '"/><path d="M0 420C160 400 420 430 600 410V800H0Z" fill="' + P.gr2 + '"/>';
+  if (road) {
+    /* الطريق: غابة، طين، ثم جسر النهر */
+    g += [[60, 230, 1.1], [150, 210, .9], [470, 220, 1], [550, 240, 1.2], [40, 520, 1.3], [560, 540, 1.2], [90, 760, 1.2], [520, 770, 1.3]].map((q) => pine(q[0], q[1], q[2])).join('') +
+      '<path d="M300 800C280 660 340 560 300 430C270 330 320 260 300 170" stroke="' + P.path + '" stroke-width="80" fill="none" stroke-linecap="round"/>' +
+      '<path d="M0 330C120 300 220 360 320 330C420 300 520 340 600 320V380C500 400 420 360 320 392C220 420 120 360 0 392Z" fill="#5E9AC8"/><path d="M20 352C120 336 220 372 320 356S520 340 590 348" stroke="#9CCBEA" stroke-width="4" stroke-dasharray="16 20" fill="none" class="srriver"/>' +
+      '<g transform="translate(300 360)"><rect x="-56" y="-26" width="112" height="52" fill="#A8743A" stroke="' + I + '" stroke-width="3"/>' + [-36, -12, 12, 36].map((x) => '<path d="M' + x + ' -26V26" stroke="#7A5030" stroke-width="2.4"/>').join('') + '<path d="M-60 -30H60M-60 30H60" stroke="#5A3A22" stroke-width="5" stroke-linecap="round"/></g>' +
+      '<ellipse cx="300" cy="560" rx="70" ry="18" fill="#8A6A48" opacity=".75"/>';
+  } else if (vale) {
+    /* وادي الأجراس: برج الجرس الكبير وبيوت بسقوف زرقاء والقناة */
+    g += [[110, 330, .78, '#6E8AA8'], [490, 330, .78, '#8A6EA8'], [120, 600, .8, '#6E8AA8'], [480, 600, .8, '#6E8AA8']].map((q) => house(q[0], q[1], q[2], q[3])).join('') +
+      '<path d="M0 470C150 456 450 486 600 466" stroke="#5E9AC8" stroke-width="18" fill="none"/><path d="M0 470C150 456 450 486 600 466" stroke="#9CCBEA" stroke-width="3" stroke-dasharray="10 14" fill="none" class="srriver"/>' +
+      '<g transform="translate(300 330)"><rect x="-30" y="-250" width="60" height="250" fill="#C8B890" stroke="' + I + '" stroke-width="3"/><path d="M-46 -250L0 -316L46 -250Z" fill="#6E8AA8" stroke="' + I + '" stroke-width="3" stroke-linejoin="round"/><rect x="-24" y="-240" width="48" height="56" fill="#3A3028" stroke="' + I + '" stroke-width="2"/>' +
+      '<g transform="translate(0 -214)"><g' + (win && v === 'v2c' ? ' class="srring"' : '') + '><path d="M-16 18C-14 8 -14 -4 -12 -10C-10 -18 10 -18 12 -10C14 -4 14 8 16 18Z" fill="#E8C060" stroke="' + I + '" stroke-width="2.4"/>' + (v === 'v2c' && !win ? '<path d="M-2 -12L3 -2L-2 6L3 16" stroke="' + I + '" stroke-width="2.4" fill="none"/>' : '') + '</g></g><rect x="-44" y="-66" width="88" height="66" fill="#E8C890" stroke="' + I + '" stroke-width="3"/><path d="M-16 0V-38A16 16 0 0 1 16 -38V0Z" fill="#5A3A22" stroke="' + I + '" stroke-width="2.4"/></g>' +
+      tree(40, 760, 1.1) + tree(560, 760, 1) + (v === 'v2c' ? '<g class="srconf">' + [[100, 90, '#F2B84B'], [220, 60, '#7CC06A'], [360, 80, '#E8435A'], [470, 64, '#4E8BE8']].map(([x, y, c], i) => '<rect x="' + x + '" y="' + y + '" width="9" height="9" fill="' + c + '" style="animation-delay:' + (i * .35) + 's"/>').join('') + '</g>' : '');
+  } else {
+    /* قرية الرمل الرمادي: البئر في الوسط */
+    g += [[110, 330, .78, '#C8503A'], [490, 330, .78, '#D9774A'], [120, 600, .8, '#B84A3A'], [480, 600, .8, '#6E8AA8']].map((q) => house(q[0], q[1], q[2], q[3])).join('') +
+      '<g transform="translate(300 330)"><ellipse cx="0" cy="10" rx="70" ry="22" fill="#7A7468" stroke="' + I + '" stroke-width="3"/><path d="M-70 10V-24H70V10" fill="#9A938A" stroke="' + I + '" stroke-width="3"/><ellipse cx="0" cy="-24" rx="70" ry="22" fill="' + (lit ? '#5FB4F0' : '#3A3530') + '" stroke="' + I + '" stroke-width="3"/>' + (lit ? '' : '<path d="M-46 -34L46 -14M46 -34L-46 -14" stroke="#5A3A22" stroke-width="8" stroke-linecap="round"/>') + '<path d="M-56 -24V-110M56 -24V-110M-66 -110H66" stroke="#5A3A22" stroke-width="7" stroke-linecap="round"/></g>' +
+      (lit ? '' : '<g class="srgloom"><ellipse cx="300" cy="150" rx="110" ry="30" fill="#4A4458" opacity=".6"/></g>') + tree(40, 760, 1) + tree(560, 760, 1.1);
+  }
+  /* أهل المكان يمشون */
+  const W = road ? [] : vale ? [['ladle', 160, 420, 40], ['whistle', 440, 690, -40], ['cup', 220, 700, 30]] : [['jar', 160, 420, 40], ['compass', 440, 690, -40], ['clock', 220, 700, 30]];
+  g += W.map((w, i) => stWalker(w[0], w[1], w[2], w[3], 10 + i, .6, i * 2)).join('');
+  const who = SR.node === 'battle' ? VD().boss : n && n.who;
+  if (who && SNPC[who] && SNPC[who][1] && !['nar', 'folk', 'me'].includes(who)) { const boss = SR.node === 'battle', sc = boss ? 1.3 : .95; g += '<g transform="translate(372 ' + (road ? 300 : 420) + ')"><g class="srspk' + (boss ? ' boss' : '') + (SR.fxW === 'hitE' ? ' hit' : '') + '"><g transform="scale(' + sc + ') translate(-32 -58)"><ellipse cx="32" cy="58" rx="18" ry="4" fill="#000" opacity=".25"/>' + SNPC[who][1] + '</g></g></g>'; }
+  const ch = (typeof charSVG === 'function' ? charSVG(R.equipped) : '') || '<svg viewBox="0 0 40 40"><ellipse cx="20" cy="28" rx="14" ry="10" fill="#9A938A" stroke="#2B1612" stroke-width="2"/></svg>';
+  g += '<g transform="translate(228 ' + (road ? 304 : 424) + ')"><ellipse rx="22" ry="6" fill="#000" opacity=".25"/><g class="srbreath">' + ch.replace('<svg ', '<svg x="-32" y="-82" width="64" height="84" ') + '</g></g>';
+  return g + '</svg>';
+}
 function viewStory() {
   const s = stSt(), d1 = s.done.v1; setTimeout(stType, 0);
+  if (!s.hero && !navigator.webdriver && !document.querySelector('#srHero')) setTimeout(() => { if (VIEW === 'story' && !stSt().hero && !document.querySelector('#srHero')) stAskName(); }, 500);
   const v0 = SR && SR.v === 'v0', fx = v0 ? ((stNode() && stNode().spot) != null ? stNode().spot : .5) : 0;
-  let h = '<div class="srfull">' + (v0 ? '<div class="srvil" style="--fx:' + (SR.fxPrev != null ? SR.fxPrev : fx) + '" data-fx="' + fx + '">' + stVillage0() + '</div>' : '<div class="srworld' + (SR ? ' zv1' : '') + '">' + stWorld() + '</div>');
+  let h = '<div class="srfull">' + (v0 ? '<div class="srvil" style="--fx:' + (SR.fxPrev != null ? SR.fxPrev : fx) + '" data-fx="' + fx + '">' + stVillage0() + '</div>' : SR && SR.node !== 'intro' ? '<div class="srvil big">' + stVillageBig() + '</div>' : '<div class="srworld' + (SR ? (SR.v.indexOf('v2') === 0 ? ' zv2' : ' zv1') : ' tipd') + '">' + stWorld() + '</div>');
   if (v0) { SR.fxPrev = fx; setTimeout(() => { const e = document.querySelector('.srvil'); if (e) e.style.setProperty('--fx', e.dataset.fx); }, 30); }
-  h += '<div class="srhud"><button class="srhb" data-act="' + (SR ? 'srLeave' : 'srExit') + '" aria-label="' + (SR ? 'الخريطة' : 'رجوع للمخيم') + '">' + (SR ? '🗺️' : '⛺') + '</button><div class="srht"><b>' + (SR ? (v0 ? 'تلّ القناديل' : 'قرية الرمل الرمادي') : 'رحلة الأراضي') + '</b><span>' + (SR ? stStars(stNode() && stNode().lose ? 0 : SR.stars) : 'الفصل الأول · 🎟️ ' + N(stChecks()) + (d1 ? ' · ' + stStars(d1.stars, d1.crystal) : '')) + '</span></div><button class="srhb" data-act="srHow" aria-label="كيف ألعب">؟</button></div>';
-  if (!SR) h += '<div class="srtip">' + (!s.done.v0 ? 'المسي «تلّ القناديل» قرب مخيمك لتبدأ رحلتك ▸' : d1 ? 'حرّرتِ قرية الرمل الرمادي! أعيديها لتجربي طرقًا أخرى، أو انتظري القرى القادمة.' : 'المسي «قرية الرمل الرمادي» لتمشي إليها ▸') + '</div>';
+  h += '<div class="srhud"><button class="srhb" data-act="' + (SR ? 'srLeave' : 'srExit') + '" aria-label="' + (SR ? 'الخريطة' : 'رجوع للمخيم') + '">' + (SR ? '🗺️' : '⛺') + '</button><div class="srht"><b>' + (SR ? VD().name + (VD().stage ? ' · ' + VD().stage.split(':')[0] : '') : 'رحلة الأراضي') + '</b><span>' + (SR ? stStars(stNode() && stNode().lose ? 0 : SR.stars) : 'الفصل الأول · 🎟️ ' + N(stChecks()) + (d1 ? ' · ' + stStars(d1.stars, d1.crystal) : '')) + '</span></div><button class="srhb" data-act="srHow" aria-label="كيف ألعب">؟</button></div>';
+  if (!SR && SRPK) h += stPick();
+  if (!SR) h += '<div class="srtip">' + (!s.done.v0 ? gm('المسي «تلّ القناديل» قرب مخيمك لتبدئي رحلتك ▸', 'المس «تلّ القناديل» قرب مخيمك لتبدأ رحلتك ▸') : !d1 ? gm('المسي «قرية الرمل الرمادي» لتمشي إليها ▸', 'المس «قرية الرمل الرمادي» لتمشي إليها ▸') : !s.done.v2c ? gm('المسي «وادي الأجراس» لتزوري خالك ▸', 'المس «وادي الأجراس» لتزور خالك ▸') : gm('حرّرتِ وادي الأجراس! أعيدي المراحل لتجدي نهايات أخرى، والقرى القادمة قريبًا.', 'حرّرت وادي الأجراس! أعد المراحل لتجد نهايات أخرى، والقرى القادمة قريبًا.')) + '</div>';
   else h += stPanel();
-  h += '<div class="srhowp" id="srhow" hidden><b>كيف ألعب؟</b><ul><li>المسي قرية لتمشي إليها وتبدأ قصتها.</li><li>كل قرار يغيّر النجوم والأصدقاء والأعداء.</li><li>٣ نجوم لأفضل طريق، وكريستالية للمثالية. أعيدي متى شئتِ.</li><li>العداوة التي تبدأ في محاولتك الأولى تبقى، ويمكن إصلاحها بقرار طيب عند الإعادة. والمدفوع يُخصم مرة واحدة.</li><li>كل يوم تنجزين فيه مهامك يعطيك شيكًا يفتح القرية التالية.</li></ul><p>المعارك على مخيمك، والقرى الأخرى، والمكافآت النادرة: سيأتي قريبًا ✨</p><button class="srbtn main" data-act="srHow">حسنًا</button><button class="srbtn" data-act="srReset" style="margin-top:8px">↺ بدء الرحلة من جديد</button></div>';
+  h += '<div class="srhowp" id="srhow" hidden><b>كيف ألعب؟</b><ul><li>المسي قرية لتمشي إليها وتبدأ قصتها.</li><li>كل قرار يغيّر النجوم والأصدقاء والأعداء.</li><li>٣ نجوم لأفضل طريق، وكريستالية للمثالية. أعيدي متى شئتِ.</li><li>العداوة التي تبدأ في محاولتك الأولى تبقى، ويمكن إصلاحها بقرار طيب عند الإعادة. والمدفوع يُخصم مرة واحدة.</li><li>كل يوم تنجزين فيه مهامك يعطيك شيكًا يفتح القرية التالية.</li></ul><p>المعارك على مخيمك، والقرى الأخرى، والمكافآت النادرة: سيأتي قريبًا ✨</p><button class="srbtn main" data-act="srHow">حسنًا</button><button class="srbtn" data-act="srName" style="margin-top:8px">✎ ' + gm('اسمك', 'اسمك') + ': ' + stHero() + '</button><button class="srbtn" data-act="srReset" style="margin-top:8px">↺ بدء الرحلة من جديد</button></div>';
   return h + '</div>';
+}
+let SRPK = null;
+/* اختيار مرحلة في قرية كبيرة: كل مرحلة بتذكرة، وتُفتح بعد التي قبلها */
+function stPick() {
+  const s = stSt(), prevOk = (i) => (i === 0 ? !!s.done.v1 : !!s.done[V2S[i - 1]]);
+  return '<div class="srpick"><b>وادي الأجراس</b><p class="small">' + gm('قرية كبيرة بأربع مراحل، أولها الطريق إليها. ما تفعلينه في مرحلة يظهر أثره في التي بعدها.', 'قرية كبيرة بأربع مراحل، أولها الطريق إليها. ما تفعله في مرحلة يظهر أثره في التي بعدها.') + '</p>' +
+    V2S.map((id, i) => { const D = VMAP()[id], d = s.done[id], ok = prevOk(i); return '<button class="srbtn' + (ok && !d ? ' main' : '') + '" data-act="srStage" data-v="' + id + '"' + (ok ? '' : ' disabled') + '>' + (ok ? '' : '🔒 ') + D.stage + (d ? ' ' + stStars(d.stars, d.crystal) : s.unl && s.unl[id] ? '' : ok ? ' <span class="srcost">🎟️ تذكرة</span>' : '') + '</button>'; }).join('') +
+    (s.done.v1 ? '' : '<p class="small">' + gm('حرّري «قرية الرمل الرمادي» أولًا.', 'حرّر «قرية الرمل الرمادي» أولًا.') + '</p>') + '<button class="srbtn" data-act="srPickX">إغلاق</button></div>';
 }
 function stNode() { return SR.node === 'battle' ? null : VD().nodes[SR.node]; }
 function stPanel() {
   const F = SR.flags;
-  if (SR.node === 'intro') return '<div class="srbox"><span class="srname">الراوي</span><p class="srt" data-tw="1">' + VD().intro() + '</p><div class="srch"><button class="srbtn main" data-act="srNext" data-to="' + VD().start() + '">▸ ادخلي القرية</button></div></div>';
+  if (SR.node === 'intro') return '<div class="srbox"><span class="srname">الراوي</span><p class="srt" data-tw="1">' + VD().intro() + '</p><div class="srch"><button class="srbtn main" data-act="srNext" data-to="' + (VD().hello ? 'hello' : VD().start()) + '">▸ ادخلي القرية</button></div></div>';
   if (SR.node === 'battle') {
     const r = SR.rounds[SR.round];
-    return '<div class="srbox bat' + (SR.fx === 'hitP' ? ' hurt' : '') + '"><span class="srname">⚔️ الميزان المعوجّ</span><div class="srlives">' + '<i>❤️</i>'.repeat(SR.lives) + '<span> الجولة ' + N(SR.round + 1) + ' / ' + N(SR.rounds.length) + '</span></div>' + (SR.last ? '<p class="srres ' + SR.last + '">' + (SR.last === 'ok' ? '✦ أصبتِ!' : '✕ أخطأتِ التوقيت!') + '</p>' : '') + '<p class="srt">' + r[0] + '</p><div class="sracts">' + SBA.map(([k, t]) => '<button class="sract" data-act="srHit" data-k="' + k + '"><b>' + t.split(' ')[0] + '</b><span>' + t.split(' ').slice(1).join(' ') + '</span></button>').join('') + '</div></div>';
+    return '<div class="srbox bat' + (SR.fx === 'hitP' ? ' hurt' : '') + '"><span class="srname">⚔️ ' + SNPC[VD().boss || 'scale'][0] + '</span><div class="srlives">' + '<i>❤️</i>'.repeat(SR.lives) + '<span> الجولة ' + N(SR.round + 1) + ' / ' + N(SR.rounds.length) + '</span></div>' + (SR.last ? '<p class="srres ' + SR.last + '">' + (SR.last === 'ok' ? '✦ أصبتِ!' : '✕ أخطأتِ التوقيت!') + '</p>' : '') + '<p class="srt">' + r[0] + '</p><div class="sracts">' + (VD().acts || SBA).map(([k, t]) => '<button class="sract" data-act="srHit" data-k="' + k + '"><b>' + t.split(' ')[0] + '</b><span>' + t.split(' ').slice(1).join(' ') + '</span></button>').join('') + '</div></div>';
   }
   const n = stNode(), who = SNPC[n.who] || SNPC.nar, name = n.who === 'friend' ? FRIEND() : n.who === 'nar' ? 'الراوي' : n.who === 'me' ? gm('أنتِ', 'أنت') : who[0];
   const por = n.who === 'me' ? ((typeof charSVG === 'function' && charSVG(R.equipped)) || '') : who[1] && n.who !== 'nar' ? '<svg viewBox="0 0 64 64" aria-hidden="true">' + who[1] + '</svg>' : '';
   let h = '<div class="srbox' + (n.win ? ' win' : n.lose ? ' lose' : '') + '"><span class="srname">' + name + '</span>' + (por ? '<span class="srpor">' + por + '</span>' : '') + '<p class="srt" data-tw="1">' + n.t(F) + '</p>' + (n.hint && n.hint(F) ? '<p class="srhint">' + n.hint(F) + '</p>' : '');
-  if (n.ch) h += '<div class="srch">' + n.ch.map((c, i) => { const paid = c.cid && stSt().paid[c.cid], poor = c.cost && !paid && R.balance < c.cost; return '<button class="srbtn' + (c.end ? ' main' : '') + '" data-act="srCh" data-i="' + i + '"' + (poor ? ' disabled' : '') + '>▸ ' + c.t + (c.cost ? ' <span class="srcost">' + (paid ? 'مدفوعة سابقًا' : N(c.cost) + ' ⃁') + '</span>' : '') + (poor ? ' <span class="srcost">رصيدك لا يكفي</span>' : '') + '</button>'; }).join('') + '</div>';
+  if (n.ch) h += '<div class="srch">' + n.ch.map((c, i) => { if (c.if && !c.if(F)) return ''; const paid = c.cid && stSt().paid[c.cid], poor = c.cost && !paid && R.balance < c.cost; return '<button class="srbtn' + (c.end ? ' main' : '') + '" data-act="srCh" data-i="' + i + '"' + (c.nm ? ' data-nm="1"' : '') + (poor ? ' disabled' : '') + '>▸ ' + (typeof c.t === 'function' ? c.t(F) : c.t) + (c.cost ? ' <span class="srcost">' + (paid ? 'مدفوعة سابقًا' : N(c.cost) + ' ⃁') + '</span>' : '') + (poor ? ' <span class="srcost">رصيدك لا يكفي</span>' : '') + '</button>'; }).join('') + '</div>';
   if (n.lose) { stEndMark(SR.node); h += '<div class="srend"><h2>' + gm('هُزمتِ', 'هُزمت') + '</h2>' + stStars(0) + '<p>' + gm('بلا نجوم لا تُحسب القرية. أعيديها واختاري طريقًا آخر.', 'بلا نجوم لا تُحسب القرية. أعدها واختر طريقًا آخر.') + '</p>' + stEndLine() + '<div class="srch"><button class="srbtn main" data-act="srRetry">↻ ' + gm('أعيدي', 'أعد') + ' القرية</button></div></div>'; }
   if (n.win && n.keep) { h = h.replace('<div class="srch">', '<div class="srend"><h2>🔔 عاد الجرس يُقرع!</h2><div class="srbig">' + stStars(SR.stars) + '</div>' + (SR.gain ? '<p class="srgain">+<b class="num">' + N(SR.gain) + '</b> ⃁</p>' : '') + '<p class="srles"><b>فُتحت بيوت الذكرى (مباني أوسمتك):</b><br>' + V0.houses.map((x) => '🏛️ ' + x[0] + ': ' + x[1]).join('<br>') + '</p><p class="srles">' + V0.lesson + '</p>' + stEndLine() + '</div><div class="srch">'); }
-  else if (n.win) { const cry = stCry(F, SR.stars); h += '<div class="srend"><h2>' + (cry ? '💎 تحرير مثالي!' : '✦ حرّرتِ القرية!') + '</h2><div class="srbig">' + stStars(SR.stars, cry) + '</div>' + (SR.gain ? '<p class="srgain">+<b class="num">' + N(SR.gain) + '</b> ⃁</p>' : (SR.prev ? '<p class="small">سبق أن نلتِ مكافأة بنفس النجوم أو أكثر.</p>' : '')) + (SR.back ? '<p class="srgain" style="font-size:15px">🏺 ردّت الأواني جميلك: +<b class="num">' + N(SR.back) + '</b> ⃁</p>' : '') + '<p class="srles">' + V1.lesson + '</p>' + stEndLine() + (stSt().perm.jarGrudge ? '<p class="small">الإبريق الغاضب يراقبك من بعيد… (سيأتي قريبًا)</p>' : '') + '<div class="srch"><button class="srbtn main" data-act="srLeave">🗺️ إلى العالم</button><button class="srbtn" data-act="srRetry">↻ إعادة القرية</button></div></div>'; }
+  else if (n.win) { const D = VD(), cry = !!(D.cry && D.cry(F, SR.stars)); h += '<div class="srend"><h2>' + (cry ? '💎 ' + (D.stage ? 'مرحلة مثالية!' : 'تحرير مثالي!') : (typeof D.winTitle === 'function' ? D.winTitle() : D.winTitle) || gm('✦ حرّرتِ القرية!', '✦ حرّرت القرية!')) + '</h2><div class="srbig">' + stStars(SR.stars, cry) + '</div>' + (SR.gain ? '<p class="srgain">+<b class="num">' + N(SR.gain) + '</b> ⃁</p>' : (SR.prev ? '<p class="small">سبق أن نلتِ مكافأة بنفس النجوم أو أكثر.</p>' : '')) + (SR.back ? '<p class="srgain" style="font-size:15px">🏺 ردّت الأواني جميلك: +<b class="num">' + N(SR.back) + '</b> ⃁</p>' : '') + '<p class="srles">' + D.lesson + '</p>' + stEndLine() + (SR.v === 'v1' && stSt().perm.jarGrudge ? '<p class="small">الإبريق الغاضب يراقبك من بعيد… (سيأتي قريبًا)</p>' : '') + '<div class="srch"><button class="srbtn main" data-act="srLeave">🗺️ إلى العالم</button><button class="srbtn" data-act="srRetry">↻ ' + (D.stage ? 'إعادة المرحلة' : 'إعادة القرية') + '</button></div></div>'; }
   return h + '</div>';
 }
 /* كتابة النص حرفًا حرفًا (لمس الصندوق يكملها)، والخيارات تظهر بعدها */
@@ -5926,21 +6239,24 @@ function stWalk(toX, toY, cb, pid) {
 }
 function stAv(k) { return k === 'me' ? '' : '<svg viewBox="0 0 64 64" aria-hidden="true">' + (SNPC[k] || SNPC.nar)[1] + '</svg>'; }
 function stFinish() {
-  const s = stSt(), v = SR.v, F = SR.flags, cry = v === 'v1' && stCry(F, SR.stars), prev = s.done[v]; s.best = s.best || {}; const prevStars = Math.max(prev ? prev.stars : 0, (s.best[v] && s.best[v].stars) || 0);
-  stEndMark('w' + SR.stars); if (cry) stEndMark('wc');
+  const s = stSt(), v = SR.v, F = SR.flags, D = VD(), cry = !!(D.cry && D.cry(F, SR.stars)), prev = s.done[v]; s.best = s.best || {}; const prevStars = Math.max(prev ? prev.stars : 0, (s.best[v] && s.best[v].stars) || 0);
+  stEndMark('w' + SR.stars); if (cry) stEndMark('wc'); if (D.nodes[SR.node] && D.nodes[SR.node].win && SR.node !== 'win' && v !== 'v0') stEndMark(SR.node);
+  s.mem = s.mem || {}; s.mem[v] = Array.from(F); /* ما حدث في مرحلة يظهر في التالية */
   /* ما أنفقتِه على الأواني يعود هدية بعد التحرير (مرة واحدة) */
   SR.back = 0; if (v === 'v1' && F.has('friendJar') && !s.paid.v1back) { SR.back = (s.paid.v1jar ? 15 : 0) + (s.paid.v1jar2 ? 25 : 0); if (SR.back) { s.paid.v1back = 1; s.log.push({ id: 'v1back-' + Date.now().toString(36), date: TODAY(), coins: SR.back, reason: 'رحلة الأراضي: هدية الأواني' }); } }
-  const R0 = (n) => (n ? (v === 'v0' ? 20 + n * 10 : 60 + n * 20) : 0); SR.gain = Math.max(0, R0(SR.stars) - R0(prevStars)) + (cry && !(prev && prev.crystal) && !(s.best[v] && s.best[v].crystal) ? 50 : 0); SR.prev = !!(prev || s.best[v]);
-  if (SR.gain) s.log.push({ id: v + '-' + Date.now().toString(36), date: TODAY(), coins: SR.gain, reason: 'رحلة الأراضي: ' + (v === 'v0' ? 'إحياء تلّ القناديل' : 'تحرير قرية الرمل الرمادي') });
+  const R0 = (n) => (n ? (v === 'v0' ? 20 + n * 10 : v === 'v1' ? 60 + n * 20 : 45 + n * 15) : 0); SR.gain = Math.max(0, R0(SR.stars) - R0(prevStars)) + (cry && !(prev && prev.crystal) && !(s.best[v] && s.best[v].crystal) ? 50 : 0); SR.prev = !!(prev || s.best[v]);
+  if (SR.gain) s.log.push({ id: v + '-' + Date.now().toString(36), date: TODAY(), coins: SR.gain, reason: 'رحلة الأراضي: ' + (v === 'v0' ? 'إحياء تلّ القناديل' : v === 'v1' ? 'تحرير قرية الرمل الرمادي' : D.name + ' (' + D.stage + ')') });
   s.done[v] = { stars: Math.max(prevStars, SR.stars), crystal: !!(cry || (prev && prev.crystal) || (s.best[v] && s.best[v].crystal)), date: (prev && prev.date) || TODAY() };
   s.best[v] = { stars: s.done[v].stars, crystal: s.done[v].crystal };
   persist(); recompute(); SFX.play('win');
 }
 function stNew(v) { const vv = v || (SR && SR.v) || 'v1', s = stSt(); s.runs = s.runs || {}; s.runs[vv] = (s.runs[vv] || 0) + 1; persist(); return { v: vv, node: 'intro', stars: 3, flags: new Set(), lives: 1, round: 0 }; }
 /* النهايات: كل هزيمة نهاية، وكل عدد نجوم للفوز نهاية، والكريستالية نهاية (في الرمل الرمادي) */
-function stEndIds(v) { const D = v === 'v0' ? V0 : V1, L = Object.keys(D.nodes).filter((k) => D.nodes[k].lose); if (v === 'v1' && L.indexOf('lose2') < 0) L.push('lose2'); return L.concat(['w1', 'w2', 'w3'], v === 'v1' ? ['wc'] : []); }
+function stEndIds(v) { const D = VMAP()[v] || V1, L = Object.keys(D.nodes).filter((k) => D.nodes[k].lose); if (D.loseB && L.indexOf(D.loseB) < 0) L.push(D.loseB); const W = v === 'v0' || v === 'v1' ? [] : Object.keys(D.nodes).filter((k) => D.nodes[k].win); return L.concat(W.length > 1 ? W : [], ['w1', 'w2', 'w3'], D.cry ? ['wc'] : []); }
 function stEndMark(id) { const s = stSt(); s.ends = s.ends || {}; const e = (s.ends[SR.v] = s.ends[SR.v] || []); if (e.indexOf(id) < 0) { e.push(id); persist(); } }
-function stEndLine() { const s = stSt(), all = stEndIds(SR.v), got = ((s.ends || {})[SR.v] || []).filter((x) => all.indexOf(x) >= 0).length; return '<p class="small srends">' + gm('وجدتِ', 'وجدت') + ' <b class="num">' + N(got) + '</b> من <b class="num">' + N(all.length) + '</b> نهايات في هذه القرية</p>'; }
+/* أنواع النهايات: نجمة، نجمتان، ثلاث نجوم، والكريستالية إن وُجدت */
+function stEndLine() { const s = stSt(), got = (s.ends || {})[SR.v] || [], T = [['w1', '★'], ['w2', '★★'], ['w3', '★★★']].concat(VD().cry ? [['wc', '💎']] : []);
+  return '<div class="srends"><span class="small">النهايات:</span>' + T.map(([k, t]) => '<span class="srend1' + (got.indexOf(k) >= 0 ? ' on' : '') + '">' + t + '</span>').join('') + '</div>'; }
 const stAvail = () => stChecks() - Object.keys(stSt().unl || {}).length;
 function stToast(t) { const f = document.querySelector('.srfull'); if (!f) return; let b = f.querySelector('.srtoast'); if (!b) { b = document.createElement('div'); b.className = 'srtoast'; f.appendChild(b); } b.textContent = t; b.classList.remove('on'); void b.offsetWidth; b.classList.add('on'); }
 function stAct(k, a) {
@@ -5950,8 +6266,19 @@ function stAct(k, a) {
   }
   if (k === 'srHow') { const p = document.getElementById('srhow'); if (p) p.hidden = !p.hidden; return true; }
   if (k === 'srExit') { SR = null; VIEW = 'games'; render(); window.scrollTo(0, 0); return true; }
+  if (k === 'srName') { stAskName(() => render()); return true; }
+  if (k === 'srPickX') { SRPK = null; render(); return true; }
+  if (k === 'srStage') {
+    const id = a.dataset.v, s = stSt(), i = V2S.indexOf(id); if (i < 0) return true; s.unl = s.unl || {};
+    if (!(i === 0 ? s.done.v1 : s.done[V2S[i - 1]])) return true;
+    if (!s.unl[id]) { if (stAvail() <= 0) { stToast(gm('🎟️ أنجزي مهام اليوم لتحصلي على تذكرة لهذه المرحلة', '🎟️ أنجز مهام اليوم لتحصل على تذكرة لهذه المرحلة')); SFX.play('soft'); return true; } s.unl[id] = TODAY(); persist(); }
+    SRPK = null; render(); SFX.play('whoosh');
+    stWalk(110, 410, () => { const w = document.querySelector('.srworld'); if (w) w.classList.add('zv2'); setTimeout(() => { SR = stNew(id); render(); }, w && !navigator.webdriver ? 850 : 0); });
+    return true;
+  }
   if (k === 'srGo') {
     if (SR) return true; const v = STV.find((x) => x.id === a.dataset.v); if (!v) return true;
+    if (v.multi) { if (!stSt().done.v0) { stToast('ابدئي بتلّ القناديل أولًا ✨'); return true; } SRPK = v.id; SFX.play('page'); render(); return true; }
     if (v.soon) { stToast(v.name + ': سيأتي قريبًا ✨'); SFX.play('soft'); return true; }
     const s = stSt(); s.unl = s.unl || {};
     if (v.id === 'v0') { SFX.play('whoosh'); stWalk(v.x - 20, v.y + 20, () => { const w = document.querySelector('.srworld'); if (w) w.classList.add('fadeo'); setTimeout(() => { SR = stNew('v0'); render(); }, w && !navigator.webdriver ? 450 : 0); }, 'srpath0'); return true; }
@@ -5960,15 +6287,15 @@ function stAct(k, a) {
     SFX.play('whoosh'); stWalk(v.x - 26, v.y + 30, () => { const w = document.querySelector('.srworld'); if (w) w.classList.add('zv1'); setTimeout(() => { SR = stNew('v1'); render(); }, w && !navigator.webdriver ? 850 : 0); });
     return true;
   }
-  if (k === 'srLeave') { const w = document.querySelector('.srworld'), b = document.querySelector('.srbox'); if (b) b.classList.add('out'); if (SR && SR.v === 'v0') { SR = null; render(); return true; } if (w && !navigator.webdriver) { w.classList.remove('zv1'); setTimeout(() => { SR = null; render(); }, 700); } else { SR = null; render(); } return true; }
+  if (k === 'srLeave') { const w = document.querySelector('.srworld'), b = document.querySelector('.srbox'); if (b) b.classList.add('out'); if (SR && SR.v === 'v0') { SR = null; render(); return true; } if (w && !navigator.webdriver) { w.classList.remove('zv1', 'zv2'); setTimeout(() => { SR = null; render(); }, 700); } else { SR = null; render(); } return true; }
   if (k === 'srRetry') { SR = stNew(); render(); return true; }
   if (k === 'srNext') { SR.node = a.dataset.to; SFX.play('page'); render(); return true; }
   if (k === 'srCh') {
     const n = stNode(), c = n && n.ch[+a.dataset.i]; if (!c) return true; const s = stSt();
     if (c.end) { SR = null; const noTasks = !ST.tasks.some((t) => !t.deletedDate); VIEW = c.end; render(); window.scrollTo(0, 0); if (c.end === 'tasks') setTimeout(() => modal('<h2>هيا نستعد! ⚔️</h2><p>' + (noTasks ? 'أنشئي أول مهمة لك وأنجزيها، وكل يوم تنجزين فيه مهامك يعطيك شيكًا يفتح قرية جديدة.' : 'أنجزي مهامك، وكل يوم تنجزين فيه مهامك يعطيك شيكًا يفتح قرية جديدة.') + '</p><div class="actions"><button class="btn" data-close>يلا</button></div>', { noFocus: true }), 300); return true; }
-    const go = () => { if (c.st) SR.stars = Math.max(1, SR.stars + c.st); (c.flag || []).forEach((f) => SR.flags.add(f)); if (c.perm && s.runs && s.runs[SR.v] === 1 && !s.done[SR.v]) { s.perm[c.perm] = 1; persist(); } if (c.unperm && s.perm[c.unperm]) { delete s.perm[c.unperm]; persist(); }
+    const go = () => { if (c.st) SR.stars = Math.max(1, SR.stars + c.st); (typeof c.flag === 'function' ? c.flag(SR.flags) : c.flag || []).forEach((f) => SR.flags.add(f)); if (c.perm && s.runs && s.runs[SR.v] === 1 && !s.done[SR.v]) { s.perm[c.perm] = 1; persist(); } if (c.unperm && s.perm[c.unperm]) { delete s.perm[c.unperm]; persist(); }
       const to = typeof c.to === 'function' ? c.to(SR.flags) : c.to; SR.node = to;
-      if (to === 'battle') { const F = SR.flags; SR.lives = 1 + (F.has('friend') ? 1 : 0) + (F.has('friendJar') ? 1 : 0) + (F.has('rescued') ? 1 : 0); SR.round = 0; SR.last = ''; SR.rounds = V1.battle.slice().sort(() => Math.random() - .5).slice(0, 4); }
+      if (to === 'battle') { const F = SR.flags, D = VD(); SR.lives = D.lives ? D.lives(F) : 1 + (F.has('friend') ? 1 : 0) + (F.has('friendJar') ? 1 : 0) + (F.has('rescued') ? 1 : 0); SR.round = 0; SR.last = ''; SR.rounds = D.battle.slice().sort(() => Math.random() - .5).slice(0, 4); }
       const nn = VD().nodes[to]; if (nn && nn.win) stFinish(); if (nn && nn.lose) SFX.play('lose'); else if (!(nn && nn.win)) SFX.play('page'); render(); };
     if (c.cost && !s.paid[c.cid]) {
       confirmDlg({ title: 'تأكيد الشراء', body: '<p>' + c.t + ' مقابل <b class="num">' + N(c.cost) + '</b> ⃁؟</p><p class="small muted">تُخصم مرة واحدة فقط، ولو أعدتِ القرية واخترتِه مجددًا لن يُخصم.</p>', ok: 'شراء' }).then((ok) => { if (!ok) return; if (R.balance < c.cost) return; s.paid[c.cid] = 1; ST.purchases.push({ id: 'st' + Date.now().toString(36), kind: 'story', item: c.cid, date: TODAY(), ts: Date.now(), price: c.cost }); persist(); recompute(); SFX.play('coin'); go(); });
@@ -5978,8 +6305,8 @@ function stAct(k, a) {
   }
   if (k === 'srHit') {
     const r = SR.rounds[SR.round]; if (a.dataset.k === r[1]) { SR.last = 'ok'; SR.fx = ''; SR.fxW = 'hitE'; SR.round++; SFX.play('slash'); } else { SR.last = 'no'; SR.fx = 'hitP'; SR.fxW = ''; SR.lives--; SFX.play('lose'); }
-    if (SR.lives <= 0) { SR.node = 'lose2'; V1.nodes.lose2 = V1.nodes.lose2 || { who: 'scale', lose: 1, t: () => 'ضحك الميزان: «كل شيء له ثمن!» خسرتِ المعركة هذه المرة.' }; }
-    else if (SR.round >= SR.rounds.length) { SR.node = 'win'; stFinish(); }
+    if (SR.lives <= 0) { V1.nodes.lose2 = V1.nodes.lose2 || { who: 'scale', lose: 1, t: () => gm('ضحك الميزان: «كل شيء له ثمن!» خسرتِ المعركة هذه المرة.', 'ضحك الميزان: «كل شيء له ثمن!» خسرت المعركة هذه المرة.') }; SR.node = VD().loseB || 'lose2'; }
+    else if (SR.round >= SR.rounds.length) { SR.node = VD().afterB || 'win'; if (VD().nodes[SR.node] && VD().nodes[SR.node].win) stFinish(); }
     render(); setTimeout(() => { if (SR) { SR.fx = ''; SR.fxW = ''; } }, 0); return true;
   }
   return false;
@@ -5996,15 +6323,15 @@ document.addEventListener('click', (e) => { const a = e.target.closest('[data-ac
 (() => { const st = document.createElement('style'); st.textContent = `
 body.storyview{background:#1E1A30!important;overflow:hidden}body.storyview .icy::after,body.storyview #frost{display:none!important}body.storyview #app{filter:none!important}
 .srfull{position:fixed;inset:0;z-index:60;background:linear-gradient(180deg,#3A3450,#6A7A5A 30%,#9CC774 60%,#9CC774);overflow:hidden;color:#F4EEFF;user-select:none;-webkit-user-select:none}
-.srvil{position:absolute;top:calc(env(safe-area-inset-top,0px) + 58px);left:0;right:0;margin:0 auto;width:100%;max-width:560px;aspect-ratio:600/800;max-height:calc(100% - 58px);border-radius:0 0 18px 18px;overflow:hidden}.srvsv{display:block;width:100%;height:100%}.srring{transform-box:fill-box;transform-origin:50% 0;animation:srring 1.2s ease-in-out infinite}@keyframes srring{25%{transform:rotate(12deg)}75%{transform:rotate(-12deg)}}.srworld.fadeo{transition:opacity .45s;opacity:0}
-.srworld{position:absolute;top:calc(env(safe-area-inset-top,0px) + 66px);bottom:calc(env(safe-area-inset-bottom,0px) + 4px);left:0;right:0;max-width:560px;margin:0 auto;transform-origin:52.5% 71%;transition:transform .9s cubic-bezier(.4,0,.2,1)}.srworld.zv1{transform:translateY(-30%) scale(1.4)}
-.srw{width:100%;height:100%;display:block}.srnode{cursor:pointer}
+.srvil{position:absolute;top:calc(env(safe-area-inset-top,0px) + 58px);left:0;right:0;margin:0 auto;width:100%;max-width:560px;aspect-ratio:600/800;max-height:calc(100% - 58px);border-radius:0 0 18px 18px;overflow:hidden}.srvsv{display:block;width:100%;height:100%}.srvil.big{max-width:none;aspect-ratio:auto;height:calc(100% - 58px - env(safe-area-inset-top,0px));border-radius:0}.srring{transform-box:fill-box;transform-origin:50% 0;animation:srring 1.2s ease-in-out infinite}@keyframes srring{25%{transform:rotate(12deg)}75%{transform:rotate(-12deg)}}.srworld.fadeo{transition:opacity .45s;opacity:0}
+.srworld{position:absolute;top:calc(env(safe-area-inset-top,0px) + 66px);bottom:calc(env(safe-area-inset-bottom,0px) + 4px);left:0;right:0;margin:0 auto;overflow:hidden;transform-origin:52.5% 71%;transition:transform .9s cubic-bezier(.4,0,.2,1)}.srworld.zv1{transform:translateY(-30%) scale(1.4)}.srworld.zv2{transform-origin:27.5% 46%;transform:translateY(-6%) scale(1.55)}
+.srw{width:100%;height:100%;display:block;overflow:visible}.srworld.tipd{top:calc(env(safe-area-inset-top,0px) + 112px)}.srnode{cursor:pointer}
 .srhud{position:absolute;top:0;left:0;right:0;max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 18px) 12px 10px;background:linear-gradient(180deg,rgba(20,16,34,.85),rgba(20,16,34,0))}
 .srhb{all:unset;cursor:pointer;flex:none;width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:rgba(30,26,46,.75);border:1.5px solid rgba(201,162,74,.6);font-size:20px;font-weight:800;color:#F2D27A}
 .srht{flex:1;text-align:center;display:flex;flex-direction:column;line-height:1.3}.srht b{font-size:17px;text-shadow:0 2px 8px rgba(0,0,0,.6)}.srht span{font-size:12.5px;color:#D8CCF0}
-.srtip{position:absolute;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:2;max-width:520px;margin:0 auto;background:rgba(30,26,46,.86);border:1.5px solid rgba(201,162,74,.6);border-radius:16px;padding:10px 14px;text-align:center;font-weight:700;font-size:15px;animation:srin .5s ease-out}
+.srpick{position:absolute;left:16px;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:4;max-width:460px;margin:0 auto;background:rgba(30,26,46,.94);border:1.5px solid rgba(201,162,74,.7);border-radius:18px;padding:14px;color:#F4EEFF;display:flex;flex-direction:column;gap:8px;animation:srin .3s ease-out}.srpick b{font-size:18px;text-align:center}.srpick p{margin:0;text-align:center;color:#C8BEE8}.srtip{position:absolute;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:2;max-width:520px;margin:0 auto;background:rgba(30,26,46,.86);border:1.5px solid rgba(201,162,74,.6);border-radius:14px;padding:7px 12px;text-align:center;font-weight:700;font-size:13.5px;line-height:1.5;animation:srin .5s ease-out}
 .srtoast{position:absolute;left:50%;top:84px;transform:translateX(-50%);background:rgba(30,26,46,.92);border:1.5px solid #C9A24A;border-radius:14px;padding:8px 14px;font-weight:700;font-size:14px;white-space:nowrap;opacity:0;pointer-events:none}.srtoast.on{animation:srtoast 2.6s ease-out}@keyframes srtoast{0%{opacity:0;transform:translate(-50%,-8px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
-.srhowp{position:absolute;left:16px;right:16px;top:70px;max-width:500px;margin:0 auto;background:#2A2438;border:2px solid #C9A24A;border-radius:18px;padding:14px;z-index:3;box-shadow:0 12px 30px rgba(0,0,0,.5)}.srhowp ul{margin:8px 0;padding-inline-start:18px;line-height:1.9;font-size:14.5px}.srhowp p{font-size:13px;color:#B8ACD8;margin:0 0 10px}.srends{opacity:.85;margin:6px 0 0}
+.srhowp{position:absolute;left:16px;right:16px;top:70px;max-width:500px;margin:0 auto;background:#2A2438;border:2px solid #C9A24A;border-radius:18px;padding:14px;z-index:3;box-shadow:0 12px 30px rgba(0,0,0,.5)}.srhowp ul{margin:8px 0;padding-inline-start:18px;line-height:1.9;font-size:14.5px}.srhowp p{font-size:13px;color:#B8ACD8;margin:0 0 10px}.srends{display:flex;gap:6px;justify-content:center;align-items:center;flex-wrap:wrap;margin:8px 0 0}.srend1{padding:2px 9px;border-radius:10px;border:1px dashed rgba(255,233,168,.45);color:rgba(255,233,168,.4);font-size:13px}.srend1.on{border-style:solid;background:rgba(255,233,168,.18);color:#FFE9A8}
 .srglow{animation:srglow 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes srglow{50%{opacity:.65}}
 .srgloom{animation:srgloom 5s ease-in-out infinite}@keyframes srgloom{50%{transform:translateX(5px)}}.srflag{transform-box:fill-box;transform-origin:left center;animation:srflag 1.6s ease-in-out infinite}@keyframes srflag{50%{transform:scaleX(.8)}}
 .srriver{animation:srriv 3s linear infinite}@keyframes srriv{to{stroke-dashoffset:-48}}.srfog2{animation:srfog 7s ease-in-out infinite}@keyframes srfog{50%{transform:translateX(6px);opacity:.85}}
@@ -6205,8 +6532,8 @@ function viewHome() {
     // النار والحطب (المهام)
     '<g class="hs hfire hf' + F.lvl + '" data-hk="tasks" aria-hidden="true"' + (DMG ? ' style="transform:scale(' + (1 - DMG * .12).toFixed(2) + ');transform-origin:200px 430px;transform-box:view-box"' : '') + '><ellipse cx="200" cy="400" rx="' + (56 + F.lvl * 14) + '" ry="' + (34 + F.lvl * 8) + '" fill="url(#hglow)"/>' +
     '<g transform="translate(200 416) scale(' + (fs * .86).toFixed(3) + ') translate(-256 -440)"><g stroke="#3E2616" stroke-width="7" stroke-linejoin="round"><rect x="116" y="414" width="280" height="50" rx="25" fill="#8A5A33" transform="rotate(13 256 440)"/><rect x="116" y="414" width="280" height="50" rx="25" fill="#9C683B" transform="rotate(-13 256 440)"/></g><g fill="none" stroke="#5B3A22" stroke-width="3"><circle cx="150" cy="468" r="11"/><circle cx="362" cy="468" r="11"/></g></g>' +
-    '<g transform="translate(200 420) scale(' + (fs * (R.flameKind === 'small' ? .55 : 1)) + ') translate(-256 -388)"><g class="hflame"><path d="M256 96C276 150 330 186 340 262C348 328 306 388 256 388C206 388 164 328 172 262C178 224 200 202 214 176C222 204 238 214 250 214C244 176 246 132 256 96Z" fill="url(#hff)" stroke="' + FC.edge + '" stroke-width="10" stroke-linejoin="round"/><path d="M256 206C270 240 304 262 308 306C311 342 286 372 256 372C226 372 201 342 204 306C207 276 226 262 238 238C244 254 250 258 256 258C254 238 252 222 256 206Z" fill="' + FC.core + '"/></g></g>' +
-    ('<g class="hspark">' + [[-6, 0], [5, .7], [-1, 1.4], [8, 2.1], [-9, 2.8]].slice(0, 2 + F.lvl).map(([dx, dl]) => '<circle cx="' + (200 + dx) + '" cy="' + (418 - 300 * fs * (R.flameKind === 'small' ? .55 : 1)) + '" r="' + (1.6 + (dl * 10 % 3) * .3).toFixed(1) + '" fill="' + FC.core + '" style="animation-delay:-' + dl + 's"/>').join('') + '</g>') + (false ? '' : '') + '</g>' +
+    '<g transform="translate(200 420) scale(' + fs + ') translate(-256 -388)"><g class="hflame"><path d="' + (R.flameKind === 'small' ? FL_SMALL : FL_BODY) + '" fill="url(#hff)" stroke="' + FC.edge + '" stroke-width="10" stroke-linejoin="round"/><path d="' + (R.flameKind === 'small' ? FL_SMALL_CORE : FL_CORE) + '" fill="' + FC.core + '"/></g></g>' +
+    ('<g class="hspark">' + [[-6, 0], [5, .7], [-1, 1.4], [8, 2.1], [-9, 2.8]].slice(0, 2 + F.lvl).map(([dx, dl]) => '<circle cx="' + (200 + dx) + '" cy="' + (418 - (R.flameKind === 'small' ? 175 : 300) * fs) + '" r="' + (1.6 + (dl * 10 % 3) * .3).toFixed(1) + '" fill="' + FC.core + '" style="animation-delay:-' + dl + 's"/>').join('') + '</g>') + (false ? '' : '') + '</g>' +
     // اليوميات: دفتر مفتوح على جذع
     '<g class="hs" data-hk="diary" aria-hidden="true" transform="translate(-14 -22) translate(153 418) scale(1.35) translate(-153 -418)"><path d="M136 428V412H170V428Z" fill="#9C683B" stroke="' + C.ink + '" stroke-width="2.2"/><ellipse cx="153" cy="412" rx="17" ry="6" fill="#C9955E" stroke="' + C.ink + '" stroke-width="2.2"/><ellipse cx="153" cy="412" rx="9" ry="3" fill="none" stroke="#8A5A33" stroke-width="1.4"/>' +
     // دفتر مفتوح ممدّد على سطح الجذع، بلون ورق اليوميات (داكن في الوضع الداكن)
@@ -6737,11 +7064,11 @@ function viewDiary() {
   if (DVIEW === 'book') {
     /* الدفتر يُفتح دائمًا على صفحة جديدة لليوم (إن لم تُكتب يومية اليوم بعد) */
     if (!DMOOD && !q && !DIARY.some((e) => e.date === TODAY())) list.unshift(null);
-    const n = list.length; if (DPAGE > n - 1) DPAGE = Math.max(0, n - 1);
+    const n = list.length, ns = Math.max(1, Math.ceil(n / 2)); if (DPAGE > ns - 1) DPAGE = ns - 1;
     setTimeout(() => { const bk = document.getElementById('dbook'); if (bk) hydrate(bk); }, 0);
     PGBG = ' ';
-    return '<div class="stack"><div class="dtop"><button class="dico" data-act="dView" data-v="list" aria-label="البحث وكل اليوميات"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg></button><span class="dtt">اليوميات</span><button class="dico" data-act="dNew" aria-label="يومية جديدة"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><div class="dbook" id="dbook"><div class="dpages">' + diaryPageHTML(list[DPAGE], DPAGE, n) + '</div>' +
-      (n > 1 ? '<div class="dbnav"><button class="btn soft" data-act="dFlip" data-d="-1"' + (DPAGE === 0 ? ' disabled' : '') + '>الأحدث ›</button><span class="small muted">اسحبي لقلب الصفحة</span><button class="btn soft" data-act="dFlip" data-d="1"' + (DPAGE >= n - 1 ? ' disabled' : '') + '>‹ الأقدم</button></div>' : '') + '</div></div>';
+    return '<div class="stack"><div class="dtop"><button class="dico" data-act="dView" data-v="list" aria-label="البحث وكل اليوميات"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg></button><span class="dtt">اليوميات</span><button class="dico" data-act="dNew" aria-label="يومية جديدة"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div><div class="dbook" id="dbook"><div class="dpages dspread">' + diaryPageHTML(list[DPAGE * 2], DPAGE * 2, n) + (list[DPAGE * 2 + 1] !== undefined ? diaryPageHTML(list[DPAGE * 2 + 1], DPAGE * 2 + 1, n) : '<div class="dpage blank" aria-hidden="true"></div>') + '</div>' +
+      (ns > 1 ? '<div class="dbnav"><button class="btn soft" data-act="dFlip" data-d="-1"' + (DPAGE === 0 ? ' disabled' : '') + '>الأحدث ›</button><span class="small muted">' + gm('اسحبي لقلب الصفحة', 'اسحب لقلب الصفحة') + '</span><button class="btn soft" data-act="dFlip" data-d="1"' + (DPAGE >= ns - 1 ? ' disabled' : '') + '>‹ الأقدم</button></div>' : '') + '</div></div>';
   }
   // بحث بسيط: كلمة ← كل يومية فيها الكلمة
   if (!q) return '<div class="stack dsearch"><div class="row" style="gap:8px"><button class="dico" data-act="dView" data-v="book" aria-label="رجوع للدفتر">' + ico('right') + '</button><input type="search" id="dq" placeholder="اكتبي كلمة للبحث في يومياتك" value="" aria-label="بحث" autofocus style="flex:1"></div><p class="muted small" style="text-align:center;margin:18px 0">اكتبي أي كلمة، وتظهر كل يومية كُتبت فيها.</p></div>';
@@ -6754,7 +7081,7 @@ function viewDiary() {
 }
 // قلب الصفحة: تُرسم الصفحة الجديدة ثم تنقلب القديمة فوقها مع صوت ورق
 function diaryFlip(d) {
-  const bk = document.getElementById('dbook'); const old = bk && bk.querySelector('.dpage'); const html = old ? old.outerHTML : '';
+  const bk = document.getElementById('dbook'); const pgs = bk ? bk.querySelectorAll('.dspread>.dpage') : []; const old = d > 0 ? pgs[1] : pgs[0]; const html = old ? old.outerHTML : '';
   const before = DPAGE; DPAGE = Math.max(0, DPAGE + d); render(); if (DPAGE === before) return;
   SFX.play('page');
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !html) return;
@@ -6833,6 +7160,7 @@ function dEnsureCaret(ta) {
 }
 function dLockPage(on) {
   const h = document.documentElement; let b = document.getElementById('dback');
+  h.style.background = on ? getComputedStyle(h).getPropertyValue('--paper') || '' : getComputedStyle(document.body).backgroundColor;
   if (on) { h.classList.add('dlock'); if (!b) { b = document.createElement('div'); b.id = 'dback'; b.className = 'dback'; document.body.appendChild(b); } }
   else { h.classList.remove('dlock'); if (b) b.remove(); }
 }
@@ -6986,7 +7314,7 @@ function hopeMsg(st) {
 let HSEL = null;
 function viewHope() {
   const today = TODAY(); const H = hopeEnsure();
-  let h = '<div class="stack">' + (HSEL ? '' : '<div class="card stack"><button class="btn" data-act="hAdd">+ عادة جديدة</button><button class="hinfo" data-act="hInfo" aria-expanded="false">عن هذا القسم ▾</button><p class="muted small" id="hinfop" hidden style="margin:0">مكان للتعافي من العادات التي تريدين تركها. كل يوم نظيف تُضاء نجمة جديدة في سمائك. وإن تعثّرتِ فنجومك لا تُحذف، فقط تخفت قليلًا حتى تعودين.</p></div>');
+  let h = '<div class="stack">' + (HSEL || H.habits.length === 1 ? '' : '<div class="card stack"><button class="btn" data-act="hAdd">+ عادة جديدة</button><button class="hinfo" data-act="hInfo" aria-expanded="false">عن هذا القسم ▾</button><p class="muted small" id="hinfop" hidden style="margin:0">مكان للتعافي من العادات التي تريدين تركها. كل يوم نظيف تُضاء نجمة جديدة في سمائك. وإن تعثّرتِ فنجومك لا تُحذف، فقط تخفت قليلًا حتى تعودين.</p></div>');
   if (HSEL && !H.habits.some((x) => x.id === HSEL)) HSEL = null;
   /* مربعات صغيرة (٣ بالصف): الشكل والأيام وزر العودة فقط، ولمس المربع يفتح العادة بالشاشة كاملة. وإن كانت عادة واحدة تظهر كبيرة مباشرة */
   if (H.habits.length > 1 && !HSEL) {
@@ -6996,23 +7324,28 @@ function viewHope() {
   const SEL = HSEL || (H.habits.length === 1 ? H.habits[0].id : null);
   if (!H.habits.length) h += '<div class="hopesky"><p style="margin:0">لا عادات بعد. اضغطي «عادة جديدة» واكتبي اسم العادة التي تريدين تركها، وسأبدأ سماءك من اليوم.</p></div>';
   H.habits.filter((x) => x.id === SEL).forEach((x) => {
+    /* كل شيء في شاشة واحدة بلا تمرير: السماء والعدد والأزرار، والتفاصيل في نافذة «المزيد» */
     const st = hopeStats(x, today); const off = hOff(x), shapeK = st.sectors + off;
-    const arch = []; for (let i = 0; i < st.sectors; i++) arch.push('<div class="a">' + skySVG(i + off, HOPE_N, { mini: true }) + '<div>' + HSHAPES[(i + off) % HSHAPES.length] + '</div></div>');
-    const disc = HDISC.map((d) => '<span class="' + (st.inSec >= d[0] || (d[0] === 30 && st.sectors > 0 && st.inSec === 0) ? 'on' : '') + '">' + N(d[0]) + ' يومًا: ' + d[1] + '</span>').join('');
-    h += '<div class="hopesky' + (st.dim ? ' cloudy' : '') + ' stack"><div class="hname"><b>' + esc(x.name) + '</b><span class="small muted">منذ ' + dshort(x.start) + '</span><button class="btn soft" data-act="hEdit" data-id="' + x.id + '" style="min-height:34px;padding:2px 12px">تعديل</button></div>' +
-      '<div style="max-width:300px;margin:0 auto;width:100%">' + skySVG(shapeK, st.inSec, { today: !st.relToday }) + '</div>' +
-      '<div><span class="hbig num">' + N(st.stars) + '</span><span class="muted">يومًا من الأمل</span></div><div class="hmsg">' + hopeMsg(st) + '</div>' +
-      '<div class="row" style="flex-wrap:wrap;gap:8px;justify-content:center"><span class="hbadge">' + N(st.run) + ' متتاليًا</span><span class="hbadge">الأطول ' + N(st.best) + '</span>' + (st.last ? '<span class="hbadge">منذ آخر عودة ' + N(st.since) + ' يوم</span>' : '') + '</div>' +
-      (st.dim ? '<div class="small">حتى أجمل المجرات تمرّ بها سحب عابرة. بعد ' + (st.stopped ? 'يوم نظيف واحد' : N(HOPE_RECOVER) + ' أيام نظيفة') + ' تعود نجومك لتتألق بكامل ضوئها.</div>' : '') +
-      '<details class="hmore"><summary>المزيد ▾</summary><div class="stack" style="gap:10px;margin-top:8px"><div class="row" style="flex-wrap:wrap;gap:8px;justify-content:center"><span class="hbadge">كوكبة «' + HSHAPES[shapeK % HSHAPES.length] + '» ' + N(st.inSec) + '/' + N(HOPE_N) + '</span><span class="hbadge">' + N(st.nrel) + ' انتكاسة</span>' + (st.nstop ? '<span class="hbadge">أوقفتِها بنفسك ' + N(st.nstop) + '</span>' : '') + '</div>' +
-      (x.plan ? '<div class="hplan"><div class="small muted">خطتي لهذه اللحظة</div><div>' + esc(x.plan) + '</div></div>' : '') +
-      '<div class="hdisc" style="justify-content:center">' + disc + '</div>' +
-      (st.sectors ? '<div class="small muted">أرشيف السماء</div><div class="arch">' + arch.join('') + '</div>' : '') + '</div></details>' +
-      '<button class="btn soft" data-act="hSupport" data-id="' + x.id + '">أحتاج دعمًا الآن</button>' +
-      (x.notes && Object.keys(x.notes).length ? '<details class="hnotes"><summary class="small muted">ملاحظاتك عن لحظات التعثر</summary>' + Object.keys(x.notes).sort().reverse().slice(0, 5).map((d) => '<div class="small"><b>' + dshort(d) + '</b>: ' + esc(x.notes[d]) + '</div>').join('') + '</details>' : '') +
-      '<button class="btn ghost" data-act="hRelapse" data-id="' + x.id + '"' + (st.relToday ? ' disabled' : '') + '>' + (st.relToday ? 'سُجّلت عودة اليوم' : 'عدتُ للعادة اليوم') + '</button>' + (st.relToday && !st.stopped ? '<button class="btn" data-act="hStop" data-id="' + x.id + '">أوقفتُها الآن ✋</button><p class="small muted" style="margin:0">إن أوقفتِها اليوم تعود نجومك بعد يوم نظيف واحد بدل ' + N(HOPE_RECOVER) + '.</p><button class="hlink" data-act="hUnrel" data-id="' + x.id + '">تراجع: لم أعد لها اليوم</button>' : st.relToday && st.stopped ? '<span class="hbadge">✋ أوقفتِها بنفسك اليوم</span><button class="hlink" data-act="hUnstop" data-id="' + x.id + '">عدتُ لها مرة أخرى اليوم</button>' : '') + '</div>';
+    h += '<div class="hopesky hfit' + (st.dim ? ' cloudy' : '') + '"><div class="hname"><b>' + esc(x.name) + '</b><span class="small muted">منذ ' + dshort(x.start) + '</span><button class="hico" data-act="hEdit" data-id="' + x.id + '" aria-label="تعديل">✎</button>' + (H.habits.length === 1 ? '<button class="hico" data-act="hAdd" aria-label="عادة جديدة">+</button>' : '') + '</div>' +
+      '<div class="hskyw">' + skySVG(shapeK, st.inSec, { today: !st.relToday }) + '</div>' +
+      '<div class="hcount"><span class="hbig num">' + N(st.stars) + '</span><span class="muted">يومًا من الأمل</span></div><div class="hmsg">' + hopeMsg(st) + '</div>' +
+      '<div class="hbadges"><span class="hbadge">' + N(st.run) + ' متتاليًا</span><span class="hbadge">الأطول ' + N(st.best) + '</span><button class="hbadge hmorebtn" data-act="hMore" data-id="' + x.id + '">المزيد ›</button></div>' +
+      (st.dim ? '<div class="small">بعد ' + (st.stopped ? 'يوم نظيف واحد' : N(HOPE_RECOVER) + ' أيام نظيفة') + ' تعود نجومك لتتألق.</div>' : '') +
+      '<div class="hacts"><button class="btn soft" data-act="hSupport" data-id="' + x.id + '">أحتاج دعمًا الآن</button>' +
+      (!st.relToday ? '<button class="btn ghost" data-act="hRelapse" data-id="' + x.id + '">عدتُ للعادة اليوم</button>' : !st.stopped ? '<button class="btn" data-act="hStop" data-id="' + x.id + '">أوقفتُها الآن ✋</button>' : '<button class="btn ghost" data-act="hUnstop" data-id="' + x.id + '">عدتُ لها مجددًا اليوم</button>') + '</div>' +
+      (st.relToday && !st.stopped ? '<button class="hlink" data-act="hUnrel" data-id="' + x.id + '">تراجع: لم أعد لها اليوم</button>' : st.relToday && st.stopped ? '<span class="small muted">✋ أوقفتِها بنفسك اليوم</span>' : '') + '</div>';
   });
   return h + '</div>';
+}
+function hopeMore(id) {
+  const x = hopeEnsure().habits.find((q) => q.id === id); if (!x) return; const st = hopeStats(x, TODAY()), off = hOff(x), shapeK = st.sectors + off;
+  const arch = []; for (let i = 0; i < st.sectors; i++) arch.push('<div class="a">' + skySVG(i + off, HOPE_N, { mini: true }) + '<div>' + HSHAPES[(i + off) % HSHAPES.length] + '</div></div>');
+  const disc = HDISC.map((d) => '<span class="' + (st.inSec >= d[0] || (d[0] === 30 && st.sectors > 0 && st.inSec === 0) ? 'on' : '') + '">' + N(d[0]) + ' يومًا: ' + d[1] + '</span>').join('');
+  modal('<h2>' + esc(x.name) + '</h2><div class="stack" style="gap:10px"><div class="row" style="flex-wrap:wrap;gap:6px"><span class="pill">كوكبة «' + HSHAPES[shapeK % HSHAPES.length] + '» ' + N(st.inSec) + '/' + N(HOPE_N) + '</span><span class="pill">' + N(st.nrel) + ' انتكاسة</span>' + (st.last ? '<span class="pill">منذ آخر عودة ' + N(st.since) + ' يوم</span>' : '') + (st.nstop ? '<span class="pill">أوقفتِها بنفسك ' + N(st.nstop) + '</span>' : '') + '</div>' +
+    (x.plan ? '<div><div class="small muted">خطتي لهذه اللحظة</div><div>' + esc(x.plan) + '</div></div>' : '') + '<div class="hdisc">' + disc + '</div>' +
+    (st.sectors ? '<div class="small muted">أرشيف السماء</div><div class="arch">' + arch.join('') + '</div>' : '') +
+    (x.notes && Object.keys(x.notes).length ? '<div class="small muted">ملاحظاتك عن لحظات التعثر</div>' + Object.keys(x.notes).sort().reverse().slice(0, 5).map((d) => '<div class="small"><b>' + dshort(d) + '</b>: ' + esc(x.notes[d]) + '</div>').join('') : '') +
+    '<p class="small muted" style="margin:0">كل يوم نظيف تُضاء نجمة في سمائك. وإن تعثّرتِ فنجومك لا تُحذف، بل تخفت قليلًا حتى تعودي.</p></div><div class="actions"><button class="btn soft" data-close>إغلاق</button></div>');
 }
 function hopeAdd(h) {
   const today = TODAY(); const m = modal('<h2>' + (h ? 'تعديل العادة' : 'عادة جديدة') + '</h2><div class="field"><label for="hName">اسم العادة التي تريدين تركها</label><input type="text" id="hName" maxlength="40" value="' + esc(h ? h.name : '') + '"></div><div class="field"><label for="hWhy">لماذا أريد تركها؟ (اختياري)</label><textarea id="hWhy" maxlength="200" placeholder="سأذكّرك بها في اللحظات الصعبة">' + esc(h && h.why ? h.why : '') + '</textarea></div><div class="field"><label for="hPlan">خطتي لهذه اللحظة: ماذا سأفعل حين تأتيني الرغبة؟ (اختياري)</label><textarea id="hPlan" maxlength="300" placeholder="مثلًا: أتوضأ، أخرج للمشي، أتصل بصديقتي…">' + esc(h && h.plan ? h.plan : '') + '</textarea></div><div class="field"><label for="hStart">بداية الرحلة</label><input type="date" id="hStart" max="' + today + '" value="' + (h ? h.start : today) + '"></div>' +
@@ -7960,40 +8293,36 @@ function openTaskForm(task, preset) {
   const al0 = E.allowance(ST, today, task ? 0 : 1);
   const firstMain = !task && E.allowance(ST, today, 0).total === 0;
   let m;
-  let showLook = false, showAdv = true; // الرمز واللون والخيارات الإضافية مطوية، تُفتح عند الحاجة
+  let showLook = false, showAdv = true, openRow = null; // كل صف يُفتح عند لمسه، وصف واحد مفتوح في كل مرة
   const advSum = () => { const TOD = { morning: 'الصباح', noon: 'الظهر', night: 'الليل' }; const x = []; if (f.desc || f.why) x.push('وصف'); if (f.excuse) x.push('عذر'); if (f.tod) x.push(TOD[f.tod]); if (f.remind) x.push('تذكير'); if (f.win) x.push('نافذة'); if (f.dev > 1) x.push('تطوير ' + N(f.dev)); return x.length ? x.join('، ') : 'الوصف، الوقت، التذكير…'; };
   const draw = () => {
     const once = !!f.once;
     const mainLike = !once && (f.kind === 'main' || (f.kind === 'weekly' && f.weeklyMode === 'days'));
     const canExempt = task && !E.streakOf(ST, task, today) ? true : al0.left > 0;
     const askStreak = !once && ((mainLike && !firstMain) || (f.kind === 'weekly' && (f.weeklyMode === 'count' || f.weeklyMode === 'mcount')));
+    const TODI = [['', 'أي وقت', '<circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><path d="M12 7v5l3 2"/>'], ['morning', 'الصباح الباكر', '<path d="M3 17h18"/><path d="M7 17a5 5 0 0 1 10 0"/><path d="M12 6v3M5.6 10.6l1.6 1.2M18.4 10.6l-1.6 1.2"/>'], ['noon', 'الظهر والعصر', '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>'], ['night', 'الليل', '<path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z"/>']];
+    const stp = (attr, v, unit) => '<div class="tfst"><button type="button" class="circ mini" ' + attr + '="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(v) + '</output>' + (unit ? '<span class="small muted">' + unit + '</span>' : '') + '<button type="button" class="circ mini" ' + attr + '="1" aria-label="أكثر">' + ico('plus') + '</button></div>';
+    const sw = (attr, on, lbl, dis) => '<button type="button" class="tsw" role="switch" aria-checked="' + !!on + '" ' + attr + '="' + (on ? '0' : '1') + '" aria-label="' + lbl + '"' + (dis ? ' disabled' : '') + '><i></i></button>';
+    const chips = (attr, list, cur) => '<div class="tfch">' + list.map((k) => '<button type="button" ' + attr + '="' + k[0] + '" aria-pressed="' + (cur === k[0]) + '">' + k[1] + '</button>').join('') + '</div>';
+    let G = '<div class="tfsec">';
+    if (once) G += '<div class="tfline"><span class="tfrl">تبقى</span>' + stp('data-sp', f.span, daysW(f.span)) + '<span class="small muted">حتى ' + dshort(E.addDays(f.once, f.span - 1)) + '</span></div>';
+    if (!once && f.rep !== 'mcount') G += '<div class="tfline"><span class="tfrl">النوع</span>' + chips('data-k', [['main', 'رئيسية'], ['side', 'إضافية'], ['weekly', 'أسبوعية']], f.kind) + '</div>';
+    if (!once && f.kind === 'weekly') G += '<div class="tfline"><span class="tfrl">الجدولة</span>' + chips('data-wm', [['days', 'أيام محددة'], ['count', 'مرات في الأسبوع']], f.weeklyMode) + '</div>' + (f.weeklyMode === 'count' ? '<div class="tfline">' + stp('data-wc', f.weeklyCount, 'مرات في الأسبوع') + '</div>' : '');
+    if (!once && !(f.kind === 'weekly' && f.weeklyMode === 'count')) G += '<div class="tfline rw"><span class="tfrl">التكرار</span>' + chips('data-rep', [['week', 'أيام الأسبوع'], ['every', 'كل كم يوم'], ['month', 'أيام الشهر'], ['mcount', 'مرات بالشهر']], f.rep) + '</div><div class="tfrep">' + repBody(f) + '</div>';
+    G += '</div><div class="tfsec"><div class="tfline tf2">' + ((once || f.kind !== 'weekly') ? '<div><span class="tfrl">' + (once ? 'مرات الإنجاز' : 'مرات يوميًا') + '</span>' + stp('data-t', f.target) + '</div>' : '') + '<div><span class="tfrl">نقاط التطوير</span>' + stp('data-dv', f.dev) + '</div></div>';
+    G += '</div><div class="tfsec"><div class="tfline"><span class="tfrl">الوقت</span><div class="todi">' + TODI.map((k) => '<button type="button" data-tod="' + k[0] + '" aria-pressed="' + (f.tod === k[0]) + '" aria-label="' + k[1] + '" title="' + k[1] + '"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + k[2] + '</svg></button>').join('') + '</div></div>';
+    G += '<div class="tfline"><span class="tfrl">تذكير</span><div class="tfctl">' + (f.remind ? '<input type="time" id="tfRem" value="' + esc(f.remind) + '" class="tftime" aria-label="ساعة التذكير">' : '') + sw('data-rem', f.remind, 'تذكير') + '</div></div>';
+    if (!once && mainLike) G += '<div class="tfline"><span class="tfrl">نافذة وقت</span><div class="tfctl">' + (f.win ? '<input type="time" id="tfWinA" value="' + esc(f.win.from) + '" class="tftime" aria-label="من"><span class="small muted">–</span><input type="time" id="tfWinB" value="' + esc(f.win.to) + '" class="tftime" aria-label="إلى">' : '') + sw('data-win', f.win, 'نافذة وقت') + '</div></div>';
+    if (!once && lookNow().g !== 'm') G += '<div class="tfline"><span class="tfrl">تسقط وقت العذر الشرعي</span>' + sw('data-exc', f.excuse, 'تسقط وقت العذر') + '</div>';
+    if (askStreak) G += '<div class="tfline"><span class="tfrl">تُحسب في الاستمرارية</span>' + sw('data-s', f.streak, 'تُحسب في الاستمرارية', f.streak && !canExempt) + '</div>' + (f.streak ? '' : '<div class="small muted tfsub">يمكن استثناء ٣٠٪ من مهامك فقط، لمدة ٥ أيام.</div>');
+    G += '</div><div class="tfline tfnotes" style="margin-top:8px"><input type="text" id="tfDesc" maxlength="200" placeholder="وصف (اختياري)" value="' + esc(f.desc) + '"><input type="text" id="tfWhy" maxlength="160" placeholder="لماذا؟ (يظهر في التذكير وحين تتجمد شعلتك)" value="' + esc(f.why) + '"></div>';
     m.el.querySelector('.sheet').innerHTML =
-      '<div class="tfhead"><h2>' + (task ? (once ? 'تعديل المهمة المؤقتة' : 'تعديل العادة') : 'مهمة جديدة') + '</h2>' + (once ? '<label class="tfonce">تبدأ <input type="date" id="tfOnce" value="' + esc(f.once) + '"' + (task ? '' : ' min="' + today + '"') + '></label>' : '') + '</div>' +
-      (task ? '' : '<div class="field"><div class="lbl">ما نوعها؟</div><div class="seg"><button data-once="0" aria-pressed="' + !once + '">عادة دائمة</button><button data-once="1" aria-pressed="' + once + '">مهمة مؤقتة</button></div><div class="small muted">' + (once ? 'لا تؤثر على الاستمرارية، وكل إنجاز لها حجر كريم في صندوق كنزك.' : 'تتكرر في أيامك وتدخل في الاستمرارية.') + '</div></div>') +
-      (once ? '<div class="field"><div class="lbl">تبقى في قائمتك لمدة</div><div class="stepper"><button class="circ mini" data-sp="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.span) + '</output><span>' + daysW(f.span) + '</span><button class="circ mini" data-sp="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">تنتهي في ' + dlabel(E.addDays(f.once, f.span - 1)) + '. وتختفي من القائمة فور إنجازها.</div></div>' : '') +
-      '<div class="field"><label for="tfName">اسم المهمة</label><div class="tfnrow"><button type="button" class="tflook" data-look aria-expanded="' + showLook + '" aria-label="تغيير الرمز واللون" style="background:' + esc(f.color) + '">' + esc(f.emoji) + '</button><input type="text" id="tfName" value="' + esc(f.name) + '" maxlength="60"></div>' + (showLook ? '' : '<div class="small muted">المسي الدائرة لاختيار الرمز واللون.</div>') + '</div>' +
-      (showLook ? '<div class="tflookbox">' +
-      '<div class="field"><div class="lbl">الإيموجي</div><input type="text" id="tfEmoji" value="' + esc(f.emoji) + '" maxlength="8" style="font-size:22px;text-align:center" aria-label="الإيموجي"><div class="emojis">' + EMOJIS.map((e) => '<button data-e="' + e + '" type="button">' + e + '</button>').join('') + '</div><div class="small muted">اكتبي أي إيموجي من لوحة مفاتيحك أو الصقيه.</div></div>' +
-      '<div class="field"><div class="lbl">لون الدائرة</div><div class="swatches">' + COLORS.map((c) => '<button data-c="' + c + '" style="background:' + c + '" aria-label="لون" aria-pressed="' + (f.color === c) + '"></button>').join('') + '</div></div>' +
-      '</div>' : '') +
-      (once || f.rep === 'mcount' ? '' : '<div class="field"><div class="lbl">النوع</div><div class="seg">' + [['main', 'رئيسية'], ['side', 'إضافية'], ['weekly', 'أسبوعية']].map((k) => '<button data-k="' + k[0] + '" aria-pressed="' + (f.kind === k[0]) + '">' + k[1] + '</button>').join('') + '</div><div class="small muted">' + ({ main: 'تدخل في شرط إكمال اليوم والاستمرارية.', side: 'اختيارية: تمنح مكافأة ولا يضرّ تركها.', weekly: 'تظهر كرئيسية في أيام تحدّدينها، أو بعدد مرات خلال الأسبوع.' }[f.kind]) + '</div></div>') +
-      (!once && f.kind === 'weekly' ? '<div class="field"><div class="lbl">طريقة الجدولة</div><div class="seg"><button data-wm="days" aria-pressed="' + (f.weeklyMode === 'days') + '">أيام محددة</button><button data-wm="count" aria-pressed="' + (f.weeklyMode === 'count') + '">عدد مرات في الأسبوع</button></div>' + (f.weeklyMode === 'count' ? '<div class="stepper"><button class="circ mini" data-wc="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.weeklyCount) + '</output><span>مرات في الأسبوع</span><button class="circ mini" data-wc="1" aria-label="أكثر">' + ico('plus') + '</button></div><div class="small muted">لا تؤثر على اليوم العادي. إذا بقي من الأسبوع بقدر ما بقي من مرات لم تُنجَز، تتحول إلى رئيسية في ذلك اليوم.</div>' : '') + '</div>' : '') +
-      (!once && !(f.kind === 'weekly' && f.weeklyMode === 'count') ? '<div class="field"><div class="lbl">التكرار</div><div class="seg">' + [['week', 'أيام الأسبوع'], ['every', 'كل عدد أيام'], ['month', 'أيام محددة من الشهر'], ['mcount', 'عدد مرات في الشهر']].map((k) => '<button data-rep="' + k[0] + '" aria-pressed="' + (f.rep === k[0]) + '">' + k[1] + '</button>').join('') + '</div>' + repBody(f) + '</div>' : '') +
-      '<div class="tfpair">' + ((once || f.kind !== 'weekly') ? '<div class="field"><div class="lbl">' + (once ? 'مرات الإنجاز' : 'مرات يوميًا') + '</div><div class="stepper"><button class="circ mini" data-t="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.target) + '</output><button class="circ mini" data-t="1" aria-label="أكثر">' + ico('plus') + '</button></div></div>' : '') +
-      '<div class="field"><div class="lbl">نقاط التطوير</div><div class="stepper"><button class="circ mini" data-dv="-1" aria-label="أقل">' + ico('minus') + '</button><output class="num">' + N(f.dev) + '</output><button class="circ mini" data-dv="1" aria-label="أكثر">' + ico('plus') + '</button></div></div></div>' +
-
-      (showAdv ? '<div class="tfadvbox">' +
-      '<div class="field"><input type="text" id="tfDesc" maxlength="200" placeholder="وصف (اختياري)" value="' + esc(f.desc) + '"></div>' +
-      '<div class="field"><input type="text" id="tfWhy" maxlength="160" placeholder="لماذا أفعل هذا؟ (اختياري، أذكّرك به في الأيام الصعبة)" value="' + esc(f.why) + '"></div>' +
-      '<div class="field"><div class="tfrow"><div class="lbl">وقت المهمة</div><div class="todi">' + [['', 'أي وقت', '<circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/><path d="M12 7v5l3 2"/>'], ['morning', 'الصباح الباكر', '<path d="M3 17h18"/><path d="M7 17a5 5 0 0 1 10 0"/><path d="M12 6v3M5.6 10.6l1.6 1.2M18.4 10.6l-1.6 1.2"/>'], ['noon', 'الظهر والعصر', '<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/>'], ['night', 'الليل', '<path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z"/>']].map((k) => '<button type="button" data-tod="' + k[0] + '" aria-pressed="' + (f.tod === k[0]) + '" aria-label="' + k[1] + '" title="' + k[1] + '"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + k[2] + '</svg></button>').join('') + '</div></div></div>' +
-      '<div class="field"><div class="tfrow"><div class="lbl">تذكير</div><div class="row" style="gap:10px;align-items:center;flex-wrap:nowrap">' + (f.remind ? '<input type="time" id="tfRem" value="' + esc(f.remind) + '" class="tftime" aria-label="ساعة التذكير">' : '') + '<button type="button" class="tsw" role="switch" aria-checked="' + !!f.remind + '" data-rem="' + (f.remind ? '0' : '1') + '" aria-label="تذكير"><i></i></button></div></div></div>' +
-      (!once && mainLike ? '<div class="field"><div class="tfrow"><div class="lbl">نافذة وقت ثابتة</div><button type="button" class="tsw" role="switch" aria-checked="' + !!f.win + '" data-win="' + (f.win ? '0' : '1') + '" aria-label="نافذة وقت"><i></i></button></div>' + (f.win ? '<div class="row" style="gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap"><label for="tfWinA" class="small muted">من</label><input type="time" id="tfWinA" value="' + esc(f.win.from) + '" class="tftime"><label for="tfWinB" class="small muted">إلى</label><input type="time" id="tfWinB" value="' + esc(f.win.to) + '" class="tftime"></div><div class="small muted">مثل أذكار الصباح أو المساء. إن فاتتك النافذة لا تنكسر الاستمرارية (بشرط أن تنجزي مهامك الأخرى)، لكن لا مكافأة لها، ويُسمح بـ ٣ أعذار في الأسبوع لكل مهامك الموقوتة. بعدها يُحسب الفوات كغيابٍ عادي.</div>' : '') + '</div>' : '') +
-      (!once && lookNow().g !== 'm' ? '<div class="field"><div class="tfrow"><div class="lbl">تسقط وقت العذر الشرعي</div><button type="button" class="tsw" role="switch" aria-checked="' + !!f.excuse + '" data-exc="' + (f.excuse ? '0' : '1') + '" aria-label="تسقط وقت العذر"><i></i></button></div>' + (f.excuse ? '<div class="small muted">للعبادات التي لا تُؤدّى وقت العذر، مثل الوتر والضحى والصيام.</div>' : '') + '</div>' : '') +
-
-      '</div>' : '') +
-      (askStreak ? '<div class="field"><div class="lbl">هل تريد أن تكون هذه المهمة مسؤولة عن حساب الاستمرارية؟</div><div class="seg"><button data-s="1" aria-pressed="' + f.streak + '">نعم</button><button data-s="0" aria-pressed="' + !f.streak + '" ' + (canExempt ? '' : 'disabled') + '>لا</button></div><div class="small muted">يسمح لك باستثناء نسبة ضئيلة تصل إلى 30% فقط من مهامك لكي لا تؤثر على الاستمرارية في أوقات انشغالك.' + (canExempt ? '' : ' وصلتِ إلى الحد الآن.') + ' ويدوم الاستثناء ٥ أيام ثم تعود المهمة تلقائيًا.' + '</div></div>' : (firstMain && mainLike && !once ? '<div class="note">أول مهمة رئيسية: تصبح مسؤولة عن الاستمرارية تلقائيًا.</div>' : '')) +
-      (task ? '<div class="note">التعديل يسري من اليوم، ولا يغيّر ما سُجّل في الأيام الماضية.</div>' : '') +
-      '<div class="actions" style="margin-top:14px"><button class="btn" data-save>' + (task ? 'حفظ' : 'إضافة') + '</button>' + (task ? '<button class="btn danger" data-del>حذف</button>' : '') + '<button class="btn soft" data-close>إلغاء</button></div>';
+      '<div class="tfhead"><h2>' + (task ? (once ? 'تعديل المهمة المؤقتة' : 'تعديل العادة') : 'مهمة جديدة') + '</h2>' + (task ? '' : '<div class="tfch tfkind"><button type="button" data-once="0" aria-pressed="' + !once + '">عادة</button><button type="button" data-once="1" aria-pressed="' + once + '">مؤقتة</button></div>') + '</div>' +
+      '<div class="tfnrow"><button type="button" class="tflook" data-look aria-expanded="' + showLook + '" aria-label="تغيير الرمز واللون" style="background:' + esc(f.color) + '">' + esc(f.emoji) + '</button><input type="text" id="tfName" value="' + esc(f.name) + '" maxlength="60" placeholder="اسم المهمة" aria-label="اسم المهمة">' + (once ? '<input type="date" id="tfOnce" class="tfdate" value="' + esc(f.once) + '"' + (task ? '' : ' min="' + today + '"') + ' aria-label="تبدأ في">' : '') + '</div>' +
+      (showLook ? '<div class="tflookbox"><div class="emojis">' + EMOJIS.map((e) => '<button data-e="' + e + '" type="button">' + e + '</button>').join('') + '</div><input type="text" id="tfEmoji" value="' + esc(f.emoji) + '" maxlength="8" style="font-size:20px;text-align:center;margin-top:6px" aria-label="أو اكتبي أي إيموجي"><div class="swatches" style="margin-top:8px">' + COLORS.map((c) => '<button data-c="' + c + '" style="background:' + c + '" aria-label="لون" aria-pressed="' + (f.color === c) + '"></button>').join('') + '</div></div>' : '') +
+      G +
+      (task ? '<div class="small muted" style="margin-top:4px">التعديل يسري من اليوم فقط.</div>' : '') +
+      '<div class="actions" style="margin-top:10px"><button class="btn" data-save>' + (task ? 'حفظ' : 'إضافة') + '</button>' + (task ? '<button class="btn danger" data-del>حذف</button>' : '') + '<button class="btn soft" data-close>إلغاء</button></div>';
     bind();
   };
   const sync = () => { const n = m.el.querySelector('#tfName'); if (n) { const od = m.el.querySelector('#tfOnce'); if (od && od.value) f.once = od.value; f.name = n.value; const dsc = m.el.querySelector('#tfDesc'); if (dsc) f.desc = dsc.value; const wy = m.el.querySelector('#tfWhy'); if (wy) f.why = wy.value; const em = m.el.querySelector('#tfEmoji'); if (em) f.emoji = em.value || '🌿'; const tr = m.el.querySelector('#tfRem'); if (tr && tr.value) f.remind = tr.value; const an = m.el.querySelector('#tfAnchor'); if (an && an.value) f.anchor = an.value; const wa = m.el.querySelector('#tfWinA'), wb = m.el.querySelector('#tfWinB'); if (wa && wb && wa.value && wb.value) f.win = { from: wa.value, to: wb.value }; } };
@@ -8019,8 +8348,8 @@ function openTaskForm(task, preset) {
     el.querySelectorAll('[data-e]').forEach((b) => b.addEventListener('click', () => { sync(); f.emoji = b.dataset.e; draw(); }));
     el.querySelectorAll('[data-c]').forEach((b) => b.addEventListener('click', () => { sync(); f.color = b.dataset.c; draw(); }));
     el.querySelectorAll('[data-s]').forEach((b) => b.addEventListener('click', () => { sync(); f.streak = b.dataset.s === '1'; draw(); }));
-    el.querySelectorAll('[data-look]').forEach((b) => b.addEventListener('click', () => { sync(); showLook = !showLook; draw(); }));
-    el.querySelectorAll('[data-adv]').forEach((b) => b.addEventListener('click', () => { sync(); showAdv = !showAdv; draw(); }));
+    el.querySelectorAll('[data-look]').forEach((b) => b.addEventListener('click', () => { sync(); showLook = !showLook; openRow = null; draw(); }));
+    el.querySelectorAll('[data-row]').forEach((b) => b.addEventListener('click', () => { sync(); openRow = openRow === b.dataset.row ? null : b.dataset.row; showLook = false; draw(); }));
     el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => m.close()));
     const sv = el.querySelector('[data-save]'); if (sv) sv.addEventListener('click', () => {
       sync();
@@ -8034,7 +8363,7 @@ function openTaskForm(task, preset) {
       if (ok) { m.close(); const nm = cur.name; act((s) => E.deleteTask(s, task.id, today)); toast({ text: 'حذفتِ ' + (task.once ? 'المهمة المؤقتة «' : 'العادة «') + nm + '»' }); }
     });
   };
-  m = modal('<div></div>', { noFocus: true, sticky: true }); m.el.querySelector('.sheet').classList.add('tform');
+  m = modal('<div></div>', { noFocus: true, sticky: true }); m.el.classList.add('tfscrim'); m.el.querySelector('.sheet').classList.add('tform');
   draw();
 }
 
@@ -10147,14 +10476,198 @@ const FormArt = (function () {
     return s;
   }
 
+  /* ========== v109: أطوار مستقلة لكل مظهر (كل طور شكل مختلف) ========== */
+  const RG = (id, a, b, c2) => `<defs><radialGradient id="${id}" cx=".42" cy=".38" r=".65"><stop offset="0" stop-color="${a}"/><stop offset=".5" stop-color="${b}"/><stop offset="1" stop-color="${c2}"/></radialGradient></defs>`;
+  const crystalN = (x, base, w, h, col, rot) => `<g transform="rotate(${rot || 0} ${f1(x)} ${f1(base)})">` + P(`M${f1(x - w)} ${f1(base)}V${f1(base - h + w * 1.3)}L${f1(x)} ${f1(base - h)}L${f1(x + w)} ${f1(base - h + w * 1.3)}V${f1(base)}Z`, col, 1.8) +
+    `<path d="M${f1(x)} ${f1(base - h)}V${f1(base)}H${f1(x + w)}V${f1(base - h + w * 1.3)}Z" fill="#000" opacity=".12"/>` + ln(`M${f1(x - w * .55)} ${f1(base - 2)}V${f1(base - h + w * 1.6)}`, '#fff', Math.max(1, w * .28), .75) + '</g>';
+  const facetLines = (cx, cy, pts, col, op) => pts.map((q) => `<path d="M${f1(cx)} ${f1(cy)}L${f1(q[0])} ${f1(q[1])}" stroke="${col}" stroke-width="1" opacity="${op || .5}"/>`).join('');
+  const twinkle = (list) => sparks(list, '#FFF6D0');
+
+  function rockN(k, c) {
+    if (k <= 5) return rock(k, c);
+    const G = '#8E8780';
+    switch (k) {
+      case 6: /* حجر مشقوق: نصفان يطلّ بينهما بريق */
+        return shadow(26) + glow(51, 76, 10, '#CFF4FF', .7) + P('M26 92L28 77L38 67L48 64L45 76L48 92Z', G, 2.2) + P('M54 92L51 76L54 64L63 66L73 76L75 92Z', shade(G, .92), 2.2) +
+          ln('M31 80L37 71L45 67', shade(G, 1.35), 1.8, .9) + `<path d="M46 70l2 -4l2 4z M47 80l2.4 -5l2.4 5z" fill="#BFEFFF" stroke="${I}" stroke-width=".8"/>` + twinkle([[51, 60, 3]]);
+      case 7: /* بلّورة أولى تخرج من حجر */
+        return shadow(22) + crystalN(53, 82, 6, 26, '#BFEFFF', 10) + rockAt(50, 92, 19, 13, c) + twinkle([[66, 54, 3]]);
+      case 8: /* مرو شفاف: عنقود من ثلاث بلّورات بيضاء */
+        return shadow(22) + P('M34 92Q36 84 50 83Q64 84 66 92Z', '#6E665E', 2) + crystalN(40, 88, 5.5, 24, '#F4FBFF', -20) + crystalN(61, 88, 5, 21, '#F4FBFF', 18) + crystalN(50, 88, 7, 36, '#EAF8FF', 0) + twinkle([[70, 50, 3], [30, 58, 2.4]]);
+      case 9: /* جمشت: عنقود بنفسجي */
+        return shadow(26) + P('M28 92Q30 82 50 80Q70 82 72 92Z', '#5E5868', 2) + [[34, 6, 22, -34, '#A57AD8'], [66, 6, 22, 32, '#A57AD8'], [42, 7, 30, -14, '#9466D0'], [58, 7, 30, 14, '#9466D0'], [50, 8, 40, 0, '#B58AE0']].map((q) => crystalN(q[0], 88, q[1], q[2], q[4], q[3])).join('') + twinkle([[74, 48, 3]]);
+      case 10: /* فيروز: كتلة زرقاء خضراء بعروق */
+        return shadow(24) + P('M28 90C24 78 32 64 46 62C60 58 74 66 74 78C75 88 66 93 50 93C38 93 30 93 28 90Z', '#4FC3B8', 2.4) +
+          ln('M34 74C40 76 42 70 48 72S56 80 62 76M40 86C46 82 52 88 58 84M58 66C60 70 66 70 68 74', '#6B4A32', 1.5, .8) + ln('M36 68C40 64 46 63 50 64', '#BFF4EC', 2.4, .9);
+      case 11: /* عقيق: شريحة بأحزمة ملوّنة على حامل */
+        return shadow(20) + P('M38 92L42 82H58L62 92Z', '#8A5A34', 2) + `<g transform="translate(50 58)">` + [[18, 22, '#8A6A58'], [15, 19, '#C8642E'], [12.5, 16, '#F2E2C8'], [10, 13, '#A8481E'], [7.5, 10, '#F6D6A8'], [5, 6.5, '#D87A3C'], [2.4, 3.2, '#FFF4E0']].map((q, i) => `<ellipse rx="${q[0]}" ry="${q[1]}" fill="${q[2]}"${i ? '' : ` stroke="${I}" stroke-width="2.2"`}/>`).join('') + '</g>' + ln('M37 50C38 44 42 40 46 39', '#fff', 1.8, .6);
+      case 12: /* جيود: نصف حجر مجوّف ببلّورات بنفسجية */
+        return shadow(28) + `<ellipse cx="50" cy="68" rx="25" ry="24" fill="#8A7464" stroke="${I}" stroke-width="2.4"/><ellipse cx="50" cy="68" rx="19" ry="18" fill="#5E3A92"/>` +
+          Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2, x = 50 + Math.cos(a) * 18, y = 68 + Math.sin(a) * 17, x2 = 50 + Math.cos(a) * 11, y2 = 68 + Math.sin(a) * 10.5, px = Math.cos(a + Math.PI / 2) * 3, py = Math.sin(a + Math.PI / 2) * 3; return `<path d="M${f1(x + px)} ${f1(y + py)}L${f1(x2)} ${f1(y2)}L${f1(x - px)} ${f1(y - py)}Z" fill="${i % 2 ? '#C9A8F0' : '#9A70DA'}"/>`; }).join('') +
+          `<ellipse cx="50" cy="68" rx="9" ry="8.5" fill="#3E2470"/><ellipse cx="50" cy="68" rx="19" ry="18" fill="none" stroke="${I}" stroke-width="1.4"/>` + twinkle([[44, 62, 2.6]]) + ln('M30 56C32 50 36 46 40 45', '#B8A494', 2, .8);
+      case 13: { /* زمرّد: قطع مدرّج مثمّن */
+        const o = 'M40 54H60L66 60V86L60 92H40L34 86V60Z', m = 'M42 59H58L61.5 62.5V83.5L58 87H42L38.5 83.5V62.5Z', t = 'M44 64H56V82H44Z';
+        return shadow(20) + glow(50, 72, 26, '#BFF2D0', .3) + P(o, '#2FA866', 2.4) + `<path d="${m}" fill="#47BE7E"/><path d="${t}" fill="#7CDCA4"/>` + facetLines(0, 0, [], '', 0) +
+          ln('M40 54L44 64M60 54L56 64M66 60L56 64M34 60L44 64M34 86L44 82M66 86L56 82M40 92L44 82M60 92L56 82', '#1E7A48', 1, .7) + ln('M46 66V78', '#fff', 2, .8) + twinkle([[70, 50, 3]]); }
+      case 14: /* ياقوت: بيضاوي أحمر بأوجه */
+        return shadow(18) + glow(50, 70, 26, '#FFC0C8', .3) + `<ellipse cx="50" cy="70" rx="16" ry="21" fill="#D8304A" stroke="${I}" stroke-width="2.4"/><ellipse cx="50" cy="68" rx="8" ry="11" fill="#F0607A"/>` +
+          facetLines(50, 68, [[34, 70], [66, 70], [50, 49], [50, 91], [39, 55], [61, 55], [39, 85], [61, 85]], '#8A1426', .55) + `<ellipse cx="50" cy="68" rx="8" ry="11" fill="none" stroke="#8A1426" stroke-width="1" opacity=".6"/>` + ln('M44 60C45 57 47 56 49 56', '#fff', 2, .85) + twinkle([[70, 52, 3]]);
+      case 15: /* ياقوت أزرق: وسادة بأوجه نجمية */
+        return shadow(22) + glow(50, 72, 28, '#C0D4FF', .3) + P('M38 52H62Q70 52 70 60V84Q70 92 62 92H38Q30 92 30 84V60Q30 52 38 52Z', '#2F5FD0', 2.4) + `<path d="M42 62H58V82H42Z" fill="#5A86E8"/>` +
+          ln('M30 60L42 62M70 60L58 62M30 84L42 82M70 84L58 82M50 52L42 62M50 52L58 62M50 92L42 82M50 92L58 82M30 72L42 72M70 72L58 72', '#163E9A', 1, .7) + ln('M45 66V74', '#fff', 2, .8) + twinkle([[74, 48, 3.2]]);
+      case 16: /* كهرمان: قطرة ذهبية بداخلها فقاعات */
+        return shadow(18) + glow(50, 70, 26, '#FFE0A0', .35) + P('M50 44C64 60 68 76 66 82C64 90 58 93 50 93C42 93 36 90 34 82C32 76 36 60 50 44Z', '#E8962A', 2.4) +
+          `<path d="M50 52C60 64 62 76 60 82C58 88 54 89 50 89C46 89 41 87 40 82C38 76 41 64 50 52Z" fill="#FFC85A" opacity=".85"/>` + [[46, 78, 1.6], [54, 72, 1.2], [52, 84, 1], [44, 70, .9]].map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r="${q[2]}" fill="#FFF4D0" opacity=".9"/>`).join('') + ln('M42 66C43 61 45 58 47 56', '#fff', 2, .8);
+      case 17: /* أوبال: بيضاوي حليبي بألوان قوس قزح */
+        return shadow(20) + glow(50, 68, 28, '#E8F4FF', .4) + P('M28 92H72L68 86H32Z', '#D8A63A', 2) + `<ellipse cx="50" cy="72" rx="24" ry="16" fill="#EEF4F8" stroke="${I}" stroke-width="2.4"/>` +
+          [[38, 70, 4, 2.2, '#7FD3F0', 20], [52, 66, 5, 2.4, '#F28AB0', -30], [44, 78, 4.4, 2, '#9FE07A', 40], [60, 78, 3.6, 2, '#F2D06A', 10], [62, 66, 3, 1.6, '#B58AE0', -10], [34, 76, 3, 1.6, '#7FD3F0', -20], [52, 80, 2.6, 1.4, '#9FE07A', 30]].map((q) => `<ellipse cx="${q[0]}" cy="${q[1]}" rx="${q[2]}" ry="${q[3]}" fill="${q[4]}" opacity=".8" transform="rotate(${q[5]} ${q[0]} ${q[1]})"/>`).join('') + ln('M33 66C35 62 39 60 43 59', '#fff', 2.2, .9) + twinkle([[76, 54, 3]]);
+      case 18: /* ألماس: قطع لامع كلاسيكي */
+        return shadow(22) + glow(50, 66, 30, '#DFF6FF', .45) + P('M28 60L38 48H62L72 60L50 92Z', '#CFEFFB', 2.4) + `<path d="M28 60H72L50 92Z" fill="#A9DDF2"/><path d="M38 48L44 60L50 48L56 60L62 48Z" fill="#EAF9FF"/>` +
+          ln('M28 60H72M38 48L44 60L50 48L56 60L62 48M44 60L50 92M56 60L50 92M36 60L50 92M64 60L50 92', '#5A9AB8', 1, .7) + P('M28 60L38 48H62L72 60L50 92Z', 'none', 2.4) + twinkle([[74, 44, 3.6], [26, 46, 2.6], [58, 76, 2]]);
+      default: { /* قلب البلّورة */
+        const H = 'M50 92L28 68C20 58 24 44 36 43C43 42 48 46 50 51C52 46 57 42 64 43C76 44 80 58 72 68Z';
+        return shadow(24) + glow(50, 66, 34, '#FFD0E4', .4) + P(H, '#EE6FA6', 2.6) + `<path d="M50 92L28 68C24 62 24 56 27 51L50 60Z" fill="#FFA8CC"/><path d="M50 92L72 68C76 62 76 56 73 51L50 60Z" fill="#D8508A"/><path d="M27 51C30 45 34 43 36 43C43 42 48 46 50 51L50 60Z" fill="#FFC2DA"/>` +
+          P(H, 'none', 2.6) + ln('M33 50C35 47 38 46 41 46', '#fff', 2.2, .9) + twinkle([[78, 40, 3.4], [22, 44, 2.6], [64, 80, 2]]); }
+    }
+  }
+
+  function starOrb(id, cx, cy, r, cols, spk, len, w) {
+    let s = RG(id, '#ffffff', cols[0], cols[1]) + glow(cx, cy, r * 2.6, cols[0], .2) + glow(cx, cy, r * 1.7, cols[0], .3);
+    (spk || []).forEach((a, i) => { const L2 = i < (spk.half || 99) ? len : len * .55; s += `<path d="M${f1(cx)} ${f1(cy - L2)}L${f1(cx + w)} ${f1(cy)}L${f1(cx)} ${f1(cy + L2)}L${f1(cx - w)} ${f1(cy)}Z" fill="#fff" opacity=".85" transform="rotate(${a} ${f1(cx)} ${f1(cy)})"/>`; });
+    return s + `<circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(r)}" fill="url(#${id})" stroke="${I}" stroke-width="1.8"/>`;
+  }
+  function dustN(k, c) {
+    if (k <= 14) return dust(k, c);
+    switch (k) {
+      case 15: /* نجم وليد داخل سحابة صغيرة */
+        return [[36, 60, 18, 9, '#D7A8F0', -20], [64, 52, 16, 8, '#A8C8F6', 25], [52, 66, 14, 7, '#F6B8D0', 5]].map((e) => `<ellipse cx="${e[0]}" cy="${e[1]}" rx="${e[2]}" ry="${e[3]}" fill="${e[4]}" opacity=".45" transform="rotate(${e[5]} ${e[0]} ${e[1]})"/>`).join('') +
+          `<g class="fmspin" style="transform-origin:50px 57px">` + [[34, 57, 1.4], [62, 46, 1.2], [58, 70, 1]].map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r="${q[2]}" fill="#FFF1C8"/>`).join('') + '</g>' + starOrb('fsg15', 50, 57, 7, ['#FFE9A8', '#FFB24A'], [0, 90], 17, 1.6);
+      case 16: /* مذنّب بذيل طويل */
+        return `<defs><linearGradient id="fsgt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CFF2FF" stop-opacity=".95"/><stop offset="1" stop-color="#CFF2FF" stop-opacity="0"/></linearGradient></defs>` +
+          `<path d="M36 30C54 40 74 62 92 88L80 92C66 72 50 56 34 44Z" fill="url(#fsgt)"/><path d="M40 34C58 48 70 66 84 90" stroke="#fff" stroke-width="1.4" fill="none" opacity=".6"/>` + starOrb('fsg16', 38, 36, 9, ['#D8F4FF', '#6FB8EC'], [0, 90], 18, 1.6);
+      case 17: /* نجمان توأمان يدوران معًا */
+        return `<ellipse cx="51" cy="53" rx="22" ry="9" fill="none" stroke="#FFE9A8" stroke-width="1.2" stroke-dasharray="3 3" opacity=".7" transform="rotate(-24 51 53)"/>` +
+          starOrb('fsg17a', 40, 58, 10, ['#FFD36A', '#F2893A'], [0, 90], 18, 1.6) + starOrb('fsg17b', 64, 46, 7, ['#CFEAFF', '#6FA8F0'], [0, 90], 14, 1.3);
+      case 18: /* نجم أزرق بستة أشعة */
+        return starOrb('fsg18', 50, 54, 13, ['#CFEFFF', '#4E98EE'], [0, 60, 120], 38, 2.2) + twinkle([[20, 26, 2.4], [82, 80, 2]]);
+      default: { /* النجم الساطع */
+        const sp = [0, 90, 45, 135]; sp.half = 2;
+        return `<circle cx="50" cy="54" r="27" fill="none" stroke="#FFE9A8" stroke-width="1.4" opacity=".55"/>` + starOrb('fsg19', 50, 54, 15, ['#FFF0B8', '#FFB33A'], sp, 44, 2.6) + `<circle cx="45" cy="49" r="4" fill="#fff" opacity=".7"/>` + twinkle([[18, 22, 3], [84, 24, 2.6], [80, 86, 2.2], [18, 84, 2]]); }
+    }
+  }
+
+  const pearlN = (x, y, r, col, id) => RG(id, '#ffffff', col[0], col[1]) + `<circle cx="${f1(x)}" cy="${f1(y)}" r="${f1(r)}" fill="url(#${id})" stroke="${I}" stroke-width="${f1(Math.min(2.2, .9 + r * .1))}"/><circle cx="${f1(x - r * .36)}" cy="${f1(y - r * .38)}" r="${f1(r * .22)}" fill="#fff"/>`;
+  const mound = (w, col) => P(`M${50 - w} 92C${50 - w * .6} ${92 - w * .5} ${50 + w * .6} ${92 - w * .5} ${50 + w} 92Z`, col, 1.8);
+  function sandN(k, c) {
+    if (k === 0) return sand(0, c);
+    const PW = ['#F4ECE4', '#D8CABE'], PK = ['#FBE0E8', '#E8A8BC'];
+    switch (k) {
+      case 1: /* حبّات رمل: كومة صغيرة */
+        return shadow(14) + glow(50, 88, 10, '#FFF3C4', .35) + mound(13, c.sd) + [[44, 89], [50, 87], [55, 89.5], [47, 91], [53, 91]].map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r=".9" fill="#A8864A"/>`).join('') + `<circle cx="49" cy="85" r=".9" fill="#fff"/>`;
+      case 2: /* صدفة صغيرة مروحية */
+        return shadow(14) + P('M50 91L37 80Q38 68 50 66Q62 68 63 80Z', '#F2B6A0', 2) + ln('M50 91L41 70M50 91L46 67M50 91L54 67M50 91L59 70', '#C8786A', 1.2, .8) + P('M46 91L44 87H56L54 91Z', '#E89A88', 1.4);
+      case 3: /* صدفة حلزونية صغيرة */
+        return shadow(14) + `<circle cx="50" cy="79" r="13" fill="#F6E2C4" stroke="${I}" stroke-width="2"/>` + ln(Array.from({ length: 60 }, (_, i) => { const a = i / 60 * Math.PI * 5, r = 1 + i / 60 * 11; return (i ? 'L' : 'M') + f1(50 + Math.cos(a) * r) + ' ' + f1(79 + Math.sin(a) * r); }).join(''), '#A8744A', 1.6, .9) + ln('M42 72C44 69 47 68 50 68', '#fff', 1.8, .8);
+      case 4: /* صدفة مخروطية طويلة */
+        return shadow(12) + P('M50 52L60 86Q50 94 40 86Z', '#E8CBA0', 2) + ln('M47 62L53 63M45 69L55 70.5M43 76L57 78M42 83L58 85.5', '#9A6A3E', 1.4, .9) + [[48, 66], [52, 74], [46, 80], [54, 82]].map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r="1.1" fill="#8A5A30"/>`).join('');
+      case 5: /* محارة مغلقة */
+        return shadow(20) + P('M30 88C28 80 36 72 50 72C64 72 72 80 70 88C68 92 32 92 30 88Z', '#B8A8B8', 2.2) + ln('M34 84C40 78 60 78 66 84M38 80C44 76 56 76 62 80', '#8A7A8A', 1.2, .8) + ln('M33 88.5H67', '#FFF4E0', 1.6, .9) + glow(50, 88, 6, '#FFF3C4', .6);
+      case 6: /* محارة تنفتح ويخرج منها ضوء */
+        return shadow(22) + `<g opacity=".4">` + [-34, -12, 12, 34].map((a) => `<path d="M50 84L48.8 52L51.2 52Z" fill="#FFE9A0" transform="rotate(${a} 50 84)"/>`).join('') + '</g>' + P('M28 90C27 84 34 82 50 82C66 82 73 84 72 90C70 93 30 93 28 90Z', '#B8A8B8', 2.2) +
+          `<ellipse cx="50" cy="86" rx="19" ry="3.4" fill="#F6EEF6"/>` + P('M30 82C32 72 42 66 58 68C66 69 71 74 70 80C60 76 42 76 30 82Z', '#C6B6C6', 2.2) + glow(50, 85, 7, '#FFF3C4', .8);
+      case 7: /* لؤلؤة وليدة في محارة مفتوحة */
+        return shadow(24) + P('M26 90C25 82 34 80 50 80C66 80 75 82 74 90C72 93 28 93 26 90Z', '#B8A8B8', 2.2) + `<ellipse cx="50" cy="85" rx="21" ry="4.4" fill="#F6EEF6"/>` +
+          P('M28 80C26 64 40 54 58 56C68 57 74 64 72 72C60 70 40 72 28 80Z', '#C6B6C6', 2.2) + `<path d="M32 77C34 66 44 60 56 61C64 62 68 66 68 70C58 69 42 71 32 77Z" fill="#F2EAF2"/>` + pearlN(50, 83, 4.6, PW, 'fpl7');
+      case 8: /* لؤلؤة صغيرة على الرمل */
+        return shadow(14) + mound(16, c.sd) + glow(50, 80, 12, '#FFF6E0', .6) + pearlN(50, 81, 7.5, PW, 'fpl8');
+      case 9: /* لؤلؤة وردية */
+        return shadow(16) + P('M50 92L36 83Q37 74 50 72Q63 74 64 83Z', '#F2B6A0', 1.8) + glow(50, 76, 14, '#FFE0EA', .6) + pearlN(50, 78, 9.5, PK, 'fpl9');
+      case 10: /* لؤلؤتان */
+        return shadow(20) + mound(20, c.sd) + pearlN(42, 80, 9.5, PW, 'fpl10a') + pearlN(59, 82, 7.5, ['#FFF2D8', '#E8CFA0'], 'fpl10b');
+      case 11: { /* عقد صغير ملقى على الرمل */
+        let s = shadow(26) + mound(26, c.sd);
+        for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2, x = 50 + Math.cos(a) * 19, y = 80 + Math.sin(a) * 7; s += `<circle cx="${f1(x)}" cy="${f1(y)}" r="3.4" fill="#F6F0E8" stroke="${I}" stroke-width="1.1"/><circle cx="${f1(x - 1)}" cy="${f1(y - 1.1)}" r=".9" fill="#fff"/>`; }
+        return s + P('M47 70H53V75H47Z', '#E8C04A', 1.2); }
+      case 12: /* صدفة البوق الكبيرة */
+        return shadow(28) + P('M14 78L22 74L21 70L29 67L28 63L38 61C48 54 72 54 82 66C88 76 82 90 64 92H32C22 92 14 86 14 78Z', '#F6E4C8', 2.4) +
+          ln('M22 74L26 86M29 67L33 88M38 61L42 90', '#B88454', 1.4, .9) + P('M58 64C72 62 78 70 76 80C74 86 66 88 60 86C66 80 66 70 58 64Z', '#F4A8B8', 2) + ln('M52 60C60 58 68 60 72 64', '#fff', 1.8, .7);
+      case 13: /* لؤلؤة سوداء */
+        return shadow(18) + mound(18, '#5A6470') + glow(50, 76, 16, '#B8C8E8', .35) + pearlN(50, 76, 14, ['#5A6878', '#1E242E'], 'fpl13') + `<path d="M42 82C46 86 54 86 58 82" stroke="#8FE0C8" stroke-width="1.6" fill="none" opacity=".7"/><path d="M43 72C45 69 48 68 51 68" stroke="#C8A8F0" stroke-width="1.6" fill="none" opacity=".7"/>`;
+      case 14: /* لؤلؤة ذهبية على صحن صدفي */
+        return shadow(24) + P('M26 88Q50 96 74 88L70 84H30Z', '#F6EEE2', 2) + glow(50, 72, 20, '#FFE9A8', .45) + pearlN(50, 73, 13, ['#FFE7A0', '#D8A63A'], 'fpl14');
+      case 15: /* قلادة: سلسلة ذهبية ولؤلؤة متدلّية */
+        return shadow(10) + ln('M28 22L50 58L72 22', '#D8A63A', 2) + Array.from({ length: 9 }, (_, i) => { const t = i / 8, x = t < .5 ? L(28, 50, t * 2) : L(50, 72, (t - .5) * 2), y = t < .5 ? L(22, 58, t * 2) : L(58, 22, (t - .5) * 2); return `<circle cx="${f1(x)}" cy="${f1(y)}" r="1.4" fill="#F2C84B" stroke="${I}" stroke-width=".6"/>`; }).join('') +
+          P('M47 58H53L52 63H48Z', '#E8C04A', 1.2) + RG('fpl15', '#fff', '#F4ECE4', '#D0C0B4') + P('M50 63C58 70 60 78 56 84C53 88 47 88 44 84C40 78 42 70 50 63Z', 'url(#fpl15)', 2) + `<circle cx="47" cy="74" r="1.8" fill="#fff"/>`;
+      case 16: /* لؤلؤة في كأس ذهبي */
+        return shadow(16) + P('M38 92H62L58 88H42Z', '#D8A63A', 2) + P('M48 88V76H52V88Z', '#E8C04A', 1.6) + P('M34 64Q36 78 50 78Q64 78 66 64Z', '#F2C84B', 2.2) + ln('M38 68Q50 74 62 68', '#FFE9A0', 1.6, .9) + glow(50, 56, 16, '#FFF6E0', .5) + pearlN(50, 56, 11, PW, 'fpl16');
+      case 17: /* صدفة القمر: صدفة فضية كبيرة ولؤلؤة */
+        return shadow(30) + P('M50 92L18 74Q20 40 50 36Q80 40 82 74Z', '#EEF0F8', 2.4) + ln('M50 92L26 52M50 92L38 42M50 92L50 38M50 92L62 42M50 92L74 52', '#B8BCD8', 1.4, .9) + P('M42 92L39 86H61L58 92Z', '#D8DCEC', 1.6) + glow(50, 74, 16, '#F4F0FF', .7) + pearlN(50, 76, 11, ['#F6F2FF', '#C8C0E8'], 'fpl17');
+      case 18: /* صندوق اللآلئ */
+        return shadow(28) + P('M28 70L30 52Q50 44 70 52L72 70Z', '#8A5A34', 2.2) + P('M26 70H74V92H26Z', '#A86E40', 2.4) + ln('M26 78H74', '#E8C04A', 2.4) + P('M46 74H54V82H46Z', '#F2C84B', 1.4) +
+          [[34, 68, 4.4], [43, 66, 4.8], [53, 66.5, 4.6], [62, 68, 4.2], [38, 62, 3.6], [49, 60, 4], [58, 62, 3.6]].map((q, i) => pearlN(q[0], q[1], q[2], PW, 'fpl18' + i)).join('');
+      default: /* لؤلؤة القمر: لؤلؤة كبيرة مضيئة */
+        return shadow(20) + glow(50, 56, 34, '#EAF0FF', .45) + glow(50, 56, 25, '#F8F4FF', .6) + `<g class="fmfloat">` + pearlN(50, 56, 19, ['#FBF8FF', '#CEC6EC'], 'fpl19') + `<path d="M58 44A13 13 0 0 1 58 68A10 10 0 0 0 58 44Z" fill="#fff" opacity=".55"/><circle cx="50" cy="56" r="22" fill="none" stroke="#E8D8F8" stroke-width="1.2" opacity=".6"/></g>` + twinkle([[22, 30, 2.6], [80, 26, 2.2]]);
+    }
+  }
+
+  const WL = 84;
+  const boat = (body) => '<g class="fmbob">' + body + '</g>';
+  function paperN(k, c) {
+    if (k <= 5 || k === 7 || k === 8) return paper(k, c);
+    if (k === 12) return paper(12, c);
+    if (k === 15) return paper(13, c);
+    let s = water(c);
+    switch (k) {
+      case 6: /* زورق مدبّب الطرفين */
+        return s + boat(P(`M20 76Q24 ${WL + 4} 34 88H66Q76 ${WL + 4} 80 76Q66 82 50 82Q34 82 20 76Z`, '#B07848', 2.2) + ln('M24 78Q50 86 76 78', '#D8A070', 1.6, .9));
+      case 9: /* سنبوك بشراع مائل */
+        return s + boat(P('M18 74L26 76H70L84 66L80 78Q72 90 56 90H36Q24 88 18 74Z', '#8A5A34', 2.2) + ln('M24 80H76', '#C8925A', 1.6, .9) + mast(46, 76, 30) +
+          P('M22 52L74 26Q66 56 46 74Z', '#F6E8C8', 2) + ln('M22 52L74 26', I, 2.4) + ln('M34 48L60 36M42 58L66 40', '#D8C29A', 1.2, .9));
+      case 10: /* قارب صيد بكابينة */
+        return s + boat(P('M20 72H80L76 84Q72 90 62 90H36Q26 90 22 82Z', '#3E7BB8', 2.2) + ln('M22 78H78', '#fff', 2.2) + P('M52 72V58H70V72Z', '#F6F6F2', 2) + P('M50 58H72L70 54H52Z', '#E2524F', 1.6) + P('M55 61H61V66H55ZM63 61H68V66H63Z', '#9FD4F0', 1.1) +
+          mast(36, 72, 40) + ln('M36 44L24 64', I, 1.4) + `<circle cx="27" cy="74" r="3" fill="#F28A3A" stroke="${I}" stroke-width="1.1"/>`);
+      case 11: /* مركب شراعي أبيض بشراعين */
+        return s + boat(P('M16 72H82L76 84Q70 90 58 90H36Q22 88 16 72Z', '#F6F6F2', 2.2) + ln('M18 78H80', '#3E7BB8', 2.4) + mast(50, 72, 18) +
+          P('M52 20L52 68L76 68Z', '#FFFDF6', 1.8) + P('M48 26L48 68L26 68Z', '#F2EEE2', 1.8) + ln('M48 26L82 72', I, .9, .7) + flag(50, 18, c.f));
+      case 13: /* سفينة تجارية بقلعتين وشراع مربع كبير */
+        return s + boat(mast(50, 76, 20) + sqSail(50, 26, 66, 20, '#F6EAD0') + ln('M32 36H68M31 46H69M31 56H69', '#D04A3A', 3, .85) + flag(50, 20, c.f2) +
+          P('M14 66H30V74H70V62H86L82 80Q74 92 56 92H40Q22 92 14 66Z', '#9A6438', 2.2) + ln('M18 80H82', '#C8925A', 1.6, .9) + P('M16 60H30V66H16ZM70 56H86V62H70Z', '#7A4E2A', 1.6));
+      case 14: /* باخرة بعجلة جانبية ومدخنة */
+        return s + boat(`<g class="fmfloat" opacity=".75">` + [[58, 22, 5], [64, 14, 6.5], [72, 8, 7.5]].map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r="${q[2]}" fill="#E4E4E4" stroke="#B8B8B8" stroke-width="1"/>`).join('') + '</g>' +
+          P('M52 56V30H62V56Z', '#E2524F', 2) + P('M52 30H62V35H52Z', '#2B2B2B', 1.4) + P('M24 70V54H74V70Z', '#FFFDF6', 2) + P('M28 48H66V54H28Z', '#F6F2E6', 1.8) + [32, 40, 48, 56, 64].map((x) => `<rect x="${x - 2}" y="58" width="4" height="5" rx="1" fill="#9FD4F0" stroke="${I}" stroke-width=".8"/>`).join('') +
+          P('M14 70H86L80 84Q74 90 62 90H36Q22 90 14 70Z', '#2B3A4A', 2.2) + ln('M16 76H84', '#E2524F', 2.2) + `<circle cx="40" cy="78" r="10" fill="#C8925A" stroke="${I}" stroke-width="2"/>` + ln('M30 78H50M40 68V88M33 71L47 85M47 71L33 85', '#7A4E2A', 1.4) + `<circle cx="40" cy="78" r="3" fill="#7A4E2A"/>`);
+      case 16: /* عابرة محيطات بمدخنتين */
+        return s + boat(P('M40 44V30H50V44ZM58 44V30H68V44Z', '#E2524F', 2) + P('M40 30H50V34H40ZM58 30H68V34H58Z', '#2B2B2B', 1.2) + P('M22 62V50H80V62Z', '#FFFDF6', 2) + P('M30 44H76V50H30Z', '#F6F2E6', 1.8) +
+          [26, 32, 38, 44, 50, 56, 62, 68, 74].map((x) => `<circle cx="${x}" cy="56" r="1.6" fill="#3E7BB8"/>`).join('') + P('M8 62H92L86 80Q80 88 66 88H30Q14 88 8 62Z', '#22262E', 2.2) + `<path d="M12 74H88L86 80Q80 88 66 88H30Q16 88 12 74Z" fill="#B83A34"/>` + ln('M10 68H90', '#fff', 1.4, .8) + [24, 40, 56, 72].map((x) => `<circle cx="${x}" cy="67" r="1.4" fill="#FFE07A"/>`).join(''));
+      case 17: { /* سفينة الشراع الكبير: ثلاث صوارٍ وأشرعة متدرجة */
+        let b = '';
+        [[30, 30], [50, 16], [70, 28]].forEach(([x, t]) => { b += mast(x, 74, t) + sqSail(x, t + 4, t + 16, 7.5, '#FFFDF6') + sqSail(x, t + 18, t + 32, 9, '#FFFDF6') + (x === 50 ? sqSail(x, t + 34, 68, 10.5, '#FFFDF6') : sqSail(x, t + 34, Math.min(68, t + 44), 9.5, '#FFFDF6')); });
+        b += flag(50, 14, '#2F7A5A') + ln('M14 70L30 30M86 70L70 28', I, .9, .6) + P('M10 70H90L84 82Q78 90 64 90H34Q16 90 10 70Z', '#1E4A3A', 2.2) + ln('M12 76H88', '#E8C04A', 1.8);
+        return s + boat(b); }
+      case 18: /* يخت ملكي أبيض */
+        return s + boat(P('M36 60L44 48H66L72 60Z', '#FFFDF6', 2) + P('M47 51H64L67 57H45Z', '#3A4E68', 1.2) + P('M22 72L28 60H78L84 72Z', '#FFFDF6', 2) + P('M32 63H74L76 68H31Z', '#3A4E68', 1.2) +
+          P('M8 72H92L84 84Q78 90 64 90H30Q14 88 8 72Z', '#FFFDF6', 2.2) + ln('M10 78H90', '#D8A63A', 2.4) + mast(56, 48, 34) + flag(56, 34, c.f2));
+      default: { /* السفينة الكبرى */
+        let b = '';
+        [[28, 30, .8], [50, 14, 1], [72, 26, .85]].forEach(([x, t, f]) => { b += mast(x, 70, t) + sqSail(x, t + 4, t + 24, 6.5 * f + 1.5, '#FFF6DE') + sqSail(x, t + 26, 64, 8 * f + 1.5, '#FFF6DE') + ln(`M${f1(x - 6 * f)} ${t + 36}H${f1(x + 6 * f)}`, '#C8403A', 2.4, .9) + flag(x, t - 1, '#C8403A'); });
+        b += P('M8 64H22L24 70H74V58H92L88 82Q80 92 62 92H34Q14 92 8 64Z', '#7A3E22', 2.4) + P('M74 58H92V52H76Z', '#5A2E18', 1.8) + ln('M12 76H88M14 84H84', '#E8C04A', 1.8) + [30, 42, 54, 66].map((x) => `<circle cx="${x}" cy="80" r="2" fill="#FFE07A" stroke="${I}" stroke-width=".9"/>`).join('') +
+          glow(86, 60, 5, '#FFE07A', .6) + P('M84 56H88V62H84Z', '#FFD36A', 1);
+        return s + boat(b); }
+    }
+  }
+
+  /* الأطوار الجديدة (v109) جاهزة لكنها موقوفة حتى توافق عليها: اجعلها true لتفعيلها، وأعد أسماء FORMS_V2_NAMES */
+  const FV2 = false;
   /* ---------- البيانات ---------- */
   const FORMS = [
-    { id: 'rock', name: 'حصاة', end: 'بلّورة', icon: 'rock', fn: rock, c: { r: '#A39A8E', g: '#7FD3F0', gl: '#C8F2FF' }, names: ['حبّة حصى', 'حصاة مرقّطة', 'حصاتا النهر', 'حجر رملي', 'صخرة جرانيت', 'صخرة بركانية', 'شقّ يلمع', 'بلّورة تطلّ', 'بلّورة أولى', 'بلّورتان', 'ثلاث بلّورات', 'عنقود بلّوري', 'عنقود متلألئ', 'جيود مفتوحة', 'جوهرة طافية', 'جوهرة بحلقة', 'عرش البلّور', 'أحجار تدور', 'تاج البلّور', 'قلب البلّورة'] },
-    { id: 'dust', name: 'ذرّة غبار', end: 'نجمة', icon: 'star', fn: dust, c: { d: '#C9B48A', rk: '#B4ACA0', mn: '#DCD6CC', p: '#5FA8D9', l: '#7CC06A', r: '#E8C04A', gg: '#E2A15A', s: '#FFD36A', ns: '#FFB04A', sg: '#FFE07A' }, names: ['ذرّة', 'ذرّة مضيئة', 'ذرّات تتجمّع', 'كتلة صغيرة', 'كويكب', 'كويكب بحُفر', 'قمر صغير', 'قمر منير', 'كوكب أزرق', 'كوكب حيّ', 'كوكب بحلقة', 'حلقة وقمر', 'قمران', 'عملاق غازي', 'سديم', 'نجم وليد', 'نجمة صغيرة', 'نجمة', 'نجمة متلألئة', 'نجمة عظمى'] },
+    { id: 'rock', name: 'حصاة', end: 'بلّورة', icon: 'rock', fn: FV2 ? rockN : rock, c: { r: '#A39A8E', g: '#7FD3F0', gl: '#C8F2FF' }, names: ['حبّة حصى', 'حصاة مرقّطة', 'حصاتا النهر', 'حجر رملي', 'صخرة جرانيت', 'صخرة بركانية', 'حجر مشقوق', 'بلّورة أولى', 'مرو شفاف', 'جمشت', 'فيروز', 'عقيق', 'جيود', 'زمرّد', 'ياقوت', 'ياقوت أزرق', 'كهرمان', 'أوبال', 'ألماس', 'قلب البلّورة'] },
+    { id: 'dust', name: 'ذرّة غبار', end: 'نجم ساطع', icon: 'star', fn: FV2 ? dustN : dust, c: { d: '#C9B48A', rk: '#B4ACA0', mn: '#DCD6CC', p: '#5FA8D9', l: '#7CC06A', r: '#E8C04A', gg: '#E2A15A', s: '#FFD36A', ns: '#FFB04A', sg: '#FFE07A' }, names: ['ذرّة', 'ذرّة مضيئة', 'ذرّات تتجمّع', 'كتلة صغيرة', 'كويكب', 'كويكب بحُفر', 'قمر صغير', 'قمر منير', 'كوكب أزرق', 'كوكب حيّ', 'كوكب بحلقة', 'حلقة وقمر', 'قمران', 'عملاق غازي', 'سديم', 'نجم وليد', 'مذنّب', 'نجمان توأمان', 'نجم أزرق', 'النجم الساطع'] },
     { id: 'candle', name: 'شمعة', end: 'فانوس النور', icon: 'flame', fn: candle, c: { w: '#FFF3D6', m: '#C9963A', gl: '#FFE9A8' }, names: ['شمعة صغيرة', 'شمعة', 'شمعة متوسّطة', 'شمعة طويلة', 'شمعة على صحن', 'شمعتان', 'ثلاث شمعات', 'شمعدان', 'شمعدان بثلاثة أذرع', 'مصباح زيت', 'مصباح نحاسي', 'مصباح مرصّع', 'قنديل معلّق', 'قنديل نحاسي', 'قنديل كبير', 'قنديل بزجاج ملوّن', 'فانوس', 'فانوس ملوّن', 'فانوس مزخرف', 'فانوس النور'] },
-    { id: 'sand', name: 'حبّة رمل', end: 'لؤلؤة', icon: 'pearl', fn: sand, c: { sd: '#E2C27A', s: '#F2C8D4', d: '#C08898', p: '#F8F2EA' }, names: ['حبّة رمل', 'حبّة على صدفة', 'صدفة صغيرة', 'صدفة تنفتح', 'رمل في صدفة', 'لؤلؤة وليدة', 'لؤلؤة صغيرة', 'صدفة أكبر', 'لؤلؤة لامعة', 'لؤلؤة وأختاها', 'صدفة الأعماق', 'فقاعات البحر', 'لؤلؤة متوهّجة', 'عقد اللآلئ', 'صدفة ذهبية', 'لؤلؤة على منصّة', 'لؤلؤة طافية', 'تاج اللؤلؤ', 'قوس اللآلئ', 'لؤلؤة القمر'] },
-    { id: 'paper', name: 'ورقة', end: 'سفينة', icon: 'ship', fn: paper, c: { pp: '#FFFDF2', wt: '#9FD4F0', h: '#A86E40', s: '#FFF8E6', s2: '#F2C8B0', f: '#E2524F', f2: '#3E7BB8' }, names: ['ورقة', 'ورقة مطويّة', 'قارب ورقي صغير', 'قارب ورقي', 'قارب ورقي بعلم', 'طوف خشبي', 'قارب خشبي', 'قارب بمجداف', 'قارب شراعي', 'شراع مرفوع', 'شراعان', 'مركب بعلم', 'سفينة صغيرة', 'سفينة الأشرعة الثلاثة', 'سفينة الفوانيس', 'سفينة الأعلام', 'سفينة ذهبية', 'سفينة الألوان', 'سفينة ملكية', 'سفينة النور'] },
+    { id: 'sand', name: 'حبّة رمل', end: 'لؤلؤة', icon: 'pearl', fn: FV2 ? sandN : sand, c: { sd: '#E2C27A', s: '#F2C8D4', d: '#C08898', p: '#F8F2EA' }, names: ['حبّة رمل', 'حبّات رمل', 'صدفة صغيرة', 'صدفة حلزونية', 'صدفة مخروطية', 'محارة مغلقة', 'محارة تنفتح', 'لؤلؤة وليدة', 'لؤلؤة صغيرة', 'لؤلؤة وردية', 'لؤلؤتان', 'عقد صغير', 'صدفة البوق', 'لؤلؤة سوداء', 'لؤلؤة ذهبية', 'قلادة اللؤلؤ', 'لؤلؤة في كأس', 'صدفة القمر', 'صندوق اللآلئ', 'لؤلؤة القمر'] },
+    { id: 'paper', name: 'ورقة', end: 'سفينة', icon: 'ship', fn: FV2 ? paperN : paper, c: { pp: '#FFFDF2', wt: '#9FD4F0', h: '#A86E40', s: '#FFF8E6', s2: '#F2C8B0', f: '#E2524F', f2: '#3E7BB8' }, names: ['ورقة', 'ورقة مطويّة', 'قارب ورقي صغير', 'قارب ورقي', 'قارب ورقي بعلم', 'طوف خشبي', 'زورق', 'قارب بمجداف', 'قارب شراعي', 'سنبوك', 'قارب صيد', 'مركب شراعي', 'سفينة صغيرة', 'سفينة تجارية', 'باخرة', 'سفينة الصواري الثلاثة', 'عابرة المحيط', 'سفينة الشراع الكبير', 'يخت ملكي', 'السفينة الكبرى'] },
   ];
+
+  if (!FV2) { const OLD = { rock: ['بلّورة', ['حبّة حصى', 'حصاة مرقّطة', 'حصاتا النهر', 'حجر رملي', 'صخرة جرانيت', 'صخرة بركانية', 'شقّ يلمع', 'بلّورة تطلّ', 'بلّورة أولى', 'بلّورتان', 'ثلاث بلّورات', 'عنقود بلّوري', 'عنقود متلألئ', 'جيود مفتوحة', 'جوهرة طافية', 'جوهرة بحلقة', 'عرش البلّور', 'أحجار تدور', 'تاج البلّور', 'قلب البلّورة']], dust: ['نجمة', ['ذرّة', 'ذرّة مضيئة', 'ذرّات تتجمّع', 'كتلة صغيرة', 'كويكب', 'كويكب بحُفر', 'قمر صغير', 'قمر منير', 'كوكب أزرق', 'كوكب حيّ', 'كوكب بحلقة', 'حلقة وقمر', 'قمران', 'عملاق غازي', 'سديم', 'نجم وليد', 'نجمة صغيرة', 'نجمة', 'نجمة متلألئة', 'نجمة عظمى']], sand: ['لؤلؤة', ['حبّة رمل', 'حبّة على صدفة', 'صدفة صغيرة', 'صدفة تنفتح', 'رمل في صدفة', 'لؤلؤة وليدة', 'لؤلؤة صغيرة', 'صدفة أكبر', 'لؤلؤة لامعة', 'لؤلؤة وأختاها', 'صدفة الأعماق', 'فقاعات البحر', 'لؤلؤة متوهّجة', 'عقد اللآلئ', 'صدفة ذهبية', 'لؤلؤة على منصّة', 'لؤلؤة طافية', 'تاج اللؤلؤ', 'قوس اللآلئ', 'لؤلؤة القمر']], paper: ['سفينة', ['ورقة', 'ورقة مطويّة', 'قارب ورقي صغير', 'قارب ورقي', 'قارب ورقي بعلم', 'طوف خشبي', 'قارب خشبي', 'قارب بمجداف', 'قارب شراعي', 'شراع مرفوع', 'شراعان', 'مركب بعلم', 'سفينة صغيرة', 'سفينة الأشرعة الثلاثة', 'سفينة الفوانيس', 'سفينة الأعلام', 'سفينة ذهبية', 'سفينة الألوان', 'سفينة ملكية', 'سفينة النور']] }; FORMS.forEach((F) => { if (OLD[F.id]) { F.end = OLD[F.id][0]; F.names = OLD[F.id][1]; } }); }
   // لمسات الأوسمة (تُمنح بالأوسمة وتُضاف لأي مظهر)
   const FINISH = {
     b1: { name: 'هالة الظل', a: '#6D77A0', b: '#BFC9EA' }, b2: { name: 'هالة الضوء', a: '#6FCBA2', b: '#EAF7C4' }, b3: { name: 'وميض البرق', a: '#D92B33', b: '#FFD9A0' },
@@ -10488,6 +11001,8 @@ const GENDER = (() => {
   const strip = (w) => w.replace(DI, '');
   const kv = (s) => { const m = {}; s.trim().split(/\s*;\s*/).forEach((p) => { const a = p.trim().split(/\s+/); if (a.length === 2) m[a[0]] = a[1]; }); return m; };
   const WORDS = kv(`
+فتحته فتحتَه; هاجمته هاجمتَه; أعطيته أعطيتَه; اخترته اخترتَه; واخترته واخترتَه; تعطينني تعطيني; تعطيني تعطيني; زرتنا زرتَنا;
+ادخلي ادخل; تزوري تزور; حرري حرر; أعيديها أعدها; ساعديني ساعدني; تجدي تجد; تفكري تفكر; لتحاسبينا لتحاسبنا; مبتعدة مبتعدًا; تصلي تصل; تبدئي تبدأ; لتبدئي لتبدأ; تمشين تمشي; ستعرفين ستعرف; تعرفين تعرف; أتيتِ أتيتَ; جئتِ جئتَ; ضيفة ضيفًا; قاضية قاضيًا; زبونة زبونًا; تبدين تبدو; اقتربي اقترب; اسألي اسأل; ادفعي ادفع; تعالي تعال; اجلسي اجلس;
 المسي المس; المسيه المسه; المسيها المسها; اسحبي اسحب; انقري انقر; دوّري دوّر; اضبطي اضبط; اصرفي اصرف; اضربي اضرب; احمي احمِ; اقرئي اقرأ; أطفئيها أطفئها; اشتريه اشتره; اسقيها اسقها;
 ابحثي ابحث; ابدئي ابدأ; ابقي ابقَ; اجتازي اجتز; اجعلي اجعل; اجمعي اجمع; احتفظي احتفظ; احذفي احذف; احفظي احفظ; اختاري اختر;
 اذهبي اذهب; ارجعي ارجع; ارفعي ارفع; استخدمي استخدم; استعملي استعمل; استلمي استلم; استمري استمر; اسقي اسقِ; اشتري اشتر;
@@ -10538,7 +11053,7 @@ const GENDER = (() => {
 if (typeof module === 'object' && module.exports) module.exports = GENDER;
 
 window.__CharArt = CharArt;
-const APP_VER = 'v108';
+const APP_VER = 'v110';
 const lsLook = () => { try { return JSON.parse(localStorage.getItem('istimrar-look') || 'null'); } catch (x) { return null; } };
 const saveLookLS = (l) => { try { localStorage.setItem('istimrar-look', JSON.stringify(l)); } catch (x) { /* اختياري */ } };
 const LOOK_DEF = { g: 'f', hair: 'long', skin: 1, beard: 0, stache: 0, hc: '' };
@@ -11292,7 +11807,7 @@ document.addEventListener('click', async (e) => {
     const st = e.target.closest('[data-act=stTab]'); if (st) { STTAB = st.dataset.t; stRedraw(); return; }
     const sp = e.target.closest('[data-act=stPrev],[data-act=stNext]'); if (sp) { const dir = sp.dataset.act === 'stPrev' ? -1 : 1; if (STTAB === 'week') { STW0 = E.addDays(STW0, 7 * dir); stRedraw(); return; } if (STTAB === 'month') { const y = +STM.slice(0, 4), mo = +STM.slice(5, 7) - 1 + dir; const dd = new Date(Date.UTC(y, mo, 1)); STM = dd.getUTCFullYear() + '-' + String(dd.getUTCMonth() + 1).padStart(2, '0'); } else STY += dir; stRedraw(); return; } }
   { const hi = e.target.closest('[data-act=hInfo]'); if (hi) { const pp = $('#hinfop'); const on = pp.hidden; pp.hidden = !on; hi.setAttribute('aria-expanded', on); hi.textContent = on ? 'إخفاء ▴' : 'عن هذا القسم ▾'; return; } const ha = e.target.closest('[data-act=hAdd]'); if (ha) { hopeAdd(null); return; } const he = e.target.closest('[data-act=hEdit]'); if (he) { hopeAdd(hopeEnsure().habits.find((x) => x.id === he.dataset.id)); return; } const hr = e.target.closest('[data-act=hRelapse]'); if (hr) { hopeRelapse(hr.dataset.id); return; } const hu = e.target.closest('[data-act=hUnrel],[data-act=hUnstop]'); if (hu) { const hh = hopeEnsure().habits.find((q) => q.id === hu.dataset.id), td = TODAY(); if (hh) { if (hu.dataset.act === 'hUnstop') { if (hh.stops) delete hh.stops[td]; } else { hh.relapses = (hh.relapses || []).filter((d) => d !== td); if (hh.stops) delete hh.stops[td]; } persist(); render(); } return; }
-  const hst = e.target.closest('[data-act=hStop]'); if (hst) { const hh = hopeEnsure().habits.find((q) => q.id === hst.dataset.id); if (hh) { hh.stops = hh.stops || {}; hh.stops[TODAY()] = 1; persist(); SFX.play('sparkle'); render(); modal('<h2>أحسنتِ ✋</h2><p>إيقافها بنفسك في نفس اليوم قوة حقيقية. يوم نظيف واحد وتعود نجومك تلمع.</p><div class="actions"><button class="btn" data-close>تم</button></div>', { noFocus: true }); } return; } const hs = e.target.closest('[data-act=hSupport]'); if (hs) { hopeSupport(hs.dataset.id); return; } }
+  const hst = e.target.closest('[data-act=hStop]'); if (hst) { const hh = hopeEnsure().habits.find((q) => q.id === hst.dataset.id); if (hh) { hh.stops = hh.stops || {}; hh.stops[TODAY()] = 1; persist(); SFX.play('sparkle'); render(); modal('<h2>أحسنتِ ✋</h2><p>إيقافها بنفسك في نفس اليوم قوة حقيقية. يوم نظيف واحد وتعود نجومك تلمع.</p><div class="actions"><button class="btn" data-close>تم</button></div>', { noFocus: true }); } return; } const hs = e.target.closest('[data-act=hSupport]'); if (hs) { hopeSupport(hs.dataset.id); return; } const hm = e.target.closest('[data-act=hMore]'); if (hm) { hopeMore(hm.dataset.id); return; } }
   { const bm = e.target.closest('[data-act=bMood]'); if (bm) { BMOOD = bm.dataset.v; document.querySelectorAll('[data-act=bMood]').forEach((b) => b.setAttribute('aria-pressed', b === bm)); const c = $('.bpanel'); if (c) c.style.setProperty('--mc', bMood(BMOOD)[2]); return; }
     if (e.target.closest('[data-act=bSend]')) { bSend(); return; }
     if (e.target.closest('[data-act=bLog]')) { bLog(); return; }
